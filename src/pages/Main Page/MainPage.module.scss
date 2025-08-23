@@ -1,0 +1,28 @@
+.mainPage{
+
+.hero {
+    width: 800px;
+    margin: 20px auto;
+  position: relative;
+  height: 500px;
+  background: url("../../assets/images/airport\ hotel.jpg")
+    center/cover no-repeat;
+}
+
+.heroText {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  color: white;
+
+  h1 {
+    font-size: 48px;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 22px;
+    font-style: italic;
+  }
+}
+}
