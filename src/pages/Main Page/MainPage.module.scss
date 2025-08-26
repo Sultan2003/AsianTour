@@ -4,7 +4,7 @@
     max-width: 1200px;
     margin: 20px auto;
     position: relative;
-    height: 60vh; // dynamic height
+    height: 60vh;
     min-height: 300px;
     background: url("../../assets/images/airport hotel.jpg") center/cover no-repeat;
     border-radius: 8px;
@@ -18,7 +18,7 @@
     max-width: 90%;
 
     h1 {
-      font-size: clamp(24px, 5vw, 48px); // scales with screen
+      font-size: clamp(24px, 5vw, 48px);
       font-weight: bold;
       line-height: 1.2;
     }
@@ -73,7 +73,6 @@
     .hero {
       height: 40vh;
       border-radius: 4px;
-       
     }
 
     .heroText {
@@ -86,6 +85,97 @@
 
       p {
         font-size: 14px;
+      }
+    }
+  }
+
+  /* ✅ New Tour Card Section */
+  .tourList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .tourCard {
+    background: white;
+    border-radius: 10px;
+    max-width: 400px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+
+      .imageSlide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.8s ease-in-out;
+  }
+
+      .badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: #007bff;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 4px;
+      }
+    }
+
+    .details {
+      padding: 16px;
+
+      h2 {
+        font-size: 20px;
+        color: #007bff;
+        margin-bottom: 8px;
+      }
+
+      .days {
+        font-weight: bold;
+        margin-bottom: 4px;
+        color: #444;
+      }
+
+      .price {
+        color: #e53935;
+        font-weight: bold;
+        margin-bottom: 16px;
+      }
+
+      .viewBtn {
+        background-color: #1e73be;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #145a8a;
+        }
       }
     }
   }

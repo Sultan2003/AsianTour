@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 
 export default function Header() {
@@ -22,11 +23,13 @@ export default function Header() {
 
       {/* Logo + banner */}
       <div className={styles.logoBanner}>
-        <img
-          src="https://www.advantour.com/img/logo.png"
-          alt="Logo"
-          className={styles.logo}
-        />
+        <Link to="/">
+          <img
+            src="https://www.advantour.com/img/logo.png"
+            alt="Logo"
+            className={styles.logo}
+          />
+        </Link>
         <div className={styles.banner}>
           <span className={styles.badge}>Best seller</span>
           <span className={styles.title}>CENTRAL ASIA</span>
@@ -41,8 +44,6 @@ export default function Header() {
           <li>DESTINATIONS</li>
           <li>PRIVATE TOURS</li>
           <li>GROUP PACKAGES</li>
-          <li>TESTIMONIALS</li>
-          <li>PUBLICATIONS</li>
         </ul>
         <div className={styles.searchBox}>
           <input type="text" placeholder="Search for group and private tours" />
