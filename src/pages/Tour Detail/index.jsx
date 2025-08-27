@@ -200,11 +200,60 @@ export default function TourIdPage() {
           </section>
 
           {/* Request */}
+{/* Request */}
 <section ref={requestRef} className={styles.tabContent}>
   <h2>Tour Enquiry</h2>
   <p>We use this information solely for the purpose of corresponding regarding your travel.</p>
   
-  <form className={styles.enquiryForm} onSubmit={(e) => e.preventDefault()}>
+  <form
+    className={styles.enquiryForm}
+    onSubmit={async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const title = form[0].value;
+      const firstName = form[1].value;
+      const lastName = form[2].value;
+      const citizenship = form[3].value;
+      const email = form[4].value;
+      const phone = form[5].value;
+      const date = form[6].value;
+      const travelers = form[7].value;
+      const comments = form[8].value;
+
+      const message = `
+📩 *New Tour Enquiry*
+🏷️ Title: ${title}
+👤 Name: ${firstName} ${lastName}
+🌍 Citizenship: ${citizenship}
+📧 Email: ${email}
+📞 Phone: ${phone}
+🗓️ Date: ${date}
+👥 Travelers: ${travelers}
+💬 Comments: ${comments || "None"}
+`;
+
+      try {
+        await fetch(
+          `https://api.telegram.org/bot7509089585:AAFlUQJVRK3qtgLN4FVWHwEPeahjfv2oFpY/sendMessage`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: "1226692867",
+              text: message,
+              parse_mode: "Markdown",
+            }),
+          }
+        );
+        alert("✅ Request sent successfully! We will contact you soon.");
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        alert("❌ Failed to send request. Please try again.");
+      }
+    }}
+  >
     {/* Contact Details */}
     <div className={styles.sectionTitle}>Contact Details</div>
 
@@ -218,14 +267,7 @@ export default function TourIdPage() {
       </select>
       <input type="text" placeholder="First Name" required />
       <input type="text" placeholder="Last Name" required />
-      <select required defaultValue="">
-        <option value="" disabled>Citizenship</option>
-        <option value="USA">USA</option>
-        <option value="UK">UK</option>
-        <option value="Canada">Canada</option>
-        <option value="India">India</option>
-        {/* Add more countries as needed */}
-      </select>
+      <input type="text" placeholder="Citizenship" required />
     </div>
 
     <div className={styles.formRow}>
@@ -253,6 +295,7 @@ export default function TourIdPage() {
     </button>
   </form>
 </section>
+
 
 
           {/* Reviews */}
