@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import styles from "./Tourdetail.module.scss";
@@ -9,51 +9,91 @@ export default function TourIdPage() {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    // Fetch all tours and find by ID
-    fetch("https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours")
-      .then((res) => res.json())
-      .then((data) => {
-        const foundTour = data.data.find((t) => t.id.toString() === id);
-        setTour(foundTour || null);
-      })
-      .catch((err) => console.error(err));
+  // refs for sticky nav
+  const itineraryRef = useRef(null);
+  const pricesRef = useRef(null);
+  const requestRef = useRef(null);
+  const reviewsRef = useRef(null);
 
-    // Fetch all images
+  // fetch data
+  useEffect(() => {
+    fetch("https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours")
+      .then((r) => r.json())
+      .then((data) => {
+        const found = data.data.find((t) => t.id.toString() === id);
+        setTour(found || null);
+      })
+      .catch(console.error);
+
     fetch("https://brilliant-passion-7d3870e44b.strapiapp.com/api/upload/files")
-      .then((res) => res.json())
-      .then((data) => setImages(data))
-      .catch((err) => console.error(err));
+      .then((r) => r.json())
+      .then(setImages)
+      .catch(console.error);
   }, [id]);
 
-  // Auto carousel
+  // auto-rotate hero
   useEffect(() => {
     if (!tour) return;
-
-    const tourImages = images.filter(
-      (img) => img.alternativeText === tour.title
+    const tourImgs = images.filter((img) => img.alternativeText === tour.title);
+    if (!tourImgs.length) return;
+    const int = setInterval(
+      () => setCurrentIndex((p) => (p + 1) % tourImgs.length),
+      4000
     );
-
-    if (tourImages.length === 0) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % tourImages.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
+    return () => clearInterval(int);
   }, [tour, images]);
 
   const calculateDays = (start, end) => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    return Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+    const s = new Date(start);
+    const e = new Date(end);
+    return Math.ceil((e - s) / (1000 * 60 * 60 * 24));
   };
 
+  const formatDate = (iso) =>
+    new Date(iso).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+
+  // Parse itinerary safely (runs even if tour is null)
+  const parsedDays = useMemo(() => {
+    if (!tour?.daysdescription) return [];
+    const src = tour.daysdescription.trim();
+    const blocks = [];
+    const re = /(?:^|\n)(Day\s*\d+:[^\n]*)\n([\s\S]*?)(?=\nDay\s*\d+:|$)/g;
+    let m;
+    while ((m = re.exec(src)) !== null) {
+      blocks.push({
+        title: m[1].trim(),
+        body: m[2].trim(),
+      });
+    }
+    return blocks;
+  }, [tour?.daysdescription]);
+
+  // accordion state
+  const [open, setOpen] = useState([]);
+  useEffect(() => {
+    setOpen(parsedDays.map(() => false));
+  }, [parsedDays]);
+
+  const toggle = (i) =>
+    setOpen((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
+
+  // nav scroll with offset
+  const scrollTo = (ref) => {
+    if (!ref?.current) return;
+    const y = ref.current.getBoundingClientRect().top + window.pageYOffset - 90;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
+
+  // show loading until tour exists
   if (!tour) {
     return (
       <div className={styles.tourPage}>
         <Header />
-        <p>Loading tour details...</p>
+        <p className={styles.loading}>Loading tour details…</p>
       </div>
     );
   }
@@ -65,60 +105,187 @@ export default function TourIdPage() {
     <div className={styles.tourPage}>
       <Header />
 
-      {/* Hero Carousel */}
+      {/* HERO */}
       <div
         className={styles.hero}
         style={{
           backgroundImage: tourImages.length
             ? `url(${tourImages[currentIndex].url})`
-            : "url(https://via.placeholder.com/1200x600?text=No+Image)",
+            : "url(/no-image.png)",
         }}
       >
+        <div className={styles.overlay} />
         <div className={styles.heroContent}>
           <h1>{tour.title}</h1>
           <p>
-            {days} Days | {tour.location}
+            {days} Days • {tour.location}
           </p>
+          {tour.status1 && <span className={styles.heroBadge}>Bestseller</span>}
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* NAV */}
+      <div className={styles.tabsNav}>
+        <button onClick={() => scrollTo(itineraryRef)}>Itinerary</button>
+        <button onClick={() => scrollTo(pricesRef)}>Dates & Prices</button>
+        <button onClick={() => scrollTo(requestRef)}>Request</button>
+        <button onClick={() => scrollTo(reviewsRef)}>Reviews</button>
+      </div>
+
+      {/* MAIN */}
       <div className={styles.content}>
-        {/* Left Info */}
         <div className={styles.infoSection}>
-          <div className={styles.tabContent}>
-            <h2>Tour Description</h2>
-            <p>{tour.daysdescription}</p>
+          {/* Description */}
+          <section className={styles.tabContent}>
+            <h2>Tour Overview</h2>
             {Array.isArray(tour.description) &&
-              tour.description.map((desc, idx) => (
-                <p key={idx}>{desc.children?.map((c) => c.text).join("")}</p>
+              tour.description.map((node, i) => {
+                const txt =
+                  node?.children?.map?.((c) => c.text).join("") ?? "";
+                if (!txt.trim()) return null;
+                return <p key={i}>{txt}</p>;
+              })}
+          </section>
+
+          {/* Itinerary */}
+          <section ref={itineraryRef} className={styles.tabContent}>
+            <div className={styles.itineraryHeader}>
+              <h2>Tour Itinerary</h2>
+            </div>
+            <div className={styles.accordion}>
+              {parsedDays.map((d, idx) => (
+                <div key={idx} className={styles.accItem}>
+                  <button
+                    className={`${styles.accHead} ${
+                      open[idx] ? styles.open : ""
+                    }`}
+                    onClick={() => toggle(idx)}
+                  >
+                    <span className={styles.dayTitle}>{d.title}</span>
+                    <span className={styles.chev} />
+                  </button>
+                  <div
+                    className={`${styles.accPanel} ${
+                      open[idx] ? styles.show : ""
+                    }`}
+                  >
+                    <p>{d.body}</p>
+                  </div>
+                </div>
               ))}
-          </div>
+            </div>
+          </section>
+
+          {/* Prices */}
+          <section ref={pricesRef} className={styles.tabContent}>
+            <h2>Dates & Prices</h2>
+            <ul className={styles.priceList}>
+              <li>
+                <span>Start date</span>
+                <strong>{formatDate(tour.startDate)}</strong>
+              </li>
+              <li>
+                <span>End date</span>
+                <strong>{formatDate(tour.endDate)}</strong>
+              </li>
+              <li className={styles.priceRow}>
+                <span>Price</span>
+                <strong>US${tour.price}</strong>
+              </li>
+              <li>
+                <span>Available seats</span>
+                <strong>{tour.availableSeats}</strong>
+              </li>
+            </ul>
+          </section>
+
+          {/* Request */}
+<section ref={requestRef} className={styles.tabContent}>
+  <h2>Tour Enquiry</h2>
+  <p>We use this information solely for the purpose of corresponding regarding your travel.</p>
+  
+  <form className={styles.enquiryForm} onSubmit={(e) => e.preventDefault()}>
+    {/* Contact Details */}
+    <div className={styles.sectionTitle}>Contact Details</div>
+
+    <div className={styles.formRow}>
+      <select required defaultValue="">
+        <option value="" disabled>Title</option>
+        <option value="Mr.">Mr.</option>
+        <option value="Ms.">Ms.</option>
+        <option value="Mrs.">Mrs.</option>
+        <option value="Dr.">Dr.</option>
+      </select>
+      <input type="text" placeholder="First Name" required />
+      <input type="text" placeholder="Last Name" required />
+      <select required defaultValue="">
+        <option value="" disabled>Citizenship</option>
+        <option value="USA">USA</option>
+        <option value="UK">UK</option>
+        <option value="Canada">Canada</option>
+        <option value="India">India</option>
+        {/* Add more countries as needed */}
+      </select>
+    </div>
+
+    <div className={styles.formRow}>
+      <input type="email" placeholder="E-mail" required />
+      <input type="tel" placeholder="Phone (+code)" required />
+    </div>
+
+    {/* Travel Info */}
+    <div className={styles.sectionTitle}>Travel Info</div>
+
+    <div className={styles.formRow}>
+      <input type="date" defaultValue="2025-12-09" required />
+      <select required defaultValue="1">
+        <option value="1">1 Traveler</option>
+        <option value="2">2 Travelers</option>
+        <option value="3">3 Travelers</option>
+        <option value="4">4+ Travelers</option>
+      </select>
+    </div>
+
+    <textarea placeholder="Comments and questions" rows="4" />
+
+    <button className={styles.requestBtn} type="submit">
+      Request More Info
+    </button>
+  </form>
+</section>
+
+
+          {/* Reviews */}
+          <section ref={reviewsRef} className={styles.tabContent}>
+            <h2>Reviews</h2>
+            <p>No reviews yet.</p>
+          </section>
         </div>
 
-        {/* Right Details Card */}
-        <div className={styles.detailsCard}>
+        {/* Right card */}
+        <aside className={styles.detailsCard}>
           <h2>{tour.title}</h2>
           <div className={styles.price}>US${tour.price}</div>
+
           <div className={styles.infoLine}>
-            <span>Days:</span>
+            <span>Days</span>
             <span>{days}</span>
           </div>
           <div className={styles.infoLine}>
-            <span>Start Date:</span>
-            <span>{tour.startDate}</span>
+            <span>Start</span>
+            <span>{formatDate(tour.startDate)}</span>
           </div>
           <div className={styles.infoLine}>
-            <span>End Date:</span>
-            <span>{tour.endDate}</span>
+            <span>End</span>
+            <span>{formatDate(tour.endDate)}</span>
           </div>
           <div className={styles.infoLine}>
-            <span>Available Seats:</span>
+            <span>Seats</span>
             <span>{tour.availableSeats}</span>
           </div>
-          {tour.status1 && <div className={styles.badge}>Bestseller</div>}
+
           <button className={styles.bookBtn}>Book Now</button>
-        </div>
+        </aside>
       </div>
     </div>
   );

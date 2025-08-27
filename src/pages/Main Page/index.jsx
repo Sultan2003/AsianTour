@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // import navigation hook
+import { useNavigate } from "react-router-dom"; 
 import Header from "../../components/Header";
 import styles from "./MainPage.module.scss";
 
@@ -7,7 +7,7 @@ export default function MainPage() {
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const [imageIndexes, setImageIndexes] = useState({});
-  const navigate = useNavigate(); // initialize navigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetch("https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours")
@@ -64,7 +64,7 @@ export default function MainPage() {
             <div
               key={tour.id}
               className={styles.tourCard}
-              onClick={() => navigate(`/tour/${tour.id}`)} // navigate to tour ID page
+              onClick={() => navigate(`/tour/${tour.id}`)} 
               style={{ cursor: "pointer" }}
             >
               <div className={styles.image}>
