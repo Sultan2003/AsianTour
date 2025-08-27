@@ -240,7 +240,7 @@ export default function TourIdPage() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              chat_id: "1226692867",
+              chat_id: "-1003082651864",
               text: message,
               parse_mode: "Markdown",
             }),
