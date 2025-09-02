@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
+import logo from "../../assets/images/logo.png";
 
 export default function Header() {
   return (
@@ -25,7 +26,7 @@ export default function Header() {
       <div className={styles.logoBanner}>
         <Link to="/">
           <img
-            src="https://www.advantour.com/img/logo.png"
+            src={logo}
             alt="Logo"
             className={styles.logo}
           />

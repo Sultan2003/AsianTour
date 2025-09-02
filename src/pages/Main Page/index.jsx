@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import Header from "../../components/Header";
 import styles from "./MainPage.module.scss";
+import Footer from "../../components/Footer";
 
 export default function MainPage() {
   const [tours, setTours] = useState([]);
@@ -92,15 +93,24 @@ export default function MainPage() {
               </div>
 
               <div className={styles.details}>
+                <div>
                 <h2>{tour.title}</h2>
+                </div>
+                <div className={styles.textbtn}>
+                <div className={styles.daysprice}>
                 <p className={styles.days}>{days} Days</p>
                 <p className={styles.price}>from US${tour.price}</p>
+                </div>
+                <div className={styles.btndiv}>
                 <button className={styles.viewBtn}>View Details</button>
+                </div>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
+      <Footer />
     </div>
   );
 }

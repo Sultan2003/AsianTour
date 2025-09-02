@@ -1,4 +1,6 @@
 .mainPage {
+  width: 100%;
+  
   .hero {
     width: 100%;
     max-width: 1200px;
@@ -6,8 +8,9 @@
     position: relative;
     height: 60vh;
     min-height: 300px;
-    background: url("../../assets/images/airport hotel.jpg") center/cover no-repeat;
+    background: url("../../assets/images/background.png") center/cover no-repeat;
     border-radius: 8px;
+
   }
 
   .heroText {
@@ -16,6 +19,7 @@
     left: 8%;
     color: white;
     max-width: 90%;
+    
 
     h1 {
       font-size: clamp(24px, 5vw, 48px);
@@ -71,8 +75,9 @@
 
   @media (max-width: 480px) {
     .hero {
-      height: 40vh;
+      height: 35vh;
       border-radius: 4px;
+
     }
 
     .heroText {
@@ -94,18 +99,22 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
-    padding: 40px 20px;
+    padding: 10px 0;
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 400px;
+    @media (max-width: 480px) {
+      padding: 0 10px;
+    }
   }
 
   .tourCard {
-    background: white;
-    border-radius: 10px;
-    max-width: 400px;
+    background: #fff;
+    border: 1px solid #ddd;  
+    border-radius: 12px;     
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease;
+    max-width: 400px;
 
 
     &:hover {
@@ -143,7 +152,7 @@
     }
 
     .details {
-      padding: 16px;
+      padding: 16px 16px 5px 16px;
 
       h2 {
         font-size: 20px;
@@ -151,24 +160,35 @@
         margin-bottom: 8px;
       }
 
+      .textbtn{
+        display: flex;
+        justify-content: space-between;
+      
+      .daysprice{
       .days {
+        font-size: 16px;
         font-weight: bold;
-        margin-bottom: 4px;
         color: #444;
+        margin-bottom: 4px;
       }
 
       .price {
-        color: #e53935;
+        font-size: 18px;         // ✅ smaller
         font-weight: bold;
+        color: #e53935;
         margin-bottom: 16px;
       }
-
+    }
+      .btndiv{
+        padding: 5px 0px;
       .viewBtn {
+        display: inline-block;
         background-color: #1e73be;
-        color: white;
-        padding: 10px 20px;
+        color: #fff;
+        padding: 8px 24px;       // ✅ pill size
         border: none;
-        border-radius: 6px;
+        border-radius: 20px;     // ✅ pill shape
+        font-size: 14px;         // ✅ correct size
         font-weight: bold;
         cursor: pointer;
         transition: background-color 0.3s ease;
@@ -176,7 +196,7 @@
         &:hover {
           background-color: #145a8a;
         }
-      }
+      }}}
     }
   }
 }
