@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
 import styles from "./Tourdetail.module.scss";
+import Footer from "../../components/Footer";
 
 export default function TourIdPage() {
   const { id } = useParams();
@@ -306,7 +307,7 @@ export default function TourIdPage() {
         </div>
 
         {/* Right card */}
-        <aside className={styles.detailsCard}>
+        <div className={styles.detailsCard}>
           <h2>{tour.title}</h2>
           <div className={styles.price}>US${tour.price}</div>
 
@@ -328,8 +329,9 @@ export default function TourIdPage() {
           </div>
 
           <button className={styles.bookBtn}>Book Now</button>
-        </aside>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }

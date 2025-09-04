@@ -261,6 +261,7 @@
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.25s ease;
   background: #fff;
+  
 
   > * {
     overflow: hidden;
@@ -284,9 +285,9 @@
 
 /* ============== RIGHT DETAILS CARD ============== */
 .detailsCard {
-  position: sticky;
-  top: 88px;
-  align-self: start;
+  position: relative;
+  
+  max-height: min-content;
   background: #ffffff;
   border: 1px solid #e8ecf5;
   border-radius: 18px;
