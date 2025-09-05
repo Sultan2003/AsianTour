@@ -191,7 +191,41 @@
             }
           }
         }
+
+        
       }
     }
   }
+  .contactSection {
+  background: #d9edf7;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 6px;
+  margin: 40px auto;
+  max-width: 900px;
+  color: #2c5675;
+
+  p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+}
+
+.contactBtn {
+  background: #337ab7;
+  color: #fff;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #286090;
+  }
+}
+
 }

@@ -47,7 +47,6 @@ export default function MainPage() {
 
   return (
     <div className={styles.mainPage}>
-      <Header />
       <div className={styles.hero}>
         <div className={styles.heroText}>
           <h1>Discover the Silk Road</h1>
@@ -110,7 +109,16 @@ export default function MainPage() {
           );
         })}
       </div>
-      <Footer />
+
+      {/* 👉 New Contact Section */}
+      <div className={styles.contactSection}>
+        <p>Indecisive about your next adventure? Want something tailor-made just for you?</p>
+        <p>
+          Click that <b>'Contact Us'</b> button, fill out the form, and let us do the rest. <br />
+          Your dream trip is just a click away!
+        </p>
+        <button className={styles.contactBtn} onClick={() => navigate('/contact')}>Contact Us</button>
+      </div>
     </div>
   );
 }

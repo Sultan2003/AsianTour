@@ -93,7 +93,6 @@ export default function TourIdPage() {
   if (!tour) {
     return (
       <div className={styles.tourPage}>
-        <Header />
         <p className={styles.loading}>Loading tour details…</p>
       </div>
     );
@@ -104,7 +103,7 @@ export default function TourIdPage() {
 
   return (
     <div className={styles.tourPage}>
-      <Header />
+   
 
       {/* HERO */}
       <div
@@ -331,7 +330,6 @@ export default function TourIdPage() {
           <button className={styles.bookBtn}>Book Now</button>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
