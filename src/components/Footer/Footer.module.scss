@@ -1,5 +1,5 @@
 .footer {
-  background: #444 url("/footer-pattern.png"); // replace with your bg pattern
+  background: #444 url("/footer-pattern.png");
   color: #ddd;
   padding: 3rem 1.5rem;
   position: relative;
@@ -77,23 +77,52 @@
   }
 
   .scrollTop {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #1d8cf8;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: background 0.2s;
-
-    &:hover {
-      background: #0d6efd;
-    }
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #1d8cf8;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: background 0.2s;
+  z-index: 9999;   // 🚀 make sure it’s above footer
+  &:hover {
+    background: #0d6efd;
   }
+}
+
+/* Responsive tweaks */
+@media (max-width: 992px) {
+  .scrollTop {
+    bottom: 18px;
+    right: 18px;
+    padding: 10px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .scrollTop {
+    bottom: 16px;
+    right: 16px;
+    padding: 9px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scrollTop {
+    bottom: 12px;
+    right: 12px;
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+}
+
 }
 
 /* ========================= */
@@ -113,6 +142,13 @@
     .heading {
       font-size: 1rem;
     }
+
+    .scrollTop {
+      bottom: 18px;
+      right: 18px;
+      padding: 10px;
+      font-size: 1rem;
+    }
   }
 }
 
@@ -128,6 +164,13 @@
 
     .socials {
       justify-content: center;
+    }
+
+    .scrollTop {
+      bottom: 16px;
+      right: 16px;
+      padding: 9px;
+      font-size: 0.95rem;
     }
   }
 }
@@ -149,6 +192,13 @@
 
     .copy {
       font-size: 0.75rem;
+    }
+
+    .scrollTop {
+      bottom: 12px;
+      right: 12px;
+      padding: 8px;
+      font-size: 0.85rem;
     }
   }
 }
