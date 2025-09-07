@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import logo from "../../assets/images/logo.png";
+import { useState } from "react";
 
 export default function Header() {
+   const [openFilter, setOpenFilter] = useState(false);
   return (
     <header className={styles.header}>
       {/* Top bar */}
@@ -41,16 +43,87 @@ export default function Header() {
 
       {/* Nav bar */}
       <nav className={styles.navBar}>
-        <ul className={styles.navLinks}>
-          <li>DESTINATIONS</li>
-          <li>PRIVATE TOURS</li>
-          <li>GROUP PACKAGES</li>
-        </ul>
-        <div className={styles.searchBox}>
-          <input type="text" placeholder="Search for group and private tours" />
-          <button>▼</button>
+  <ul className={styles.navLinks}>
+    <li className={styles.dropdown}>
+      DESTINATIONS <span className={styles.arrow}>▼</span>
+      <ul className={styles.dropdownMenu}>
+        <li>Silk Road</li>
+        <li>Central Asia</li>
+        <li>Kazakhstan</li>
+        <li>Kyrgyzstan</li>
+        <li>Tajikistan</li>
+        <li>Turkmenistan</li>
+        <li>Uzbekistan</li>
+        <li>Caucasus</li>
+        <li>Armenia</li>
+        <li>Azerbaijan</li>
+        <li>Georgia</li>
+        <li>China</li>
+        <li>Japan</li>
+        <li>Russia</li>
+        <li>Turkey</li>
+      </ul>
+    </li>
+    <li className={styles.dropdown}>
+      PRIVATE TOURS <span className={styles.arrow}>▼</span>
+      <ul className={styles.dropdownMenu}>
+        <li>City Tours</li>
+        <li>Cultural Tours</li>
+        <li>Adventure Tours</li>
+      </ul>
+    </li>
+    <li className={styles.dropdown}>
+      GROUP PACKAGES <span className={styles.arrow}>▼</span>
+      <ul className={styles.dropdownMenu}>
+        <li>Summer 2025</li>
+        <li>Winter 2025</li>
+        <li>Custom Groups</li>
+      </ul>
+    </li>
+  </ul>
+  <div className={styles.searchBox}>
+  <div className={styles.searchInput} onClick={() => setOpenFilter(!openFilter)}>
+    <input type="text" placeholder="Search for group and private tours" readOnly />
+    <button>▼</button>
+  </div>
+
+  {openFilter && (
+    <div className={styles.filterPanel}>
+      <div className={styles.filterSection}>
+        <h4>Destinations</h4>
+        <div className={styles.grid}>
+          {["Central Asia", "Silk Road", "Uzbekistan", "China", "Kazakhstan", "Caucasus", "Kyrgyzstan", "Georgia", "Turkmenistan", "Azerbaijan", "Tajikistan", "Armenia"].map((d) => (
+            <label key={d}>
+              <input type="checkbox" /> {d}
+            </label>
+          ))}
         </div>
-      </nav>
+      </div>
+
+      <div className={styles.filterSection}>
+        <h4>Departure dates</h4>
+        <div className={styles.grid}>
+          {["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map((m) => (
+            <label key={m}>
+              <input type="checkbox" /> {m}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.filterSection}>
+        <h4>Tour type</h4>
+        <label><input type="checkbox" /> Group</label>
+        <label><input type="checkbox" /> Private</label>
+      </div>
+
+      <button className={styles.searchBtn}>Search Tours</button>
+    </div>
+  )}
+</div>
+
+</nav>
+
     </header>
   );
 }
