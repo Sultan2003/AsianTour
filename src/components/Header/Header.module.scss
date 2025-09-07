@@ -132,7 +132,7 @@
   flex-wrap: wrap;
   align-items: center;
   padding: 10px 15px;
-  justify-content: space-between;
+  flex-direction: column;
   
 
   .navLinks {
@@ -154,11 +154,10 @@
    
   }
   @media (max-width: 480px) {
-    margin-left: -20px;
-    justify-content: left;
-    font-size: 11.5px;
+    justify-content: center;
+    font-size: 10.5px;
     margin-bottom: 8px;
-    display: inline-flex;
+    display: flex;
     border: 1px solid black
   
   }
