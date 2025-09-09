@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
-import Header from "../../components/Header";
 import styles from "./MainPage.module.scss";
-import Footer from "../../components/Footer";
 
 export default function MainPage() {
   const [tours, setTours] = useState([]);
@@ -45,7 +43,6 @@ export default function MainPage() {
     return Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
   };
 
-  // 👉 Sort and get next 5 closest tours (upcoming by startDate)
   const upcomingTours = [...tours]
     .filter((tour) => {
       try {
@@ -92,31 +89,29 @@ export default function MainPage() {
               <div className={styles.image}>
                 {tourImages.length > 0 ? (
                   tourImages.map((img, idx) => (
-                    <div
+                    <img
                       key={img.id}
+                      src={img.url}
+                      alt={tour.title}
                       className={styles.imageSlide}
-                      style={{
-                        backgroundImage: `url(${img.url})`,
-                        opacity: idx === currentIndex ? 1 : 0,
-                      }}
+                      style={{ opacity: idx === currentIndex ? 1 : 0 }}
+                      loading="lazy"
                     />
                   ))
                 ) : (
-                  <div
+                  <img
+                    src="https://via.placeholder.com/400x250?text=No+Image"
+                    alt="No tour available"
                     className={styles.imageSlide}
-                    style={{
-                      backgroundImage: "url(https://via.placeholder.com/400x250?text=No+Image)",
-                      opacity: 1,
-                    }}
+                    style={{ opacity: 1 }}
+                    loading="lazy"
                   />
                 )}
                 {tour.isBestseller && <div className={styles.badge}>Bestseller</div>}
               </div>
 
               <div className={styles.details}>
-                <div>
-                  <h2>{tour.title}</h2>
-                </div>
+                <h2>{tour.title}</h2>
                 <div className={styles.textbtn}>
                   <div className={styles.daysprice}>
                     <p className={styles.days}>{days} Days</p>
@@ -142,23 +137,19 @@ export default function MainPage() {
         <button className={styles.contactBtn} onClick={() => navigate('/contact')}>Contact Us</button>
       </div>
 
-      {/* 👉 Upcoming Tours Section (list + right-side image) */}
+      {/* 👉 Upcoming Tours Section */}
       <div className={styles.upcomingSection}>
         <h2>Upcoming Popular Group Tour Dates 2025</h2>
 
         <div className={styles.upcomingWrapper}>
-          {/* Left: list */}
           <div className={styles.upcomingList}>
             {upcomingTours.map((tour) => {
               const days = calculateDays(tour.startDate, tour.endDate);
               const date = new Date(tour.startDate);
               const month = date.toLocaleString("en-US", { month: "short" });
               const day = date.getDate();
-
-              // friendly fallback for countries field if it's an array
               const countries =
                 Array.isArray(tour.countries) ? tour.countries.join(", ") : tour.countries || "";
-
               const departures = tour.departures || 0;
 
               return (
@@ -187,8 +178,7 @@ export default function MainPage() {
             })}
           </div>
 
-          {/* Right: large picture (hidden on small screens) */}
-          <div className={styles.upcomingSideImage} role="img" aria-hidden="true" />
+          <div className={styles.upcomingSideImage} role="img" aria-label="Upcoming tours image" />
         </div>
       </div>
     </div>
