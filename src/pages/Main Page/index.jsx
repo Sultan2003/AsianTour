@@ -45,6 +45,18 @@ export default function MainPage() {
     return Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
   };
 
+  // 👉 Sort and get next 5 closest tours (upcoming by startDate)
+  const upcomingTours = [...tours]
+    .filter((tour) => {
+      try {
+        return new Date(tour.startDate) > new Date();
+      } catch {
+        return false;
+      }
+    })
+    .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+    .slice(0, 5);
+
   return (
     <div className={styles.mainPage}>
       <div className={styles.hero}>
@@ -52,6 +64,16 @@ export default function MainPage() {
           <h1>Discover the Silk Road</h1>
           <p>with expertly crafted tours by a local operator</p>
         </div>
+      </div>
+
+      <div className={styles.aboutSection}>
+        <h2 className={styles.title}>Our Curated Asian Journeys</h2>
+        <p className={styles.text}>
+          Asian Tour is a boutique tour operator specializing in authentic and personalized travel
+          experiences across Asia. As a trusted and highly rated company, we place your safety and
+          comfort at the heart of every journey. Through our expert local partnerships, we create
+          meaningful adventures that leave lasting memories.
+        </p>
       </div>
 
       <div className={styles.tourList}>
@@ -93,16 +115,16 @@ export default function MainPage() {
 
               <div className={styles.details}>
                 <div>
-                <h2>{tour.title}</h2>
+                  <h2>{tour.title}</h2>
                 </div>
                 <div className={styles.textbtn}>
-                <div className={styles.daysprice}>
-                <p className={styles.days}>{days} Days</p>
-                <p className={styles.price}>from US${tour.price}</p>
-                </div>
-                <div className={styles.btndiv}>
-                <button className={styles.viewBtn}>View Details</button>
-                </div>
+                  <div className={styles.daysprice}>
+                    <p className={styles.days}>{days} Days</p>
+                    <p className={styles.price}>from US${tour.price}</p>
+                  </div>
+                  <div className={styles.btndiv}>
+                    <button className={styles.viewBtn}>View Details</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -110,7 +132,7 @@ export default function MainPage() {
         })}
       </div>
 
-      {/* 👉 New Contact Section */}
+      {/* 👉 Contact Section */}
       <div className={styles.contactSection}>
         <p>Indecisive about your next adventure? Want something tailor-made just for you?</p>
         <p>
@@ -118,6 +140,56 @@ export default function MainPage() {
           Your dream trip is just a click away!
         </p>
         <button className={styles.contactBtn} onClick={() => navigate('/contact')}>Contact Us</button>
+      </div>
+
+      {/* 👉 Upcoming Tours Section (list + right-side image) */}
+      <div className={styles.upcomingSection}>
+        <h2>Upcoming Popular Group Tour Dates 2025</h2>
+
+        <div className={styles.upcomingWrapper}>
+          {/* Left: list */}
+          <div className={styles.upcomingList}>
+            {upcomingTours.map((tour) => {
+              const days = calculateDays(tour.startDate, tour.endDate);
+              const date = new Date(tour.startDate);
+              const month = date.toLocaleString("en-US", { month: "short" });
+              const day = date.getDate();
+
+              // friendly fallback for countries field if it's an array
+              const countries =
+                Array.isArray(tour.countries) ? tour.countries.join(", ") : tour.countries || "";
+
+              const departures = tour.departures || 0;
+
+              return (
+                <div
+                  key={tour.id}
+                  className={styles.upcomingCard}
+                  onClick={() => navigate(`/tour/${tour.id}`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className={styles.dateBox}>
+                    <span className={styles.month}>{month}</span>
+                    <span className={styles.day}>{day}</span>
+                  </div>
+
+                  <div className={styles.upcomingDetails}>
+                    <h3 className={styles.tourName}>{tour.title}</h3>
+                    <p className={styles.countries}>{countries}</p>
+                    <p className={styles.departures}>{departures} more departures &gt;&gt;&gt;</p>
+                  </div>
+
+                  <div className={styles.status}>Available</div>
+                  <div className={styles.uDays}>{days}</div>
+                  <div className={styles.uPrice}>US$ {tour.price}</div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Right: large picture (hidden on small screens) */}
+          <div className={styles.upcomingSideImage} role="img" aria-hidden="true" />
+        </div>
       </div>
     </div>
   );

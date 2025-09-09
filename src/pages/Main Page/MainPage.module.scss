@@ -68,6 +68,80 @@
     box-shadow: 0 6px 16px rgba(11, 22, 112, 0.25);
   }
 
+  .aboutSection {
+  margin-top: 20px;
+  text-align: left;
+  max-width: 1200px;
+  margin-left: calc((100% - 1200px) / 2);
+  margin-right: auto;
+
+  .title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0093d0;
+    margin-bottom: 15px;
+  }
+
+  .text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #444;
+  }
+
+  /* ✅ Responsiveness */
+  @media (max-width: 1200px) {
+    max-width: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    .title {
+      font-size: 1.8rem;
+    }
+
+    .text {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .title {
+      font-size: 1.6rem;
+    }
+
+    .text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  }
+
+  @media (max-width: 768px) {
+    text-align: center;
+
+    .title {
+      font-size: 1.5rem;
+    }
+
+    .text {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    margin-left: 10px;
+    margin-right: 10px;
+
+    .title {
+      font-size: 1.3rem;
+    }
+
+    .text {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+  
   /* ✅ TOUR LIST */
   .tourList {
     display: grid;
@@ -75,7 +149,12 @@
     gap: 30px;
     padding: 20px 0;
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 20px auto;
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 10px;
+    }
 
     @media (max-width: 768px) {
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -191,41 +270,227 @@
             }
           }
         }
-
-        
       }
     }
   }
+
   .contactSection {
-  background: #d9edf7;
-  padding: 40px 20px;
-  text-align: center;
-  border-radius: 6px;
-  margin: 40px auto;
-  max-width: 900px;
-  color: #2c5675;
+    background: #d9edf7;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 6px;
+    margin-left:  calc((100% - 1220px) / 2);
+    margin-right: calc((100% - 1220px) / 2);
+    color: #2c5675;
 
-  p {
-    font-size: 18px;
-    margin-bottom: 15px;
-    line-height: 1.6;
+    @media (max-width: 480px) {
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1;
+      width: 95%;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
   }
-}
 
-.contactBtn {
-  background: #337ab7;
-  color: #fff;
-  padding: 12px 28px;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s ease;
+  .contactBtn {
+    background: #337ab7;
+    color: #fff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
 
-  &:hover {
-    background: #286090;
+    &:hover {
+      background: #286090;
+    }
   }
-}
 
+  /* ========== UPCOMING SECTION (list + right image) ========== */
+  .upcomingSection {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 10px 10px 40px 10px;
+
+    h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #2c8b2c;
+      margin-bottom: 20px;
+    }
+
+    .upcomingWrapper {
+      display: grid;
+      grid-template-columns: 1fr 360px; /* list | right picture */
+      gap: 24px;
+      align-items: start;
+    }
+
+    .upcomingList {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .upcomingCard {
+      display: grid;
+      grid-template-columns: 80px 1fr 100px 60px 120px;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #e6e9ef;
+      border-radius: 6px;
+      padding: 14px;
+      font-size: 15px;
+      color: #333;
+      transition: box-shadow 0.2s ease;
+
+      &:hover {
+        box-shadow: 0 8px 20px rgba(11, 22, 112, 0.06);
+      }
+    }
+
+    .dateBox {
+      background: #5bb7de;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      padding: 8px 6px;
+      min-width: 64px;
+
+      .month {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .day {
+        display: block;
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+
+    .upcomingDetails {
+      padding-left: 16px;
+
+      .tourName {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0b1670;
+        margin: 0 0 4px 0;
+      }
+      .countries {
+        font-size: 14px;
+        color: #666;
+        margin: 0 0 4px 0;
+      }
+      .departures {
+        font-size: 14px;
+        color: #e74c3c;
+        margin: 0;
+      }
+    }
+
+    .status {
+      color: #2c8b2c;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .uDays {
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+    }
+
+    .uPrice {
+      font-weight: 700;
+      color: #0b1670;
+      text-align: right;
+    }
+
+    .upcomingSideImage {
+      background-image: url("../../assets/images/upcoming-dance.jpg");
+      background-size: cover;
+      background-position: center;
+      min-height: 460px;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(10, 26, 68, 0.06);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    /* responsiveness */
+    @media (max-width: 992px) {
+      .upcomingWrapper {
+        grid-template-columns: 1fr 300px;
+      }
+      .upcomingCard {
+        grid-template-columns: 72px 1fr 80px 60px 90px;
+      }
+      .upcomingSideImage {
+        min-height: 380px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .upcomingWrapper {
+        grid-template-columns: 1fr;
+      }
+      .upcomingSideImage {
+        display: none; /* hide picture on mobile as requested */
+      }
+      .upcomingCard {
+        grid-template-columns: 64px 1fr 60px 80px;
+        gap: 8px;
+        padding: 10px;
+      }
+      .dateBox {
+        padding: 6px 4px;
+      }
+      .upcomingSection h2 {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+
+      .upcomingCard {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 12px;
+
+        .departures{
+          display: none;
+        }
+      }
+
+      
+
+      .upcomingCard > .dateBox,
+      .upcomingCard > .status,
+      .upcomingCard > .uDays,
+      .upcomingCard > .uPrice {
+        align-items: center;
+        justify-content: center;
+        text-align: left;
+        width: 65px;
+      }
+
+
+      .upcomingCard > .uPrice {
+        text-align: left;
+        font-size: 12px;
+      }
+    }
+  }
 }
