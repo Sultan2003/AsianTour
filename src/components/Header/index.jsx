@@ -1,17 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 import logo from "../../assets/images/logo.png";
 import { useState } from "react";
 
+
 export default function Header() {
    const [openFilter, setOpenFilter] = useState(false);
+   const navigate = useNavigate(); 
   return (
     <header className={styles.header}>
       {/* Top bar */}
       <div className={styles.topBar}>
         <div className={styles.topLinks}>
           <a href="#">About Us</a>
-          <a href="#">Contact Us</a>
+          <a onClick={() => navigate('/contact')} >Contact Us</a>
         </div>
         <div className={styles.languages}>
           <a href="#">ENG</a>
@@ -47,21 +49,14 @@ export default function Header() {
     <li className={styles.dropdown}>
       DESTINATIONS <span className={styles.arrow}>▼</span>
       <ul className={styles.dropdownMenu}>
-        <li>Silk Road</li>
-        <li>Central Asia</li>
-        <li>Kazakhstan</li>
-        <li>Kyrgyzstan</li>
-        <li>Tajikistan</li>
-        <li>Turkmenistan</li>
-        <li>Uzbekistan</li>
-        <li>Caucasus</li>
-        <li>Armenia</li>
-        <li>Azerbaijan</li>
-        <li>Georgia</li>
-        <li>China</li>
-        <li>Japan</li>
-        <li>Russia</li>
-        <li>Turkey</li>
+        
+  <li>Kazakhstan</li>
+  <li>Kyrgyzstan</li>
+  <li>Tajikistan</li>
+  <li>Turkmenistan</li>
+  <li onClick={() => navigate('/Uzbek-Tours')}>Uzbekistan</li>
+
+
       </ul>
     </li>
     <li className={styles.dropdown}>
@@ -88,38 +83,41 @@ export default function Header() {
   </div>
 
   {openFilter && (
-    <div className={styles.filterPanel}>
-      <div className={styles.filterSection}>
-        <h4>Destinations</h4>
-        <div className={styles.grid}>
-          {["Central Asia", "Silk Road", "Uzbekistan", "China", "Kazakhstan", "Caucasus", "Kyrgyzstan", "Georgia", "Turkmenistan", "Azerbaijan", "Tajikistan", "Armenia"].map((d) => (
-            <label key={d}>
-              <input type="checkbox" /> {d}
-            </label>
-          ))}
-        </div>
+  <div className={styles.filterPanel}>
+    {/* Destination filter (Central Asia only) */}
+    <div className={styles.filterSection}>
+      <h4>Central Asia Destinations</h4>
+      <div className={styles.grid}>
+        {["Kazakhstan", "Kyrgyzstan", "Tajikistan", "Turkmenistan", "Uzbekistan"].map((d) => (
+          <label key={d}>
+            <input type="checkbox" /> {d}
+          </label>
+        ))}
       </div>
-
-      <div className={styles.filterSection}>
-        <h4>Departure dates</h4>
-        <div className={styles.grid}>
-          {["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map((m) => (
-            <label key={m}>
-              <input type="checkbox" /> {m}
-            </label>
-          ))}
-        </div>
-      </div>
-
-      <div className={styles.filterSection}>
-        <h4>Tour type</h4>
-        <label><input type="checkbox" /> Group</label>
-        <label><input type="checkbox" /> Private</label>
-      </div>
-
-      <button className={styles.searchBtn}>Search Tours</button>
     </div>
-  )}
+
+    {/* Departure filter */}
+    <div className={styles.filterSection}>
+      <h4>Departure Dates</h4>
+      <select className={styles.selectBox}>
+        <option value="">Any Month</option>
+        {["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map((m) => (
+          <option key={m} value={m}>{m}</option>
+        ))}
+      </select>
+    </div>
+
+    {/* Tour type filter */}
+    <div className={styles.filterSection}>
+      <h4>Tour Type</h4>
+      <label><input type="radio" name="tourType" /> Group</label>
+      <label><input type="radio" name="tourType" /> Private</label>
+    </div>
+
+    <button className={styles.searchBtn}>Search Tours</button>
+  </div>
+)}
+
 </div>
 
 </nav>

@@ -3,6 +3,7 @@ import MainPage from "../pages/Main Page";
 import TourIdPage from "../pages/Tour Detail";
 import ContactUs from "../pages/ContactUs";
 import MainLayout from "../components/MainLayout";
+import UzbekistanTours from "../pages/Countries/Uzbekistan";
 
 const Router = () => {
   return (
@@ -28,6 +29,14 @@ const Router = () => {
         element={
           <MainLayout>
             <ContactUs />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Uzbek-Tours"
+        element={
+          <MainLayout>
+            <UzbekistanTours />
           </MainLayout>
         }
       />

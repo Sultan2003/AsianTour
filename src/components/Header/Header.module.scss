@@ -4,14 +4,19 @@
 
 /* 🔹 Top Bar */
 .topBar {
-  
-  background: #555;
-  color: white;
+  background: linear-gradient(270deg, #0b1670, #4f46e5, #00c6ff, #4f46e5);
+  background-size: 600% 600%;
+  animation: gradientFlow 15s ease infinite;
+  @keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 15px;
+  padding: 10px 15px;
   font-size: 14px;
   gap: 10px;
 
@@ -127,12 +132,20 @@
 
 /* 🔹 Navigation */
 .navBar {
-  background: #0093d0;
+  background: linear-gradient(270deg, #0b1670, #4f46e5, #00c6ff, #4f46e5);
+  background-size: 600% 600%;
+  animation: gradientFlow 15s ease infinite;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   padding: 10px 15px;
   justify-content: space-between;
+
+  @keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
   
 
   .navLinks {
@@ -283,7 +296,7 @@
 
     .searchBtn {
       width: 100%;
-      background: #76aadb;
+      background: #0b1670;
       color: white;
       padding: 8px;
       border: none;
@@ -292,7 +305,7 @@
       margin-top: 10px;
 
       &:hover {
-        background: #5a8ec3;
+        background: #0b1670;
       }
     }
   }

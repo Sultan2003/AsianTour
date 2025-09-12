@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import { FaFacebookF, FaInstagram, FaYoutube, FaArrowUp } from "react-icons/fa";
 import styles from "./Footer.module.scss";
 
 const Footer = () => {
   const [showScroll, setShowScroll] = useState(false);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +59,7 @@ const Footer = () => {
         <div className={styles.column}>
           <h3 className={styles.heading}>Company</h3>
           <ul>
-            <li><Link to="/about">About Us</Link></li>
+            <li onClick={() => navigate('/contact')}>About Us</li>
             <li><Link to="/testimonials">Testimonials</Link></li>
             <li><Link to="/team">Our Team</Link></li>
             <li><Link to="/careers">Career Opportunities</Link></li>

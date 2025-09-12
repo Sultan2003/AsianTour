@@ -13,7 +13,7 @@
     max-width: 1200px;
     margin: 20px auto;
     background: url("../../assets/images/background.png") center/cover no-repeat;
-    border-bottom: 4px solid #081545;
+    border-bottom: 4px solid linear-gradient(90deg, #0b1670, #4f46e5);
     border-radius: 12px;
   }
 
@@ -58,7 +58,7 @@
   .heroBadge {
     display: inline-block;
     margin-top: 12px;
-    background: #0b1670;
+    background: linear-gradient(90deg, #0b1670, #4f46e5);
     color: #fff;
     font-weight: 700;
     font-size: 13px;
@@ -78,7 +78,7 @@
   .title {
     font-size: 2rem;
     font-weight: 700;
-    color: #0093d0;
+    color: #0b1670;
     margin-bottom: 15px;
   }
 
@@ -211,7 +211,7 @@
         position: absolute;
         top: 12px;
         left: 12px;
-        background-color: #0b1670;
+        background-color: linear-gradient(90deg, #0b1670, #4f46e5);
         color: white;
         font-size: 13px;
         font-weight: bold;
@@ -227,7 +227,7 @@
 
       h2 {
         font-size: 20px;
-        color: #0b1670;
+        color: linear-gradient(90deg, #0b1670, #4f46e5);
         margin-bottom: 10px;
         font-weight: 700;
       }
@@ -274,65 +274,6 @@
     }
   }
 
-  .contactSection {
-    background: #d9edf7;
-    padding: 40px 20px;
-    text-align: center;
-    border-radius: 6px;
-    margin-left:  calc((100% - 1220px) / 2);
-    margin-right: calc((100% - 1220px) / 2);
-    color: #2c5675;
-
-    @media (max-width: 480px) {
-      font-size: 14px;
-      margin-bottom: 10px;
-      line-height: 1;
-      width: 95%;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-
-    @media (max-width: 992px) {
-      font-size: 14px;
-      margin-bottom: 10px;
-      line-height: 1;
-      width: 95%;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 14px;
-      margin-bottom: 10px;
-      line-height: 1;
-      width: 95%;
-      margin-left: 10px;
-      margin-right: 10px;
-
-    }
-
-    p {
-      font-size: 18px;
-      margin-bottom: 15px;
-      line-height: 1.6;
-    }
-  }
-
-  .contactBtn {
-    background: #337ab7;
-    color: #fff;
-    padding: 12px 28px;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s ease;
-
-    &:hover {
-      background: #286090;
-    }
-  }
 
   /* ========== UPCOMING SECTION (list + right image) ========== */
   .upcomingSection {
@@ -354,6 +295,8 @@
       align-items: start;
     }
 
+    
+
     .upcomingList {
       display: flex;
       flex-direction: column;
@@ -362,7 +305,7 @@
 
     .upcomingCard {
       display: grid;
-      grid-template-columns: 80px 1fr 100px 60px 120px;
+      grid-template-columns: 80px 1fr 150px 90px 180px;
       align-items: center;
       background: #fff;
       border: 1px solid #e6e9ef;
@@ -371,6 +314,7 @@
       font-size: 15px;
       color: #333;
       transition: box-shadow 0.2s ease;
+      min-width: 1190px;
 
       &:hover {
         box-shadow: 0 8px 20px rgba(11, 22, 112, 0.06);
@@ -378,7 +322,7 @@
     }
 
     .dateBox {
-      background: #5bb7de;
+      background: linear-gradient(90deg, #0b1670, #4f46e5);
       color: #fff;
       text-align: center;
       border-radius: 4px;
@@ -436,15 +380,7 @@
       text-align: right;
     }
 
-    .upcomingSideImage {
-      background-image: url("../../assets/images/upcoming-dance.jpg");
-      background-size: cover;
-      background-position: center;
-      min-height: 460px;
-      border-radius: 8px;
-      box-shadow: 0 8px 24px rgba(10, 26, 68, 0.06);
-      border: 1px solid rgba(0,0,0,0.04);
-    }
+   
 
     /* responsiveness */
     @media (max-width: 992px) {
@@ -510,6 +446,176 @@
         text-align: left;
         font-size: 12px;
       }
+    }
+  }
+
+  /* ✅ Promo Slider */
+.promoSlider {
+  position: relative;
+  width: 100%;
+  height: 680px;
+  margin: 40px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 1200px;
+
+  .backgroundImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .sliderContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+    max-width: 700px;
+
+    h2 {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .readMoreBtn {
+      background: #0b1670;
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: #0056b3;
+      }
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+
+    &.left {
+      left: 20px;
+    }
+    &.right {
+      right: 20px;
+    }
+  }
+
+  .dots {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    z-index: 3;
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &.active {
+        background: #fff;
+      }
+    }
+  }
+}
+
+
+  .contactSection {
+    background:linear-gradient(90deg, #0b1670, #4f46e5);
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 6px;
+    margin-left:  calc((100% - 1220px) / 2);
+    margin-right: calc((100% - 1220px) / 2);
+    color: white;
+
+    @media (max-width: 480px) {
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1;
+      width: 95%;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    @media (max-width: 992px) {
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1;
+      width: 95%;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      margin-bottom: 10px;
+      line-height: 1;
+      width: 95%;
+      margin-left: 10px;
+      margin-right: 10px;
+
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+  }
+
+  .contactBtn {
+    background: #337ab7;
+    color: #fff;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #286090;
     }
   }
 }

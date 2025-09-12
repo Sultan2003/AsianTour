@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import styles from "./MainPage.module.scss";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import culturalImg from "../../assets/images/front-img/cultural.avif";
+import gastronomyImg from "../../assets/images/front-img/gastronomy.avif";
+import religiousImg from "../../assets/images/front-img/religious.avif";
+import ecoImg from "../../assets/images/front-img/eco.jpg";
+import hikingImg from "../../assets/images/front-img/hiking.avif";
+import businessImg from "../../assets/images/front-img/business.avif";
+
+
 
 export default function MainPage() {
   const [tours, setTours] = useState([]);
@@ -53,6 +62,45 @@ export default function MainPage() {
     })
     .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
     .slice(0, 5);
+
+const slides = [
+    {
+      title: "Cultural Tours",
+      description: "Get around by train, bus, car, ferry, cruise ship, bicycle, skis, or sleigh. Relax and enjoy yourself!",
+      image: culturalImg
+    },
+    {
+      title: "Gastronomy Tours",
+      description: "Taste the flavors of the world, from street food to fine dining. A journey for your senses!",
+      image: gastronomyImg
+    },
+    {
+      title: "Religious Tours",
+      description: "Visit sacred places and discover spiritual traditions that shaped civilizations.",
+      image: religiousImg
+    },
+    {
+      title: "Eco Tours",
+      description: "Connect with nature, protect biodiversity, and travel responsibly in breathtaking environments.",
+      image: ecoImg
+    },
+    {
+      title: "Hiking",
+      description: "Explore trails, mountains, and valleys while staying active and inspired.",
+      image: hikingImg
+    },
+    {
+      title: "MICE and Business Tours",
+      description: "Professional, organized, and efficient. Combine business with world-class travel.",
+      image: businessImg
+    },
+  ];
+
+  const [current, setCurrent] = useState(0);
+
+  const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
+  const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+    
 
   return (
     <div className={styles.mainPage}>
@@ -127,19 +175,12 @@ export default function MainPage() {
         })}
       </div>
 
-      {/* 👉 Contact Section */}
-      <div className={styles.contactSection}>
-        <p>Indecisive about your next adventure? Want something tailor-made just for you?</p>
-        <p>
-          Click that <b>'Contact Us'</b> button, fill out the form, and let us do the rest. <br />
-          Your dream trip is just a click away!
-        </p>
-        <button className={styles.contactBtn} onClick={() => navigate('/contact')}>Contact Us</button>
-      </div>
+      
 
       {/* 👉 Upcoming Tours Section */}
       <div className={styles.upcomingSection}>
         <h2>Upcoming Popular Group Tour Dates 2025</h2>
+        
 
         <div className={styles.upcomingWrapper}>
           <div className={styles.upcomingList}>
@@ -150,7 +191,7 @@ export default function MainPage() {
               const day = date.getDate();
               const countries =
                 Array.isArray(tour.countries) ? tour.countries.join(", ") : tour.countries || "";
-              const departures = tour.departures || 0;
+              const departures = tour.location || 0;
 
               return (
                 <div
@@ -178,7 +219,34 @@ export default function MainPage() {
             })}
           </div>
 
-          <div className={styles.upcomingSideImage} role="img" aria-label="Upcoming tours image" />
+        </div>
+      </div>
+
+      <div className={styles.promoSlider}>
+        <img src={slides[current].image} alt={slides[current].title} className={styles.backgroundImage} />
+
+        <div className={styles.overlay}></div>
+        <div className={styles.sliderContent}>
+          <h2>{slides[current].title.toUpperCase()}</h2>
+          <p>{slides[current].description}</p>
+          <button className={styles.readMoreBtn}>Read more</button>
+        </div>
+
+        <button className={`${styles.arrow} ${styles.left}`} onClick={prevSlide}>
+          <ChevronLeft />
+        </button>
+        <button className={`${styles.arrow} ${styles.right}`} onClick={nextSlide}>
+          <ChevronRight />
+        </button>
+
+        <div className={styles.dots}>
+          {slides.map((_, idx) => (
+            <span
+              key={idx}
+              className={`${styles.dot} ${idx === current ? styles.active : ""}`}
+              onClick={() => setCurrent(idx)}
+            />
+          ))}
         </div>
       </div>
     </div>
