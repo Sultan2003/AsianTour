@@ -179,48 +179,57 @@ const slides = [
 
       {/* 👉 Upcoming Tours Section */}
       <div className={styles.upcomingSection}>
-        <h2>Upcoming Popular Group Tour Dates 2025</h2>
-        
+  <h2>Upcoming Popular Group Tour Dates 2025</h2>
 
-        <div className={styles.upcomingWrapper}>
-          <div className={styles.upcomingList}>
-            {upcomingTours.map((tour) => {
-              const days = calculateDays(tour.startDate, tour.endDate);
-              const date = new Date(tour.startDate);
-              const month = date.toLocaleString("en-US", { month: "short" });
-              const day = date.getDate();
-              const countries =
-                Array.isArray(tour.countries) ? tour.countries.join(", ") : tour.countries || "";
-              const departures = tour.location || 0;
+  <div className={styles.upcomingWrapper}>
+    {/* Header */}
+    <div className={styles.upcomingHeader}>
+      <div>Date</div>
+      <div>Departures</div>
+      <div>Status</div>
+      <div>Seats</div>
+      <div>Price</div>
+    </div>
 
-              return (
-                <div
-                  key={tour.id}
-                  className={styles.upcomingCard}
-                  onClick={() => navigate(`/tour/${tour.id}`)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <div className={styles.dateBox}>
-                    <span className={styles.month}>{month}</span>
-                    <span className={styles.day}>{day}</span>
-                  </div>
+    {/* List of tours */}
+    <div className={styles.upcomingList}>
+      {upcomingTours.map((tour) => {
+        const availableSeats = tour.availableSeats;
+        const date = new Date(tour.startDate);
+        const month = date.toLocaleString("en-US", { month: "short" });
+        const day = date.getDate();
+        const countries =
+          Array.isArray(tour.countries) ? tour.countries.join(", ") : tour.countries || "";
+        const departures = tour.location || 0;
 
-                  <div className={styles.upcomingDetails}>
-                    <h3 className={styles.tourName}>{tour.title}</h3>
-                    <p className={styles.countries}>{countries}</p>
-                    <p className={styles.departures}>{departures} more departures &gt;&gt;&gt;</p>
-                  </div>
+        return (
+          <div
+            key={tour.id}
+            className={styles.upcomingCard}
+            onClick={() => navigate(`/tour/${tour.id}`)}
+            style={{ cursor: "pointer" }}
+          >
+            <div className={styles.dateBox}>
+              <span className={styles.month}>{month}</span>
+              <span className={styles.day}>{day}</span>
+            </div>
 
-                  <div className={styles.status}>Available</div>
-                  <div className={styles.uDays}>{days}</div>
-                  <div className={styles.uPrice}>US$ {tour.price}</div>
-                </div>
-              );
-            })}
+            <div className={styles.upcomingDetails}>
+              <h3 className={styles.tourName}>{tour.title}</h3>
+              <p className={styles.countries}>{countries}</p>
+              <p className={styles.departures}>{departures} more departures &gt;&gt;&gt;</p>
+            </div>
+
+            <div className={styles.status}>Available</div>
+            <div className={styles.uDays}>{availableSeats}</div>
+            <div className={styles.uPrice}>US$ {tour.price}</div>
           </div>
+        );
+      })}
+    </div>
+  </div>
+</div>
 
-        </div>
-      </div>
 
       <div className={styles.promoSlider}>
         <img src={slides[current].image} alt={slides[current].title} className={styles.backgroundImage} />

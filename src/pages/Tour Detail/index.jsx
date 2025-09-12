@@ -193,7 +193,7 @@ export default function TourIdPage() {
                 <strong>US${tour.price}</strong>
               </li>
               <li>
-                <span>Available seats</span>
+                <span>Available Seats</span>
                 <strong>{tour.availableSeats}</strong>
               </li>
             </ul>

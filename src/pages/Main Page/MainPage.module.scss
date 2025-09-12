@@ -277,177 +277,171 @@
 
   /* ========== UPCOMING SECTION (list + right image) ========== */
   .upcomingSection {
-    max-width: 1200px;
-    margin: 40px auto 0;
-    padding: 10px 10px 40px 10px;
+  max-width: 1215px;
+  margin: 40px auto 0;
+  padding: 10px;
 
-    h2 {
-      font-size: 26px;
+  h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #2c8b2c;
+    margin-bottom: 20px;
+  }
+
+  .upcomingWrapper {
+    display: grid;
+    gap: 16px;
+  }
+
+  .upcomingHeader {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px 100px 120px;
+    gap: 1rem;
+    align-items: center;
+    padding: 0 10px;
+    font-weight: 700;
+    color: #0b1670;
+  
+
+     & > div {
+    display: flex;
+    align-items: center;   /* vertical centering */
+    justify-content: center; /* horizontal centering */
+    text-align: center;
+    margin-left: 40px;
+
+  }
+  }
+
+  .upcomingList {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .upcomingCard {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px 100px 120px;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #e6e9ef;
+    border-radius: 6px;
+    padding: 12px 10px;
+    font-size: 15px;
+    color: #333;
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 8px 20px rgba(11, 22, 112, 0.06);
+    }
+  }
+
+  .dateBox {
+    background: linear-gradient(90deg, #0b1670, #4f46e5);
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 8px 6px;
+
+    .month {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .day {
+      display: block;
+      font-size: 18px;
       font-weight: 700;
-      color: #2c8b2c;
-      margin-bottom: 20px;
+    }
+  }
+
+  .upcomingDetails {
+    padding-left: 16px;
+
+    .tourName {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0b1670;
+      margin: 0 0 4px 0;
     }
 
-    .upcomingWrapper {
-      display: grid;
-      grid-template-columns: 1fr 360px; /* list | right picture */
-      gap: 24px;
-      align-items: start;
+    .countries {
+      font-size: 14px;
+      color: #666;
+      margin: 0 0 4px 0;
     }
 
-    
+    .departures {
+      font-size: 14px;
+      color: #e74c3c;
+      margin: 0;
+    }
+  }
 
-    .upcomingList {
+  .status {
+    color: #2c8b2c;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .uDays {
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+
+  .uPrice {
+    font-weight: 700;
+    color: #0b1670;
+    text-align: right;
+  }
+
+  /* Responsiveness */
+  @media (max-width: 992px) {
+    .upcomingHeader,
+    .upcomingCard {
+      grid-template-columns: 72px 1fr 100px 80px 100px;
+      gap: 8px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .upcomingHeader,
+    .upcomingCard {
+      grid-template-columns: 64px 1fr 80px 60px 80px;
+      gap: 6px;
+    }
+    .dateBox {
+      padding: 4px 2px;
+    }
+    .uPrice {
+      text-align: left;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .upcomingHeader {
+      display: none;
+    }
+    .upcomingCard {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 10px;
     }
 
-    .upcomingCard {
-      display: grid;
-      grid-template-columns: 80px 1fr 150px 90px 180px;
-      align-items: center;
-      background: #fff;
-      border: 1px solid #e6e9ef;
-      border-radius: 6px;
-      padding: 14px;
-      font-size: 15px;
-      color: #333;
-      transition: box-shadow 0.2s ease;
-      min-width: 1190px;
-
-      &:hover {
-        box-shadow: 0 8px 20px rgba(11, 22, 112, 0.06);
-      }
-    }
-
-    .dateBox {
-      background: linear-gradient(90deg, #0b1670, #4f46e5);
-      color: #fff;
-      text-align: center;
-      border-radius: 4px;
-      padding: 8px 6px;
-      min-width: 64px;
-
-      .month {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-      }
-      .day {
-        display: block;
-        font-size: 18px;
-        font-weight: 700;
-      }
-    }
-
-    .upcomingDetails {
-      padding-left: 16px;
-
-      .tourName {
-        font-size: 16px;
-        font-weight: 700;
-        color: #0b1670;
-        margin: 0 0 4px 0;
-      }
-      .countries {
-        font-size: 14px;
-        color: #666;
-        margin: 0 0 4px 0;
-      }
-      .departures {
-        font-size: 14px;
-        color: #e74c3c;
-        margin: 0;
-      }
-    }
-
-    .status {
-      color: #2c8b2c;
-      font-weight: 600;
-      text-align: center;
-    }
-
-    .uDays {
-      font-weight: 600;
-      color: #333;
-      text-align: center;
+    .departures {
+      display: none;
     }
 
     .uPrice {
-      font-weight: 700;
-      color: #0b1670;
-      text-align: right;
-    }
-
-   
-
-    /* responsiveness */
-    @media (max-width: 992px) {
-      .upcomingWrapper {
-        grid-template-columns: 1fr 300px;
-      }
-      .upcomingCard {
-        grid-template-columns: 72px 1fr 80px 60px 90px;
-      }
-      .upcomingSideImage {
-        min-height: 380px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .upcomingWrapper {
-        grid-template-columns: 1fr;
-      }
-      .upcomingSideImage {
-        display: none; /* hide picture on mobile as requested */
-      }
-      .upcomingCard {
-        grid-template-columns: 64px 1fr 60px 80px;
-        gap: 8px;
-        padding: 10px;
-      }
-      .dateBox {
-        padding: 6px 4px;
-      }
-      .upcomingSection h2 {
-        font-size: 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-
-
-      .upcomingCard {
-        display: flex;
-        align-items: flex-start;
-        gap: 5px;
-        padding: 12px;
-
-        .departures{
-          display: none;
-        }
-      }
-
-      
-
-      .upcomingCard > .dateBox,
-      .upcomingCard > .status,
-      .upcomingCard > .uDays,
-      .upcomingCard > .uPrice {
-        align-items: center;
-        justify-content: center;
-        text-align: left;
-        width: 65px;
-      }
-
-
-      .upcomingCard > .uPrice {
-        text-align: left;
-        font-size: 12px;
-      }
+      text-align: left;
+      font-size: 12px;
     }
   }
+}
+
 
   /* ✅ Promo Slider */
 .promoSlider {
