@@ -3,7 +3,6 @@ import styles from "./Uzbekistan.module.scss";
 import mainImage from "../../../assets/images/uzb-registan.jpg"
 
 export default function UzbekistanTours() {
-      
   const tours = [
     {
       date: "Oct 3",
@@ -44,39 +43,35 @@ export default function UzbekistanTours() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <div className={styles.mainImage}>
-          <img src={mainImage} alt="Uzbekistan" />
-        </div>
 
         <div className={styles.content}>
+          
           <div className={styles.tours}>
+            <div className={styles.mainImage}>
+          <img src={mainImage} alt="Uzbekistan" />
+        </div>
             <h2>Upcoming Group Departures</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Status</th>
-                  <th>Days</th>
-                  <th>Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tours.map((tour, idx) => (
-                  <tr key={idx}>
-                    <td className={styles.date}>{tour.date}</td>
-                    <td>
-                      <strong>{tour.title}</strong>
-                      <p className={styles.cities}>{tour.cities}</p>
-                      <a href="#"> {tour.departures} more departures &gt;&gt;&gt;</a>
-                    </td>
-                    <td className={tour.status === "Available" ? styles.available : styles.unavailable}>
-                      {tour.status}
-                    </td>
-                    <td>{tour.days}</td>
-                    <td>{tour.price}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+            <div className={styles.cardsHeader}>
+              <div>Status</div>
+              <div>Days</div>
+              <div>Price</div>
+            </div>
+
+            {tours.map((tour, idx) => (
+              <div key={idx} className={styles.tourCard}>
+                <div className={styles.dateBox}>{tour.date}</div>
+                <div className={styles.tourInfo}>
+                  <a href="#" className={styles.title}>{tour.title}</a>
+                  <p className={styles.cities}>{tour.cities}</p>
+                  <a href="#" className={styles.departures}>{tour.departures} more departures &gt;&gt;&gt;</a>
+                </div>
+                <div className={tour.status === "Available" ? styles.available : styles.unavailable}>{tour.status}</div>
+                <div>{tour.days}</div>
+                <div>{tour.price}</div>
+              </div>
+            ))}
+
             <p className={styles.description}>
               Visit Uzbekistan and discover stunning medieval cities with tall minarets reaching into the sky. See local pilgrims in bright, colorful robes and experience the lively atmosphere of bustling bazaars filled with rich aromas and friendly voices. A trip to Uzbekistan is both exciting and welcoming, offering a mix of adventure and comfort.
             </p>

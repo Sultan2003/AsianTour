@@ -1,16 +1,8 @@
 .wrapper {
-  background: linear-gradient(270deg, #0b1670, #4f46e5, #00c6ff, #4f46e5);
-  background-size: 600% 600%;
-  animation: gradientFlow 25s ease infinite;
   padding: 3rem 1.5rem;
   position: relative;
   min-height: 100vh;
 
-  @keyframes gradientFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
 }
 
 .container {
@@ -33,55 +25,86 @@
 
   .tours {
     flex: 3;
-    background: rgba(255,255,255,0.05);
-    padding: 1.5rem;
+    background: #fff;
+    padding: 0 1.5rem;
     border-radius: 8px;
-    color: white;
+    color: #333;
 
     h2 {
       margin-bottom: 1rem;
       font-size: 1.5rem;
-      color: #fff;
+      color: #0b1670;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 1rem;
+    .cardsHeader {
+      display: grid;
+      grid-template-columns: 80px 1fr 120px 100px 120px;
+      gap: 1rem;
+      font-weight: 700;
+      color: #555;
+      padding: 0 10px 10px;
+    }
 
-      th, td {
-        padding: 0.8rem 1rem;
-        text-align: left;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
+    .tourCard {
+      display: grid;
+      grid-template-columns: 80px 1fr 120px 100px 120px;
+      gap: 1rem;
+      align-items: center;
+      padding: 12px 10px;
+      margin-bottom: 10px;
+      border: 1px solid #e6e6e6;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+
+      .dateBox {
+        background: #91c5e8;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        font-weight: 600;
       }
 
-      .date {
-        font-weight: bold;
-      }
+      .tourInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
-      .cities {
-        font-size: 0.9rem;
-        margin: 0.3rem 0;
-        color: #ccc;
-      }
+        .title {
+          color: #0b1670;
+          font-weight: 600;
+          text-decoration: none;
+          margin-bottom: 0.3rem;
+        }
 
-      a {
-        color: #4f46e5;
-        text-decoration: none;
-        &:hover {
-          text-decoration: underline;
+        .cities {
+          font-size: 0.9rem;
+          color: #666;
+          margin-bottom: 0.3rem;
+        }
+
+        .departures {
+          font-size: 0.85rem;
+          color: #f2994a;
+          text-decoration: none;
         }
       }
-    }
 
-    .available {
-      color: #00ff99;
-      font-weight: 600;
+      .available {
+        color: #27ae60;
+        font-weight: 600;
+      }
+
+      .unavailable {
+        color: #e74c3c;
+        font-weight: 600;
+      }
     }
 
     .description {
       font-size: 0.9rem;
-      color: #eee;
+      color: #333;
       margin-top: 1rem;
       line-height: 1.5;
     }
@@ -89,15 +112,16 @@
 
   .sidebar {
     flex: 1;
-    background: rgba(255,255,255,0.05);
+    background: #fff;
     padding: 1.5rem;
     border-radius: 8px;
-    color: white;
+    color: #333;
+    border: 1px solid #e6e6e6;
 
     h3 {
       margin-bottom: 1rem;
       font-size: 1.2rem;
-      color: #4f46e5;
+      color: #27ae60;
     }
 
     ul {
@@ -107,8 +131,9 @@
 
       li {
         margin-bottom: 0.5rem;
+
         a {
-          color: #fff;
+          color: #0b1670;
           text-decoration: none;
           &:hover {
             color: #00c6ff;
