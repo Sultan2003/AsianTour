@@ -1,0 +1,130 @@
+const translations = {
+  en: {
+    itinerary: "Tour Itinerary",
+    overview: "Tour Overview",
+    datesPrices: "Dates & Prices",
+    startDate: "Start date",
+    endDate: "End date",
+    price: "Price",
+    seats: "Available Seats",
+    enquiry: "Tour Enquiry",
+    enquiryInfo:
+      "We use this information solely for the purpose of corresponding regarding your travel.",
+    contactDetails: "Contact Details",
+    travelInfo: "Travel Info",
+    comments: "Comments and questions",
+    requestBtn: "Request More Info",
+    reviews: "Reviews",
+    noReviews: "No reviews yet.",
+    bestseller: "Bestseller",
+    bookNow: "Book Now",
+    days: "Days",
+    start: "Start",
+    end: "End",
+    availableSeats: "Seats",
+    title: "Title",
+    firstName: "First Name",
+    lastName: "Last Name",
+    citizenship: "Citizenship",
+    email: "E-mail",
+    phone: "Phone (+code)",
+    travelers: {
+      one: "1 Traveler",
+      two: "2 Travelers",
+      three: "3 Travelers",
+      four: "4+ Travelers"
+    },
+    honorifics: {
+      mr: "Mr.",
+      ms: "Ms.",
+      mrs: "Mrs.",
+      dr: "Dr."
+    }
+  },
+  ru: {
+    itinerary: "Программа тура",
+    overview: "Обзор тура",
+    datesPrices: "Даты и цены",
+    startDate: "Дата начала",
+    endDate: "Дата окончания",
+    price: "Цена",
+    seats: "Доступные места",
+    enquiry: "Запрос на тур",
+    enquiryInfo:
+      "Мы используем эту информацию исключительно для связи по поводу вашего путешествия.",
+    contactDetails: "Контактные данные",
+    travelInfo: "Информация о путешествии",
+    comments: "Комментарии и вопросы",
+    requestBtn: "Запросить информацию",
+    reviews: "Отзывы",
+    noReviews: "Пока нет отзывов.",
+    bestseller: "Бестселлер",
+    bookNow: "Забронировать",
+    days: "Дни",
+    start: "Начало",
+    end: "Окончание",
+    availableSeats: "Места",
+    title: "Обращение",
+    firstName: "Имя",
+    lastName: "Фамилия",
+    citizenship: "Гражданство",
+    email: "Эл. почта",
+    phone: "Телефон (+код)",
+    travelers: {
+      one: "1 путешественник",
+      two: "2 путешественника",
+      three: "3 путешественника",
+      four: "4+ путешественников"
+    },
+    honorifics: {
+      mr: "Г-н",
+      ms: "Г-жа",
+      mrs: "Г-жа",
+      dr: "Д-р"
+    }
+  },
+  uz: {
+    itinerary: "Sayohat dasturi",
+    overview: "Sayohatga umumiy nuqtai",
+    datesPrices: "Sanalar va narxlar",
+    startDate: "Boshlanish sanasi",
+    endDate: "Tugash sanasi",
+    price: "Narxi",
+    seats: "Mavjud joylar",
+    enquiry: "Sayohat so'rovi",
+    enquiryInfo:
+      "Biz ushbu ma’lumotni faqat siz bilan sayohatingiz bo‘yicha bog‘lanish uchun ishlatamiz.",
+    contactDetails: "Aloqa ma'lumotlari",
+    travelInfo: "Sayohat haqida ma’lumot",
+    comments: "Izoh va savollar",
+    requestBtn: "Qo‘shimcha ma’lumot so‘rash",
+    reviews: "Sharhlar",
+    noReviews: "Hozircha sharhlar yo‘q.",
+    bestseller: "Eng ko‘p sotilgan",
+    bookNow: "Bron qilish",
+    days: "Kunlar",
+    start: "Boshlanish",
+    end: "Tugash",
+    availableSeats: "Joylar",
+    title: "Murojaat shakli",
+    firstName: "Ism",
+    lastName: "Familiya",
+    citizenship: "Fuqarolik",
+    email: "E-pochta",
+    phone: "Telefon (+kod)",
+    travelers: {
+      one: "1 sayohatchi",
+      two: "2 sayohatchi",
+      three: "3 sayohatchi",
+      four: "4+ sayohatchi"
+    },
+    honorifics: {
+      mr: "Janob",
+      ms: "Xonim",
+      mrs: "Xonim",
+      dr: "Dr."
+    }
+  },
+};
+
+export default translations;

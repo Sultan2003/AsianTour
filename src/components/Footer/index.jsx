@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Link , useNavigate} from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaFacebookF, FaInstagram, FaYoutube, FaArrowUp } from "react-icons/fa";
 import styles from "./Footer.module.scss";
+import { LanguageContext } from "../../context/LanguageContext";
+import footerTranslations from "../../translations/footer";
 
 const Footer = () => {
   const [showScroll, setShowScroll] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
+  const { lang } = useContext(LanguageContext);
+  const t = footerTranslations[lang] || footerTranslations.en;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,19 +27,18 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        
         {/* Travel Destinations */}
         <div className={styles.column}>
-          <h3 className={styles.heading}>Travel Destinations</h3>
+          <h3 className={styles.heading}>{t.travelDestinations}</h3>
           <ul>
-            <li className={styles.subheading}>Silk Road</li>
-            <li className={styles.subheading}>Central Asia</li>
+            <li className={styles.subheading}>{t.silkRoad}</li>
+            <li className={styles.subheading}>{t.centralAsia}</li>
             <li><Link to="/uzbekistan">Uzbekistan</Link></li>
             <li><Link to="/kazakhstan">Kazakhstan</Link></li>
             <li><Link to="/kyrgyzstan">Kyrgyzstan</Link></li>
             <li><Link to="/tajikistan">Tajikistan</Link></li>
             <li><Link to="/turkmenistan">Turkmenistan</Link></li>
-            <li className={styles.subheading}>Caucasus</li>
+            <li className={styles.subheading}>{t.caucasus}</li>
             <li><Link to="/georgia">Georgia</Link></li>
             <li><Link to="/azerbaijan">Azerbaijan</Link></li>
             <li><Link to="/armenia">Armenia</Link></li>
@@ -47,28 +51,28 @@ const Footer = () => {
 
         {/* Services */}
         <div className={styles.column}>
-          <h3 className={styles.heading}>Services</h3>
+          <h3 className={styles.heading}>{t.services}</h3>
           <ul>
-            <li><Link to="/small-group-tours">Small Group Tours</Link></li>
-            <li><Link to="/private-tours">Private Tours</Link></li>
-            <li><Link to="/custom-tours">Custom Tours</Link></li>
+            <li><Link to="/small-group-tours">{t.smallGroupTours}</Link></li>
+            <li><Link to="/private-tours">{t.privateTours}</Link></li>
+            <li><Link to="/custom-tours">{t.customTours}</Link></li>
           </ul>
         </div>
 
         {/* Company */}
         <div className={styles.column}>
-          <h3 className={styles.heading}>Company</h3>
+          <h3 className={styles.heading}>{t.company}</h3>
           <ul>
-            <li onClick={() => navigate('/contact')}>About Us</li>
-            <li><Link to="/testimonials">Testimonials</Link></li>
-            <li><Link to="/team">Our Team</Link></li>
-            <li><Link to="/careers">Career Opportunities</Link></li>
-            <li><Link to="/booking-terms">Booking Terms</Link></li>
-            <li><Link to="/cancellations">Cancellations</Link></li>
-            <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-            <li><Link to="/sustainability-policy">Sustainability Policy</Link></li>
-            <li><Link to="/partnership">Partnership</Link></li>
-            <li><Link to="/contacts">Contacts</Link></li>
+            <li onClick={() => navigate('/contact')}>{t.aboutUs}</li>
+            <li><Link to="/testimonials">{t.testimonials}</Link></li>
+            <li><Link to="/team">{t.ourTeam}</Link></li>
+            <li><Link to="/careers">{t.careers}</Link></li>
+            <li><Link to="/booking-terms">{t.bookingTerms}</Link></li>
+            <li><Link to="/cancellations">{t.cancellations}</Link></li>
+            <li><Link to="/privacy-policy">{t.privacyPolicy}</Link></li>
+            <li><Link to="/sustainability-policy">{t.sustainabilityPolicy}</Link></li>
+            <li><Link to="/partnership">{t.partnership}</Link></li>
+            <li><Link to="/contacts">{t.contacts}</Link></li>
           </ul>
         </div>
 
@@ -79,7 +83,7 @@ const Footer = () => {
             <img src="/mastercard.png" alt="Mastercard" />
           </div>
           <p className={styles.copy}>
-            Copyright © 2001 — 2025 Advantour <br /> All rights reserved
+            {t.copyright} <br /> {t.rights}
           </p>
           <div className={styles.socials}>
             <a href="https://facebook.com" target="_blank" rel="noreferrer">

@@ -1,14 +1,15 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useContext } from "react";
+import { LanguageContext } from "../../context/LanguageContext";
 import { useParams } from "react-router-dom";
-import Header from "../../components/Header";
 import styles from "./Tourdetail.module.scss";
-import Footer from "../../components/Footer";
+import translations from "../../translations/tourdetail";
 
 export default function TourIdPage() {
-  const { id } = useParams();
+  const { documentId } = useParams();
   const [tour, setTour] = useState(null);
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { strapiLocale } = useContext(LanguageContext);
 
   // refs for sticky nav
   const itineraryRef = useRef(null);
@@ -16,12 +17,24 @@ export default function TourIdPage() {
   const requestRef = useRef(null);
   const reviewsRef = useRef(null);
 
+  const t = translations[
+    strapiLocale.startsWith("ru")
+      ? "ru"
+      : strapiLocale.startsWith("uz")
+      ? "uz"
+      : "en"
+  ];
+
   // fetch data
   useEffect(() => {
-    fetch("https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours")
+    fetch(
+      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}`
+    )
       .then((r) => r.json())
       .then((data) => {
-        const found = data.data.find((t) => t.id.toString() === id);
+        const found = data.data.find(
+          (t) => t.documentId.toString() === documentId
+        );
         setTour(found || null);
       })
       .catch(console.error);
@@ -30,7 +43,7 @@ export default function TourIdPage() {
       .then((r) => r.json())
       .then(setImages)
       .catch(console.error);
-  }, [id]);
+  }, [documentId, strapiLocale]);
 
   // auto-rotate hero
   useEffect(() => {
@@ -57,12 +70,22 @@ export default function TourIdPage() {
       year: "numeric",
     });
 
-  // Parse itinerary safely (runs even if tour is null)
+  // Parse itinerary safely
   const parsedDays = useMemo(() => {
     if (!tour?.daysdescription) return [];
     const src = tour.daysdescription.trim();
     const blocks = [];
-    const re = /(?:^|\n)(Day\s*\d+:[^\n]*)\n([\s\S]*?)(?=\nDay\s*\d+:|$)/g;
+
+    // word for "Day"
+    let dayWord = "Day";
+    if (strapiLocale.startsWith("ru")) dayWord = "День";
+    if (strapiLocale.startsWith("uz")) dayWord = "Kun";
+
+    const re = new RegExp(
+      `(?:^|\\n)(${dayWord}\\s*\\d+:[^\\n]*)\\n([\\s\\S]*?)(?=\\n${dayWord}\\s*\\d+:|$)`,
+      "g"
+    );
+
     let m;
     while ((m = re.exec(src)) !== null) {
       blocks.push({
@@ -71,7 +94,7 @@ export default function TourIdPage() {
       });
     }
     return blocks;
-  }, [tour?.daysdescription]);
+  }, [tour?.daysdescription, strapiLocale]);
 
   // accordion state
   const [open, setOpen] = useState([]);
@@ -89,7 +112,6 @@ export default function TourIdPage() {
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  // show loading until tour exists
   if (!tour) {
     return (
       <div className={styles.tourPage}>
@@ -103,8 +125,6 @@ export default function TourIdPage() {
 
   return (
     <div className={styles.tourPage}>
-   
-
       {/* HERO */}
       <div
         className={styles.hero}
@@ -118,18 +138,20 @@ export default function TourIdPage() {
         <div className={styles.heroContent}>
           <h1>{tour.title}</h1>
           <p>
-            {days} Days • {tour.location}
+            {days} {t.days} • {tour.location}
           </p>
-          {tour.status1 && <span className={styles.heroBadge}>Bestseller</span>}
+          {tour.status1 && (
+            <span className={styles.heroBadge}>{t.bestseller}</span>
+          )}
         </div>
       </div>
 
       {/* NAV */}
       <div className={styles.tabsNav}>
-        <button onClick={() => scrollTo(itineraryRef)}>Itinerary</button>
-        <button onClick={() => scrollTo(pricesRef)}>Dates & Prices</button>
-        <button onClick={() => scrollTo(requestRef)}>Request</button>
-        <button onClick={() => scrollTo(reviewsRef)}>Reviews</button>
+        <button onClick={() => scrollTo(itineraryRef)}>{t.itinerary}</button>
+        <button onClick={() => scrollTo(pricesRef)}>{t.datesPrices}</button>
+        <button onClick={() => scrollTo(requestRef)}>{t.enquiry}</button>
+        <button onClick={() => scrollTo(reviewsRef)}>{t.reviews}</button>
       </div>
 
       {/* MAIN */}
@@ -137,7 +159,7 @@ export default function TourIdPage() {
         <div className={styles.infoSection}>
           {/* Description */}
           <section className={styles.tabContent}>
-            <h2>Tour Overview</h2>
+            <h2>{t.overview}</h2>
             {Array.isArray(tour.description) &&
               tour.description.map((node, i) => {
                 const txt =
@@ -150,7 +172,7 @@ export default function TourIdPage() {
           {/* Itinerary */}
           <section ref={itineraryRef} className={styles.tabContent}>
             <div className={styles.itineraryHeader}>
-              <h2>Tour Itinerary</h2>
+              <h2>{t.itinerary}</h2>
             </div>
             <div className={styles.accordion}>
               {parsedDays.map((d, idx) => (
@@ -178,50 +200,49 @@ export default function TourIdPage() {
 
           {/* Prices */}
           <section ref={pricesRef} className={styles.tabContent}>
-            <h2>Dates & Prices</h2>
+            <h2>{t.datesPrices}</h2>
             <ul className={styles.priceList}>
               <li>
-                <span>Start date</span>
+                <span>{t.startDate}</span>
                 <strong>{formatDate(tour.startDate)}</strong>
               </li>
               <li>
-                <span>End date</span>
+                <span>{t.endDate}</span>
                 <strong>{formatDate(tour.endDate)}</strong>
               </li>
               <li className={styles.priceRow}>
-                <span>Price</span>
+                <span>{t.price}</span>
                 <strong>US${tour.price}</strong>
               </li>
               <li>
-                <span>Available Seats</span>
+                <span>{t.seats}</span>
                 <strong>{tour.availableSeats}</strong>
               </li>
             </ul>
           </section>
 
           {/* Request */}
-{/* Request */}
-<section ref={requestRef} className={styles.tabContent}>
-  <h2>Tour Enquiry</h2>
-  <p>We use this information solely for the purpose of corresponding regarding your travel.</p>
-  
-  <form
-    className={styles.enquiryForm}
-    onSubmit={async (e) => {
-      e.preventDefault();
+          <section ref={requestRef} className={styles.tabContent}>
+            <h2>{t.enquiry}</h2>
+            <p>{t.enquiryInfo}</p>
 
-      const form = e.target;
-      const title = form[0].value;
-      const firstName = form[1].value;
-      const lastName = form[2].value;
-      const citizenship = form[3].value;
-      const email = form[4].value;
-      const phone = form[5].value;
-      const date = form[6].value;
-      const travelers = form[7].value;
-      const comments = form[8].value;
+            <form
+              className={styles.enquiryForm}
+              onSubmit={async (e) => {
+                e.preventDefault();
 
-      const message = `
+                const form = e.target;
+                const title = form[0].value;
+                const firstName = form[1].value;
+                const lastName = form[2].value;
+                const citizenship = form[3].value;
+                const email = form[4].value;
+                const phone = form[5].value;
+                const date = form[6].value;
+                const travelers = form[7].value;
+                const comments = form[8].value;
+
+                const message = `
 📩 *New Tour Enquiry*
 🏷️ Title: ${title}
 👤 Name: ${firstName} ${lastName}
@@ -233,75 +254,71 @@ export default function TourIdPage() {
 💬 Comments: ${comments || "None"}
 `;
 
-      try {
-        await fetch(
-          `https://api.telegram.org/bot7509089585:AAFlUQJVRK3qtgLN4FVWHwEPeahjfv2oFpY/sendMessage`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              chat_id: "-1003082651864",
-              text: message,
-              parse_mode: "Markdown",
-            }),
-          }
-        );
-        alert("✅ Request sent successfully! We will contact you soon.");
-        form.reset();
-      } catch (err) {
-        console.error(err);
-        alert("❌ Failed to send request. Please try again.");
-      }
-    }}
-  >
-    {/* Contact Details */}
-    <div className={styles.sectionTitle}>Contact Details</div>
+                try {
+                  await fetch(
+                    `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage`,
+                    {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        chat_id: "<YOUR_CHAT_ID>",
+                        text: message,
+                        parse_mode: "Markdown",
+                      }),
+                    }
+                  );
+                  alert("✅ Request sent successfully! We will contact you soon.");
+                  form.reset();
+                } catch (err) {
+                  console.error(err);
+                  alert("❌ Failed to send request. Please try again.");
+                }
+              }}
+            >
+              {/* Contact Details */}
+              <div className={styles.sectionTitle}>{t.contactDetails}</div>
 
-    <div className={styles.formRow}>
-      <select required defaultValue="">
-        <option value="" disabled>Title</option>
-        <option value="Mr.">Mr.</option>
-        <option value="Ms.">Ms.</option>
-        <option value="Mrs.">Mrs.</option>
-        <option value="Dr.">Dr.</option>
-      </select>
-      <input type="text" placeholder="First Name" required />
-      <input type="text" placeholder="Last Name" required />
-      <input type="text" placeholder="Citizenship" required />
-    </div>
+              <div className={styles.formRow}>
+  <select required defaultValue="">
+    <option value="" disabled>{t.title}</option>
+    <option value="Mr.">{t.honorifics.mr}</option>
+    <option value="Ms.">{t.honorifics.ms}</option>
+    <option value="Mrs.">{t.honorifics.mrs}</option>
+    <option value="Dr.">{t.honorifics.dr}</option>
+  </select>
+  <input type="text" placeholder={t.firstName} required />
+  <input type="text" placeholder={t.lastName} required />
+  <input type="text" placeholder={t.citizenship} required />
+</div>
 
-    <div className={styles.formRow}>
-      <input type="email" placeholder="E-mail" required />
-      <input type="tel" placeholder="Phone (+code)" required />
-    </div>
+<div className={styles.formRow}>
+  <input type="email" placeholder={t.email} required />
+  <input type="tel" placeholder={t.phone} required />
+</div>
 
-    {/* Travel Info */}
-    <div className={styles.sectionTitle}>Travel Info</div>
-
-    <div className={styles.formRow}>
-      <input type="date" defaultValue="2025-12-09" required />
-      <select required defaultValue="1">
-        <option value="1">1 Traveler</option>
-        <option value="2">2 Travelers</option>
-        <option value="3">3 Travelers</option>
-        <option value="4">4+ Travelers</option>
-      </select>
-    </div>
-
-    <textarea placeholder="Comments and questions" rows="4" />
-
-    <button className={styles.requestBtn} type="submit">
-      Request More Info
-    </button>
-  </form>
-</section>
+<div className={styles.formRow}>
+  <input type="date" required />
+  <select required defaultValue="1">
+    <option value="1">{t.travelers.one}</option>
+    <option value="2">{t.travelers.two}</option>
+    <option value="3">{t.travelers.three}</option>
+    <option value="4">{t.travelers.four}</option>
+  </select>
+</div>
 
 
+              <textarea placeholder={t.comments} rows="4" />
+
+              <button className={styles.requestBtn} type="submit">
+                {t.requestBtn}
+              </button>
+            </form>
+          </section>
 
           {/* Reviews */}
           <section ref={reviewsRef} className={styles.tabContent}>
-            <h2>Reviews</h2>
-            <p>No reviews yet.</p>
+            <h2>{t.reviews}</h2>
+            <p>{t.noReviews}</p>
           </section>
         </div>
 
@@ -311,23 +328,23 @@ export default function TourIdPage() {
           <div className={styles.price}>US${tour.price}</div>
 
           <div className={styles.infoLine}>
-            <span>Days</span>
+            <span>{t.days}</span>
             <span>{days}</span>
           </div>
           <div className={styles.infoLine}>
-            <span>Start</span>
+            <span>{t.start}</span>
             <span>{formatDate(tour.startDate)}</span>
           </div>
           <div className={styles.infoLine}>
-            <span>End</span>
+            <span>{t.end}</span>
             <span>{formatDate(tour.endDate)}</span>
           </div>
           <div className={styles.infoLine}>
-            <span>Seats</span>
+            <span>{t.availableSeats}</span>
             <span>{tour.availableSeats}</span>
           </div>
 
-          <button className={styles.bookBtn}>Book Now</button>
+          <button className={styles.bookBtn}>{t.bookNow}</button>
         </div>
       </div>
     </div>

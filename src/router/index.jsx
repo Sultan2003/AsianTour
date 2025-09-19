@@ -17,7 +17,7 @@ const Router = () => {
         }
       />
       <Route
-        path="/tour/:id"
+        path="/tour/:documentId"
         element={
           <MainLayout>
             <TourIdPage />
