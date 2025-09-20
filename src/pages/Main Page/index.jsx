@@ -92,7 +92,8 @@ export default function MainPage() {
     {
       title: "Hiking",
       description: "Explore trails, mountains, and valleys while staying active and inspired.",
-      image: hikingImg
+      image: hikingImg,
+      link: "/Hiking-Tours"
     },
     {
       title: "MICE and Business Tours",
@@ -233,7 +234,12 @@ export default function MainPage() {
         <div className={styles.sliderContent}>
           <h2>{slides[current].title.toUpperCase()}</h2>
           <p>{slides[current].description}</p>
-          <button className={styles.readMoreBtn}>{t.readMore}</button>
+          <button 
+  className={styles.readMoreBtn} 
+  onClick={() => navigate(slides[current].link)}
+>
+  {t.readMore}
+</button>
         </div>
 
         <button className={`${styles.arrow} ${styles.left}`} onClick={prevSlide}>

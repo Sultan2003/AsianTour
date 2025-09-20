@@ -4,6 +4,7 @@ import TourIdPage from "../pages/Tour Detail";
 import ContactUs from "../pages/ContactUs";
 import MainLayout from "../components/MainLayout";
 import UzbekistanTours from "../pages/Countries/Uzbekistan";
+import HikingTours from "../pages/Tour Types/Hiking";
 
 const Router = () => {
   return (
@@ -37,6 +38,14 @@ const Router = () => {
         element={
           <MainLayout>
             <UzbekistanTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Hiking-Tours"
+        element={
+          <MainLayout>
+            <HikingTours />
           </MainLayout>
         }
       />
