@@ -202,7 +202,7 @@ export default function MainPage() {
                 <div
                   key={tour.id}
                   className={styles.upcomingCard}
-                  onClick={() => navigate(`/tour/${tour.id}`)}
+                  onClick={() => navigate(`/tour/${tour.documentId}`)}
                   style={{ cursor: "pointer" }}
                 >
                   <div className={styles.dateBox}>

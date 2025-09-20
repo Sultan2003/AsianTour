@@ -35,7 +35,7 @@ const headerTranslations = {
     groupPackages: "ГРУППОВЫЕ ПАКЕТЫ",
     cityTours: "Городские туры",
     culturalTours: "Культурные туры",
-    adventureTours: "Приключенческие туры",
+    adventureTours: "Приключенческие",
     summer: "Лето 2025",
     winter: "Зима 2025",
     customGroups: "Индивидуальные группы",
