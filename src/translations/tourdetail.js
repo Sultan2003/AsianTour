@@ -77,10 +77,10 @@ const translations = {
       four: "4+ путешественников"
     },
     honorifics: {
-      mr: "Г-н",
-      ms: "Г-жа",
-      mrs: "Г-жа",
-      dr: "Д-р"
+      mr: "Mr.",
+      ms: "Ms.",
+      mrs: "Mrs.",
+      dr: "Dr."
     }
   },
   uz: {

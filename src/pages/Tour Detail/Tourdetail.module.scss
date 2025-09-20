@@ -83,10 +83,12 @@
   background: #fff;
   border-bottom: 1px solid #e5e9f2;
   display: flex;
-  max-width: 1180px;
+  max-width: 1200px;
   margin: 10px auto -10px;
   gap: 12px;
   padding: 12px;
+
+  
 
   button {
     -webkit-appearance: none;
@@ -515,8 +517,8 @@
   }
 
   .tabsNav button {
-    font-size: 0.8rem;
-    padding: 7px 12px;
+    font-size: 0.7rem;
+    padding: 4px 8px;
   }
 
   .detailsCard {
