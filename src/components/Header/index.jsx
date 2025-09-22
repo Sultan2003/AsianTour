@@ -45,27 +45,59 @@ export default function Header() {
           <li className={styles.dropdown}>
             {t.destinations} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-              <li>Kazakhstan</li>
-              <li>Kyrgyzstan</li>
-              <li>Tajikistan</li>
-              <li>Turkmenistan</li>
-              <li onClick={() => navigate("/Uzbek-Tours")}>Uzbekistan</li>
-            </ul>
-          </li>
-          <li className={styles.dropdown}>
-            {t.privateTours} <span className={styles.arrow}>▼</span>
-            <ul className={styles.dropdownMenu}>
-              <li>{t.cityTours}</li>
-              <li>{t.culturalTours}</li>
-              <li>{t.adventureTours}</li>
+            <li>{t.silkRoadd}</li>
+  <li>{t.centralAsiad}</li>
+  <li >{t.uzbekistand}</li>
+        <li >{t.kazakhstand}</li>
+        <li >{t.kyrgyzstand}</li>
+        <li >{t.tajikistand}</li>
+        <li >{t.turkmenistand}</li>
+        <li>{t.caucasusd}</li>
+        <li>{t.armeniad}</li>
+        <li>{t.azerbaijand}</li>
+        <li>{t.georgiad}</li>
+              
             </ul>
           </li>
           <li className={styles.dropdown}>
             {t.groupPackages} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-              <li>{t.summer}</li>
-              <li>{t.winter}</li>
-              <li>{t.customGroups}</li>
+              <li>{t.silkRoad}</li>
+  <li>{t.centralAsia}</li>
+  <li onClick={() => navigate("/Uzbek-Tours")}>{t.uzbekistan}</li>
+        <li onClick={() => navigate("/Kazakh-Tours")}>{t.kazakhstan}</li>
+        <li onClick={() => navigate("/Kyrgyz-Tours")}>{t.kyrgyzstan}</li>
+        <li onClick={() => navigate("/Tajik-Tours")}>{t.tajikistan}</li>
+        <li onClick={() => navigate("/Turkmen-Tours")}>{t.turkmenistan}</li>
+  <li>{t.caucasus}</li>
+       <li onClick={() => navigate("/Armenia-Tours")}>{t.armenia}</li>
+        <li onClick={() => navigate("/Azerbaijan-Tours")}>{t.azerbaijan}</li>
+        <li onClick={() => navigate("/Georgia-Tours")}>{t.georgia}</li>
+            </ul>
+          </li>
+          <li className={styles.dropdown}>
+            {t.privateTours} <span className={styles.arrow}>▼</span>
+            <ul className={styles.dropdownMenu}>
+              <li>{t.tailor}</li>
+              <li>{t.silkRoad}</li>
+  <li>{t.centralAsia}</li>
+  <li >{t.uzbekistan}</li>
+        <li >{t.kazakhstan}</li>
+        <li >{t.kyrgyzstan}</li>
+        <li >{t.tajikistan}</li>
+        <li >{t.turkmenistan}</li>
+        <li>{t.caucasus}</li>
+        <li>{t.armenia}</li>
+        <li>{t.azerbaijan}</li>
+        <li>{t.georgia}</li>
+            </ul>
+          </li>
+          <li className={styles.dropdown}>
+            {t.services} <span className={styles.arrow}>▼</span>
+            <ul className={styles.dropdownMenu}>
+              <li>{t.transfer}</li>
+              <li>{t.hotelbooking}</li>
+              <li>{t.guideservice}</li>
             </ul>
           </li>
         </ul>

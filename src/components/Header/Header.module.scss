@@ -1,6 +1,7 @@
 .header {
   font-family: Arial, sans-serif;
-
+  background : url("../../assets/background/background.jpg");
+     background-repeat: repeat;
 
 /* 🔹 Top Bar */
 .topBar {
@@ -138,14 +139,13 @@
   list-style: none;
   display: flex;
   min-width: 600px;
-  justify-content: space-between;
+  
   margin: 0;
   padding: 0;
-  margin-left: calc((100% - 1000px) / 2);
+  margin-left: calc((100% - 1150px) / 2);
   min-width: auto;
   flex-wrap: wrap;
-  gap: 30px;
- 
+
 
     @media (max-width: 768px) {
     margin-left: 0;
@@ -172,8 +172,8 @@
     cursor: pointer;
     white-space: nowrap;
     padding: 8px 12px;
-
-
+    justify-content: center;
+    width: 210px;
     .arrow {
       font-size: 10px;
       margin-left: 1px;
@@ -188,7 +188,6 @@
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
     background: white;
     color: black;
     width: 100%;
@@ -196,6 +195,7 @@
     z-index: 1000;
     padding: 3px 0;
     list-style: none;
+    left: 0;
 
     li {
       padding: 8px 15px;
@@ -215,7 +215,7 @@
 
   .searchBox {
   position: relative;
-  min-width: 350px;
+  min-width: 300px;
   margin-right: calc((100% - 1200px) / 2);
 
   @media (max-width: 768px) {
@@ -255,7 +255,7 @@
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 15px;
-    width: 350px;
+    width: 300px;
     z-index: 2000;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 
