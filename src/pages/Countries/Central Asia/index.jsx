@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom"; 
-import styles from "./CentralAsia.module.scss";
+import styles from "./centralasia.module.scss";
 import mainImg from "../../../assets/Countries/centralasia.webp";
 
 export default function CentralAsiaTours() {
