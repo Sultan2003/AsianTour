@@ -5,6 +5,8 @@ import ContactUs from "../pages/ContactUs";
 import MainLayout from "../components/MainLayout";
 import UzbekistanTours from "../pages/Countries/Uzbekistan";
 import HikingTours from "../pages/Tour Types/Hiking";
+import KazakhstanTours from "../pages/Countries/Kazakhstan";
+import KyrgyzstanTours from "../pages/Countries/Kyrgyzstan";
 
 const Router = () => {
   return (
@@ -38,6 +40,22 @@ const Router = () => {
         element={
           <MainLayout>
             <UzbekistanTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Kazakh-Tours"
+        element={
+          <MainLayout>
+            <KazakhstanTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Kyrgyz-Tours"
+        element={
+          <MainLayout>
+            <KyrgyzstanTours />
           </MainLayout>
         }
       />

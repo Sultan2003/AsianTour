@@ -1,18 +1,17 @@
 import { useEffect, useState, useContext } from "react";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom"; 
-import styles from "./Uzbekistan.module.scss";
-import mainImg from "../../../assets/Countries/uzb-registan.jpg";
+import styles from "./Kyrgyzstan.module.scss";
+import mainImg from "../../../assets/Countries/kyrgyzstan.jpg";
 
-export default function UzbekistanTours() {
+export default function KyrgyzstanTours() {
   const { lang: strapiLocale } = useContext(LanguageContext);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 
   useEffect(() => {
-
     fetch(
-      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=Uzbekistan`
+      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=Kyrgyzstan`
     )
       .then((res) => res.json())
       .then((data) => setTours(data.data || []))
@@ -20,10 +19,10 @@ export default function UzbekistanTours() {
   }, [strapiLocale]);
 
   const destinations = [
-    "Tashkent","Samarkand","Bukhara","Khiva","Andijan","Aral Sea","Baysun","Beldersay",
-    "Charvak","Chimgan","Fergana","Jizzakh","Karakalpakstan","Karshi","Kokand","Kuva",
-    "Margilan","Muynak","Namangan","Navoi","Nukus","Nurata","Rishtan","Sarmish-say Petroglyphs",
-    "Shakhimardan","Shakhrisabz","Termez","Urgench","Ustyurt Plateau","Yangiabad"
+    "Bishkek","Osh","Karakol","Tokmok","Cholpon-Ata","Naryn","Talas","Batken",
+    "Osh Bazaar","Burana Tower","Song-Kul Lake","Issyk-Kul Lake","Ala-Archa Gorge",
+    "Arslanbob","Sary-Chelek","Tash-Rabat Caravanserai","Sulaiman-Too Sacred Mountain",
+    "Aksu-Zhabagly","Kel-Suu Lake"
   ];
 
   return (
@@ -33,7 +32,7 @@ export default function UzbekistanTours() {
           <div className={styles.tours}>
             {/* ✅ Main Image (static import) */}
             <div className={styles.mainImage}>
-              <img src={mainImg} alt="Uzbekistan" />
+              <img src={mainImg} alt="Kyrgyzstan" />
             </div>
 
             <h2>Upcoming Group Departures</h2>
@@ -48,8 +47,12 @@ export default function UzbekistanTours() {
               const statusText = tour.status1 ? "Available" : "Unavailable";
 
               return (
-                <div key={tour.id} className={styles.tourCard} onClick={() => navigate(`/tour/${tour.documentId}`)} 
-              style={{ cursor: "pointer" }}>
+                <div
+                  key={tour.id}
+                  className={styles.tourCard}
+                  onClick={() => navigate(`/tour/${tour.documentId}`)}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className={styles.dateBox}>
                     {new Date(tour.startDate).toLocaleDateString()}
                   </div>
@@ -82,12 +85,9 @@ export default function UzbekistanTours() {
             })}
 
             <p className={styles.description}>
-              Visit Uzbekistan and discover stunning medieval cities with tall
-              minarets reaching into the sky. See local pilgrims in bright,
-              colorful robes and experience the lively atmosphere of bustling
-              bazaars filled with rich aromas and friendly voices. A trip to
-              Uzbekistan is both exciting and welcoming, offering a mix of
-              adventure and comfort.
+              Discover Kyrgyzstan, a land of majestic mountains and rich nomadic traditions. 
+              From the turquoise waters of Issyk-Kul Lake to the dramatic Ala-Archa Gorge, 
+              Kyrgyzstan offers unforgettable adventures for those seeking both culture and nature.
             </p>
           </div>
 
