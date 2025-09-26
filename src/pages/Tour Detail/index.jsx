@@ -199,27 +199,28 @@ export default function TourIdPage() {
           </section>
 
           {/* Prices */}
-          <section ref={pricesRef} className={styles.tabContent}>
-            <h2>{t.datesPrices}</h2>
-            <ul className={styles.priceList}>
-              <li>
-                <span>{t.startDate}</span>
-                <strong>{formatDate(tour.startDate)}</strong>
-              </li>
-              <li>
-                <span>{t.endDate}</span>
-                <strong>{formatDate(tour.endDate)}</strong>
-              </li>
-              <li className={styles.priceRow}>
-                <span>{t.price}</span>
-                <strong>US${tour.price}</strong>
-              </li>
-              <li>
-                <span>{t.seats}</span>
-                <strong>{tour.availableSeats}</strong>
-              </li>
-            </ul>
-          </section>
+<section ref={pricesRef} className={styles.tabContent}>
+  <h2>{t.datesPrices}</h2>
+  <div className={styles.pricesBox}>
+    <div className={styles.priceItem}>
+      <span>{t.startDate}</span>
+      <strong>{formatDate(tour.startDate)}</strong>
+    </div>
+    <div className={styles.priceItem}>
+      <span>{t.endDate}</span>
+      <strong>{formatDate(tour.endDate)}</strong>
+    </div>
+    <div className={`${styles.priceItem} ${styles.highlight}`}>
+      <span>{t.price}</span>
+      <strong>US${tour.price}</strong>
+    </div>
+    <div className={styles.priceItem}>
+      <span>{t.seats}</span>
+      <strong>{tour.availableSeats}</strong>
+    </div>
+  </div>
+</section>
+
 
           {/* Request */}
           <section ref={requestRef} className={styles.tabContent}>

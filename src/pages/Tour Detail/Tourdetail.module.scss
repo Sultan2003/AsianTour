@@ -351,6 +351,66 @@
   }
 }
 
+/* ==== Prices Section ==== */
+.pricesBox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.priceItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #f9fbff;
+  border: 1px solid #e8ecf5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  span {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+
+  strong {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0a1a44;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(10, 26, 68, 0.08);
+  }
+}
+
+.priceItem.highlight {
+  background: #eef4ff;
+  border-color: #cfd6e6;
+
+  strong {
+    font-size: 18px;
+    color: #0b1670;
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .pricesBox {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .priceItem strong {
+    font-size: 15px;
+  }
+}
+
+
 /* ============== REQUEST FORM ============== */
 .enquiryForm {
   display: grid;

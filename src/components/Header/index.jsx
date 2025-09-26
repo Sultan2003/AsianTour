@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/Logo.png";
 import { useState, useContext } from "react";
 import { LanguageContext } from "../../context/LanguageContext"
 import headerTranslations from "../../translations/header";
@@ -62,14 +62,14 @@ export default function Header() {
           <li className={styles.dropdown}>
             {t.groupPackages} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-              <li>{t.silkRoad}</li>
-  <li>{t.centralAsia}</li>
+              <li onClick={() => navigate("/Silk-Road-Tours")}>{t.silkRoad}</li>
+  <li onClick={() => navigate("/Central-Asia-Tours")}>{t.centralAsia}</li>
   <li onClick={() => navigate("/Uzbek-Tours")}>{t.uzbekistan}</li>
         <li onClick={() => navigate("/Kazakh-Tours")}>{t.kazakhstan}</li>
         <li onClick={() => navigate("/Kyrgyz-Tours")}>{t.kyrgyzstan}</li>
         <li onClick={() => navigate("/Tajik-Tours")}>{t.tajikistan}</li>
         <li onClick={() => navigate("/Turkmen-Tours")}>{t.turkmenistan}</li>
-  <li>{t.caucasus}</li>
+  <li onClick={() => navigate("/Caucas-Tours")}>{t.caucasus}</li>
        <li onClick={() => navigate("/Armenia-Tours")}>{t.armenia}</li>
         <li onClick={() => navigate("/Azerbaijan-Tours")}>{t.azerbaijan}</li>
         <li onClick={() => navigate("/Georgia-Tours")}>{t.georgia}</li>

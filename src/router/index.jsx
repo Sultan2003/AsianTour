@@ -7,6 +7,11 @@ import UzbekistanTours from "../pages/Countries/Uzbekistan";
 import HikingTours from "../pages/Tour Types/Hiking";
 import KazakhstanTours from "../pages/Countries/Kazakhstan";
 import KyrgyzstanTours from "../pages/Countries/Kyrgyzstan";
+import TajikistanTours from "../pages/Countries/Tadjikistan";
+import TurkmenistanTours from "../pages/Countries/Turkmenistan";
+import CaucasusTours from "../pages/Countries/Caucasus";
+import CentralAsiaTours from "../pages/Countries/Central Asia";
+import SilkRoadTours from "../pages/Countries/Silk Road";
 
 const Router = () => {
   return (
@@ -56,6 +61,46 @@ const Router = () => {
         element={
           <MainLayout>
             <KyrgyzstanTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Tajik-Tours"
+        element={
+          <MainLayout>
+            <TajikistanTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Turkmen-Tours"
+        element={
+          <MainLayout>
+            <TurkmenistanTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Central-Asia-Tours"
+        element={
+          <MainLayout>
+            <CentralAsiaTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Silk-Road-Tours"
+        element={
+          <MainLayout>
+            <SilkRoadTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Caucas-Tours"
+        element={
+          <MainLayout>
+            <CaucasusTours />
           </MainLayout>
         }
       />

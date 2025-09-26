@@ -1,10 +1,10 @@
 .header {
   font-family: Arial, sans-serif;
   background : url("../../assets/background/background.jpg");
-     background-repeat: repeat;
+  background-repeat: repeat;
 
-/* 🔹 Top Bar */
 .topBar {
+
   background: #9bc8a4;
   display: flex;
   flex-wrap: wrap;
@@ -15,26 +15,26 @@
   gap: 10px;
 
   @media (max-width: 768px) {
-     font-size: 12x;
+    font-size: 12x;
     padding-left: 0;
     padding-right: 0;
   }
-  @media (max-width: 480px) {
-     font-size: 12px;
 
+  @media (max-width: 480px) {
+    font-size: 12px;
     padding-left: 0;
     padding-right: 5px;
   }
 
   .topLinks{
-    margin-left: calc((100% - 1220px) / 2);
-    @media (max-width: 768px) {
+    margin-left: calc((100% - 1180px) / 2);
+
+  @media (max-width: 768px) {
     margin-left: 0;
-   
   }
+
   @media (max-width: 480px) {
     margin-left: 0;
-  
   }
  
   a {
@@ -46,41 +46,43 @@
 }
 
   .languages{
-     margin-right: calc((100% - 1200px) / 2);
 
-     margin-left: calc((100% - 1250px) / 2);
-    @media (max-width: 768px) {
+  margin-right: calc((100% - 1200px) / 2);
+  margin-left: calc((100% - 1250px) / 2);
+
+  @media (max-width: 768px) {
     margin-right: 0;
-   
+
   }
   @media (max-width: 480px) {
     margin-right: 0;
-  
+
   }
+
     a {
     color: white;
     margin-left: 10px;
     text-decoration: none;
     white-space: nowrap;
-  }
+    }
   }
 }
 
 /* 🔹 Logo + Banner */
-.logoBanner {
-  margin-left: calc((100% - 1250px) / 2);
-  margin-right: calc((100% - 1200px) / 2);
+  .logoBanner {
+    margin-left: calc((100% - 1150px) / 2);
+    margin-right: calc((100% - 1200px) / 2);
 
     @media (max-width: 768px) {
     margin-left: 0;
     margin-right: 10px;
-   
   }
+
   @media (max-width: 480px) {
     margin-left: 0;
     margin-right: 10px;
-  
   }
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -89,7 +91,8 @@
   gap: 15px;
 
   .logo {
-    height: 60px;
+    height: 70px;
+    width: 150px;
     flex-shrink: 0;
   }
 
