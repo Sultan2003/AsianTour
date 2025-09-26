@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
-import logo from "../../assets/images/Logo.png";
+import logo from "../../assets/background/Logo.png";
 import { useState, useContext } from "react";
 import { LanguageContext } from "../../context/LanguageContext"
 import headerTranslations from "../../translations/header";
