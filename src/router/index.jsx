@@ -12,6 +12,14 @@ import TurkmenistanTours from "../pages/Countries/Turkmenistan";
 import CaucasusTours from "../pages/Countries/Caucasus";
 import CentralAsiaTours from "../pages/Countries/Central Asia";
 import SilkRoadTours from "../pages/Countries/Silk Road";
+import UzbekistanToursDestinations from "../pages/Countries copy/Uzbekistan";
+import KazakhstanToursDestinations from "../pages/Countries copy/Kazakhstan";
+import KyrgyzstanToursDestinations from "../pages/Countries copy/Kyrgyzstan";
+import TajikistanToursDestinations from "../pages/Countries copy/Tadjikistan";
+import TurkmenistanToursDestinations from "../pages/Countries copy/Turkmenistan";
+import CentralAsiaToursDestinations from "../pages/Countries copy/Central Asia";
+import SilkRoadToursDestinations from "../pages/Countries copy/Silk Road";
+import CaucasusToursDestinations from "../pages/Countries copy/Caucasus";
 
 const Router = () => {
   return (
@@ -101,6 +109,70 @@ const Router = () => {
         element={
           <MainLayout>
             <CaucasusTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Uzbekistan"
+        element={
+          <MainLayout>
+            <UzbekistanToursDestinations />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Kazakhstan"
+        element={
+          <MainLayout>
+            <KazakhstanToursDestinations />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Kyrgyzstan"
+        element={
+          <MainLayout>
+            <KyrgyzstanToursDestinations />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Tajikistan"
+        element={
+          <MainLayout>
+            <TajikistanToursDestinations />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Turkmenistan"
+        element={
+          <MainLayout>
+            <TurkmenistanToursDestinations />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Central-Asia"
+        element={
+          <MainLayout>
+            <CentralAsiaToursDestinations />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Silk-Road"
+        element={
+          <MainLayout>
+            <SilkRoadToursDestinations />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Caucasus"
+        element={
+          <MainLayout>
+            <CaucasusToursDestinations />
           </MainLayout>
         }
       />

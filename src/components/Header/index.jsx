@@ -45,17 +45,17 @@ export default function Header() {
           <li className={styles.dropdown}>
             {t.destinations} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-            <li>{t.silkRoadd}</li>
-  <li>{t.centralAsiad}</li>
-  <li >{t.uzbekistand}</li>
-        <li >{t.kazakhstand}</li>
-        <li >{t.kyrgyzstand}</li>
-        <li >{t.tajikistand}</li>
-        <li >{t.turkmenistand}</li>
-        <li>{t.caucasusd}</li>
-        <li>{t.armeniad}</li>
-        <li>{t.azerbaijand}</li>
-        <li>{t.georgiad}</li>
+            <li onClick={() => navigate("/Silk-Road")}>{t.silkRoadd}</li>
+  <li onClick={() => navigate("/Central-Asia")}>{t.centralAsiad}</li>
+  <li onClick={() => navigate("/Uzbekistan")}>{t.uzbekistand}</li>
+        <li onClick={() => navigate("/Kazakhstan")}>{t.kazakhstand}</li>
+        <li onClick={() => navigate("/Kyrgyzstan")}>{t.kyrgyzstand}</li>
+        <li onClick={() => navigate("/Tajikistan")}>{t.tajikistand}</li>
+        <li onClick={() => navigate("/Turkmenistan")}>{t.turkmenistand}</li>
+        <li onClick={() => navigate("/Caucasus")}>{t.caucasusd}</li>
+        <li onClick={() => navigate("/Armenia")}>{t.armeniad}</li>
+        <li onClick={() => navigate("/Azerbaijan")}>{t.azerbaijand}</li>
+        <li onClick={() => navigate("/Georgia")}>{t.georgiad}</li>
               
             </ul>
           </li>
