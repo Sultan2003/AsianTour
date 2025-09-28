@@ -19,8 +19,6 @@ const footerTranslations = {
     sustainabilityPolicy: "Sustainability Policy",
     partnership: "Partnership",
     contacts: "Contacts",
-    copyright: "Copyright © 2001 — 2025 Advantour",
-    rights: "All rights reserved",
   },
   ru: {
     travelDestinations: "Туристические направления",
@@ -42,8 +40,6 @@ const footerTranslations = {
     sustainabilityPolicy: "Политика устойчивого развития",
     partnership: "Партнёрство",
     contacts: "Контакты",
-    copyright: "Авторское право © 2001 — 2025 Advantour",
-    rights: "Все права защищены",
   },
 };
 

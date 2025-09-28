@@ -10,9 +10,7 @@ export default function UzbekistanTours() {
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 
-  const countries = [
-    { slug: "uzbekistan", name: "Uzbekistan" },
-  ];
+  const countries = [{ slug: "uzbekistan", name: "Uzbekistan" }];
 
   useEffect(() => {
     fetch(
@@ -24,70 +22,103 @@ export default function UzbekistanTours() {
   }, [strapiLocale]);
 
   const destinations = [
-    "Tashkent","Samarkand","Bukhara","Khiva","Andijan","Aral Sea","Baysun","Beldersay",
-    "Charvak","Chimgan","Fergana","Jizzakh","Karakalpakstan","Karshi","Kokand","Kuva",
-    "Margilan","Muynak","Namangan","Navoi","Nukus","Nurata","Rishtan","Sarmish-say Petroglyphs",
-    "Shakhimardan","Shakhrisabz","Termez","Urgench","Ustyurt Plateau","Yangiabad"
+    "Tashkent",
+    "Samarkand",
+    "Bukhara",
+    "Khiva",
+    "Andijan",
+    "Aral Sea",
+    "Baysun",
+    "Beldersay",
+    "Charvak",
+    "Chimgan",
+    "Fergana",
+    "Jizzakh",
+    "Karakalpakstan",
+    "Karshi",
+    "Kokand",
+    "Kuva",
+    "Margilan",
+    "Muynak",
+    "Namangan",
+    "Navoi",
+    "Nukus",
+    "Nurata",
+    "Rishtan",
+    "Sarmish-say Petroglyphs",
+    "Shakhimardan",
+    "Shakhrisabz",
+    "Termez",
+    "Urgench",
+    "Ustyurt Plateau",
+    "Yangiabad",
   ];
 
   const notes = [
-    "Travel safety matters","Visa and registration matters","Best time to visit","Language","Cuisine",
-    "Clothing and weather","Customs regulations","Payment issues","Mobile phone and Internet","How to get around (local transport)"
+    "Travel safety matters",
+    "Visa and registration matters",
+    "Best time to visit",
+    "Language",
+    "Cuisine",
+    "Clothing and weather",
+    "Customs regulations",
+    "Payment issues",
+    "Mobile phone and Internet",
+    "How to get around (local transport)",
   ];
 
   const noteTexts = [
-  {
-    id: "note1",
-    title: notes[0],
-    text: `According to international Numbeo ranking agency, Uzbekistan making progress in public safety matters year by year, representing itself as the safest country in the region. In 2025, countries safety index was 73.4 which puts it ahead of countries like Switzerland (73.3), South Korea (73.1) or Austria (71.7). In historic sights you will be able to see Tourist Police officers patrolling arias most visited by international travelers or city guests often offering help. There is no violent crime or robbery. Public Police cars are on constant duty keeping steers and districts safe. Local people are quite gentle and helpful towards guests and willing to offer any kind of help or support. You do not need to get worried about awkwardness of situations, people are open and welcoming with open hearts. Overall, you will get impression of genuine safety.`,
-  },
-  {
-    id: "note2",
-    title: notes[1],
-    text: `Uzbekistan has a free visa policy towards most of countries. Foreign citizen can visit Uzbekistan for personal, official, tourist, vacation, study and medical treatment purposes. All needed is valid national passport with a validity more than 6 months from the date of entry. There are nationalities with unlimited visa free regime. Citizens from Azerbaijan, Georgia, Armenia, Belarus, Kazakhstan, Moldova, Russia and Ukraine are granted with unlimited visa free regime. Citizen of EU and countries like Canada, Israil, UK, Japan, Australia and many more can travel visa free up to 30 days. Also, citizen of almost 60 countries, including the USA, China, South Africa, India, Iran and others can obtain simplified electronic visa (e-visa) up to 30 days. The processing time for a visa application is 2 working days and can be sent to traveler by e-mail. The cost of a single time e-visa is 20 USD. Registration matter should be looked at, as all foreign citizen traveling to Uzbekistan will need to get registration at the place for residence within 3 days from the date of arrival. Almost all hotels and hostels will make registration on guest arrival and will provide you with confirmation at your request.`,
-  },
-  {
-    id: "note3",
-    title: notes[2],
-    text: `It would be wrong to say that you can travel to Uzbekistan all year along. Surely, in summer, when outside temperature hits about 40 degrees Celsius or even more, stay under burning sun would not be a good idea. Also, winters, can make surprises, with its snowfall and cold wet wind, will make your stay less pleasant. The best time to visit would be spring or autumn months, when average temperature will be from 15-20 degrees Celsius to 25-30 degrees Celsius. This is when you will get the most out of your trip. However, it would be fair to say that, travelers do visit Uzbekistan in summers and winters, despite the weather difficulties, planning most of the travel sights to be indoors.`,
-  },
-  {
-    id: "note4",
-    title: notes[3],
-    text: `The official state language of Uzbekistan is Uzbek, and majority of the people speak Uzbek language. But, Russian can be used as language of communication as almost all local people can speak Russian too. Tadjik language can be met, as local, in Samarkand and Bukhara. English is used everywhere as a first language to communicate with foreigners and guests.`,
-  },
-  {
-    id: "note5",
-    title: notes[4],
-    text: `It is quite extraordinary when it comes to local cuisine, as at any nation daily food and all what comes with it represents nation culture and echoes to its history. Uzbek cuisine is no exception. For centuries local people have developed its own food culture and still keep them as national heritage. The most well-known Uzbek dish is Uzbek plov. It is recognized not only in the region but by far beyond its borders. Local restaurants are rich in offerings. In the menu you will find all sorts of dishes, start from local to dishes from Europe and Asia, Middle East and America. Street Fast food is also present as an option.`,
-  },
-  {
-    id: "note6",
-    title: notes[5],
-    text: `For clothing, it is recommended to choose comfortable casual wearing’s to feel yourself normal for temperatures up to 25-30 degrees Celsius. Shoes must be comfortable as plenty of walking are meant to be done. Hats and sunglasses are also recommended. It is worth mentioning that travelers are ask to keep certain rules while visiting certain sights, in general it is related to Islamic tradition. Clothing should cover arms and legs, women might need a scarf to cover their heads. Average temperature may vary from 15-20 degrees Celsius during the day to 10-15 degrees Celsius at night in spring. Autumn may be a little warmer than spring but light showers and windy days might ketch you any day.`,
-  },
-  {
-    id: "note7",
-    title: notes[6],
-    text: `Customs regulations are not complex and almost the same as in EU or Asia countries. For travelers who have no medicine to declare and have less than 10 thousand USD in cash (or equivalent in another currency), “green corridor” applicable and they do not need to fill customs declaration. In cases when travelers have particular medical prescriptions and have to bring their medicine with them, these have to be mentioned in customs declaration. Also amounts in cash more than 10 thousand USD in cash (or equivalent in another currency) have to be mentioned in declaration.`,
-  },
-  {
-    id: "note8",
-    title: notes[7],
-    text: `Credit or Debit card with VISA or Marter card is widely used in big cities like Tashkent, Samarkand or Bukhara. Especially for payment in hotels, supermarkets or shops. All these cards are excepted unless if the traveler from the country which is under international sanctions. However, it is recommended to have small amount of cash on so it might cover small purchases at gift shops or caffes. At gifts shops, foreign currencies like USD or EURO are welcomed, but for purchases from general public places local currency to be excepted only. Foreign currencies can be exchanged in any branch of local banks.`,
-  },
-  {
-    id: "note9",
-    title: notes[8],
-    text: `Mobile phone and Internet.`,
-  },
-  {
-    id: "note10",
-    title: notes[9],
-    text: `How to get around (local transport).`,
-  },
-];
-
+    {
+      id: "note1",
+      title: notes[0],
+      text: `According to international Numbeo ranking agency, Uzbekistan making progress in public safety matters year by year, representing itself as the safest country in the region. In 2025, countries safety index was 73.4 which puts it ahead of countries like Switzerland (73.3), South Korea (73.1) or Austria (71.7). In historic sights you will be able to see Tourist Police officers patrolling arias most visited by international travelers or city guests often offering help. There is no violent crime or robbery. Public Police cars are on constant duty keeping steers and districts safe. Local people are quite gentle and helpful towards guests and willing to offer any kind of help or support. You do not need to get worried about awkwardness of situations, people are open and welcoming with open hearts. Overall, you will get impression of genuine safety.`,
+    },
+    {
+      id: "note2",
+      title: notes[1],
+      text: `Uzbekistan has a free visa policy towards most of countries. Foreign citizen can visit Uzbekistan for personal, official, tourist, vacation, study and medical treatment purposes. All needed is valid national passport with a validity more than 6 months from the date of entry. There are nationalities with unlimited visa free regime. Citizens from Azerbaijan, Georgia, Armenia, Belarus, Kazakhstan, Moldova, Russia and Ukraine are granted with unlimited visa free regime. Citizen of EU and countries like Canada, Israil, UK, Japan, Australia and many more can travel visa free up to 30 days. Also, citizen of almost 60 countries, including the USA, China, South Africa, India, Iran and others can obtain simplified electronic visa (e-visa) up to 30 days. The processing time for a visa application is 2 working days and can be sent to traveler by e-mail. The cost of a single time e-visa is 20 USD. Registration matter should be looked at, as all foreign citizen traveling to Uzbekistan will need to get registration at the place for residence within 3 days from the date of arrival. Almost all hotels and hostels will make registration on guest arrival and will provide you with confirmation at your request.`,
+    },
+    {
+      id: "note3",
+      title: notes[2],
+      text: `It would be wrong to say that you can travel to Uzbekistan all year along. Surely, in summer, when outside temperature hits about 40 degrees Celsius or even more, stay under burning sun would not be a good idea. Also, winters, can make surprises, with its snowfall and cold wet wind, will make your stay less pleasant. The best time to visit would be spring or autumn months, when average temperature will be from 15-20 degrees Celsius to 25-30 degrees Celsius. This is when you will get the most out of your trip. However, it would be fair to say that, travelers do visit Uzbekistan in summers and winters, despite the weather difficulties, planning most of the travel sights to be indoors.`,
+    },
+    {
+      id: "note4",
+      title: notes[3],
+      text: `The official state language of Uzbekistan is Uzbek, and majority of the people speak Uzbek language. But, Russian can be used as language of communication as almost all local people can speak Russian too. Tadjik language can be met, as local, in Samarkand and Bukhara. English is used everywhere as a first language to communicate with foreigners and guests.`,
+    },
+    {
+      id: "note5",
+      title: notes[4],
+      text: `It is quite extraordinary when it comes to local cuisine, as at any nation daily food and all what comes with it represents nation culture and echoes to its history. Uzbek cuisine is no exception. For centuries local people have developed its own food culture and still keep them as national heritage. The most well-known Uzbek dish is Uzbek plov. It is recognized not only in the region but by far beyond its borders. Local restaurants are rich in offerings. In the menu you will find all sorts of dishes, start from local to dishes from Europe and Asia, Middle East and America. Street Fast food is also present as an option.`,
+    },
+    {
+      id: "note6",
+      title: notes[5],
+      text: `For clothing, it is recommended to choose comfortable casual wearing’s to feel yourself normal for temperatures up to 25-30 degrees Celsius. Shoes must be comfortable as plenty of walking are meant to be done. Hats and sunglasses are also recommended. It is worth mentioning that travelers are ask to keep certain rules while visiting certain sights, in general it is related to Islamic tradition. Clothing should cover arms and legs, women might need a scarf to cover their heads. Average temperature may vary from 15-20 degrees Celsius during the day to 10-15 degrees Celsius at night in spring. Autumn may be a little warmer than spring but light showers and windy days might ketch you any day.`,
+    },
+    {
+      id: "note7",
+      title: notes[6],
+      text: `Customs regulations are not complex and almost the same as in EU or Asia countries. For travelers who have no medicine to declare and have less than 10 thousand USD in cash (or equivalent in another currency), “green corridor” applicable and they do not need to fill customs declaration. In cases when travelers have particular medical prescriptions and have to bring their medicine with them, these have to be mentioned in customs declaration. Also amounts in cash more than 10 thousand USD in cash (or equivalent in another currency) have to be mentioned in declaration.`,
+    },
+    {
+      id: "note8",
+      title: notes[7],
+      text: `Credit or Debit card with VISA or Marter card is widely used in big cities like Tashkent, Samarkand or Bukhara. Especially for payment in hotels, supermarkets or shops. All these cards are excepted unless if the traveler from the country which is under international sanctions. However, it is recommended to have small amount of cash on so it might cover small purchases at gift shops or caffes. At gifts shops, foreign currencies like USD or EURO are welcomed, but for purchases from general public places local currency to be excepted only. Foreign currencies can be exchanged in any branch of local banks.`,
+    },
+    {
+      id: "note9",
+      title: notes[8],
+      text: `Mobile phone and Internet.`,
+    },
+    {
+      id: "note10",
+      title: notes[9],
+      text: `How to get around (local transport).`,
+    },
+  ];
 
   return (
     <div className={styles.wrapper}>
@@ -103,10 +134,21 @@ export default function UzbekistanTours() {
             <section className={styles.visitSection}>
               <h2>Visit Uzbekistan</h2>
               <p>
-                Uzbekistan is a must-see destination on The Silk Road or among Central Asia countries. As it was in the past throw out its long history, so it is now, Uzbekistan represents a core traditions and culture of nationalities who have been settling in this part of the world. Centuries old cities, unique culture, kind local people and unseen atmosphere will make your trip unforgettable. 
-For thousands of years, by being on the heart of The Silk Road and making trade, hosting and welcoming main world religions in their lives, local people have developed their own captivating culture and traditions. All these you are able to see on the built architectures, feel in the mosques and palaces and evaluate in technologies and scientistic discoveries of ancient times. 
-Gotocentralasia.com provides the opportunity for travelers from all around the world to immerse in the atmosphere of ancient adventure, uzbek hospitality and traditions.   
-
+                Uzbekistan is a must-see destination on The Silk Road or among
+                Central Asia countries. As it was in the past throw out its long
+                history, so it is now, Uzbekistan represents a core traditions
+                and culture of nationalities who have been settling in this part
+                of the world. Centuries old cities, unique culture, kind local
+                people and unseen atmosphere will make your trip unforgettable.
+                For thousands of years, by being on the heart of The Silk Road
+                and making trade, hosting and welcoming main world religions in
+                their lives, local people have developed their own captivating
+                culture and traditions. All these you are able to see on the
+                built architectures, feel in the mosques and palaces and
+                evaluate in technologies and scientistic discoveries of ancient
+                times. Gotocentralasia.com provides the opportunity for
+                travelers from all around the world to immerse in the atmosphere
+                of ancient adventure, uzbek hospitality and traditions.
               </p>
             </section>
 
@@ -191,78 +233,135 @@ Gotocentralasia.com provides the opportunity for travelers from all around the w
               </section>
             ))}
 
-
             <div className={styles.weatherSection}>
-  {countries.map((c) => (
-    <Link key={c.slug} to={`/weather/${c.slug}`} className={styles.weatherLink}>
-      <p>{c.name} Weather</p>
-    </Link>
-  ))}
-</div>
+              {countries.map((c) => (
+                <Link
+                  key={c.slug}
+                  to={`/weather/${c.slug}`}
+                  className={styles.weatherLink}
+                >
+                  {c.name} Weather
+                </Link>
+              ))}
+            </div>
 
-{/* ✅ Dos and Don’ts Section */}
-<section className={styles.dosDonts}>
-  <h3>Dos and Don’ts in Uzbekistan</h3>
-  <div className={styles.dosDontsWrapper}>
-    <div className={styles.do}>
-      <h4>Do:</h4>
-      <ul>
-        <li>Take off your shoes before walking into a mosque or home</li>
-        <li>Show respect for those older than you by giving them the right of way and best seats</li>
-        <li>Bring a gift if joining a local family for a meal or overnight stay</li>
-        <li>Confirm prices with taxi drivers before getting in</li>
-        <li>Watch your step, as roads may be uneven</li>
-      </ul>
-    </div>
-    <div className={styles.dont}>
-      <h4>Don’t:</h4>
-      <ul>
-        <li>Leave bread on the ground or place it upside down</li>
-        <li>Blow your nose loudly in public</li>
-        <li>Talk very loudly in public, especially near religious sites</li>
-        <li>Accept an offer to stay in someone’s home unless they insist several times</li>
-        <li>Hesitate to ask for help or interact with locals</li>
-      </ul>
-    </div>
-  </div>
-</section>
+            {/* ✅ Dos and Don’ts Section */}
+            <section className={styles.dosDonts}>
+              <h3>Dos and Don’ts in Uzbekistan</h3>
+              <div className={styles.dosDontsWrapper}>
+                <div className={styles.do}>
+                  <h4>Do:</h4>
+                  <ul>
+                    <li>
+                      Take off your shoes before walking into a mosque or home
+                    </li>
+                    <li>
+                      Show respect for those older than you by giving them the
+                      right of way and best seats
+                    </li>
+                    <li>
+                      Bring a gift if joining a local family for a meal or
+                      overnight stay
+                    </li>
+                    <li>Confirm prices with taxi drivers before getting in</li>
+                    <li>Watch your step, as roads may be uneven</li>
+                  </ul>
+                </div>
+                <div className={styles.dont}>
+                  <h4>Don’t:</h4>
+                  <ul>
+                    <li>Leave bread on the ground or place it upside down</li>
+                    <li>Blow your nose loudly in public</li>
+                    <li>
+                      Talk very loudly in public, especially near religious
+                      sites
+                    </li>
+                    <li>
+                      Accept an offer to stay in someone’s home unless they
+                      insist several times
+                    </li>
+                    <li>Hesitate to ask for help or interact with locals</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
 
-{/* ✅ Speak the Language Section */}
-<section className={styles.languageSection}>
-  <h3>Speak the Language</h3>
-  <p>
-    Knowing a few basic phrases in the local language will endear you to people and open up doors for
-    friendship and connection during your travels in Uzbekistan.
-  </p>
-  <table>
-    <thead>
-      <tr>
-        <th>Phrase</th>
-        <th>Uzbek</th>
-        <th>Russian</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Hello</td><td>Assalomu alaykum (Salom for short)</td><td>Привет (Privyet)</td></tr>
-      <tr><td>How are you?</td><td>Yaxshimisiz?</td><td>Как дела? (Kak dela?)</td></tr>
-      <tr><td>Good-Bye</td><td>Xayr</td><td>До свидания (Do svidaniya)</td></tr>
-      <tr><td>Thank You!</td><td>Rahmat</td><td>Спасибо (Spasibo)</td></tr>
-      <tr><td>Yes/No</td><td>Ha/Yo‘q</td><td>Да/Нет (Da/Nyet)</td></tr>
-      <tr><td>Where is the... (airport)?</td><td>(Aeroport)... qayerda?</td><td>Где... (аэропорт)?</td></tr>
-      <tr><td>How much does it cost?</td><td>Necha pul turadi? (Qancha?)</td><td>Сколько это стоит? (Skolko eto stoit?)</td></tr>
-      <tr><td>My name is...</td><td>Mening ismim...</td><td>Меня зовут... (Menya zovut...)</td></tr>
-      <tr><td>I don’t understand</td><td>Men tushunmayman</td><td>Я не понимаю (Ya ne ponimayu)</td></tr>
-      <tr><td>Excuse me</td><td>Uzr/Kechirasiz</td><td>Извините (Izvinitye)</td></tr>
-      <tr><td>Nice to meet you</td><td>Tanishganimdan xursandman</td><td>Было приятно познакомиться с вами</td></tr>
-    </tbody>
-  </table>
-</section>
-
-
-
+            {/* ✅ Speak the Language Section */}
+            <section className={styles.languageSection}>
+              <h3>Speak the Language</h3>
+              <p>
+                Knowing a few basic phrases in the local language will endear
+                you to people and open up doors for friendship and connection
+                during your travels in Uzbekistan.
+              </p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Phrase</th>
+                    <th>Uzbek</th>
+                    <th>Russian</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Hello</td>
+                    <td>Assalomu alaykum (Salom for short)</td>
+                    <td>Привет (Privyet)</td>
+                  </tr>
+                  <tr>
+                    <td>How are you?</td>
+                    <td>Yaxshimisiz?</td>
+                    <td>Как дела? (Kak dela?)</td>
+                  </tr>
+                  <tr>
+                    <td>Good-Bye</td>
+                    <td>Xayr</td>
+                    <td>До свидания (Do svidaniya)</td>
+                  </tr>
+                  <tr>
+                    <td>Thank You!</td>
+                    <td>Rahmat</td>
+                    <td>Спасибо (Spasibo)</td>
+                  </tr>
+                  <tr>
+                    <td>Yes/No</td>
+                    <td>Ha/Yo‘q</td>
+                    <td>Да/Нет (Da/Nyet)</td>
+                  </tr>
+                  <tr>
+                    <td>Where is the... (airport)?</td>
+                    <td>(Aeroport)... qayerda?</td>
+                    <td>Где... (аэропорт)?</td>
+                  </tr>
+                  <tr>
+                    <td>How much does it cost?</td>
+                    <td>Necha pul turadi? (Qancha?)</td>
+                    <td>Сколько это стоит? (Skolko eto stoit?)</td>
+                  </tr>
+                  <tr>
+                    <td>My name is...</td>
+                    <td>Mening ismim...</td>
+                    <td>Меня зовут... (Menya zovut...)</td>
+                  </tr>
+                  <tr>
+                    <td>I don’t understand</td>
+                    <td>Men tushunmayman</td>
+                    <td>Я не понимаю (Ya ne ponimayu)</td>
+                  </tr>
+                  <tr>
+                    <td>Excuse me</td>
+                    <td>Uzr/Kechirasiz</td>
+                    <td>Извините (Izvinitye)</td>
+                  </tr>
+                  <tr>
+                    <td>Nice to meet you</td>
+                    <td>Tanishganimdan xursandman</td>
+                    <td>Было приятно познакомиться с вами</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
           </div>
-
-          
 
           {/* ✅ Sidebar with Destinations */}
           <div className={styles.sidebar}>
