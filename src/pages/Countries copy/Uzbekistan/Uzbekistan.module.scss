@@ -24,10 +24,11 @@
     padding: 0 1.5rem;
     border-radius: 8px;
     color: #333;
+    font-size: 1.1rem;   /* ✅ base font size */
 
     h2 {
       margin: 1.5rem 0 1rem;
-      font-size: 1.6rem;
+      font-size: 2rem;   /* ✅ larger headings */
       color: #0b1670;
     }
 
@@ -36,12 +37,14 @@
       margin-bottom: 2rem;
 
       h2 {
+        font-size: 1.8rem;
         color: #0b1670;
         margin-bottom: 1rem;
       }
 
       p {
-        line-height: 1.6;
+        font-size: 1.1rem;
+        line-height: 1.7;
         color: #444;
       }
     }
@@ -52,6 +55,7 @@
       margin-top: 30px;
 
       h3 {
+        font-size: 1.5rem;
         margin-bottom: 1rem;
         color: #0b1670;
       }
@@ -62,9 +66,9 @@
 
         td {
           width: 50%;
-          padding: 0.8rem;
+          padding: 1rem;
           border: 1px solid #ddd;
-          font-size: 0.9rem;
+          font-size: 1.05rem;
 
           a {
             color: #0b1670;
@@ -79,155 +83,158 @@
     }
 
     /* ✅ Notes detail section */
-.noteDetail {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  border-left: 4px solid #27ae60;
-  background: #fafafa;
-  border-radius: 6px;
-
-  /* ✅ Titles inside notes */
-  h4 {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    color: #27ae60;   /* same green as screenshot */
-    font-weight: 600;
-  }
-
-  /* ✅ Paragraph text inside notes */
-  p {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #444;
-    margin-bottom: 1rem;
-    white-space: pre-line; /* keep line breaks */
-  }
-
-  /* ✅ Back link */
-  .backToNotes {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
-    color: #27ae60;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.2s ease, transform 0.2s ease;
-
-    &:hover {
-      text-decoration: underline;
-      color: #1e874b;
-      transform: translateY(-2px);
-    }
-  }
-
-  
-}
-
-.weatherSection {
-  margin-top: 2rem;
-  display: flex;
-  margin-left: 0.2rem;
-  gap: 1rem;
-}
-
-.weatherLink {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #2563eb;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  text-decoration: none;
-
-  &:hover {
-    color: #1e40af;
-    text-decoration: underline;
-  }
-}
-
-/* ✅ Dos and Don’ts Section */
-.dosDonts {
-  margin-top: 2.5rem;
-  background: #fafafa;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid #e6e6e6;
-
-  h3 {
-    color: #27ae60;
-    margin-bottom: 1rem;
-  }
-
-  .dosDontsWrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-
-    .do, .dont {
-      flex: 1;
-      min-width: 280px;
+    .noteDetail {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      border-left: 4px solid #27ae60;
+      background: #fafafa;
+      border-radius: 6px;
 
       h4 {
-        font-size: 1.2rem;
-        color: #0b1670;
-        margin-bottom: 0.5rem;
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+        color: #27ae60;
+        font-weight: 600;
       }
 
-      ul {
-        padding-left: 1.2rem;
+      p {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 1rem;
+        white-space: pre-line;
+      }
 
-        li {
-          margin-bottom: 0.5rem;
-          color: #444;
-          line-height: 1.5;
+      .backToNotes {
+        display: inline-block;
+        margin-top: 0.5rem;
+        font-size: 1.05rem;
+        color: #27ae60;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+          text-decoration: underline;
+          color: #1e874b;
+          transform: translateY(-2px);
         }
       }
     }
 
-    .dont h4 { color: #e74c3c; }
-  }
-}
-
-/* ✅ Speak the Language Section */
-.languageSection {
-  margin-top: 2.5rem;
-  padding: 1.5rem;
-  background: #fafafa;
-  border-radius: 8px;
-  border: 1px solid #e6e6e6;
-
-  h3 {
-    color: #27ae60;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    margin-bottom: 1rem;
-    color: #444;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 0.6rem;
-      text-align: left;
+    .weatherSection {
+      margin-top: 2rem;
+      display: flex;
+      margin-left: 0.2rem;
+      gap: 1rem;
     }
 
-    th {
-      background: #27ae60;
-      color: #fff;
+    .weatherLink {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #2563eb;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      text-decoration: none;
+
+      &:hover {
+        color: #1e40af;
+        text-decoration: underline;
+      }
     }
 
-    td {
-      color: #333;
+    /* ✅ Dos and Don’ts Section */
+    .dosDonts {
+      margin-top: 2.5rem;
+      background: #fafafa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #e6e6e6;
+
+      h3 {
+        font-size: 1.6rem;
+        color: #27ae60;
+        margin-bottom: 1rem;
+      }
+
+      .dosDontsWrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+
+        .do,
+        .dont {
+          flex: 1;
+          min-width: 280px;
+
+          h4 {
+            font-size: 1.3rem;
+            color: #0b1670;
+            margin-bottom: 0.5rem;
+          }
+
+          ul {
+            padding-left: 1.2rem;
+
+            li {
+              margin-bottom: 0.5rem;
+              font-size: 1.1rem;
+              color: #444;
+              line-height: 1.5;
+            }
+          }
+        }
+
+        .dont h4 {
+          color: #e74c3c;
+        }
+      }
     }
-  }
-}
 
+    /* ✅ Speak the Language Section */
+    .languageSection {
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #e6e6e6;
 
+      h3 {
+        font-size: 1.6rem;
+        color: #27ae60;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: #444;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1.05rem;
+
+        th,
+        td {
+          border: 1px solid #ddd;
+          padding: 0.6rem;
+          text-align: left;
+        }
+
+        th {
+          font-size: 1.1rem;
+          background: #27ae60;
+          color: #fff;
+        }
+
+        td {
+          font-size: 1.05rem;
+          color: #333;
+        }
+      }
+    }
 
     /* ✅ Tours (Cards) */
     .cardsHeader {
@@ -235,6 +242,7 @@
       grid-template-columns: 80px 1fr 120px 100px 120px;
       gap: 1rem;
       font-weight: 700;
+      font-size: 1.1rem;
       color: #555;
       padding: 0 10px 10px;
     }
@@ -249,6 +257,7 @@
       border: 1px solid #e6e6e6;
       border-radius: 6px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      font-size: 1.05rem;
 
       .dateBox {
         background: #91c5e8;
@@ -270,16 +279,17 @@
           font-weight: 600;
           text-decoration: none;
           margin-bottom: 0.3rem;
+          font-size: 1.1rem;
         }
 
         .cities {
-          font-size: 0.9rem;
+          font-size: 1rem;
           color: #666;
           margin-bottom: 0.3rem;
         }
 
         .departures {
-          font-size: 0.85rem;
+          font-size: 0.95rem;
           color: #f2994a;
           text-decoration: none;
         }
@@ -306,10 +316,11 @@
     color: #333;
     border: 1px solid #e6e6e6;
     height: min-content;
+    font-size: 1.1rem;
 
     h3 {
       margin-bottom: 1rem;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       color: #27ae60;
     }
 
@@ -322,6 +333,7 @@
         margin-bottom: 0.5rem;
 
         a {
+          font-size: 1.05rem;
           color: #0b1670;
           text-decoration: none;
 

@@ -195,7 +195,7 @@ Gotocentralasia.com provides the opportunity for travelers from all around the w
             <div className={styles.weatherSection}>
   {countries.map((c) => (
     <Link key={c.slug} to={`/weather/${c.slug}`} className={styles.weatherLink}>
-      {c.name} Weather
+      <p>{c.name} Weather</p>
     </Link>
   ))}
 </div>
