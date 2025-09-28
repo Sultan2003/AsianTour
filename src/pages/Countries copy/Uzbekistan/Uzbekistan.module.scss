@@ -78,41 +78,155 @@
       }
     }
 
-    .noteDetail {
-      margin-bottom: 2rem;
-      padding: 1rem;
-      border-left: 4px solid #27ae60;
-      background: #fafafa;
-      border-radius: 4px;
+    /* ✅ Notes detail section */
+.noteDetail {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-left: 4px solid #27ae60;
+  background: #fafafa;
+  border-radius: 6px;
+
+  /* ✅ Titles inside notes */
+  h4 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #27ae60;   /* same green as screenshot */
+    font-weight: 600;
+  }
+
+  /* ✅ Paragraph text inside notes */
+  p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 1rem;
+    white-space: pre-line; /* keep line breaks */
+  }
+
+  /* ✅ Back link */
+  .backToNotes {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: #27ae60;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      text-decoration: underline;
+      color: #1e874b;
+      transform: translateY(-2px);
+    }
+  }
+
+  
+}
+
+.weatherSection {
+  margin-top: 2rem;
+  display: flex;
+  margin-left: 0.2rem;
+  gap: 1rem;
+}
+
+.weatherLink {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #2563eb;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-decoration: none;
+
+  &:hover {
+    color: #1e40af;
+    text-decoration: underline;
+  }
+}
+
+/* ✅ Dos and Don’ts Section */
+.dosDonts {
+  margin-top: 2.5rem;
+  background: #fafafa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+
+  h3 {
+    color: #27ae60;
+    margin-bottom: 1rem;
+  }
+
+  .dosDontsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    .do, .dont {
+      flex: 1;
+      min-width: 280px;
 
       h4 {
-        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
         color: #0b1670;
+        margin-bottom: 0.5rem;
       }
 
-      p {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        color: #444;
-        white-space: pre-line;
+      ul {
+        padding-left: 1.2rem;
+
+        li {
+          margin-bottom: 0.5rem;
+          color: #444;
+          line-height: 1.5;
+        }
       }
     }
 
-    .backToNotes {
-  display: inline-block;
-  margin-top: 0.5rem;
-  font-size: 0.95rem;   /* slightly larger for readability */
-  color: #27ae60;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
-
-  &:hover {
-    text-decoration: underline;
-    color: #1e874b;
-    transform: translateY(-2px); /* subtle lift effect */
+    .dont h4 { color: #e74c3c; }
   }
 }
+
+/* ✅ Speak the Language Section */
+.languageSection {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+
+  h3 {
+    color: #27ae60;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: #444;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.6rem;
+      text-align: left;
+    }
+
+    th {
+      background: #27ae60;
+      color: #fff;
+    }
+
+    td {
+      color: #333;
+    }
+  }
+}
+
 
 
     /* ✅ Tours (Cards) */

@@ -20,6 +20,7 @@ import TurkmenistanToursDestinations from "../pages/Countries copy/Turkmenistan"
 import CentralAsiaToursDestinations from "../pages/Countries copy/Central Asia";
 import SilkRoadToursDestinations from "../pages/Countries copy/Silk Road";
 import CaucasusToursDestinations from "../pages/Countries copy/Caucasus";
+import WeatherPage from "../pages/Weather Page";
 
 const Router = () => {
   return (
@@ -184,6 +185,15 @@ const Router = () => {
           </MainLayout>
         }
       />
+      <Route
+        path="/weather/:countrySlug"
+        element={
+          <MainLayout>
+            <WeatherPage />
+          </MainLayout>
+        }
+      />
+      
     </Routes>
   );
 };

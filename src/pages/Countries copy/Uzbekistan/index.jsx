@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Uzbekistan.module.scss";
@@ -8,6 +9,10 @@ export default function UzbekistanTours() {
   const { lang: strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
+
+  const countries = [
+    { slug: "uzbekistan", name: "Uzbekistan" },
+  ];
 
   useEffect(() => {
     fetch(
@@ -185,7 +190,79 @@ Gotocentralasia.com provides the opportunity for travelers from all around the w
                 </a>
               </section>
             ))}
+
+
+            <div className={styles.weatherSection}>
+  {countries.map((c) => (
+    <Link key={c.slug} to={`/weather/${c.slug}`} className={styles.weatherLink}>
+      {c.name} Weather
+    </Link>
+  ))}
+</div>
+
+{/* ✅ Dos and Don’ts Section */}
+<section className={styles.dosDonts}>
+  <h3>Dos and Don’ts in Uzbekistan</h3>
+  <div className={styles.dosDontsWrapper}>
+    <div className={styles.do}>
+      <h4>Do:</h4>
+      <ul>
+        <li>Take off your shoes before walking into a mosque or home</li>
+        <li>Show respect for those older than you by giving them the right of way and best seats</li>
+        <li>Bring a gift if joining a local family for a meal or overnight stay</li>
+        <li>Confirm prices with taxi drivers before getting in</li>
+        <li>Watch your step, as roads may be uneven</li>
+      </ul>
+    </div>
+    <div className={styles.dont}>
+      <h4>Don’t:</h4>
+      <ul>
+        <li>Leave bread on the ground or place it upside down</li>
+        <li>Blow your nose loudly in public</li>
+        <li>Talk very loudly in public, especially near religious sites</li>
+        <li>Accept an offer to stay in someone’s home unless they insist several times</li>
+        <li>Hesitate to ask for help or interact with locals</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{/* ✅ Speak the Language Section */}
+<section className={styles.languageSection}>
+  <h3>Speak the Language</h3>
+  <p>
+    Knowing a few basic phrases in the local language will endear you to people and open up doors for
+    friendship and connection during your travels in Uzbekistan.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Phrase</th>
+        <th>Uzbek</th>
+        <th>Russian</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Hello</td><td>Assalomu alaykum (Salom for short)</td><td>Привет (Privyet)</td></tr>
+      <tr><td>How are you?</td><td>Yaxshimisiz?</td><td>Как дела? (Kak dela?)</td></tr>
+      <tr><td>Good-Bye</td><td>Xayr</td><td>До свидания (Do svidaniya)</td></tr>
+      <tr><td>Thank You!</td><td>Rahmat</td><td>Спасибо (Spasibo)</td></tr>
+      <tr><td>Yes/No</td><td>Ha/Yo‘q</td><td>Да/Нет (Da/Nyet)</td></tr>
+      <tr><td>Where is the... (airport)?</td><td>(Aeroport)... qayerda?</td><td>Где... (аэропорт)?</td></tr>
+      <tr><td>How much does it cost?</td><td>Necha pul turadi? (Qancha?)</td><td>Сколько это стоит? (Skolko eto stoit?)</td></tr>
+      <tr><td>My name is...</td><td>Mening ismim...</td><td>Меня зовут... (Menya zovut...)</td></tr>
+      <tr><td>I don’t understand</td><td>Men tushunmayman</td><td>Я не понимаю (Ya ne ponimayu)</td></tr>
+      <tr><td>Excuse me</td><td>Uzr/Kechirasiz</td><td>Извините (Izvinitye)</td></tr>
+      <tr><td>Nice to meet you</td><td>Tanishganimdan xursandman</td><td>Было приятно познакомиться с вами</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+
           </div>
+
+          
 
           {/* ✅ Sidebar with Destinations */}
           <div className={styles.sidebar}>

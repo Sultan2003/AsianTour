@@ -42,10 +42,6 @@ const Footer = () => {
             <li><Link to="/georgia">Georgia</Link></li>
             <li><Link to="/azerbaijan">Azerbaijan</Link></li>
             <li><Link to="/armenia">Armenia</Link></li>
-            <li><Link to="/china">China</Link></li>
-            <li><Link to="/japan">Japan</Link></li>
-            <li><Link to="/russia">Russia</Link></li>
-            <li><Link to="/turkey">Turkey</Link></li>
           </ul>
         </div>
 
