@@ -21,6 +21,9 @@ import CentralAsiaToursDestinations from "../pages/Countries copy/Central Asia";
 import SilkRoadToursDestinations from "../pages/Countries copy/Silk Road";
 import CaucasusToursDestinations from "../pages/Countries copy/Caucasus";
 import WeatherPage from "../pages/Weather Page";
+import ArmeniaToursDestination from "../pages/Countries copy/Armenia";
+import AzerbaijanToursDestination from "../pages/Countries copy/Azerbaijan";
+import GeorgiaToursDestination from "../pages/Countries copy/Georgia";
 
 const Router = () => {
   return (
@@ -122,6 +125,30 @@ const Router = () => {
         }
       />
       <Route
+        path="/Armenia"
+        element={
+          <MainLayout>
+            <ArmeniaToursDestination />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Azerbaijan"
+        element={
+          <MainLayout>
+            <AzerbaijanToursDestination />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Georgia"
+        element={
+          <MainLayout>
+            <GeorgiaToursDestination />
+          </MainLayout>
+        }
+      />
+      <Route
         path="/Kazakhstan"
         element={
           <MainLayout>
@@ -193,7 +220,6 @@ const Router = () => {
           </MainLayout>
         }
       />
-      
     </Routes>
   );
 };
