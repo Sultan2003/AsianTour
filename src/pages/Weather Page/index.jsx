@@ -270,7 +270,7 @@ function DayRow({ day, isToday }) {
       <div className={styles.hourlyRow}>
         {day.entries.map((entry) => {
           const entryHour = new Date(entry.dt * 1000).getHours();
-          // Skip past hours only for today
+         
           if (isToday && entryHour < nowHour) return null;
 
           return (

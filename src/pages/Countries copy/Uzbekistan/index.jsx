@@ -111,12 +111,14 @@ export default function UzbekistanTours() {
     {
       id: "note9",
       title: notes[8],
-      text: `Mobile phone and Internet.`,
+      text: `The most convenient way to obtained mobile phone connection and internet access is to purchase a SIM card at the arrivals in the airport. Also, travelers may to get a SIM card the at the official branches of one of four main mobile network operators. 
+Hotels offer free Wi-Fi connection. Some public places, caffes or restaurants, some local transport and others may offer free internet connection, although speed qualify may not as good as to be expected. `,
     },
     {
       id: "note10",
       title: notes[9],
-      text: `How to get around (local transport).`,
+      text: `Large cities like Tashkent, Samarkand, Bukhara have a great public transport system. Travelers may easily use public transport within cities to get from one point to another, and it will not cost much. 
+Use modern, high-speed train for travels between cities like Tashkent, Samarkand and Bukhara. Local airways also offer affordable and convenient options as an alternative to travel from one city to another..`,
     },
   ];
 
@@ -155,6 +157,8 @@ export default function UzbekistanTours() {
             {/* ✅ Tours Section with Cards */}
             <h2>Upcoming Group Departures</h2>
             <div className={styles.cardsHeader}>
+              <div>Date</div>
+              <div></div>
               <div>Status</div>
               <div>Days</div>
               <div>Price</div>
@@ -233,6 +237,7 @@ export default function UzbekistanTours() {
               </section>
             ))}
 
+            {/* ✅ Weather Section */}
             <div className={styles.weatherSection}>
               {countries.map((c) => (
                 <Link
@@ -244,123 +249,6 @@ export default function UzbekistanTours() {
                 </Link>
               ))}
             </div>
-
-            {/* ✅ Dos and Don’ts Section */}
-            <section className={styles.dosDonts}>
-              <h3>Dos and Don’ts in Uzbekistan</h3>
-              <div className={styles.dosDontsWrapper}>
-                <div className={styles.do}>
-                  <h4>Do:</h4>
-                  <ul>
-                    <li>
-                      Take off your shoes before walking into a mosque or home
-                    </li>
-                    <li>
-                      Show respect for those older than you by giving them the
-                      right of way and best seats
-                    </li>
-                    <li>
-                      Bring a gift if joining a local family for a meal or
-                      overnight stay
-                    </li>
-                    <li>Confirm prices with taxi drivers before getting in</li>
-                    <li>Watch your step, as roads may be uneven</li>
-                  </ul>
-                </div>
-                <div className={styles.dont}>
-                  <h4>Don’t:</h4>
-                  <ul>
-                    <li>Leave bread on the ground or place it upside down</li>
-                    <li>Blow your nose loudly in public</li>
-                    <li>
-                      Talk very loudly in public, especially near religious
-                      sites
-                    </li>
-                    <li>
-                      Accept an offer to stay in someone’s home unless they
-                      insist several times
-                    </li>
-                    <li>Hesitate to ask for help or interact with locals</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            {/* ✅ Speak the Language Section */}
-            <section className={styles.languageSection}>
-              <h3>Speak the Language</h3>
-              <p>
-                Knowing a few basic phrases in the local language will endear
-                you to people and open up doors for friendship and connection
-                during your travels in Uzbekistan.
-              </p>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Phrase</th>
-                    <th>Uzbek</th>
-                    <th>Russian</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Hello</td>
-                    <td>Assalomu alaykum (Salom for short)</td>
-                    <td>Привет (Privyet)</td>
-                  </tr>
-                  <tr>
-                    <td>How are you?</td>
-                    <td>Yaxshimisiz?</td>
-                    <td>Как дела? (Kak dela?)</td>
-                  </tr>
-                  <tr>
-                    <td>Good-Bye</td>
-                    <td>Xayr</td>
-                    <td>До свидания (Do svidaniya)</td>
-                  </tr>
-                  <tr>
-                    <td>Thank You!</td>
-                    <td>Rahmat</td>
-                    <td>Спасибо (Spasibo)</td>
-                  </tr>
-                  <tr>
-                    <td>Yes/No</td>
-                    <td>Ha/Yo‘q</td>
-                    <td>Да/Нет (Da/Nyet)</td>
-                  </tr>
-                  <tr>
-                    <td>Where is the... (airport)?</td>
-                    <td>(Aeroport)... qayerda?</td>
-                    <td>Где... (аэропорт)?</td>
-                  </tr>
-                  <tr>
-                    <td>How much does it cost?</td>
-                    <td>Necha pul turadi? (Qancha?)</td>
-                    <td>Сколько это стоит? (Skolko eto stoit?)</td>
-                  </tr>
-                  <tr>
-                    <td>My name is...</td>
-                    <td>Mening ismim...</td>
-                    <td>Меня зовут... (Menya zovut...)</td>
-                  </tr>
-                  <tr>
-                    <td>I don’t understand</td>
-                    <td>Men tushunmayman</td>
-                    <td>Я не понимаю (Ya ne ponimayu)</td>
-                  </tr>
-                  <tr>
-                    <td>Excuse me</td>
-                    <td>Uzr/Kechirasiz</td>
-                    <td>Извините (Izvinitye)</td>
-                  </tr>
-                  <tr>
-                    <td>Nice to meet you</td>
-                    <td>Tanishganimdan xursandman</td>
-                    <td>Было приятно познакомиться с вами</td>
-                  </tr>
-                </tbody>
-              </table>
-            </section>
           </div>
 
           {/* ✅ Sidebar with Destinations */}

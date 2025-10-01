@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
-import { useNavigate } from "react-router-dom"; 
 import styles from "./SilkRoad.module.scss";
 import mainImg from "../../../assets/Countries/Silkroad.jpg";
 
@@ -8,6 +8,8 @@ export default function SilkRoadToursDestinations() {
   const { lang: strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
+
+  const countries = [{ slug: "silkroad", name: "Silk Road" }];
 
   useEffect(() => {
     fetch(
@@ -20,34 +22,94 @@ export default function SilkRoadToursDestinations() {
 
   const destinations = [
     // Uzbekistan
-    "Samarkand","Bukhara","Khiva","Tashkent","Shahrisabz",
+    "Samarkand",
+    "Bukhara",
+    "Khiva",
+    "Tashkent",
+    "Shahrisabz",
     // Kazakhstan
-    "Turkistan","Almaty","Shymkent",
+    "Turkistan",
+    "Almaty",
+    "Shymkent",
     // Kyrgyzstan
-    "Osh","Bishkek","Uzgen","Tash Rabat Caravanserai",
+    "Osh",
+    "Bishkek",
+    "Uzgen",
+    "Tash Rabat Caravanserai",
     // Tajikistan
-    "Khujand","Istaravshan","Panjakent",
+    "Khujand",
+    "Istaravshan",
+    "Panjakent",
     // Turkmenistan
-    "Merv","Konye-Urgench","Ashgabat"
+    "Merv",
+    "Konye-Urgench",
+    "Ashgabat",
   ];
 
   const notes = [
-    "Cultural significance","Historic trade routes","Architecture highlights",
-    "Local traditions","Cuisine on the Silk Road","Weather and travel tips",
-    "Border crossings","Payment and currency","Communication","Transport options"
+    "Cultural significance",
+    "Historic trade routes",
+    "Architecture highlights",
+    "Local traditions",
+    "Cuisine on the Silk Road",
+    "Weather and travel tips",
+    "Border crossings",
+    "Payment and currency",
+    "Communication",
+    "Transport options",
   ];
 
   const noteTexts = [
-    { id: "note1", title: notes[0], text: `The Silk Road is one of the most influential trade networks in world history...` },
-    { id: "note2", title: notes[1], text: `Merchants traveled across thousands of kilometers, connecting Asia with Europe...` },
-    { id: "note3", title: notes[2], text: `From Samarkand's Registan to Bukhara’s Ark Fortress, architecture flourished...` },
-    { id: "note4", title: notes[3], text: `Silk Road cultures are diverse and deeply rooted in hospitality and traditions...` },
-    { id: "note5", title: notes[4], text: `Food along the Silk Road reflects influences from Central Asia, Persia, and China...` },
-    { id: "note6", title: notes[5], text: `Spring and autumn are the best seasons to travel comfortably along the route...` },
-    { id: "note7", title: notes[6], text: `Border procedures vary by country, travelers should check visa requirements...` },
-    { id: "note8", title: notes[7], text: `Cards are accepted in large cities, but cash is still needed in rural areas...` },
-    { id: "note9", title: notes[8], text: `Internet and mobile coverage are widespread in cities, patchy in mountains...` },
-    { id: "note10", title: notes[9], text: `Travelers can use trains, buses, taxis, and local flights to move across regions...` },
+    {
+      id: "note1",
+      title: notes[0],
+      text: `The Silk Road is one of the most influential trade networks in world history. It connected Asia, the Middle East, and Europe, shaping economies and cultures for centuries.`,
+    },
+    {
+      id: "note2",
+      title: notes[1],
+      text: `Merchants traveled across thousands of kilometers, linking China’s silk and porcelain with Europe’s glassware, creating a unique exchange of goods and knowledge.`,
+    },
+    {
+      id: "note3",
+      title: notes[2],
+      text: `From Samarkand’s Registan Square to Bukhara’s Ark Fortress, architectural wonders flourished along the route, blending Persian, Islamic, and Central Asian styles.`,
+    },
+    {
+      id: "note4",
+      title: notes[3],
+      text: `Local traditions along the Silk Road emphasize hospitality. Travelers are often welcomed with tea, bread, and warm smiles, continuing centuries-old customs.`,
+    },
+    {
+      id: "note5",
+      title: notes[4],
+      text: `Cuisine on the Silk Road reflects Persian spices, Chinese noodles, and Central Asian lamb dishes. Each stop reveals a new cultural flavor.`,
+    },
+    {
+      id: "note6",
+      title: notes[5],
+      text: `Spring and autumn offer the most pleasant weather for traveling the route. Summers can be scorching in deserts, while winters bring snow in mountain regions.`,
+    },
+    {
+      id: "note7",
+      title: notes[6],
+      text: `Border regulations vary across countries. Travelers should check visa requirements in advance, especially for Turkmenistan and China.`,
+    },
+    {
+      id: "note8",
+      title: notes[7],
+      text: `While cards are accepted in major cities, rural areas still rely heavily on cash. USD and EUR are widely exchangeable at banks.`,
+    },
+    {
+      id: "note9",
+      title: notes[8],
+      text: `Mobile and internet connections are reliable in urban centers but weaker in mountainous and desert zones. Prepaid SIM cards are easy to obtain.`,
+    },
+    {
+      id: "note10",
+      title: notes[9],
+      text: `Travel options include high-speed trains in Uzbekistan, shared taxis in Tajikistan, buses in Kyrgyzstan, and local flights for long distances.`,
+    },
   ];
 
   return (
@@ -60,21 +122,23 @@ export default function SilkRoadToursDestinations() {
               <img src={mainImg} alt="Silk Road" />
             </div>
 
-            {/* ✅ Intro Section */}
+            {/* ✅ Visit Silk Road Intro */}
             <section className={styles.visitSection}>
               <h2>Explore the Silk Road</h2>
               <p>
-                The Silk Road connected East and West for centuries, serving as a
-                trade route and cultural bridge. From the vibrant cities of
-                Uzbekistan to the nomadic landscapes of Kyrgyzstan and the deserts
-                of Turkmenistan, it shaped civilizations through exchange of goods,
-                knowledge, and traditions.
+                The Silk Road connected East and West for centuries, serving as
+                a trade route and cultural bridge. From the vibrant cities of
+                Uzbekistan to the nomadic landscapes of Kyrgyzstan and the
+                deserts of Turkmenistan, it shaped civilizations through
+                exchange of goods, knowledge, and traditions.
               </p>
             </section>
 
-            {/* ✅ Tours Section */}
+            {/* ✅ Tours Section with Cards */}
             <h2>Upcoming Group Departures</h2>
             <div className={styles.cardsHeader}>
+              <div>Date</div>
+              <div></div>
               <div>Status</div>
               <div>Days</div>
               <div>Price</div>
@@ -101,7 +165,11 @@ export default function SilkRoadToursDestinations() {
                       {tour.availableSeats} seats available
                     </a>
                   </div>
-                  <div className={tour.status1 ? styles.available : styles.unavailable}>
+                  <div
+                    className={
+                      tour.status1 ? styles.available : styles.unavailable
+                    }
+                  >
                     {statusText}
                   </div>
                   <div>
@@ -148,9 +216,22 @@ export default function SilkRoadToursDestinations() {
                 </a>
               </section>
             ))}
+
+            {/* ✅ Weather Section */}
+            <div className={styles.weatherSection}>
+              {countries.map((c) => (
+                <Link
+                  key={c.slug}
+                  to={`/weather/${c.slug}`}
+                  className={styles.weatherLink}
+                >
+                  {c.name} Weather
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {/* ✅ Sidebar */}
+          {/* ✅ Sidebar with Destinations */}
           <div className={styles.sidebar}>
             <h3>Travel Destinations</h3>
             <ul>
