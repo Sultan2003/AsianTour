@@ -5,7 +5,7 @@
   color: #0a1a44;
   background: #f6f8fb;
   padding: 20px 0;
-  background : url("../../assets/background/background.jpg");
+  background: url("../../assets/background/background.jpg");
   background-repeat: repeat;
 
   /* ✅ HERO SECTION */
@@ -71,80 +71,69 @@
     box-shadow: 0 6px 16px rgba(11, 22, 112, 0.25);
   }
 
+  /* ✅ ABOUT SECTION */
   .aboutSection {
-  margin-top: 20px;
-  text-align: left;
-  max-width: 1200px;
-  margin-left: calc((100% - 1200px) / 2);
-  margin-right: auto;
-
-  .title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0b1670;
-    margin-bottom: 15px;
-  }
-
-  .text {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #444;
-  }
-
-  /* ✅ Responsiveness */
-  @media (max-width: 1200px) {
-    max-width: 100%;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-top: 20px;
+    text-align: left;
+    max-width: 1200px;
+    margin-left: calc((100% - 1200px) / 2);
+    margin-right: auto;
 
     .title {
-      font-size: 1.8rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0b1670;
+      margin-bottom: 15px;
     }
 
     .text {
-      font-size: 1rem;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    @media (max-width: 1200px) {
+      max-width: 100%;
+      margin-left: 20px;
+      margin-right: 20px;
+      .title {
+        font-size: 1.8rem;
+      }
+      .text {
+        font-size: 1rem;
+      }
+    }
+    @media (max-width: 992px) {
+      .title {
+        font-size: 1.6rem;
+      }
+      .text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+    }
+    @media (max-width: 768px) {
+      text-align: center;
+      .title {
+        font-size: 1.5rem;
+      }
+      .text {
+        font-size: 0.9rem;
+      }
+    }
+    @media (max-width: 576px) {
+      margin-left: 10px;
+      margin-right: 10px;
+      .title {
+        font-size: 1.3rem;
+      }
+      .text {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
     }
   }
 
-  @media (max-width: 992px) {
-    .title {
-      font-size: 1.6rem;
-    }
-
-    .text {
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-  }
-
-  @media (max-width: 768px) {
-    text-align: center;
-
-    .title {
-      font-size: 1.5rem;
-    }
-
-    .text {
-      font-size: 0.9rem;
-    }
-  }
-
-  @media (max-width: 576px) {
-    margin-left: 10px;
-    margin-right: 10px;
-
-    .title {
-      font-size: 1.3rem;
-    }
-
-    .text {
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-  }
-}
-
-  
   /* ✅ TOUR LIST */
   .tourList {
     display: grid;
@@ -158,12 +147,10 @@
       grid-template-columns: repeat(2, 1fr);
       padding: 0 10px;
     }
-
     @media (max-width: 768px) {
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       padding: 0 10px;
     }
-
     @media (max-width: 480px) {
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       padding: 0 10px;
@@ -183,7 +170,6 @@
       box-shadow: 0 12px 28px rgba(10, 26, 68, 0.1);
     }
 
-    /* ✅ IMAGE SECTION */
     .image {
       height: 220px;
       position: relative;
@@ -196,7 +182,6 @@
         background-position: center;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
-
         &.active {
           opacity: 1;
         }
@@ -213,7 +198,7 @@
         position: absolute;
         top: 12px;
         left: 12px;
-        background-color: linear-gradient(90deg, #0b1670, #4f46e5);
+        background: linear-gradient(90deg, #0b1670, #4f46e5);
         color: white;
         font-size: 13px;
         font-weight: bold;
@@ -223,13 +208,12 @@
       }
     }
 
-    /* ✅ DETAILS SECTION */
     .details {
       padding: 18px;
 
       h2 {
         font-size: 20px;
-        color: linear-gradient(90deg, #0b1670, #4f46e5);
+        color: #0b1670;
         margin-bottom: 10px;
         font-weight: 700;
       }
@@ -246,7 +230,6 @@
             color: #3b4461;
             margin-bottom: 4px;
           }
-
           .price {
             font-size: 20px;
             font-weight: 800;
@@ -276,320 +259,215 @@
     }
   }
 
-
-  /* ========== UPCOMING SECTION (list + right image) ========== */
+  /* ✅ UPCOMING GROUP DEPARTURES */
   .upcomingSection {
-  max-width: 1215px;
-  margin: 40px auto 0;
-  padding: 10px;
-
-  h2 {
-    font-size: 26px;
-    font-weight: 700;
-    color: #2c8b2c;
-    margin-bottom: 20px;
-  }
-
-  .upcomingWrapper {
-    display: grid;
-    gap: 16px;
-  }
-
-  .upcomingHeader {
-    display: grid;
-    grid-template-columns: 80px 1fr 120px 100px 120px;
-    gap: 1rem;
-    align-items: center;
-    padding: 0 10px;
-    font-weight: 700;
-    color: #0b1670;
-  
-
-     & > div {
-    display: flex;
-    align-items: center;   /* vertical centering */
-    justify-content: center; /* horizontal centering */
-    text-align: center;
-    margin-left: 15px;
-
-  }
-  }
-
-  .upcomingList {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .upcomingCard {
-    display: grid;
-    grid-template-columns: 80px 1fr 120px 100px 120px;
-    align-items: center;
-    background: #fff;
-    border: 1px solid #e6e9ef;
-    border-radius: 6px;
-    padding: 12px 10px;
-    font-size: 15px;
-    color: #333;
-    transition: box-shadow 0.2s ease;
-
-    &:hover {
-      box-shadow: 0 8px 20px rgba(11, 22, 112, 0.06);
-    }
-  }
-
-  .dateBox {
-    background: linear-gradient(90deg, #0b1670, #4f46e5);
-    color: #fff;
-    text-align: center;
-    border-radius: 4px;
-    padding: 8px 6px;
-
-    .month {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .day {
-      display: block;
-      font-size: 18px;
-      font-weight: 700;
-    }
-  }
-
-  .upcomingDetails {
-    padding-left: 16px;
-
-    .tourName {
-      font-size: 16px;
-      font-weight: 700;
-      color: #0b1670;
-      margin: 0 0 4px 0;
-    }
-
-    .countries {
-      font-size: 14px;
-      color: #666;
-      margin: 0 0 4px 0;
-    }
-
-    .departures {
-      font-size: 14px;
-      color: #e74c3c;
-      margin: 0;
-    }
-  }
-
-  .status {
-    color: #2c8b2c;
-    font-weight: 600;
-    text-align: center;
-  }
-
-  .uDays {
-    font-weight: 600;
-    color: #333;
-    text-align: center;
-  }
-
-  .uPrice {
-    font-weight: 700;
-    color: #0b1670;
-    text-align: right;
-  }
-
-  /* Responsiveness */
-  @media (max-width: 992px) {
-    .upcomingHeader,
-    .upcomingCard {
-      grid-template-columns: 72px 1fr 100px 80px 100px;
-      gap: 8px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .upcomingHeader,
-    .upcomingCard {
-      grid-template-columns: 64px 1fr 80px 60px 80px;
-      gap: 6px;
-    }
-    .dateBox {
-      padding: 4px 2px;
-    }
-    .uPrice {
-      text-align: left;
-      font-size: 12px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .upcomingHeader {
-      display: none;
-    }
-    .upcomingCard {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-      padding: 10px;
-    }
-
-    .departures {
-      display: none;
-    }
-
-    .uPrice {
-      text-align: left;
-      font-size: 12px;
-    }
-  }
-}
-
-
-  /* ✅ Promo Slider */
-.promoSlider {
-  position: relative;
-  width: 100%;
-  height: 680px;
-  margin: 40px auto;
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 1200px;
-
-  .backgroundImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.45);
-  }
-
-  .sliderContent {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #fff;
-    z-index: 2;
-    max-width: 700px;
+    max-width: 1215px;
+    margin: 40px auto 0;
+    padding: 10px;
 
     h2 {
-      font-size: 42px;
-      font-weight: 800;
-      margin-bottom: 15px;
+      font-size: 26px;
+      font-weight: 700;
+      color: #2c8b2c;
+      margin-bottom: 20px;
     }
 
-    p {
-      font-size: 18px;
-      margin-bottom: 25px;
+    .upcomingList {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); // 2 columns
+      gap: 20px;
     }
 
-    .readMoreBtn {
-      background: #0b1670;
-      color: #fff;
-      border: none;
-      padding: 12px 28px;
-      border-radius: 30px;
-      font-size: 16px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background 0.3s ease;
+    .upcomingCard {
+      display: grid;
+      grid-template-columns: 60px 1fr 80px 80px 80px;
+      align-items: center;
+      padding: 14px 16px;
+      border: 1px solid #e8ecf5;
+      border-radius: 12px;
+      gap: 10px;
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(10, 26, 68, 0.06);
+      transition: transform 0.2s ease;
 
       &:hover {
-        background: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(10, 26, 68, 0.1);
+      }
+
+      .dateBox {
+        background: #0b1670;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        font-weight: 700;
+        padding: 10px 5px;
+        text-align: center;
+      }
+
+      .tourName {
+        margin-left: 5px;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #0b1670;
+      }
+
+      .status {
+        font-weight: 700;
+        text-align: center;
+        &.available {
+          color: #27ae60;
+        }
+        &.unavailable {
+          color: #e74c3c;
+        }
+      }
+
+      .uDays {
+        font-weight: 600;
+        text-align: center;
+        color: #333;
+      }
+
+      .uPrice {
+        font-weight: 700;
+        text-align: center;
+        color: #0b1670;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .upcomingList {
+        grid-template-columns: 1fr; // single column on small screens
+      }
+      .upcomingCard {
+        grid-template-columns: 70px 1fr 80px 60px 80px;
+        padding: 10px;
+      }
+      .uPrice {
+        font-size: 14px;
       }
     }
   }
 
-  .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #fff;
-    border: none;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 3;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-
-    &.left {
-      left: 20px;
-    }
-    &.right {
-      right: 20px;
-    }
-  }
-
-  .dots {
-    position: absolute;
-    bottom: 15px;
+  /* ✅ Promo Slider */
+  .promoSlider {
+    position: relative;
     width: 100%;
-    text-align: center;
-    z-index: 3;
+    height: 680px;
+    margin: 40px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 1200px;
 
-    .dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin: 0 5px;
-      background: rgba(255,255,255,0.6);
+    .backgroundImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+    }
+    .sliderContent {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #fff;
+      z-index: 2;
+      max-width: 700px;
+      h2 {
+        font-size: 42px;
+        font-weight: 800;
+        margin-bottom: 15px;
+      }
+      p {
+        font-size: 18px;
+        margin-bottom: 25px;
+      }
+      .readMoreBtn {
+        background: #0b1670;
+        color: #fff;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s ease;
+        &:hover {
+          background: #0056b3;
+        }
+      }
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      border: none;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
-      transition: background 0.3s ease;
-
-      &.active {
-        background: #fff;
+      z-index: 3;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      &.left {
+        left: 20px;
+      }
+      &.right {
+        right: 20px;
+      }
+    }
+    .dots {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      z-index: 3;
+      .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        &.active {
+          background: #fff;
+        }
       }
     }
   }
-}
 
-
+  /* ✅ Contact Section */
   .contactSection {
-    background:linear-gradient(90deg, #0b1670, #4f46e5);
+    background: linear-gradient(90deg, #0b1670, #4f46e5);
     padding: 40px 20px;
     text-align: center;
     border-radius: 6px;
-    margin-left:  calc((100% - 1220px) / 2);
+    margin-left: calc((100% - 1220px) / 2);
     margin-right: calc((100% - 1220px) / 2);
     color: white;
 
-    @media (max-width: 480px) {
+    @media (max-width: 992px), (max-width: 768px), (max-width: 480px) {
       font-size: 14px;
       margin-bottom: 10px;
       line-height: 1;
       width: 95%;
       margin-left: 10px;
       margin-right: 10px;
-    }
-
-    @media (max-width: 992px) {
-      font-size: 14px;
-      margin-bottom: 10px;
-      line-height: 1;
-      width: 95%;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 14px;
-      margin-bottom: 10px;
-      line-height: 1;
-      width: 95%;
-      margin-left: 10px;
-      margin-right: 10px;
-
     }
 
     p {
@@ -609,7 +487,6 @@
     cursor: pointer;
     font-weight: 600;
     transition: background 0.3s ease;
-
     &:hover {
       background: #286090;
     }

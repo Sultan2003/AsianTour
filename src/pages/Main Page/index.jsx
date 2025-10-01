@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import styles from "./MainPage.module.scss";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import culturalImg from "../../assets/images/front-img/cultural.avif";
@@ -12,13 +12,13 @@ import { LanguageContext } from "../../context/LanguageContext";
 import translations from "../../translations/mainpage";
 
 export default function MainPage() {
-  const { lang , strapiLocale } = useContext(LanguageContext); 
+  const { lang, strapiLocale } = useContext(LanguageContext);
   const t = translations[lang] || translations.en;
 
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const [imageIndexes, setImageIndexes] = useState({});
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(
@@ -39,9 +39,12 @@ export default function MainPage() {
       setImageIndexes((prevIndexes) => {
         const newIndexes = {};
         tours.forEach((tour) => {
-          const tourImages = images.filter((img) => img.alternativeText === tour.title);
+          const tourImages = images.filter(
+            (img) => img.alternativeText === tour.title
+          );
           if (tourImages.length > 0) {
-            newIndexes[tour.id] = ((prevIndexes[tour.id] || 0) + 1) % tourImages.length;
+            newIndexes[tour.id] =
+              ((prevIndexes[tour.id] || 0) + 1) % tourImages.length;
           }
         });
         return { ...prevIndexes, ...newIndexes };
@@ -66,48 +69,56 @@ export default function MainPage() {
       }
     })
     .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
-    .slice(0, 5);
+    .slice(0, 8);
 
   const slides = [
     {
       title: "Cultural Tours",
-      description: "Get around by train, bus, car, ferry, cruise ship, bicycle, skis, or sleigh. Relax and enjoy yourself!",
-      image: culturalImg
+      description:
+        "Get around by train, bus, car, ferry, cruise ship, bicycle, skis, or sleigh. Relax and enjoy yourself!",
+      image: culturalImg,
     },
     {
       title: "Gastronomy Tours",
-      description: "Taste the flavors of the world, from street food to fine dining. A journey for your senses!",
-      image: gastronomyImg
+      description:
+        "Taste the flavors of the world, from street food to fine dining. A journey for your senses!",
+      image: gastronomyImg,
     },
     {
       title: "Religious Tours",
-      description: "Visit sacred places and discover spiritual traditions that shaped civilizations.",
-      image: religiousImg
+      description:
+        "Visit sacred places and discover spiritual traditions that shaped civilizations.",
+      image: religiousImg,
     },
     {
       title: "Eco Tours",
-      description: "Connect with nature, protect biodiversity, and travel responsibly in breathtaking environments.",
-      image: ecoImg
+      description:
+        "Connect with nature, protect biodiversity, and travel responsibly in breathtaking environments.",
+      image: ecoImg,
     },
     {
       title: "Hiking",
-      description: "Explore trails, mountains, and valleys while staying active and inspired.",
+      description:
+        "Explore trails, mountains, and valleys while staying active and inspired.",
       image: hikingImg,
-      link: "/Hiking-Tours"
+      link: "/Hiking-Tours",
     },
     {
       title: "MICE and Business Tours",
-      description: "Professional, organized, and efficient. Combine business with world-class travel.",
-      image: businessImg
+      description:
+        "Professional, organized, and efficient. Combine business with world-class travel.",
+      image: businessImg,
     },
   ];
 
   const [current, setCurrent] = useState(0);
   const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
-  const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+  const prevSlide = () =>
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
     <div className={styles.mainPage}>
+      {/* ✅ HERO SECTION */}
       <div className={styles.hero}>
         <div className={styles.heroText}>
           <h1>{t.heroTitle}</h1>
@@ -115,23 +126,26 @@ export default function MainPage() {
         </div>
       </div>
 
+      {/* ✅ ABOUT */}
       <div className={styles.aboutSection}>
         <h2 className={styles.title}>{t.aboutTitle}</h2>
         <p className={styles.text}>{t.aboutText}</p>
       </div>
 
+      {/* ✅ TOURS */}
       <div className={styles.tourList}>
         {tours.map((tour) => {
           const days = calculateDays(tour.startDate, tour.endDate);
-          const tourImages = images.filter((img) => img.alternativeText === tour.title);
+          const tourImages = images.filter(
+            (img) => img.alternativeText === tour.title
+          );
           const currentIndex = imageIndexes[tour.id] || 0;
 
           return (
             <div
               key={tour.id}
               className={styles.tourCard}
-              onClick={() => navigate(`/tour/${tour.documentId}`)} 
-              style={{ cursor: "pointer" }}
+              onClick={() => navigate(`/tour/${tour.documentId}`)}
             >
               <div className={styles.image}>
                 {tourImages.length > 0 ? (
@@ -154,15 +168,21 @@ export default function MainPage() {
                     loading="lazy"
                   />
                 )}
-                {tour.isBestseller && <div className={styles.badge}>{t.bestseller}</div>}
+                {tour.isBestseller && (
+                  <div className={styles.badge}>{t.bestseller}</div>
+                )}
               </div>
 
               <div className={styles.details}>
                 <h2>{tour.title}</h2>
                 <div className={styles.textbtn}>
                   <div className={styles.daysprice}>
-                    <p className={styles.days}>{days} {t.days}</p>
-                    <p className={styles.price}>{t.fromPrice} {tour.price}</p>
+                    <p className={styles.days}>
+                      {days} {t.days}
+                    </p>
+                    <p className={styles.price}>
+                      {t.fromPrice} {tour.price}
+                    </p>
                   </div>
                   <div className={styles.btndiv}>
                     <button className={styles.viewBtn}>{t.viewDetails}</button>
@@ -174,78 +194,86 @@ export default function MainPage() {
         })}
       </div>
 
-      {/* 👉 Upcoming Tours Section */}
+      {/* ✅ UPCOMING */}
+      {/* ✅ UPCOMING TOURS */}
       <div className={styles.upcomingSection}>
         <h2>{t.upcomingTitle}</h2>
 
-        <div className={styles.upcomingWrapper}>
-          {/* Header */}
-          <div className={styles.upcomingHeader}>
-            <div>{t.upcomingHeader.date}</div>
-            <div>{t.upcomingHeader.departures}</div>
-            <div>{t.upcomingHeader.status}</div>
-            <div>{t.upcomingHeader.seats}</div>
-            <div>{t.upcomingHeader.price}</div>
-          </div>
+        <div className={styles.upcomingList}>
+          {upcomingTours.map((tour) => {
+            const availableSeats = tour.availableSeats;
+            const date = new Date(tour.startDate);
+            const month = date.toLocaleString(
+              lang === "ru" ? "ru-RU" : "en-US",
+              { month: "short" }
+            );
+            const day = date.getDate();
 
-          {/* List of tours */}
-          <div className={styles.upcomingList}>
-            {upcomingTours.map((tour) => {
-              const availableSeats = tour.availableSeats;
-              const date = new Date(tour.startDate);
-              const month = date.toLocaleString(lang === "ru" ? "ru-RU" : "en-US", { month: "short" });
-              const day = date.getDate();
-              const countries =
-                Array.isArray(tour.countries) ? tour.countries.join(", ") : tour.countries || "";
-              const departures = tour.location || 0;
-
-              return (
-                <div
-                  key={tour.id}
-                  className={styles.upcomingCard}
-                  onClick={() => navigate(`/tour/${tour.documentId}`)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <div className={styles.dateBox}>
-                    <span className={styles.month}>{month}</span>
-                    <span className={styles.day}>{day}</span>
-                  </div>
-
-                  <div className={styles.upcomingDetails}>
-                    <h3 className={styles.tourName}>{tour.title}</h3>
-                    <p className={styles.countries}>{countries}</p>
-                    <p className={styles.departures}>{departures} more departures &gt;&gt;&gt;</p>
-                  </div>
-
-                  <div className={styles.status}>{t.statusAvailable}</div>
-                  <div className={styles.uDays}>{availableSeats}</div>
-                  <div className={styles.uPrice}>US$ {tour.price}</div>
+            return (
+              <div
+                key={tour.id}
+                className={styles.upcomingCard}
+                onClick={() => navigate(`/tour/${tour.documentId}`)}
+              >
+                {/* Date */}
+                <div className={styles.dateBox}>
+                  <span className={styles.month}>{month}</span>
+                  <span className={styles.day}>{day}</span>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Tour title */}
+                <h3 className={styles.tourName}>{tour.title}</h3>
+
+                {/* Status */}
+                <div
+                  className={`${styles.status} ${
+                    availableSeats > 0 ? styles.available : styles.unavailable
+                  }`}
+                >
+                  {availableSeats > 0 ? t.statusAvailable : t.statusUnavailable}
+                </div>
+
+                {/* Seats */}
+                <div className={styles.uDays}>{availableSeats}</div>
+
+                {/* Price */}
+                <div className={styles.uPrice}>US$ {tour.price}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
+      {/* ✅ SLIDER */}
       <div className={styles.promoSlider}>
-        <img src={slides[current].image} alt={slides[current].title} className={styles.backgroundImage} />
+        <img
+          src={slides[current].image}
+          alt={slides[current].title}
+          className={styles.backgroundImage}
+        />
 
         <div className={styles.overlay}></div>
         <div className={styles.sliderContent}>
           <h2>{slides[current].title.toUpperCase()}</h2>
           <p>{slides[current].description}</p>
-          <button 
-  className={styles.readMoreBtn} 
-  onClick={() => navigate(slides[current].link)}
->
-  {t.readMore}
-</button>
+          <button
+            className={styles.readMoreBtn}
+            onClick={() => navigate(slides[current].link)}
+          >
+            {t.readMore}
+          </button>
         </div>
 
-        <button className={`${styles.arrow} ${styles.left}`} onClick={prevSlide}>
+        <button
+          className={`${styles.arrow} ${styles.left}`}
+          onClick={prevSlide}
+        >
           <ChevronLeft />
         </button>
-        <button className={`${styles.arrow} ${styles.right}`} onClick={nextSlide}>
+        <button
+          className={`${styles.arrow} ${styles.right}`}
+          onClick={nextSlide}
+        >
           <ChevronRight />
         </button>
 
@@ -253,7 +281,9 @@ export default function MainPage() {
           {slides.map((_, idx) => (
             <span
               key={idx}
-              className={`${styles.dot} ${idx === current ? styles.active : ""}`}
+              className={`${styles.dot} ${
+                idx === current ? styles.active : ""
+              }`}
               onClick={() => setCurrent(idx)}
             />
           ))}
