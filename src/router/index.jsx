@@ -24,6 +24,7 @@ import WeatherPage from "../pages/Weather Page";
 import ArmeniaToursDestination from "../pages/Countries copy/Armenia";
 import AzerbaijanToursDestination from "../pages/Countries copy/Azerbaijan";
 import GeorgiaToursDestination from "../pages/Countries copy/Georgia";
+import TashkentPage from "../pages/Cities/Uzbekistan/Tashkent";
 
 const Router = () => {
   return (
@@ -217,6 +218,14 @@ const Router = () => {
         element={
           <MainLayout>
             <WeatherPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Uzbekistan-Tashkent"
+        element={
+          <MainLayout>
+            <TashkentPage />
           </MainLayout>
         }
       />

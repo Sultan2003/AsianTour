@@ -133,65 +133,71 @@ export default function MainPage() {
       </div>
 
       {/* ✅ TOURS */}
+      {/* ✅ TOURS */}
       <div className={styles.tourList}>
-        {tours.map((tour) => {
-          const days = calculateDays(tour.startDate, tour.endDate);
-          const tourImages = images.filter(
-            (img) => img.alternativeText === tour.title
-          );
-          const currentIndex = imageIndexes[tour.id] || 0;
+        {[...tours]
+          .sort((a, b) => b.availableSeats - a.availableSeats) // sort by availableSeats
+          .slice(0, 6) // take top 6
+          .map((tour) => {
+            const days = calculateDays(tour.startDate, tour.endDate);
+            const tourImages = images.filter(
+              (img) => img.alternativeText === tour.title
+            );
+            const currentIndex = imageIndexes[tour.id] || 0;
 
-          return (
-            <div
-              key={tour.id}
-              className={styles.tourCard}
-              onClick={() => navigate(`/tour/${tour.documentId}`)}
-            >
-              <div className={styles.image}>
-                {tourImages.length > 0 ? (
-                  tourImages.map((img, idx) => (
+            return (
+              <div
+                key={tour.id}
+                className={styles.tourCard}
+                onClick={() => navigate(`/tour/${tour.documentId}`)}
+              >
+                <div className={styles.image}>
+                  {tourImages.length > 0 ? (
+                    tourImages.map((img, idx) => (
+                      <img
+                        key={img.id}
+                        src={img.url}
+                        alt={tour.title}
+                        className={styles.imageSlide}
+                        style={{ opacity: idx === currentIndex ? 1 : 0 }}
+                        loading="lazy"
+                      />
+                    ))
+                  ) : (
                     <img
-                      key={img.id}
-                      src={img.url}
-                      alt={tour.title}
+                      src="https://via.placeholder.com/400x250?text=No+Image"
+                      alt="No tour available"
                       className={styles.imageSlide}
-                      style={{ opacity: idx === currentIndex ? 1 : 0 }}
+                      style={{ opacity: 1 }}
                       loading="lazy"
                     />
-                  ))
-                ) : (
-                  <img
-                    src="https://via.placeholder.com/400x250?text=No+Image"
-                    alt="No tour available"
-                    className={styles.imageSlide}
-                    style={{ opacity: 1 }}
-                    loading="lazy"
-                  />
-                )}
-                {tour.isBestseller && (
-                  <div className={styles.badge}>{t.bestseller}</div>
-                )}
-              </div>
+                  )}
+                  {tour.isBestseller && (
+                    <div className={styles.badge}>{t.bestseller}</div>
+                  )}
+                </div>
 
-              <div className={styles.details}>
-                <h2>{tour.title}</h2>
-                <div className={styles.textbtn}>
-                  <div className={styles.daysprice}>
-                    <p className={styles.days}>
-                      {days} {t.days}
-                    </p>
-                    <p className={styles.price}>
-                      {t.fromPrice} {tour.price}
-                    </p>
-                  </div>
-                  <div className={styles.btndiv}>
-                    <button className={styles.viewBtn}>{t.viewDetails}</button>
+                <div className={styles.details}>
+                  <h2>{tour.title}</h2>
+                  <div className={styles.textbtn}>
+                    <div className={styles.daysprice}>
+                      <p className={styles.days}>
+                        {days} {t.days}
+                      </p>
+                      <p className={styles.price}>
+                        {t.fromPrice} {tour.price}
+                      </p>
+                    </div>
+                    <div className={styles.btndiv}>
+                      <button className={styles.viewBtn}>
+                        {t.viewDetails}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
 
       {/* ✅ UPCOMING */}

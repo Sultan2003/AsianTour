@@ -21,38 +21,7 @@ export default function UzbekistanTours() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = [
-    "Tashkent",
-    "Samarkand",
-    "Bukhara",
-    "Khiva",
-    "Andijan",
-    "Aral Sea",
-    "Baysun",
-    "Beldersay",
-    "Charvak",
-    "Chimgan",
-    "Fergana",
-    "Jizzakh",
-    "Karakalpakstan",
-    "Karshi",
-    "Kokand",
-    "Kuva",
-    "Margilan",
-    "Muynak",
-    "Namangan",
-    "Navoi",
-    "Nukus",
-    "Nurata",
-    "Rishtan",
-    "Sarmish-say Petroglyphs",
-    "Shakhimardan",
-    "Shakhrisabz",
-    "Termez",
-    "Urgench",
-    "Ustyurt Plateau",
-    "Yangiabad",
-  ];
+  const destinations = ["Tashkent", "Samarkand"];
 
   const notes = [
     "Travel safety matters",
@@ -252,12 +221,17 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
           </div>
 
           {/* ✅ Sidebar with Destinations */}
+          {/* ✅ Sidebar with Destinations */}
           <div className={styles.sidebar}>
             <h3>Travel Destinations</h3>
             <ul>
               {destinations.map((d, i) => (
-                <li key={i}>
-                  <a href="#">{d}</a>
+                <li
+                  key={i}
+                  onClick={() => navigate(`/Uzbekistan-${d}`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {d}
                 </li>
               ))}
             </ul>
