@@ -25,6 +25,7 @@ import ArmeniaToursDestination from "../pages/Countries copy/Armenia";
 import AzerbaijanToursDestination from "../pages/Countries copy/Azerbaijan";
 import GeorgiaToursDestination from "../pages/Countries copy/Georgia";
 import TashkentPage from "../pages/Cities/Uzbekistan/Tashkent";
+import UzbekistanPrivateTours from "../pages/Private Tours/Uzbekistan";
 
 const Router = () => {
   return (
@@ -226,6 +227,14 @@ const Router = () => {
         element={
           <MainLayout>
             <TashkentPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Uzbekistan-Private-Tours"
+        element={
+          <MainLayout>
+            <UzbekistanPrivateTours />
           </MainLayout>
         }
       />

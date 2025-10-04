@@ -2,9 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 import logo from "../../assets/background/Logo.png";
 import { useState, useContext } from "react";
-import { LanguageContext } from "../../context/LanguageContext"
+import { LanguageContext } from "../../context/LanguageContext";
 import headerTranslations from "../../translations/header";
-
 
 export default function Header() {
   const [openFilter, setOpenFilter] = useState(false);
@@ -45,51 +44,84 @@ export default function Header() {
           <li className={styles.dropdown}>
             {t.destinations} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-            <li onClick={() => navigate("/Silk-Road")}>{t.silkRoadd}</li>
-  <li onClick={() => navigate("/Central-Asia")}>{t.centralAsiad}</li>
-  <li onClick={() => navigate("/Uzbekistan")}>{t.uzbekistand}</li>
-        <li onClick={() => navigate("/Kazakhstan")}>{t.kazakhstand}</li>
-        <li onClick={() => navigate("/Kyrgyzstan")}>{t.kyrgyzstand}</li>
-        <li onClick={() => navigate("/Tajikistan")}>{t.tajikistand}</li>
-        <li onClick={() => navigate("/Turkmenistan")}>{t.turkmenistand}</li>
-        <li onClick={() => navigate("/Caucasus")}>{t.caucasusd}</li>
-        <li onClick={() => navigate("/Armenia")}>{t.armeniad}</li>
-        <li onClick={() => navigate("/Azerbaijan")}>{t.azerbaijand}</li>
-        <li onClick={() => navigate("/Georgia")}>{t.georgiad}</li>
-              
+              <li onClick={() => navigate("/Silk-Road")}>{t.silkRoadd}</li>
+              <li onClick={() => navigate("/Central-Asia")}>
+                {t.centralAsiad}
+              </li>
+              <li onClick={() => navigate("/Uzbekistan")}>{t.uzbekistand}</li>
+              <li onClick={() => navigate("/Kazakhstan")}>{t.kazakhstand}</li>
+              <li onClick={() => navigate("/Kyrgyzstan")}>{t.kyrgyzstand}</li>
+              <li onClick={() => navigate("/Tajikistan")}>{t.tajikistand}</li>
+              <li onClick={() => navigate("/Turkmenistan")}>
+                {t.turkmenistand}
+              </li>
+              <li onClick={() => navigate("/Caucasus")}>{t.caucasusd}</li>
+              <li onClick={() => navigate("/Armenia")}>{t.armeniad}</li>
+              <li onClick={() => navigate("/Azerbaijan")}>{t.azerbaijand}</li>
+              <li onClick={() => navigate("/Georgia")}>{t.georgiad}</li>
             </ul>
           </li>
           <li className={styles.dropdown}>
             {t.groupPackages} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
               <li onClick={() => navigate("/Silk-Road-Tours")}>{t.silkRoad}</li>
-  <li onClick={() => navigate("/Central-Asia-Tours")}>{t.centralAsia}</li>
-  <li onClick={() => navigate("/Uzbek-Tours")}>{t.uzbekistan}</li>
-        <li onClick={() => navigate("/Kazakh-Tours")}>{t.kazakhstan}</li>
-        <li onClick={() => navigate("/Kyrgyz-Tours")}>{t.kyrgyzstan}</li>
-        <li onClick={() => navigate("/Tajik-Tours")}>{t.tajikistan}</li>
-        <li onClick={() => navigate("/Turkmen-Tours")}>{t.turkmenistan}</li>
-  <li onClick={() => navigate("/Caucas-Tours")}>{t.caucasus}</li>
-       <li onClick={() => navigate("/Armenia-Tours")}>{t.armenia}</li>
-        <li onClick={() => navigate("/Azerbaijan-Tours")}>{t.azerbaijan}</li>
-        <li onClick={() => navigate("/Georgia-Tours")}>{t.georgia}</li>
+              <li onClick={() => navigate("/Central-Asia-Tours")}>
+                {t.centralAsia}
+              </li>
+              <li onClick={() => navigate("/Uzbek-Tours")}>{t.uzbekistan}</li>
+              <li onClick={() => navigate("/Kazakh-Tours")}>{t.kazakhstan}</li>
+              <li onClick={() => navigate("/Kyrgyz-Tours")}>{t.kyrgyzstan}</li>
+              <li onClick={() => navigate("/Tajik-Tours")}>{t.tajikistan}</li>
+              <li onClick={() => navigate("/Turkmen-Tours")}>
+                {t.turkmenistan}
+              </li>
+              <li onClick={() => navigate("/Caucas-Tours")}>{t.caucasus}</li>
+              <li onClick={() => navigate("/Armenia-Tours")}>{t.armenia}</li>
+              <li onClick={() => navigate("/Azerbaijan-Tours")}>
+                {t.azerbaijan}
+              </li>
+              <li onClick={() => navigate("/Georgia-Tours")}>{t.georgia}</li>
             </ul>
           </li>
           <li className={styles.dropdown}>
             {t.privateTours} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-              <li>{t.tailor}</li>
-              <li>{t.silkRoad}</li>
-  <li>{t.centralAsia}</li>
-  <li >{t.uzbekistan}</li>
-        <li >{t.kazakhstan}</li>
-        <li >{t.kyrgyzstan}</li>
-        <li >{t.tajikistan}</li>
-        <li >{t.turkmenistan}</li>
-        <li>{t.caucasus}</li>
-        <li>{t.armenia}</li>
-        <li>{t.azerbaijan}</li>
-        <li>{t.georgia}</li>
+              <li onClick={() => navigate("/Silk-Road-Private-Tours")}>
+                {t.silkRoad}
+              </li>
+              <li onClick={() => navigate("/Central-Asia-Private-Tours")}>
+                {t.centralAsia}
+              </li>
+              <li onClick={() => navigate("/Uzbekistan-Private-Tours")}>
+                {t.uzbekistan}
+              </li>
+              <li onClick={() => navigate("/Kazakhstan-Private-Tours")}>
+                {t.kazakhstan}
+              </li>
+              <li onClick={() => navigate("/Kyrgyzstan-Private-Tours")}>
+                {t.kyrgyzstan}
+              </li>
+              <li onClick={() => navigate("/Tajikistan-Private-Tours")}>
+                {t.tajikistan}
+              </li>
+              <li onClick={() => navigate("/Turkmenistan-Private-Tours")}>
+                {t.turkmenistan}
+              </li>
+              <li onClick={() => navigate("/Caucasus-Private-Tours")}>
+                {t.caucasus}
+              </li>
+              <li onClick={() => navigate("/Armenia-Private-Tours")}>
+                {t.armenia}
+              </li>
+              <li onClick={() => navigate("/Azerbaijan-Private-Tours")}>
+                {t.azerbaijan}
+              </li>
+              <li onClick={() => navigate("/Georgia-Private-Tours")}>
+                {t.georgia}
+              </li>
+              <li onClick={() => navigate("/Tailor-Private-Tours")}>
+                {t.tailor}
+              </li>
             </ul>
           </li>
           <li className={styles.dropdown}>
@@ -108,11 +140,7 @@ export default function Header() {
             className={styles.searchInput}
             onClick={() => setOpenFilter(!openFilter)}
           >
-            <input
-              type="text"
-              placeholder={t.searchPlaceholder}
-              readOnly
-            />
+            <input type="text" placeholder={t.searchPlaceholder} readOnly />
             <button>▼</button>
           </div>
 

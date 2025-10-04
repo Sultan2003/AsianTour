@@ -1,21 +1,20 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
-import styles from "./Uzbekistan.module.scss";
+import styles from "./UzbekistanPrivate.module.scss";
 import mainImg from "../../../assets/Countries/uzb-registan.jpg";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
-export default function UzbekistanTours() {
+export default function UzbekistanPrivateTours() {
   const ctx = useContext(LanguageContext) || {};
   const strapiLocale = ctx.strapiLocale || ctx.lang || "";
   const navigate = useNavigate();
 
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
-  const [openCats, setOpenCats] = useState({}); // accordion state
+  const [openCats, setOpenCats] = useState({});
 
-  // helper: extract plain text from Strapi rich text blocks
   const extractPlainText = (desc) => {
     if (!desc) return "";
     if (typeof desc === "string") return desc;
@@ -34,7 +33,6 @@ export default function UzbekistanTours() {
     return "";
   };
 
-  // normalize tour item (handles top-level or attributes shape)
   const normalizeTour = (rawItem) => {
     const raw = rawItem.attributes ? rawItem.attributes : rawItem;
 
@@ -42,44 +40,27 @@ export default function UzbekistanTours() {
       id: rawItem.id || raw.id || Math.random().toString(36).slice(2),
       documentId:
         raw.documentId || rawItem.documentId || raw.slug || rawItem.id,
-      title: raw.title || raw.name || rawItem.title || rawItem.name || "",
-      price: raw.price ?? raw.pricePerPerson ?? rawItem.price ?? 0,
-      startDate:
-        raw.startDate ||
-        raw.start_date ||
-        raw.date ||
-        rawItem.startDate ||
-        rawItem.start_date ||
-        null,
-      endDate:
-        raw.endDate ||
-        raw.end_date ||
-        rawItem.endDate ||
-        rawItem.end_date ||
-        null,
-      availableSeats:
-        raw.availableSeats ??
-        raw.available_seats ??
-        raw.available ??
-        rawItem.availableSeats ??
-        rawItem.available ??
-        0,
-
-      location: raw.location || raw.place || rawItem.location || "",
-      daysdescription: raw.daysdescription || rawItem.daysdescription || "",
-      description: extractPlainText(raw.description) || raw.description || "",
-      // tour_type may be top-level or inside attributes — try both
+      title: raw.title || raw.name || "",
+      price: raw.price ?? raw.pricePerPerson ?? 0,
+      startDate: raw.startDate || raw.start_date || null,
+      endDate: raw.endDate || raw.end_date || null,
+      availableSeats: raw.availableSeats ?? raw.available_seats ?? 0,
+      location: raw.location || "",
+      daysdescription: raw.daysdescription || "",
+      description: extractPlainText(raw.description) || "",
       tour_type:
-        (raw.tour_type ?? raw.tourType ?? raw.type) ||
+        raw.tour_type ||
+        raw.tourType ||
+        raw.type ||
         rawItem.tour_type ||
         rawItem.tourType ||
         "",
-      isBestseller: raw.isBestseller || raw.bestseller || false,
-      image: raw.image || raw.cover || null,
+      isBestseller: raw.isBestseller || false,
+      image: raw.image || null,
     };
   };
 
-  // fetch tours (Uzbekistan, only Group tours)
+  // fetch tours (Uzbekistan, only Private tours)
   useEffect(() => {
     const url = strapiLocale
       ? `${STRAPI_BASE}/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=Uzbekistan`
@@ -91,46 +72,38 @@ export default function UzbekistanTours() {
         const list = (data && data.data) || [];
         const normalized = list.map((it) => normalizeTour(it));
 
-        // ✅ Keep only Uzbekistan + Group tours
         setTours(
           normalized.filter(
             (t) =>
               (t.location || "").toLowerCase().includes("uzbekistan") &&
-              (t.tour_type || "").toString().toLowerCase().includes("group")
+              (t.tour_type || "").toString().toLowerCase().includes("private")
           )
         );
       })
-      .catch((err) => {
-        console.error("Failed to load tours:", err);
-        setTours([]);
-      });
+      .catch(() => setTours([]));
   }, [strapiLocale]);
 
-  // fetch images (upload/files)
   useEffect(() => {
     fetch(`${STRAPI_BASE}/api/upload/files`)
       .then((res) => res.json())
       .then((data) => {
         const arr = Array.isArray(data) ? data : [];
-        const normalized = arr.map((img) => {
-          const rawUrl =
-            img.url ||
-            img.formats?.thumbnail?.url ||
-            img.formats?.small?.url ||
-            "";
-          const fullUrl =
-            rawUrl.indexOf("http") === 0 ? rawUrl : `${STRAPI_BASE}${rawUrl}`;
-          return { ...img, fullUrl };
-        });
-        setImages(normalized);
+        setImages(
+          arr.map((img) => {
+            const rawUrl =
+              img.url ||
+              img.formats?.thumbnail?.url ||
+              img.formats?.small?.url ||
+              "";
+            const fullUrl =
+              rawUrl.indexOf("http") === 0 ? rawUrl : `${STRAPI_BASE}${rawUrl}`;
+            return { ...img, fullUrl };
+          })
+        );
       })
-      .catch((err) => {
-        console.error("Failed to load images:", err);
-        setImages([]);
-      });
+      .catch(() => setImages([]));
   }, []);
 
-  // find image by alternativeText === tour.title (case-insensitive)
   const getImageForTitle = (title) => {
     if (!title || images.length === 0) return null;
     const t = title.trim().toLowerCase();
@@ -160,16 +133,8 @@ export default function UzbekistanTours() {
     }
   };
 
-  // === LEFT SIDE: skip "City" tours ===
   const now = new Date();
-
-  // remove city tours for left-side lists
-  const toursWithoutCity = tours.filter(
-    (t) => !(t.tour_type || "").toString().toLowerCase().includes("city")
-  );
-
-  // UPCOMING: closest 3 tours by startDate
-  const withDates = toursWithoutCity.filter((t) => t.startDate);
+  const withDates = tours.filter((t) => t.startDate);
   const futureSorted = withDates
     .filter((t) => new Date(t.startDate) >= now)
     .sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
@@ -182,12 +147,10 @@ export default function UzbekistanTours() {
     );
   const upcomingTours = futureSorted.concat(pastSorted).slice(0, 3);
 
-  // TOP 10 by availableSeats (exclude city tours)
-  const top10BySeats = [...toursWithoutCity]
+  const top10BySeats = [...tours]
     .sort((a, b) => (b.availableSeats || 0) - (a.availableSeats || 0))
     .slice(0, 10);
 
-  // === RIGHT SIDE: categories (only Group tours) ===
   const categories = {
     Cultural: [],
     Gastronomy: [],
@@ -199,50 +162,14 @@ export default function UzbekistanTours() {
 
   tours.forEach((t) => {
     const ttype = (t.tour_type || "").toString().toLowerCase();
-    const pushIf = (cat) => categories[cat].push(t);
-
-    if (
-      ttype.includes("cultural") ||
-      ttype.includes("culture") ||
-      ttype.includes("heritage")
-    )
-      pushIf("Cultural");
-
-    if (
-      ttype.includes("gastronomy") ||
-      ttype.includes("food") ||
-      ttype.includes("culinary")
-    )
-      pushIf("Gastronomy");
-
-    if (
-      ttype.includes("relig") ||
-      ttype.includes("pilgrim") ||
-      ttype.includes("mosque") ||
-      ttype.includes("temple")
-    )
-      pushIf("Religious");
-
-    if (ttype.includes("eco") || ttype.includes("nature")) pushIf("Eco");
-
-    if (ttype.includes("city") || ttype.includes("urban")) pushIf("City");
-
-    if (
-      ttype.includes("business") ||
-      ttype.includes("mice") ||
-      ttype.includes("conference")
-    )
-      pushIf("Business");
-  });
-
-  // ensure unique items in each category
-  Object.keys(categories).forEach((k) => {
-    const map = {};
-    categories[k] = categories[k].filter((t) => {
-      if (map[t.id]) return false;
-      map[t.id] = true;
-      return true;
-    });
+    if (ttype.includes("cultural")) categories.Cultural.push(t);
+    if (ttype.includes("gastronomy") || ttype.includes("food"))
+      categories.Gastronomy.push(t);
+    if (ttype.includes("relig")) categories.Religious.push(t);
+    if (ttype.includes("eco") || ttype.includes("nature"))
+      categories.Eco.push(t);
+    if (ttype.includes("city")) categories.City.push(t);
+    if (ttype.includes("business")) categories.Business.push(t);
   });
 
   const toggleCategory = (cat) =>
@@ -252,14 +179,13 @@ export default function UzbekistanTours() {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <div className={styles.content}>
-          {/* LEFT - main content */}
+          {/* LEFT */}
           <div className={styles.tours}>
             <div className={styles.mainImage}>
               <img src={mainImg} alt="Uzbekistan" />
             </div>
 
-            {/* UPCOMING */}
-            <h2>Upcoming Group Departures</h2>
+            <h2>Upcoming Private Departures</h2>
             <div className={styles.cardsHeader}>
               <div>Date</div>
               <div></div>
@@ -283,7 +209,6 @@ export default function UzbekistanTours() {
                     ? new Date(tour.startDate).toLocaleDateString()
                     : "-"}
                 </div>
-
                 <div className={styles.tourInfo}>
                   <a className={styles.title}>{tour.title}</a>
                   <p className={styles.cities}>{tour.location}</p>
@@ -291,7 +216,6 @@ export default function UzbekistanTours() {
                     {tour.availableSeats} seats available
                   </a>
                 </div>
-
                 <div
                   className={
                     tour.availableSeats > 0
@@ -301,16 +225,12 @@ export default function UzbekistanTours() {
                 >
                   {tour.availableSeats > 0 ? "Available" : "Unavailable"}
                 </div>
-
                 <div>{calcDays(tour.startDate, tour.endDate)} days</div>
-
                 <div>US$ {tour.price}</div>
               </div>
             ))}
 
-            {/* TOP 10 */}
-            <h2 className={styles.sectionTitle}>Uzbekistan Tours</h2>
-
+            <h2 className={styles.sectionTitle}>Uzbekistan Private Tours</h2>
             <div className={styles.topGrid}>
               {top10BySeats.map((tour) => (
                 <div
@@ -324,7 +244,6 @@ export default function UzbekistanTours() {
                       alt={tour.title}
                     />
                   </div>
-
                   <div className={styles.bigInfo}>
                     <h3 className={styles.bigTitle}>{tour.title}</h3>
                     <p className={styles.summary}>
@@ -333,20 +252,15 @@ export default function UzbekistanTours() {
                         " " +
                         (tour.daysdescription || "")
                       ).slice(0, 160)}
-                      {((tour.description || "") + (tour.daysdescription || ""))
-                        .length > 160
-                        ? "..."
-                        : ""}
+                      ...
                     </p>
-
                     <div className={styles.metaRow}>
                       <span>{calcDays(tour.startDate, tour.endDate)} Days</span>
                       <span className={styles.dot}>•</span>
-                      <span>Group</span>
+                      <span>Private</span>
                       <span className={styles.dot}>•</span>
                       <span>{tour.availableSeats} seats</span>
                     </div>
-
                     <div className={styles.bottomRow}>
                       <div className={styles.price}>US$ {tour.price}</div>
                       <button className={styles.detailsBtn}>Details</button>
@@ -357,16 +271,14 @@ export default function UzbekistanTours() {
             </div>
 
             <p className={styles.description}>
-              Visit Uzbekistan and discover stunning medieval cities with tall
-              minarets reaching into the sky. See local pilgrims in bright robes
-              and experience the lively atmosphere of bustling bazaars.
+              Explore Uzbekistan privately with tailor-made itineraries and
+              discover the Silk Road at your own pace.
             </p>
           </div>
 
-          {/* RIGHT - sidebar categories */}
+          {/* RIGHT */}
           <aside className={styles.sidebar}>
-            <h3>Uzbekistan Group Tours</h3>
-
+            <h3>Uzbekistan Private Tours</h3>
             {Object.keys(categories).map((cat) => {
               const items = categories[cat] || [];
               const isOpen = !!openCats[cat];
@@ -385,7 +297,6 @@ export default function UzbekistanTours() {
                       <span className={styles.chev}>{isOpen ? "▾" : "▸"}</span>
                     </div>
                   </div>
-
                   <ul className={styles.catList}>
                     {items.length === 0 && (
                       <li className={styles.catEmpty}>No tours</li>

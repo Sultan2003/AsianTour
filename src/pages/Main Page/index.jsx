@@ -20,12 +20,21 @@ export default function MainPage() {
   const [imageIndexes, setImageIndexes] = useState({});
   const navigate = useNavigate();
 
+  // Fetch tours and images
   useEffect(() => {
     fetch(
       `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}`
     )
       .then((res) => res.json())
-      .then((data) => setTours(data.data))
+      .then((data) => {
+        if (!data?.data) return;
+        // Filter: Only Group tours, exclude City tours
+        const filtered = data.data.filter((tour) => {
+          const type = (tour.tour_type || "").toLowerCase();
+          return type.includes("group") && !type.includes("city");
+        });
+        setTours(filtered);
+      })
       .catch((err) => console.error(err));
 
     fetch("https://brilliant-passion-7d3870e44b.strapiapp.com/api/upload/files")
@@ -34,13 +43,15 @@ export default function MainPage() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
+  // Image slider logic
   useEffect(() => {
     const interval = setInterval(() => {
       setImageIndexes((prevIndexes) => {
         const newIndexes = {};
         tours.forEach((tour) => {
           const tourImages = images.filter(
-            (img) => img.alternativeText === tour.title
+            (img) =>
+              img.alternativeText?.toLowerCase() === tour.title?.toLowerCase()
           );
           if (tourImages.length > 0) {
             newIndexes[tour.id] =
@@ -57,7 +68,7 @@ export default function MainPage() {
   const calculateDays = (start, end) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
-    return Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+    return Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) || 1;
   };
 
   const upcomingTours = [...tours]
@@ -118,7 +129,7 @@ export default function MainPage() {
 
   return (
     <div className={styles.mainPage}>
-      {/* ✅ HERO SECTION */}
+      {/* HERO */}
       <div className={styles.hero}>
         <div className={styles.heroText}>
           <h1>{t.heroTitle}</h1>
@@ -126,22 +137,22 @@ export default function MainPage() {
         </div>
       </div>
 
-      {/* ✅ ABOUT */}
+      {/* ABOUT */}
       <div className={styles.aboutSection}>
         <h2 className={styles.title}>{t.aboutTitle}</h2>
         <p className={styles.text}>{t.aboutText}</p>
       </div>
 
-      {/* ✅ TOURS */}
-      {/* ✅ TOURS */}
+      {/* TOURS */}
       <div className={styles.tourList}>
-        {[...tours]
-          .sort((a, b) => b.availableSeats - a.availableSeats) // sort by availableSeats
-          .slice(0, 6) // take top 6
+        {tours
+          .sort((a, b) => b.availableSeats - a.availableSeats)
+          .slice(0, 6)
           .map((tour) => {
             const days = calculateDays(tour.startDate, tour.endDate);
             const tourImages = images.filter(
-              (img) => img.alternativeText === tour.title
+              (img) =>
+                img.alternativeText?.toLowerCase() === tour.title?.toLowerCase()
             );
             const currentIndex = imageIndexes[tour.id] || 0;
 
@@ -200,8 +211,7 @@ export default function MainPage() {
           })}
       </div>
 
-      {/* ✅ UPCOMING */}
-      {/* ✅ UPCOMING TOURS */}
+      {/* UPCOMING TOURS */}
       <div className={styles.upcomingSection}>
         <h2>{t.upcomingTitle}</h2>
 
@@ -211,7 +221,9 @@ export default function MainPage() {
             const date = new Date(tour.startDate);
             const month = date.toLocaleString(
               lang === "ru" ? "ru-RU" : "en-US",
-              { month: "short" }
+              {
+                month: "short",
+              }
             );
             const day = date.getDate();
 
@@ -221,16 +233,13 @@ export default function MainPage() {
                 className={styles.upcomingCard}
                 onClick={() => navigate(`/tour/${tour.documentId}`)}
               >
-                {/* Date */}
                 <div className={styles.dateBox}>
                   <span className={styles.month}>{month}</span>
                   <span className={styles.day}>{day}</span>
                 </div>
 
-                {/* Tour title */}
                 <h3 className={styles.tourName}>{tour.title}</h3>
 
-                {/* Status */}
                 <div
                   className={`${styles.status} ${
                     availableSeats > 0 ? styles.available : styles.unavailable
@@ -239,10 +248,8 @@ export default function MainPage() {
                   {availableSeats > 0 ? t.statusAvailable : t.statusUnavailable}
                 </div>
 
-                {/* Seats */}
                 <div className={styles.uDays}>{availableSeats}</div>
 
-                {/* Price */}
                 <div className={styles.uPrice}>US$ {tour.price}</div>
               </div>
             );
@@ -250,26 +257,26 @@ export default function MainPage() {
         </div>
       </div>
 
-      {/* ✅ SLIDER */}
+      {/* PROMO SLIDER */}
       <div className={styles.promoSlider}>
         <img
           src={slides[current].image}
           alt={slides[current].title}
           className={styles.backgroundImage}
         />
-
         <div className={styles.overlay}></div>
         <div className={styles.sliderContent}>
           <h2>{slides[current].title.toUpperCase()}</h2>
           <p>{slides[current].description}</p>
-          <button
-            className={styles.readMoreBtn}
-            onClick={() => navigate(slides[current].link)}
-          >
-            {t.readMore}
-          </button>
+          {slides[current].link && (
+            <button
+              className={styles.readMoreBtn}
+              onClick={() => navigate(slides[current].link)}
+            >
+              {t.readMore}
+            </button>
+          )}
         </div>
-
         <button
           className={`${styles.arrow} ${styles.left}`}
           onClick={prevSlide}
@@ -282,7 +289,6 @@ export default function MainPage() {
         >
           <ChevronRight />
         </button>
-
         <div className={styles.dots}>
           {slides.map((_, idx) => (
             <span
