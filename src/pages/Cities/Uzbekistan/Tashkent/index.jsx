@@ -8,14 +8,17 @@ export default function TashkentPage() {
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch tours (only Tashkent)
+  // Fetch tours (Uzbekistan only)
   useEffect(() => {
     fetch(
-      "https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?filters[location][$eq]=Tashkent"
+      "https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?filters[location][$eq]=Uzbekistan"
     )
       .then((res) => res.json())
-      .then((data) => setTours(data.data || []))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        console.log("✅ Full tours response:", data);
+        setTours(data.data || []);
+      })
+      .catch((err) => console.error("❌ Tours fetch error:", err));
   }, []);
 
   // Fetch images
@@ -23,7 +26,7 @@ export default function TashkentPage() {
     fetch("https://brilliant-passion-7d3870e44b.strapiapp.com/api/upload/files")
       .then((res) => res.json())
       .then((data) => setImages(data))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("❌ Images fetch error:", err));
   }, []);
 
   const getTourImage = (tour) => {
@@ -34,6 +37,12 @@ export default function TashkentPage() {
       ? tourImages[0].url
       : "https://via.placeholder.com/400x400";
   };
+
+  // ✅ Filter tours: only those with tour_type containing "Tashkent"
+  const tashkentTours = tours.filter((tour) => {
+    const type = tour.tour_type || "";
+    return type.toLowerCase().includes("tashkent");
+  });
 
   const extraLinks = [
     "Tashkent Hotels",
@@ -77,7 +86,7 @@ export default function TashkentPage() {
 
       {/* Right Side */}
       <div className={styles.right}>
-        {tours.map((tour) => (
+        {tashkentTours.map((tour) => (
           <div
             key={tour.id}
             className={styles.tourCard}
@@ -107,7 +116,7 @@ export default function TashkentPage() {
           </div>
         ))}
 
-        {/* ✅ Extra Block */}
+        {/* Extra Block */}
         <div className={styles.extraBlock}>
           <h3>Explore More in Tashkent</h3>
           <ul>
