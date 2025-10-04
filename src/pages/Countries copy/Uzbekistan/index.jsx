@@ -17,7 +17,16 @@ export default function UzbekistanTours() {
       `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=Uzbekistan`
     )
       .then((res) => res.json())
-      .then((data) => setTours(data.data || []))
+      .then((data) => {
+        // Filter for Group tours and exclude City Tours
+        const filteredTours = (data.data || []).filter(
+          (tour) =>
+            tour.tour_type?.includes("Group") &&
+            !tour.tour_type?.includes("City Tour")
+        );
+        // Limit to max 3 tours
+        setTours(filteredTours.slice(0, 3));
+      })
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
@@ -221,17 +230,17 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
           </div>
 
           {/* ✅ Sidebar with Destinations */}
-          {/* ✅ Sidebar with Destinations */}
           <div className={styles.sidebar}>
             <h3>Travel Destinations</h3>
             <ul>
               {destinations.map((d, i) => (
-                <li
-                  key={i}
-                  onClick={() => navigate(`/Uzbekistan-${d}`)}
-                  style={{ cursor: "pointer" }}
-                >
-                  {d}
+                <li key={i}>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/Uzbekistan-${d}`)}
+                  >
+                    {d}
+                  </span>
                 </li>
               ))}
             </ul>
