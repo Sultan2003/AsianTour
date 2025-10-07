@@ -38,6 +38,7 @@ import TurkmenistanPrivateTours from "../pages/Private Tours/Turkmenistan Privat
 import ArmeniaPrivateTours from "../pages/Private Tours/Armenia Private";
 import AzerbaijanPrivateTours from "../pages/Private Tours/Azerbaijan Private";
 import GeorgiaPrivateTours from "../pages/Private Tours/Georgia Private";
+import CaucasusPrivateTours from "../pages/Private Tours/Caucasus Private";
 
 const Router = () => {
   return (
@@ -344,6 +345,14 @@ const Router = () => {
         element={
           <MainLayout>
             <GeorgiaPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Caucasus-Private-Tours"
+        element={
+          <MainLayout>
+            <CaucasusPrivateTours />
           </MainLayout>
         }
       />
