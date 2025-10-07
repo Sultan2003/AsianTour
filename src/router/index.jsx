@@ -26,6 +26,18 @@ import AzerbaijanToursDestination from "../pages/Countries copy/Azerbaijan";
 import GeorgiaToursDestination from "../pages/Countries copy/Georgia";
 import TashkentPage from "../pages/Cities/Uzbekistan/Tashkent";
 import UzbekistanPrivateTours from "../pages/Private Tours/Uzbekistan";
+import ArmeniaTours from "../pages/Countries/Armenia";
+import AzerbaijanTours from "../pages/Countries/Azerbaijan";
+import GeorgiaTours from "../pages/Countries/Georgia";
+import KazakhstanPrivateTours from "../pages/Private Tours/Kazakhstan";
+import SilkRoadPrivateTours from "../pages/Private Tours/Silk Road";
+import CentralAsiaPrivateTours from "../pages/Private Tours/Central Asia Private";
+import KyrgyzstanPrivateTours from "../pages/Private Tours/Kyrgyzstan Private";
+import TajikistanPrivateTours from "../pages/Private Tours/Tajikistan Private";
+import TurkmenistanPrivateTours from "../pages/Private Tours/Turkmenistan Private";
+import ArmeniaPrivateTours from "../pages/Private Tours/Armenia Private";
+import AzerbaijanPrivateTours from "../pages/Private Tours/Azerbaijan Private";
+import GeorgiaPrivateTours from "../pages/Private Tours/Georgia Private";
 
 const Router = () => {
   return (
@@ -115,6 +127,30 @@ const Router = () => {
         element={
           <MainLayout>
             <CaucasusTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Armenia-Tours"
+        element={
+          <MainLayout>
+            <ArmeniaTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Azerbaijan-Tours"
+        element={
+          <MainLayout>
+            <AzerbaijanTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Georgia-Tours"
+        element={
+          <MainLayout>
+            <GeorgiaTours />
           </MainLayout>
         }
       />
@@ -235,6 +271,79 @@ const Router = () => {
         element={
           <MainLayout>
             <UzbekistanPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Kazakhstan-Private-Tours"
+        element={
+          <MainLayout>
+            <KazakhstanPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Silk-Road-Private-Tours"
+        element={
+          <MainLayout>
+            <SilkRoadPrivateTours />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/Central-Asia-Private-Tours"
+        element={
+          <MainLayout>
+            <CentralAsiaPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Kyrgyzstan-Private-Tours"
+        element={
+          <MainLayout>
+            <KyrgyzstanPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Tajikistan-Private-Tours"
+        element={
+          <MainLayout>
+            <TajikistanPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Turkmenistan-Private-Tours"
+        element={
+          <MainLayout>
+            <TurkmenistanPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Armenia-Private-Tours"
+        element={
+          <MainLayout>
+            <ArmeniaPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Azerbaijan-Private-Tours"
+        element={
+          <MainLayout>
+            <AzerbaijanPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Georgia-Private-Tours"
+        element={
+          <MainLayout>
+            <GeorgiaPrivateTours />
           </MainLayout>
         }
       />
