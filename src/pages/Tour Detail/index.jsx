@@ -17,13 +17,14 @@ export default function TourIdPage() {
   const requestRef = useRef(null);
   const reviewsRef = useRef(null);
 
-  const t = translations[
-    strapiLocale.startsWith("ru")
-      ? "ru"
-      : strapiLocale.startsWith("uz")
-      ? "uz"
-      : "en"
-  ];
+  const t =
+    translations[
+      strapiLocale.startsWith("ru")
+        ? "ru"
+        : strapiLocale.startsWith("uz")
+        ? "uz"
+        : "en"
+    ];
 
   // fetch data
   useEffect(() => {
@@ -96,7 +97,28 @@ export default function TourIdPage() {
     return blocks;
   }, [tour?.daysdescription, strapiLocale]);
 
-  // accordion state
+  // --- Extract Array of dates & prices ---
+  const parsedArray = useMemo(() => {
+    if (!Array.isArray(tour?.description)) return [];
+    const arrayText = tour.description
+      .map((node) => node?.children?.map((c) => c.text).join("") ?? "")
+      .join(" ");
+    const match = arrayText.match(/Array\s*=\s*\[([\s\S]*?)\];/);
+    if (!match) return [];
+    try {
+      const arrStr = "[" + match[1] + "]";
+      const jsonReady = arrStr
+        .replace(/(\b\w+\b)\s*:/g, '"$1":')
+        .replace(/'/g, '"');
+      const parsed = JSON.parse(jsonReady);
+      return parsed;
+    } catch (err) {
+      console.error("Failed to parse array:", err);
+      return [];
+    }
+  }, [tour]);
+
+  // accordion
   const [open, setOpen] = useState([]);
   useEffect(() => {
     setOpen(parsedDays.map(() => false));
@@ -105,12 +127,26 @@ export default function TourIdPage() {
   const toggle = (i) =>
     setOpen((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
 
-  // nav scroll with offset
   const scrollTo = (ref) => {
     if (!ref?.current) return;
     const y = ref.current.getBoundingClientRect().top + window.pageYOffset - 90;
     window.scrollTo({ top: y, behavior: "smooth" });
   };
+
+  // ✅ Move hooks BEFORE conditional return
+  const groupedByYear = parsedArray.reduce((acc, item) => {
+    const year = new Date(item.startDate).getFullYear();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(item);
+    return acc;
+  }, {});
+  const years = Object.keys(groupedByYear).sort();
+  const currentYear = new Date().getFullYear();
+  const [activeYear, setActiveYear] = useState(
+    years.includes(String(currentYear))
+      ? currentYear
+      : Number(years[years.length - 1]) || currentYear
+  );
 
   if (!tour) {
     return (
@@ -157,23 +193,34 @@ export default function TourIdPage() {
       {/* MAIN */}
       <div className={styles.content}>
         <div className={styles.infoSection}>
-          {/* Description */}
+          {/* Overview */}
           <section className={styles.tabContent}>
             <h2>{t.overview}</h2>
             {Array.isArray(tour.description) &&
-              tour.description.map((node, i) => {
-                const txt =
-                  node?.children?.map?.((c) => c.text).join("") ?? "";
-                if (!txt.trim()) return null;
-                return <p key={i}>{txt}</p>;
-              })}
+              (() => {
+                // Combine all description texts into one big string first
+                let fullText = tour.description
+                  .map(
+                    (node) =>
+                      node?.children?.map?.((c) => c.text).join("") ?? ""
+                  )
+                  .join("\n");
+
+                // Remove the entire Array = [...] block (even if multiline)
+                fullText = fullText
+                  .replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "")
+                  .trim();
+
+                // Split back into paragraphs for display
+                const cleanParagraphs = fullText.split(/\n+/).filter(Boolean);
+
+                return cleanParagraphs.map((txt, i) => <p key={i}>{txt}</p>);
+              })()}
           </section>
 
           {/* Itinerary */}
           <section ref={itineraryRef} className={styles.tabContent}>
-            <div className={styles.itineraryHeader}>
-              <h2>{t.itinerary}</h2>
-            </div>
+            <h2>{t.itinerary}</h2>
             <div className={styles.accordion}>
               {parsedDays.map((d, idx) => (
                 <div key={idx} className={styles.accItem}>
@@ -198,31 +245,112 @@ export default function TourIdPage() {
             </div>
           </section>
 
-          {/* Prices */}
-<section ref={pricesRef} className={styles.tabContent}>
-  <h2>{t.datesPrices}</h2>
-  <div className={styles.pricesBox}>
-    <div className={styles.priceItem}>
-      <span>{t.startDate}</span>
-      <strong>{formatDate(tour.startDate)}</strong>
-    </div>
-    <div className={styles.priceItem}>
-      <span>{t.endDate}</span>
-      <strong>{formatDate(tour.endDate)}</strong>
-    </div>
-    <div className={`${styles.priceItem} ${styles.highlight}`}>
-      <span>{t.price}</span>
-      <strong>US${tour.price}</strong>
-    </div>
-    <div className={styles.priceItem}>
-      <span>{t.seats}</span>
-      <strong>{tour.availableSeats}</strong>
-    </div>
-  </div>
-</section>
+          {/* ✅ DATES & PRICES */}
+          <section ref={pricesRef} className={styles.tabContent}>
+            <h2>{t.datesPrices}</h2>
 
+            <div className={styles.pricesBox}>
+              <div className={styles.priceItem}>
+                <span>{t.startDate}</span>
+                <strong>{formatDate(tour.startDate)}</strong>
+              </div>
+              <div className={styles.priceItem}>
+                <span>{t.endDate}</span>
+                <strong>{formatDate(tour.endDate)}</strong>
+              </div>
+              <div className={styles.priceItem}>
+                <span>{t.seats}</span>
+                <strong
+                  style={{
+                    color: tour.availableSeats > 0 ? "green" : "red",
+                    fontWeight: 600,
+                  }}
+                >
+                  {tour.availableSeats > 0 ? "Available" : "Sold out"}
+                </strong>
+              </div>
+              <div className={`${styles.priceItem} ${styles.highlight}`}>
+                <span>{t.price}</span>
+                <strong>US${tour.price}</strong>
+              </div>
+            </div>
 
-          {/* Request */}
+            {parsedArray.length > 0 && (
+              <div className={styles.datesTableSection}>
+                <div className={styles.yearTabs}>
+                  {years.map((year) => (
+                    <button
+                      key={year}
+                      className={`${styles.yearTab} ${
+                        Number(year) === activeYear ? styles.active : ""
+                      }`}
+                      onClick={() => setActiveYear(Number(year))}
+                    >
+                      {year}
+                    </button>
+                  ))}
+                </div>
+
+                <div className={styles.datesTableWrapper}>
+                  <table className={styles.datesTable}>
+                    <thead>
+                      <tr>
+                        <th>Tour Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>Price</th>
+                        <th>Book</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {groupedByYear[activeYear]?.map((item) => {
+                        const isAvailable = Number(item.availableSeats) > 0;
+                        const formattedStart = new Date(
+                          item.startDate
+                        ).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        });
+                        const formattedEnd = new Date(
+                          item.endDate
+                        ).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        });
+
+                        return (
+                          <tr key={item.id}>
+                            <td>{formattedStart}</td>
+                            <td>{formattedEnd}</td>
+                            <td
+                              className={
+                                isAvailable ? styles.available : styles.soldout
+                              }
+                            >
+                              {isAvailable ? "Available" : "Sold out"}
+                            </td>
+                            <td>US$ {item.price}</td>
+                            <td>
+                              <button
+                                className={styles.bookBtn}
+                                disabled={!isAvailable}
+                              >
+                                Book
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* Request (ENQUIRY) */}
           <section ref={requestRef} className={styles.tabContent}>
             <h2>{t.enquiry}</h2>
             <p>{t.enquiryInfo}</p>
@@ -268,7 +396,9 @@ export default function TourIdPage() {
                       }),
                     }
                   );
-                  alert("✅ Request sent successfully! We will contact you soon.");
+                  alert(
+                    "✅ Request sent successfully! We will contact you soon."
+                  );
                   form.reset();
                 } catch (err) {
                   console.error(err);
@@ -280,33 +410,34 @@ export default function TourIdPage() {
               <div className={styles.sectionTitle}>{t.contactDetails}</div>
 
               <div className={styles.formRow}>
-  <select required defaultValue="">
-    <option value="" disabled>{t.title}</option>
-    <option value="Mr.">{t.honorifics.mr}</option>
-    <option value="Ms.">{t.honorifics.ms}</option>
-    <option value="Mrs.">{t.honorifics.mrs}</option>
-    <option value="Dr.">{t.honorifics.dr}</option>
-  </select>
-  <input type="text" placeholder={t.firstName} required />
-  <input type="text" placeholder={t.lastName} required />
-  <input type="text" placeholder={t.citizenship} required />
-</div>
+                <select required defaultValue="">
+                  <option value="" disabled>
+                    {t.title}
+                  </option>
+                  <option value="Mr.">{t.honorifics.mr}</option>
+                  <option value="Ms.">{t.honorifics.ms}</option>
+                  <option value="Mrs.">{t.honorifics.mrs}</option>
+                  <option value="Dr.">{t.honorifics.dr}</option>
+                </select>
+                <input type="text" placeholder={t.firstName} required />
+                <input type="text" placeholder={t.lastName} required />
+                <input type="text" placeholder={t.citizenship} required />
+              </div>
 
-<div className={styles.formRow}>
-  <input type="email" placeholder={t.email} required />
-  <input type="tel" placeholder={t.phone} required />
-</div>
+              <div className={styles.formRow}>
+                <input type="email" placeholder={t.email} required />
+                <input type="tel" placeholder={t.phone} required />
+              </div>
 
-<div className={styles.formRow}>
-  <input type="date" required />
-  <select required defaultValue="1">
-    <option value="1">{t.travelers.one}</option>
-    <option value="2">{t.travelers.two}</option>
-    <option value="3">{t.travelers.three}</option>
-    <option value="4">{t.travelers.four}</option>
-  </select>
-</div>
-
+              <div className={styles.formRow}>
+                <input type="date" required />
+                <select required defaultValue="1">
+                  <option value="1">{t.travelers.one}</option>
+                  <option value="2">{t.travelers.two}</option>
+                  <option value="3">{t.travelers.three}</option>
+                  <option value="4">{t.travelers.four}</option>
+                </select>
+              </div>
 
               <textarea placeholder={t.comments} rows="4" />
 

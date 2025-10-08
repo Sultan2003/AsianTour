@@ -6,7 +6,7 @@ const translations = {
     startDate: "Start date",
     endDate: "End date",
     price: "Price",
-    seats: "Available Seats",
+    seats: "Status",
     enquiry: "Tour Enquiry",
     enquiryInfo:
       "We use this information solely for the purpose of corresponding regarding your travel.",
@@ -32,14 +32,14 @@ const translations = {
       one: "1 Traveler",
       two: "2 Travelers",
       three: "3 Travelers",
-      four: "4+ Travelers"
+      four: "4+ Travelers",
     },
     honorifics: {
       mr: "Mr.",
       ms: "Ms.",
       mrs: "Mrs.",
-      dr: "Dr."
-    }
+      dr: "Dr.",
+    },
   },
   ru: {
     itinerary: "Программа тура",
@@ -48,7 +48,7 @@ const translations = {
     startDate: "Дата начала",
     endDate: "Дата окончания",
     price: "Цена",
-    seats: "Доступные места",
+    seats: "Статус",
     enquiry: "Запрос на тур",
     enquiryInfo:
       "Мы используем эту информацию исключительно для связи по поводу вашего путешествия.",
@@ -74,14 +74,14 @@ const translations = {
       one: "1 путешественник",
       two: "2 путешественника",
       three: "3 путешественника",
-      four: "4+ путешественников"
+      four: "4+ путешественников",
     },
     honorifics: {
       mr: "Mr.",
       ms: "Ms.",
       mrs: "Mrs.",
-      dr: "Dr."
-    }
+      dr: "Dr.",
+    },
   },
   uz: {
     itinerary: "Sayohat dasturi",
@@ -90,7 +90,7 @@ const translations = {
     startDate: "Boshlanish sanasi",
     endDate: "Tugash sanasi",
     price: "Narxi",
-    seats: "Mavjud joylar",
+    seats: "Status",
     enquiry: "Sayohat so'rovi",
     enquiryInfo:
       "Biz ushbu ma’lumotni faqat siz bilan sayohatingiz bo‘yicha bog‘lanish uchun ishlatamiz.",
@@ -116,14 +116,14 @@ const translations = {
       one: "1 sayohatchi",
       two: "2 sayohatchi",
       three: "3 sayohatchi",
-      four: "4+ sayohatchi"
+      four: "4+ sayohatchi",
     },
     honorifics: {
       mr: "Janob",
       ms: "Xonim",
       mrs: "Xonim",
-      dr: "Dr."
-    }
+      dr: "Dr.",
+    },
   },
 };
 
