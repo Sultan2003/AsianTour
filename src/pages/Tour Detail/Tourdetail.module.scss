@@ -1,3 +1,7 @@
+/* =========================================================
+   TOUR DETAIL PAGE STYLES (UPDATED + SIDEBAR)
+   ========================================================= */
+
 /* Page base */
 .tourPage {
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto,
@@ -89,7 +93,6 @@
   padding: 12px;
 
   button {
-    -webkit-appearance: none;
     appearance: none;
     background: #ffffff;
     border: 1px solid #e5e9f2;
@@ -134,7 +137,6 @@
   max-width: 1300px;
   margin: 28px auto;
   display: grid;
-  padding: 5px auto;
   justify-content: center;
   grid-template-columns: minmax(0, 2fr) minmax(280px, 0.9fr);
   gap: 10px;
@@ -232,7 +234,6 @@
   }
 }
 
-/* chevron */
 .chev {
   position: relative;
   width: 14px;
@@ -346,6 +347,84 @@
   }
 }
 
+/* ===============================
+   RELATED TOURS SIDEBAR (NEW)
+   =============================== */
+.sidebar {
+  background: #ffffff;
+  border: 1px solid #e8ecf5;
+  border-radius: 18px;
+  padding: 22px 20px;
+  box-shadow: 0 10px 28px rgba(10, 26, 68, 0.08);
+  max-width: 300px;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.sidebar h3 {
+  font-size: 18px;
+  color: #0a1a44;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.catBlock {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 6px 0;
+
+  &.open {
+    background: #f9fafb;
+  }
+}
+
+.catTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0a1a44;
+  padding: 0 0;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #4a5b7b;
+  }
+}
+
+.catList {
+  list-style: none;
+  padding: 0 0 8px;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.catBlock.open .catList {
+  max-height: 500px;
+}
+
+.catItem {
+  font-size: 14.5px;
+  color: #1e3a8a;
+  padding: 6px 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: #eef2ff;
+    color: #0f172a;
+  }
+}
+
+.catEmpty {
+  font-size: 13px;
+  color: #9ca3af;
+  padding: 6px 2px;
+}
 /* ======== Dates & Prices Section (NEW) ======== */
 
 /* ======== Year Tabs for Dates & Prices ======== */
@@ -354,7 +433,6 @@
   flex-wrap: wrap;
   gap: 10px;
   margin: 20px 0 16px;
-  
 
   .yearTab {
     background: #ffffff;

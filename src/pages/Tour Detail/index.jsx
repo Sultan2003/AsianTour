@@ -4,12 +4,19 @@ import { useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
 
+const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
+
 export default function TourIdPage() {
   const { documentId } = useParams();
   const [tour, setTour] = useState(null);
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { strapiLocale } = useContext(LanguageContext);
+
+  // --- Related tours (right sidebar) state ---
+  const [relatedTours, setRelatedTours] = useState([]);
+  const [relatedCategories, setRelatedCategories] = useState({});
+  const [openCats, setOpenCats] = useState({});
 
   // refs for sticky nav
   const itineraryRef = useRef(null);
@@ -26,25 +33,190 @@ export default function TourIdPage() {
         : "en"
     ];
 
-  // fetch data
+  // helper: extract plain text from Strapi rich text blocks
+  const extractPlainText = (desc) => {
+    if (!desc) return "";
+    if (typeof desc === "string") return desc;
+    if (Array.isArray(desc)) {
+      return desc
+        .map((block) =>
+          block.children ? block.children.map((c) => c.text || "").join("") : ""
+        )
+        .join(" ");
+    }
+    if (typeof desc === "object") {
+      return Object.values(desc)
+        .map((v) => (typeof v === "string" ? v : ""))
+        .join(" ");
+    }
+    return "";
+  };
+
+  // normalize tour item (handles top-level or attributes shape)
+  const normalizeTour = (rawItem) => {
+    const raw = rawItem.attributes ? rawItem.attributes : rawItem;
+
+    return {
+      id: rawItem.id || raw.id || Math.random().toString(36).slice(2),
+      documentId:
+        raw.documentId || rawItem.documentId || raw.slug || rawItem.id,
+      title: raw.title || raw.name || rawItem.title || rawItem.name || "",
+      price: raw.price ?? raw.pricePerPerson ?? rawItem.price ?? 0,
+      startDate:
+        raw.startDate ||
+        raw.start_date ||
+        raw.date ||
+        rawItem.startDate ||
+        rawItem.start_date ||
+        null,
+      endDate:
+        raw.endDate ||
+        raw.end_date ||
+        rawItem.endDate ||
+        rawItem.end_date ||
+        null,
+      availableSeats:
+        raw.availableSeats ??
+        raw.available_seats ??
+        raw.available ??
+        rawItem.availableSeats ??
+        rawItem.available ??
+        0,
+      location: raw.location || raw.place || rawItem.location || "",
+      daysdescription: raw.daysdescription || rawItem.daysdescription || "",
+      description: extractPlainText(raw.description) || raw.description || "",
+      tour_type:
+        (raw.tour_type ?? raw.tourType ?? raw.type) ||
+        rawItem.tour_type ||
+        rawItem.tourType ||
+        "",
+      isBestseller: raw.isBestseller || raw.bestseller || false,
+      image: raw.image || raw.cover || null,
+    };
+  };
+
+  // fetch data: tour list (to find the selected tour) and images
   useEffect(() => {
-    fetch(
-      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}`
-    )
+    fetch(`${STRAPI_BASE}/api/asian-tours?locale=${strapiLocale}`)
       .then((r) => r.json())
       .then((data) => {
-        const found = data.data.find(
-          (t) => t.documentId.toString() === documentId
+        // find tour by documentId
+        const found = (data?.data || []).find(
+          (t) => t.documentId?.toString() === documentId
         );
         setTour(found || null);
       })
       .catch(console.error);
 
-    fetch("https://brilliant-passion-7d3870e44b.strapiapp.com/api/upload/files")
+    fetch(`${STRAPI_BASE}/api/upload/files`)
       .then((r) => r.json())
-      .then(setImages)
+      .then((data) => {
+        const arr = Array.isArray(data) ? data : [];
+        setImages(arr);
+      })
       .catch(console.error);
   }, [documentId, strapiLocale]);
+
+  // --- Fetch related tours by location once tour is loaded ---
+  useEffect(() => {
+    if (!tour?.location) {
+      setRelatedTours([]);
+      setRelatedCategories({});
+      return;
+    }
+
+    const locationValue = encodeURIComponent(tour.location);
+
+    const url = strapiLocale
+      ? `${STRAPI_BASE}/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=${locationValue}`
+      : `${STRAPI_BASE}/api/asian-tours?filters[location][$eq]=${locationValue}`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        const list = (data && data.data) || [];
+        const normalized = list.map((it) => normalizeTour(it));
+
+        // Remove the current tour from related list (if present)
+        const filtered = normalized.filter(
+          (tItem) =>
+            String(tItem.documentId) !== String(tour.documentId) &&
+            (tItem.location || "")
+              .toString()
+              .toLowerCase()
+              .includes((tour.location || "").toString().toLowerCase())
+        );
+
+        // categorize exactly same as UzbekistanTours
+        const cats = {
+          Cultural: [],
+          Gastronomy: [],
+          Religious: [],
+          Eco: [],
+          City: [],
+          Business: [],
+        };
+
+        filtered.forEach((tItem) => {
+          const ttype = (tItem.tour_type || "").toString().toLowerCase();
+          const pushIf = (cat) => cats[cat].push(tItem);
+
+          if (
+            ttype.includes("cultural") ||
+            ttype.includes("culture") ||
+            ttype.includes("heritage")
+          )
+            pushIf("Cultural");
+
+          if (
+            ttype.includes("gastronomy") ||
+            ttype.includes("food") ||
+            ttype.includes("culinary")
+          )
+            pushIf("Gastronomy");
+
+          if (
+            ttype.includes("relig") ||
+            ttype.includes("pilgrim") ||
+            ttype.includes("mosque") ||
+            ttype.includes("temple")
+          )
+            pushIf("Religious");
+
+          if (ttype.includes("eco") || ttype.includes("nature")) pushIf("Eco");
+
+          if (ttype.includes("city") || ttype.includes("urban")) pushIf("City");
+
+          if (
+            ttype.includes("business") ||
+            ttype.includes("mice") ||
+            ttype.includes("conference")
+          )
+            pushIf("Business");
+        });
+
+        // dedupe within each category
+        Object.keys(cats).forEach((k) => {
+          const seen = {};
+          cats[k] = cats[k].filter((it) => {
+            if (seen[it.id]) return false;
+            seen[it.id] = true;
+            return true;
+          });
+        });
+
+        setRelatedTours(filtered);
+        setRelatedCategories(cats);
+      })
+      .catch((err) => {
+        console.error("Failed to load related tours:", err);
+        setRelatedTours([]);
+        setRelatedCategories({});
+      });
+  }, [tour?.location, strapiLocale]);
+
+  const toggleCategory = (cat) =>
+    setOpenCats((prev) => ({ ...prev, [cat]: !prev[cat] }));
 
   // auto-rotate hero
   useEffect(() => {
@@ -59,9 +231,15 @@ export default function TourIdPage() {
   }, [tour, images]);
 
   const calculateDays = (start, end) => {
-    const s = new Date(start);
-    const e = new Date(end);
-    return Math.ceil((e - s) / (1000 * 60 * 60 * 24));
+    if (!start || !end) return 1;
+    try {
+      const s = new Date(start);
+      const e = new Date(end);
+      const days = Math.ceil((e - s) / (1000 * 60 * 60 * 24));
+      return days > 0 ? days : 1;
+    } catch {
+      return 1;
+    }
   };
 
   const formatDate = (iso) =>
@@ -133,7 +311,7 @@ export default function TourIdPage() {
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  // ✅ Move hooks BEFORE conditional return
+  // grouped years for dates/prices table
   const groupedByYear = parsedArray.reduce((acc, item) => {
     const year = new Date(item.startDate).getFullYear();
     if (!acc[year]) acc[year] = [];
@@ -245,7 +423,7 @@ export default function TourIdPage() {
             </div>
           </section>
 
-          {/* ✅ DATES & PRICES */}
+          {/* DATES & PRICES */}
           <section ref={pricesRef} className={styles.tabContent}>
             <h2>{t.datesPrices}</h2>
 
@@ -455,28 +633,76 @@ export default function TourIdPage() {
         </div>
 
         {/* Right card */}
-        <div className={styles.detailsCard}>
-          <h2>{tour.title}</h2>
-          <div className={styles.price}>US${tour.price}</div>
+        <div>
+          <div className={styles.detailsCard}>
+            <h2>{tour.title}</h2>
+            <div className={styles.price}>US${tour.price}</div>
 
-          <div className={styles.infoLine}>
-            <span>{t.days}</span>
-            <span>{days}</span>
-          </div>
-          <div className={styles.infoLine}>
-            <span>{t.start}</span>
-            <span>{formatDate(tour.startDate)}</span>
-          </div>
-          <div className={styles.infoLine}>
-            <span>{t.end}</span>
-            <span>{formatDate(tour.endDate)}</span>
-          </div>
-          <div className={styles.infoLine}>
-            <span>{t.availableSeats}</span>
-            <span>{tour.availableSeats}</span>
+            <div className={styles.infoLine}>
+              <span>{t.days}</span>
+              <span>{days}</span>
+            </div>
+            <div className={styles.infoLine}>
+              <span>{t.start}</span>
+              <span>{formatDate(tour.startDate)}</span>
+            </div>
+            <div className={styles.infoLine}>
+              <span>{t.end}</span>
+              <span>{formatDate(tour.endDate)}</span>
+            </div>
+            <div className={styles.infoLine}>
+              <span>{t.availableSeats}</span>
+              <span>{tour.availableSeats}</span>
+            </div>
+
+            <button className={styles.bookBtn}>{t.bookNow}</button>
           </div>
 
-          <button className={styles.bookBtn}>{t.bookNow}</button>
+          {/* === RELATED TOURS SIDEBAR (matching Uzbekistan page behaviour) === */}
+          <aside className={styles.sidebar} style={{ marginTop: 18 }}>
+            <h3>{tour.location} Group Tours</h3>
+
+            {Object.keys(relatedCategories).map((cat) => {
+              const items = relatedCategories[cat] || [];
+              const isOpen = !!openCats[cat];
+              return (
+                <div
+                  key={cat}
+                  className={`${styles.catBlock} ${isOpen ? styles.open : ""}`}
+                  style={{ marginBottom: 12 }}
+                >
+                  <div
+                    className={styles.catTitle}
+                    onClick={() => toggleCategory(cat)}
+                  >
+                    <span>{cat} Tours</span>
+                    <div className={styles.catMeta}>
+                      <span className={styles.count}>({items.length})</span>
+                      <span className={styles.chev}>{isOpen ? "▾" : "▸"}</span>
+                    </div>
+                  </div>
+
+                  <ul className={styles.catList}>
+                    {items.length === 0 && (
+                      <li className={styles.catEmpty}>No tours</li>
+                    )}
+                    {items.slice(0, 8).map((tItem) => (
+                      <li
+                        key={tItem.id}
+                        className={styles.catItem}
+                        onClick={() =>
+                          (window.location.href = `/tour/${tItem.documentId}`)
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        {tItem.title}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </aside>
         </div>
       </div>
     </div>
