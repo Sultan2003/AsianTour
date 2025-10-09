@@ -544,12 +544,12 @@ export default function PrivateTourIdPage() {
 
                 try {
                   await fetch(
-                    `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage`,
+                    `https://api.telegram.org/bot7509089585:AAFlUQJVRK3qtgLN4FVWHwEPeahjfv2oFpY/sendMessage`,
                     {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
-                        chat_id: "<YOUR_CHAT_ID>",
+                        chat_id: "-1003082651864",
                         text: message,
                         parse_mode: "Markdown",
                       }),
