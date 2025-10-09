@@ -305,7 +305,9 @@ export default function UzbekistanPrivateTours() {
                       <li
                         key={t.id}
                         className={styles.catItem}
-                        onClick={() => navigate(`/tour/${t.documentId}`)}
+                        onClick={() =>
+                          navigate(`/Private-tour/${t.documentId}`)
+                        }
                       >
                         {t.title}
                       </li>

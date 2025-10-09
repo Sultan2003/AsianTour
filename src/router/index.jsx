@@ -39,6 +39,7 @@ import ArmeniaPrivateTours from "../pages/Private Tours/Armenia Private";
 import AzerbaijanPrivateTours from "../pages/Private Tours/Azerbaijan Private";
 import GeorgiaPrivateTours from "../pages/Private Tours/Georgia Private";
 import CaucasusPrivateTours from "../pages/Private Tours/Caucasus Private";
+import PrivateTourIdPage from "../pages/Private Tour Detail";
 
 const Router = () => {
   return (
@@ -56,6 +57,14 @@ const Router = () => {
         element={
           <MainLayout>
             <TourIdPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Private-tour/:documentId"
+        element={
+          <MainLayout>
+            <PrivateTourIdPage />
           </MainLayout>
         }
       />

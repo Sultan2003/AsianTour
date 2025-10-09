@@ -6,7 +6,7 @@ import translations from "../../translations/tourdetail";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
-export default function TourIdPage() {
+export default function PrivateTourIdPage() {
   const { documentId } = useParams();
   const [tour, setTour] = useState(null);
   const [images, setImages] = useState([]);
@@ -101,14 +101,14 @@ export default function TourIdPage() {
     fetch(`${STRAPI_BASE}/api/asian-tours?locale=${strapiLocale}`)
       .then((r) => r.json())
       .then((data) => {
-        // find ONLY group tours
+        // find ONLY private tours
         const allTours = (data?.data || []).map((t) => normalizeTour(t));
-        const GroupTours = allTours.filter((t) =>
-          (t.tour_type || "").toLowerCase().includes("group")
+        const privateTours = allTours.filter((t) =>
+          (t.tour_type || "").toLowerCase().includes("private")
         );
 
         // find tour by documentId
-        const found = GroupTours.find(
+        const found = privateTours.find(
           (t) => String(t.documentId) === String(documentId)
         );
 
@@ -149,13 +149,13 @@ export default function TourIdPage() {
         const list = (data && data.data) || [];
         const normalized = list.map((it) => normalizeTour(it));
 
-        // Only include group tours
-        const GroupTours = normalized.filter((tItem) =>
-          (tItem.tour_type || "").toLowerCase().includes("group")
+        // Only include private tours
+        const privateTours = normalized.filter((tItem) =>
+          (tItem.tour_type || "").toLowerCase().includes("private")
         );
 
         // Remove the current tour from related list (if present)
-        const filtered = GroupTours.filter(
+        const filtered = privateTours.filter(
           (tItem) =>
             String(tItem.documentId) !== String(tour.documentId) &&
             (tItem.location || "")
@@ -310,7 +310,7 @@ export default function TourIdPage() {
   if (!tour) {
     return (
       <div className={styles.tourPage}>
-        <p className={styles.loading}>Loading Group tour details…</p>
+        <p className={styles.loading}>Loading Private tour details…</p>
       </div>
     );
   }
@@ -641,7 +641,7 @@ export default function TourIdPage() {
 
           {/* === RELATED TOURS SIDEBAR (matching Uzbekistan page behaviour) === */}
           <aside className={styles.sidebar} style={{ marginTop: 18 }}>
-            <h3>{tour.location} Group Tours</h3>
+            <h3>{tour.location} Private Tours</h3>
 
             {Object.keys(relatedCategories).map((cat) => {
               const items = relatedCategories[cat] || [];
@@ -671,7 +671,9 @@ export default function TourIdPage() {
                       <li
                         key={tItem.id}
                         className={styles.catItem}
-                        onClick={() => navigate(`/tour/${tItem.documentId}`)}
+                        onClick={() =>
+                          navigate(`/Private-tour/${tItem.documentId}`)
+                        }
                         style={{ cursor: "pointer" }}
                       >
                         {tItem.title}
