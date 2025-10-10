@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, useContext } from "react";
 import { LanguageContext } from "../../context/LanguageContext";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
 
@@ -12,7 +12,6 @@ export default function TourIdPage() {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { strapiLocale } = useContext(LanguageContext);
-  const navigate = useNavigate();
 
   // --- Related tours (right sidebar) state ---
   const [relatedTours, setRelatedTours] = useState([]);
@@ -101,17 +100,10 @@ export default function TourIdPage() {
     fetch(`${STRAPI_BASE}/api/asian-tours?locale=${strapiLocale}`)
       .then((r) => r.json())
       .then((data) => {
-        // find ONLY group tours
-        const allTours = (data?.data || []).map((t) => normalizeTour(t));
-        const GroupTours = allTours.filter((t) =>
-          (t.tour_type || "").toLowerCase().includes("group")
-        );
-
         // find tour by documentId
-        const found = GroupTours.find(
-          (t) => String(t.documentId) === String(documentId)
+        const found = (data?.data || []).find(
+          (t) => t.documentId?.toString() === documentId
         );
-
         setTour(found || null);
       })
       .catch(console.error);
@@ -124,10 +116,6 @@ export default function TourIdPage() {
       })
       .catch(console.error);
   }, [documentId, strapiLocale]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [documentId]);
 
   // --- Fetch related tours by location once tour is loaded ---
   useEffect(() => {
@@ -149,13 +137,8 @@ export default function TourIdPage() {
         const list = (data && data.data) || [];
         const normalized = list.map((it) => normalizeTour(it));
 
-        // Only include group tours
-        const GroupTours = normalized.filter((tItem) =>
-          (tItem.tour_type || "").toLowerCase().includes("group")
-        );
-
         // Remove the current tour from related list (if present)
-        const filtered = GroupTours.filter(
+        const filtered = normalized.filter(
           (tItem) =>
             String(tItem.documentId) !== String(tour.documentId) &&
             (tItem.location || "")
@@ -164,7 +147,7 @@ export default function TourIdPage() {
               .includes((tour.location || "").toString().toLowerCase())
         );
 
-        // categorize same as UzbekistanTours
+        // categorize exactly same as UzbekistanTours
         const cats = {
           Cultural: [],
           Gastronomy: [],
@@ -212,7 +195,7 @@ export default function TourIdPage() {
             pushIf("Business");
         });
 
-        // dedupe
+        // dedupe within each category
         Object.keys(cats).forEach((k) => {
           const seen = {};
           cats[k] = cats[k].filter((it) => {
@@ -266,20 +249,13 @@ export default function TourIdPage() {
       year: "numeric",
     });
 
-  const parsedArray = Array.isArray(tour?.attributes?.gallery)
-    ? tour.attributes.gallery
-    : (() => {
-        try {
-          return JSON.parse(tour?.attributes?.gallery || "[]");
-        } catch {
-          return [];
-        }
-      })();
-
+  // Parse itinerary safely
   const parsedDays = useMemo(() => {
     if (!tour?.daysdescription) return [];
     const src = tour.daysdescription.trim();
     const blocks = [];
+
+    // word for "Day"
     let dayWord = "Day";
     if (strapiLocale.startsWith("ru")) dayWord = "День";
     if (strapiLocale.startsWith("uz")) dayWord = "Kun";
@@ -299,6 +275,28 @@ export default function TourIdPage() {
     return blocks;
   }, [tour?.daysdescription, strapiLocale]);
 
+  // --- Extract Array of dates & prices ---
+  const parsedArray = useMemo(() => {
+    if (!Array.isArray(tour?.description)) return [];
+    const arrayText = tour.description
+      .map((node) => node?.children?.map((c) => c.text).join("") ?? "")
+      .join(" ");
+    const match = arrayText.match(/Array\s*=\s*\[([\s\S]*?)\];/);
+    if (!match) return [];
+    try {
+      const arrStr = "[" + match[1] + "]";
+      const jsonReady = arrStr
+        .replace(/(\b\w+\b)\s*:/g, '"$1":')
+        .replace(/'/g, '"');
+      const parsed = JSON.parse(jsonReady);
+      return parsed;
+    } catch (err) {
+      console.error("Failed to parse array:", err);
+      return [];
+    }
+  }, [tour]);
+
+  // accordion
   const [open, setOpen] = useState([]);
   useEffect(() => {
     setOpen(parsedDays.map(() => false));
@@ -307,10 +305,31 @@ export default function TourIdPage() {
   const toggle = (i) =>
     setOpen((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
 
+  const scrollTo = (ref) => {
+    if (!ref?.current) return;
+    const y = ref.current.getBoundingClientRect().top + window.pageYOffset - 90;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
+
+  // grouped years for dates/prices table
+  const groupedByYear = parsedArray.reduce((acc, item) => {
+    const year = new Date(item.startDate).getFullYear();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(item);
+    return acc;
+  }, {});
+  const years = Object.keys(groupedByYear).sort();
+  const currentYear = new Date().getFullYear();
+  const [activeYear, setActiveYear] = useState(
+    years.includes(String(currentYear))
+      ? currentYear
+      : Number(years[years.length - 1]) || currentYear
+  );
+
   if (!tour) {
     return (
       <div className={styles.tourPage}>
-        <p className={styles.loading}>Loading Group tour details…</p>
+        <p className={styles.loading}>Loading tour details…</p>
       </div>
     );
   }
@@ -544,12 +563,12 @@ export default function TourIdPage() {
 
                 try {
                   await fetch(
-                    `https://api.telegram.org/bot7509089585:AAFlUQJVRK3qtgLN4FVWHwEPeahjfv2oFpY/sendMessage`,
+                    `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage`,
                     {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
-                        chat_id: "-1003082651864",
+                        chat_id: "<YOUR_CHAT_ID>",
                         text: message,
                         parse_mode: "Markdown",
                       }),
@@ -671,7 +690,9 @@ export default function TourIdPage() {
                       <li
                         key={tItem.id}
                         className={styles.catItem}
-                        onClick={() => navigate(`/tour/${tItem.documentId}`)}
+                        onClick={() =>
+                          (window.location.href = `/tour/${tItem.documentId}`)
+                        }
                         style={{ cursor: "pointer" }}
                       >
                         {tItem.title}
