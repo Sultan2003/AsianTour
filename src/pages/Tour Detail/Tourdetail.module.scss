@@ -403,10 +403,12 @@
 }
 
 .catBlock.open .catList {
-  max-height: 500px;
+  max-height: 550px;
 }
 
 .catItem {
+  background: #eef2ff;
+  margin-top: 10px;
   font-size: 14.5px;
   color: #1e3a8a;
   padding: 6px 2px;
@@ -415,7 +417,7 @@
   transition: all 0.25s ease;
 
   &:hover {
-    background: #eef2ff;
+    background: #ddd;
     color: #0f172a;
   }
 }

@@ -138,14 +138,20 @@ export default function TourIdPage() {
         const normalized = list.map((it) => normalizeTour(it));
 
         // Remove the current tour from related list (if present)
-        const filtered = normalized.filter(
-          (tItem) =>
-            String(tItem.documentId) !== String(tour.documentId) &&
-            (tItem.location || "")
-              .toString()
-              .toLowerCase()
-              .includes((tour.location || "").toString().toLowerCase())
-        );
+        const filtered = normalized.filter((tItem) => {
+          const isSameTour =
+            String(tItem.documentId) === String(tour.documentId);
+          const sameLocation = (tItem.location || "")
+            .toString()
+            .toLowerCase()
+            .includes((tour.location || "").toString().toLowerCase());
+          const isPrivate = (tItem.tour_type || "")
+            .toString()
+            .toLowerCase()
+            .includes("private");
+
+          return !isSameTour && sameLocation && !isPrivate;
+        });
 
         // categorize exactly same as UzbekistanTours
         const cats = {

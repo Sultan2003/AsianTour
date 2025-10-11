@@ -108,7 +108,7 @@ export default function MainPage() {
       image: ecoImg,
     },
     {
-      title: "Hiking",
+      title: "City Tours",
       description:
         "Explore trails, mountains, and valleys while staying active and inspired.",
       image: hikingImg,
