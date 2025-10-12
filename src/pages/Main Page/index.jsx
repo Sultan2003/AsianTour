@@ -88,37 +88,42 @@ export default function MainPage() {
       description:
         "Get around by train, bus, car, ferry, cruise ship, bicycle, skis, or sleigh. Relax and enjoy yourself!",
       image: culturalImg,
+      link: "/Cultural-Tours",
     },
     {
       title: "Gastronomy Tours",
       description:
         "Taste the flavors of the world, from street food to fine dining. A journey for your senses!",
       image: gastronomyImg,
+      link: "/Gastronomy-Tours",
     },
     {
       title: "Religious Tours",
       description:
         "Visit sacred places and discover spiritual traditions that shaped civilizations.",
       image: religiousImg,
+      link: "/Religious-Tours",
     },
     {
       title: "Eco Tours",
       description:
         "Connect with nature, protect biodiversity, and travel responsibly in breathtaking environments.",
       image: ecoImg,
+      link: "/Eco-Tours",
     },
     {
       title: "City Tours",
       description:
         "Explore trails, mountains, and valleys while staying active and inspired.",
       image: hikingImg,
-      link: "/Hiking-Tours",
+      link: "/City-Tours",
     },
     {
       title: "MICE and Business Tours",
       description:
         "Professional, organized, and efficient. Combine business with world-class travel.",
       image: businessImg,
+      link: "/Business-Mice-Tours",
     },
   ];
 

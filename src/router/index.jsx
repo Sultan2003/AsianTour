@@ -4,7 +4,7 @@ import TourIdPage from "../pages/Tour Detail";
 import ContactUs from "../pages/ContactUs";
 import MainLayout from "../components/MainLayout";
 import UzbekistanTours from "../pages/Countries/Uzbekistan";
-import HikingTours from "../pages/Tour Types/Hiking";
+import CityTours from "../pages/Tour Types/City Tours";
 import KazakhstanTours from "../pages/Countries/Kazakhstan";
 import KyrgyzstanTours from "../pages/Countries/Kyrgyzstan";
 import TajikistanTours from "../pages/Countries/Tadjikistan";
@@ -40,6 +40,11 @@ import AzerbaijanPrivateTours from "../pages/Private Tours/Azerbaijan Private";
 import GeorgiaPrivateTours from "../pages/Private Tours/Georgia Private";
 import CaucasusPrivateTours from "../pages/Private Tours/Caucasus Private";
 import PrivateTourIdPage from "../pages/Private Tour Detail";
+import CulturalTours from "../pages/Tour Types/Cultural Tours";
+import GastronomyTours from "../pages/Tour Types/Gastronomy Tours";
+import ReligiousTours from "../pages/Tour Types/Religious Tours";
+import EcoTours from "../pages/Tour Types/Eco Tours";
+import BusinessTours from "../pages/Tour Types/Business Tours";
 
 const Router = () => {
   return (
@@ -253,10 +258,50 @@ const Router = () => {
         }
       />
       <Route
-        path="/Hiking-Tours"
+        path="/City-Tours"
         element={
           <MainLayout>
-            <HikingTours />
+            <CityTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Cultural-Tours"
+        element={
+          <MainLayout>
+            <CulturalTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Gastronomy-Tours"
+        element={
+          <MainLayout>
+            <GastronomyTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Religious-Tours"
+        element={
+          <MainLayout>
+            <ReligiousTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Eco-Tours"
+        element={
+          <MainLayout>
+            <EcoTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Business-Mice-Tours"
+        element={
+          <MainLayout>
+            <BusinessTours />
           </MainLayout>
         }
       />

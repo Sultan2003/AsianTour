@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './ContactUs.module.scss';
-import Header from '../../components/Header';
+
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
