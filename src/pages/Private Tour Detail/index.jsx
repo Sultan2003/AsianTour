@@ -570,12 +570,12 @@ export default function PrivateTourIdPage() {
 
                 try {
                   await fetch(
-                    `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage`,
+                    `https://api.telegram.org/bot7509089585:AAFlUQJVRK3qtgLN4FVWHwEPeahjfv2oFpY/sendMessage`,
                     {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({
-                        chat_id: "<YOUR_CHAT_ID>",
+                        chat_id: "-1003082651864",
                         text: message,
                         parse_mode: "Markdown",
                       }),
@@ -698,7 +698,7 @@ export default function PrivateTourIdPage() {
                         key={tItem.id}
                         className={styles.catItem}
                         onClick={() => {
-                          navigate(`/tour/${tItem.documentId}`);
+                          navigate(`/Private-tour/${tItem.documentId}`);
                           window.scrollTo({ top: 0, behavior: "smooth" });
                           setTimeout(() => window.location.reload(), 80); // reload after route change
                         }}
