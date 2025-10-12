@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, useContext } from "react";
 import { LanguageContext } from "../../context/LanguageContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
 
@@ -12,6 +12,7 @@ export default function TourIdPage() {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { strapiLocale } = useContext(LanguageContext);
+  const navigate = useNavigate();
 
   // --- Related tours (right sidebar) state ---
   const [relatedTours, setRelatedTours] = useState([]);
@@ -696,9 +697,11 @@ export default function TourIdPage() {
                       <li
                         key={tItem.id}
                         className={styles.catItem}
-                        onClick={() =>
-                          (window.location.href = `/tour/${tItem.documentId}`)
-                        }
+                        onClick={() => {
+                          navigate(`/tour/${tItem.documentId}`);
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                          setTimeout(() => window.location.reload(), 80); // reload after route change
+                        }}
                         style={{ cursor: "pointer" }}
                       >
                         {tItem.title}
