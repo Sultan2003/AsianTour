@@ -45,6 +45,7 @@ import GastronomyTours from "../pages/Tour Types/Gastronomy Tours";
 import ReligiousTours from "../pages/Tour Types/Religious Tours";
 import EcoTours from "../pages/Tour Types/Eco Tours";
 import BusinessTours from "../pages/Tour Types/Business Tours";
+import Transfers from "../pages/Transfers";
 
 const Router = () => {
   return (
@@ -302,6 +303,14 @@ const Router = () => {
         element={
           <MainLayout>
             <BusinessTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Asian-Tour-Transfer"
+        element={
+          <MainLayout>
+            <Transfers />
           </MainLayout>
         }
       />

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
-import logo from "../../assets/background/Logo.png";
+import logo from "../../assets/background/Logo 2.png";
 import { useState, useContext } from "react";
 import { LanguageContext } from "../../context/LanguageContext";
 import headerTranslations from "../../translations/header";
@@ -127,7 +127,9 @@ export default function Header() {
           <li className={styles.dropdown}>
             {t.services} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-              <li>{t.transfer}</li>
+              <li onClick={() => navigate("/Asian-Tour-Transfer")}>
+                {t.transfer}
+              </li>
               <li>{t.hotelbooking}</li>
               <li>{t.guideservice}</li>
             </ul>
