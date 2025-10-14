@@ -14,6 +14,7 @@ export default function PrivateTourIdPage() {
   const { strapiLocale } = useContext(LanguageContext);
   const [files, setFiles] = useState([]);
   const navigate = useNavigate();
+  const [showReviewForm, setShowReviewForm] = useState(false);
 
   // --- Related tours (right sidebar) state ---
   const [relatedTours, setRelatedTours] = useState([]);
@@ -651,10 +652,205 @@ export default function PrivateTourIdPage() {
             </form>
           </section>
 
-          {/* Reviews */}
-          <section ref={reviewsRef} className={styles.tabContent}>
-            <h2>{t.reviews}</h2>
+          {/* REVIEW FORM */}
 
+          {showReviewForm && (
+            <section className={styles.reviewForm}>
+              <h3>Write your review</h3>
+
+              {/* local files state and handlers */}
+              {/* Place these hooks near other useState declarations at top of component:
+                const [files, setFiles] = useState([]); */}
+              {/* If you haven't added it yet, add `const [files, setFiles] = useState([]);` near other states. */}
+
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target);
+                  const title = tour?.title || "Unknown Tour";
+
+                  const TELEGRAM_BOT_TOKEN =
+                    "7509089585:AAFlUQJVRK3qtgLN4FVWHwEPeahjfv2oFpY";
+                  const TELEGRAM_CHAT_ID = "-1003082651864";
+
+                  // Build message (include current tour title)
+                  const message = `
+          📍 *New Tour Review!*
+          🏷️ *Tour:* ${title}
+          👤 *Author:* ${formData.get("author")}
+          ⭐ *Rating:* ${formData.get("rating")}
+          📅 *Visited:* ${formData.get("visitedDate")}
+          📝 *Review:* ${formData.get("reviewText")}
+          💭 *Visited Text:* ${formData.get("visitedText")}
+          `;
+
+                  try {
+                    // send text
+                    await fetch(
+                      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+                      {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          chat_id: TELEGRAM_CHAT_ID,
+                          text: message,
+                          parse_mode: "Markdown",
+                        }),
+                      }
+                    );
+
+                    // send files from files state
+                    for (const file of files) {
+                      // skip very large files (Telegram limits: photos ~10MB, videos <=50MB)
+                      if (file.size > 50 * 1024 * 1024) {
+                        console.warn("Skipping file >50MB:", file.name);
+                        continue;
+                      }
+
+                      const fd = new FormData();
+                      fd.append("chat_id", TELEGRAM_CHAT_ID);
+
+                      if (file.type.startsWith("video/")) {
+                        fd.append("video", file);
+                        await fetch(
+                          `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendVideo`,
+                          {
+                            method: "POST",
+                            body: fd,
+                          }
+                        );
+                      } else {
+                        fd.append("photo", file);
+                        await fetch(
+                          `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`,
+                          {
+                            method: "POST",
+                            body: fd,
+                          }
+                        );
+                      }
+                    }
+
+                    alert("✅ Review sent successfully!");
+                    e.target.reset();
+                    setFiles([]);
+                  } catch (err) {
+                    console.error("Failed to send review:", err);
+                    alert(
+                      "❌ Failed to send review. Check console for details."
+                    );
+                  }
+                }}
+              >
+                <input
+                  name="author"
+                  type="text"
+                  placeholder="Your name"
+                  required
+                />
+                <div className={styles.rowInputs}>
+                  <input name="visitedDate" type="date" required />
+                  <input
+                    name="rating"
+                    type="number"
+                    min="1"
+                    max="5"
+                    placeholder="Rating (1–5)"
+                    required
+                  />
+                </div>
+
+                <input
+                  name="visitedText"
+                  type="text"
+                  placeholder="Where/when you visited"
+                />
+                <textarea
+                  name="reviewText"
+                  rows="4"
+                  placeholder="Write your review..."
+                  required
+                />
+
+                {/* Drop zone uses files state handlers below (add them near other handlers) */}
+                <div
+                  className={styles.dropZone}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    const dtFiles = Array.from(e.dataTransfer.files || []);
+                    if (dtFiles.length) {
+                      // merge with existing files
+                      setFiles((prev) => [...prev, ...dtFiles]);
+                    }
+                  }}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                  }}
+                  onClick={() => {
+                    // open hidden input
+                    const input = document.getElementById("mediaInput");
+                    if (input) input.click();
+                  }}
+                >
+                  <p>
+                    📸 Drag & drop images or videos here, or click to upload
+                  </p>
+                  <input
+                    id="mediaInput"
+                    type="file"
+                    multiple
+                    accept="image/*,video/*"
+                    style={{ display: "none" }}
+                    onChange={(e) => {
+                      const chosen = Array.from(e.target.files || []);
+                      if (chosen.length)
+                        setFiles((prev) => [...prev, ...chosen]);
+                    }}
+                  />
+                </div>
+
+                {/* Preview + remove */}
+                {files.length > 0 && (
+                  <div className={styles.preview}>
+                    {files.map((file, idx) => (
+                      <div key={idx} className={styles.previewItem}>
+                        <button
+                          type="button"
+                          className={styles.removeBtn}
+                          onClick={() =>
+                            setFiles((prev) => prev.filter((_, i) => i !== idx))
+                          }
+                        >
+                          ❌
+                        </button>
+
+                        {file.type.startsWith("image/") ? (
+                          <img
+                            src={URL.createObjectURL(file)}
+                            alt={file.name}
+                          />
+                        ) : (
+                          <video src={URL.createObjectURL(file)} controls />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <button type="submit">Submit Review</button>
+              </form>
+            </section>
+          )}
+          <section ref={reviewsRef} className={styles.tabContent}>
+            <div className={styles.reviewwrite}>
+              <h2>{t.reviews}</h2>
+              <span
+                className={styles.writeReviewLink}
+                onClick={() => setShowReviewForm((prev) => !prev)}
+              >
+                Write your own review...
+              </span>
+            </div>
             {reviews.length === 0 ? (
               <p>{t.noReviews}</p>
             ) : (
@@ -700,181 +896,6 @@ export default function PrivateTourIdPage() {
                 );
               })
             )}
-          </section>
-          {/* REVIEW FORM */}
-          <section className={styles.reviewForm}>
-            <h3>Write your review</h3>
-
-            {/* local files state and handlers */}
-            {/* Place these hooks near other useState declarations at top of component:
-                const [files, setFiles] = useState([]); */}
-            {/* If you haven't added it yet, add `const [files, setFiles] = useState([]);` near other states. */}
-
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const title = tour?.title || "Unknown Tour";
-
-                const TELEGRAM_BOT_TOKEN =
-                  "7509089585:AAFlUQJVRK3qtgLN4FVWHwEPeahjfv2oFpY";
-                const TELEGRAM_CHAT_ID = "-1003082651864";
-
-                // Build message (include current tour title)
-                const message = `
-          📍 *New Tour Review!*
-          🏷️ *Tour:* ${title}
-          👤 *Author:* ${formData.get("author")}
-          ⭐ *Rating:* ${formData.get("rating")}
-          📅 *Visited:* ${formData.get("visitedDate")}
-          📝 *Review:* ${formData.get("reviewText")}
-          💭 *Visited Text:* ${formData.get("visitedText")}
-          `;
-
-                try {
-                  // send text
-                  await fetch(
-                    `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-                    {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({
-                        chat_id: TELEGRAM_CHAT_ID,
-                        text: message,
-                        parse_mode: "Markdown",
-                      }),
-                    }
-                  );
-
-                  // send files from files state
-                  for (const file of files) {
-                    // skip very large files (Telegram limits: photos ~10MB, videos <=50MB)
-                    if (file.size > 50 * 1024 * 1024) {
-                      console.warn("Skipping file >50MB:", file.name);
-                      continue;
-                    }
-
-                    const fd = new FormData();
-                    fd.append("chat_id", TELEGRAM_CHAT_ID);
-
-                    if (file.type.startsWith("video/")) {
-                      fd.append("video", file);
-                      await fetch(
-                        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendVideo`,
-                        {
-                          method: "POST",
-                          body: fd,
-                        }
-                      );
-                    } else {
-                      fd.append("photo", file);
-                      await fetch(
-                        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`,
-                        {
-                          method: "POST",
-                          body: fd,
-                        }
-                      );
-                    }
-                  }
-
-                  alert("✅ Review sent successfully!");
-                  e.target.reset();
-                  setFiles([]);
-                } catch (err) {
-                  console.error("Failed to send review:", err);
-                  alert("❌ Failed to send review. Check console for details.");
-                }
-              }}
-            >
-              <input
-                name="author"
-                type="text"
-                placeholder="Your name"
-                required
-              />
-              <input name="visitedDate" type="date" required />
-              <input
-                name="rating"
-                type="number"
-                min="1"
-                max="5"
-                placeholder="Rating (1–5)"
-                required
-              />
-              <input
-                name="visitedText"
-                type="text"
-                placeholder="Where/when you visited"
-              />
-              <textarea
-                name="reviewText"
-                rows="4"
-                placeholder="Write your review..."
-                required
-              />
-
-              {/* Drop zone uses files state handlers below (add them near other handlers) */}
-              <div
-                className={styles.dropZone}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  const dtFiles = Array.from(e.dataTransfer.files || []);
-                  if (dtFiles.length) {
-                    // merge with existing files
-                    setFiles((prev) => [...prev, ...dtFiles]);
-                  }
-                }}
-                onDragOver={(e) => {
-                  e.preventDefault();
-                }}
-                onClick={() => {
-                  // open hidden input
-                  const input = document.getElementById("mediaInput");
-                  if (input) input.click();
-                }}
-              >
-                <p>📸 Drag & drop images or videos here, or click to upload</p>
-                <input
-                  id="mediaInput"
-                  type="file"
-                  multiple
-                  accept="image/*,video/*"
-                  style={{ display: "none" }}
-                  onChange={(e) => {
-                    const chosen = Array.from(e.target.files || []);
-                    if (chosen.length) setFiles((prev) => [...prev, ...chosen]);
-                  }}
-                />
-              </div>
-
-              {/* Preview + remove */}
-              {files.length > 0 && (
-                <div className={styles.preview}>
-                  {files.map((file, idx) => (
-                    <div key={idx} className={styles.previewItem}>
-                      <button
-                        type="button"
-                        className={styles.removeBtn}
-                        onClick={() =>
-                          setFiles((prev) => prev.filter((_, i) => i !== idx))
-                        }
-                      >
-                        ❌
-                      </button>
-
-                      {file.type.startsWith("image/") ? (
-                        <img src={URL.createObjectURL(file)} alt={file.name} />
-                      ) : (
-                        <video src={URL.createObjectURL(file)} controls />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <button type="submit">Submit Review</button>
-            </form>
           </section>
         </div>
 

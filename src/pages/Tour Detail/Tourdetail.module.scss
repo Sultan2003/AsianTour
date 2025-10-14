@@ -652,7 +652,8 @@
   border: 1px solid #e8ecf5;
   border-radius: 16px;
   padding: 26px 24px;
-  margin-top: 40px;
+  margin: 20px 0;
+
   box-shadow: 0 8px 24px rgba(10, 26, 68, 0.06);
   max-width: 1000px;
   margin-left: 45px;
@@ -692,7 +693,7 @@
     }
 
     button {
-      align-self: flex-start;
+      align-self: center;
       background: #0b1670;
       color: #fff;
       border: none;
@@ -736,6 +737,30 @@
 
     input[type="file"] {
       display: none;
+    }
+  }
+}
+
+.reviewsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  h2 {
+    margin: 0;
+  }
+
+  .writeReviewLink {
+    color: #0b1670;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.7;
     }
   }
 }
@@ -786,6 +811,15 @@
   justify-content: center; /* ✅ horizontal center */
   line-height: 1; /* ensures no text offset */
   padding: 0; /* remove default padding */
+}
+
+.rowInputs {
+  display: flex;
+  gap: 12px; /* space between them */
+
+  input {
+    flex: 1; /* make both take equal width */
+  }
 }
 
 /* Responsive tweaks */
@@ -870,6 +904,15 @@
   border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
+}
+
+.reviewwrite {
+  display: flex;
+  justify-content: space-between;
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
 /* ====== Responsive Adjustments ====== */
