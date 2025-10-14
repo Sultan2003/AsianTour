@@ -697,7 +697,6 @@ export default function TourIdPage() {
               })
             )}
           </section>
-          /* --- Replace the entire review section with this --- */
           {/* REVIEW FORM */}
           <section className={styles.reviewForm}>
             <h3>Write your review</h3>
