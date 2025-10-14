@@ -309,6 +309,24 @@ export default function PrivateTourIdPage() {
     setOpen(parsedDays.map(() => false));
   }, [parsedDays]);
 
+  // --- Fetch Reviews ---
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    if (!tour?.title) return;
+
+    fetch(`${STRAPI_BASE}/api/reviews-plural?locale=${strapiLocale}&populate=*`)
+      .then((r) => r.json())
+      .then((data) => {
+        const all = data?.data || [];
+        const matched = all.filter(
+          (r) => r.Title?.trim() === tour.title?.trim()
+        );
+        setReviews(matched);
+      })
+      .catch(console.error);
+  }, [tour?.title, strapiLocale]);
+
   const toggle = (i) =>
     setOpen((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
 
@@ -635,7 +653,52 @@ export default function PrivateTourIdPage() {
           {/* Reviews */}
           <section ref={reviewsRef} className={styles.tabContent}>
             <h2>{t.reviews}</h2>
-            <p>{t.noReviews}</p>
+
+            {reviews.length === 0 ? (
+              <p>{t.noReviews}</p>
+            ) : (
+              reviews.map((rev) => {
+                const text =
+                  rev.ReviewText?.map((p) =>
+                    p.children?.map((c) => c.text).join("")
+                  ).join(" ") || "";
+
+                const date = new Date(rev.VisitedDate).toLocaleDateString(
+                  "en-GB",
+                  {
+                    month: "long",
+                    year: "numeric",
+                  }
+                );
+
+                const imgs = rev.ReviewMedias || [];
+
+                return (
+                  <div key={rev.id} className={styles.reviewCard}>
+                    <div className={styles.reviewHeader}>
+                      <strong>Author:</strong> {rev.Author} &nbsp;|&nbsp;
+                      <strong>Rating:</strong> {rev.Rating}
+                      <span style={{ float: "right" }}>
+                        <strong>Visited:</strong> {date}
+                      </span>
+                    </div>
+                    <div className={styles.reviewBody}>
+                      <p>{text}</p>
+                      <div className={styles.reviewImages}>
+                        {imgs.map((img) => (
+                          <img
+                            key={img.id}
+                            src={img.url}
+                            alt={img.alternativeText || ""}
+                            className={styles.reviewImg}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </section>
         </div>
 
