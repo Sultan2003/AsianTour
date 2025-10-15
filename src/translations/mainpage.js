@@ -5,7 +5,7 @@ const mainPageTranslations = {
     aboutTitle: "Our Curated Asian Journeys",
     aboutText:
       "Asian Tour is a boutique tour operator specializing in authentic and personalized travel experiences across Asia. As a trusted and highly rated company, we place your safety and comfort at the heart of every journey. Through our expert local partnerships, we create meaningful adventures that leave lasting memories.",
-    upcomingTitle: "Forthcoming travel opportunities",
+    upcomingTitle: "Recent tours to join",
     upcomingHeader: {
       date: "Date",
       departures: "Departures",
