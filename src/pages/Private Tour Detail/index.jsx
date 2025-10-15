@@ -399,11 +399,11 @@ export default function PrivateTourIdPage() {
       <div className={styles.content}>
         <div className={styles.infoSection}>
           {/* Overview */}
+
           <section className={styles.tabContent}>
             <h2>{t.overview}</h2>
             {Array.isArray(tour.description) &&
               (() => {
-                // Combine all description texts into one big string first
                 let fullText = tour.description
                   .map(
                     (node) =>
@@ -411,12 +411,12 @@ export default function PrivateTourIdPage() {
                   )
                   .join("\n");
 
-                // Remove the entire Array = [...] block (even if multiline)
+                // Remove the entire Array = [...] and Accommodation = [...] blocks
                 fullText = fullText
                   .replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "")
+                  .replace(/Accomodation\s*=\s*\[[\s\S]*?\];?/g, "")
                   .trim();
 
-                // Split back into paragraphs for display
                 const cleanParagraphs = fullText.split(/\n+/).filter(Boolean);
 
                 return cleanParagraphs.map((txt, i) => <p key={i}>{txt}</p>);
@@ -651,6 +651,58 @@ export default function PrivateTourIdPage() {
               </button>
             </form>
           </section>
+          {/* ACCOMMODATION */}
+          {Array.isArray(tour.description) &&
+            (() => {
+              const descText = tour.description
+                .map(
+                  (node) => node?.children?.map?.((c) => c.text).join("") ?? ""
+                )
+                .join("\n");
+
+              const match = descText.match(
+                /Accomodation\s*=\s*\[([\s\S]*?)\];/
+              );
+              if (!match) return null;
+
+              // Split by '}' or ',' between accommodation objects
+              const objectBlocks = match[1]
+                .split(/}\s*,\s*{|\n|},/)
+                .map((b) => b.replace(/[\[\]{}]/g, "").trim())
+                .filter((b) => b.includes("City"));
+
+              const accommodations = objectBlocks.map((block) => {
+                const cityMatch = block.match(/City\s*:\s*([^,]+)\s*,/);
+                const hotelsMatch = block.match(/Hotels\s*:\s*([\s\S]+)/);
+                return {
+                  city: cityMatch ? cityMatch[1].trim() : "",
+                  hotels: hotelsMatch
+                    ? hotelsMatch[1]
+                        .split(",")
+                        .map((h) => h.trim())
+                        .filter(Boolean)
+                    : [],
+                };
+              });
+
+              return (
+                <section className={styles.accommodationSection}>
+                  <h2>Accommodation:</h2>
+                  <div className={styles.accommodationTable}>
+                    {accommodations.map((a, i) => (
+                      <div key={i} className={styles.accommodationRow}>
+                        <div className={styles.cityRow}>
+                          {a.city} <span>- 2 nights</span>
+                        </div>
+                        <div className={styles.hotelList}>
+                          {a.hotels.join(", ")}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              );
+            })()}
 
           {/* REVIEW FORM */}
 
