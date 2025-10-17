@@ -19,10 +19,10 @@ export default function Header() {
           <a href="#">{t.about}</a>
           <a onClick={() => navigate("/contact")}>{t.contact}</a>
         </div>
-        <div className={styles.languages}>
+        {/* <div className={styles.languages}>
           <a onClick={() => setLang("en")}>ENG</a>
           <a onClick={() => setLang("ru")}>РУС</a>
-        </div>
+        </div> */}
       </div>
 
       {/* Logo + banner */}
