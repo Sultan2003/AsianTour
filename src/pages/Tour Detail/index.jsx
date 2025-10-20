@@ -371,9 +371,10 @@ export default function TourIdPage() {
       <div
         className={styles.hero}
         style={{
-          backgroundImage: tourImages.length
-            ? `url(${tourImages[currentIndex].url})`
-            : "url(/no-image.png)",
+          backgroundImage:
+            tourImages?.length && tourImages[currentIndex]?.url
+              ? `url(${tourImages[currentIndex].url})`
+              : "url(/no-image.png)",
         }}
       >
         <div className={styles.overlay} />
@@ -1011,8 +1012,7 @@ export default function TourIdPage() {
                         className={styles.catItem}
                         onClick={() => {
                           navigate(`/tour/${tItem.documentId}`);
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                          setTimeout(() => window.location.reload(), 80); // reload after route change
+                          window.scrollTo({ top: 0, behavior: "smooth" }); 
                         }}
                         style={{ cursor: "pointer" }}
                       >
