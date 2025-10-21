@@ -257,8 +257,7 @@
           position: fixed;
           top: 50%;
           left: 50%;
-          width: 80%;
-          max-width: 250px;
+          max-width: 150px;
           transform: translate(-50%, -60%);
           background: white;
           border-radius: 10px;
@@ -269,6 +268,7 @@
         }
 
         @media (max-width: 480px) {
+          max-width: 150px;
           width: 90%;
           max-width: 200px;
           padding: 5px 0;
