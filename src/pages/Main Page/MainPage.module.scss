@@ -256,7 +256,6 @@
       }
     }
   }
-
   /* ✅ UPCOMING GROUP DEPARTURES */
   .upcomingSection {
     max-width: 1215px;
@@ -268,11 +267,12 @@
       font-weight: 700;
       color: #2c8b2c;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .upcomingList {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); // 2 columns
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
 
@@ -286,7 +286,7 @@
       gap: 10px;
       background: #fff;
       box-shadow: 0 6px 16px rgba(10, 26, 68, 0.06);
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
 
       &:hover {
         transform: translateY(-2px);
@@ -303,6 +303,7 @@
         font-weight: 700;
         padding: 10px 5px;
         text-align: center;
+        min-width: 60px;
       }
 
       .tourName {
@@ -315,9 +316,11 @@
       .status {
         font-weight: 700;
         text-align: center;
+
         &.available {
           color: #27ae60;
         }
+
         &.unavailable {
           color: #e74c3c;
         }
@@ -336,17 +339,224 @@
       }
     }
 
-    /* Responsive adjustments */
+    /* ==============================
+     ✅ RESPONSIVE BREAKPOINTS
+     ============================== */
+
+    /* Large Tablets & small laptops (≤1024px) */
+    @media (max-width: 1024px) {
+      .upcomingList {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .upcomingCard {
+        grid-template-columns: 60px 1fr 70px 70px 70px;
+        padding: 12px;
+      }
+
+      .tourName {
+        font-size: 0.95rem;
+      }
+    }
+
+    /* Tablets (≤768px) */
     @media (max-width: 768px) {
       .upcomingList {
-        grid-template-columns: 1fr; // single column on small screens
+        grid-template-columns: 1fr;
       }
+
       .upcomingCard {
         grid-template-columns: 70px 1fr 80px 60px 80px;
-        padding: 10px;
+        padding: 12px;
+        gap: 8px;
       }
+
       .uPrice {
-        font-size: 14px;
+        font-size: 15px;
+      }
+    }
+
+    /* Mobile Medium (≤600px) */
+    /* ✅ Improved mobile design for Upcoming Group Departures */
+    @media (max-width: 600px) {
+      .upcomingSection {
+        padding: 0 12px;
+        margin-top: 30px;
+
+        h2 {
+          font-size: 22px;
+          margin-bottom: 18px;
+          text-align: center;
+        }
+
+        .upcomingList {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .upcomingCard {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+          background: #ffffff;
+          border-radius: 14px;
+          padding: 14px 16px;
+          box-shadow: 0 4px 12px rgba(10, 26, 68, 0.06);
+          border: 1px solid #e9ecf5;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(10, 26, 68, 0.1);
+          }
+
+          /* Date on top */
+          .dateBox {
+            align-self: stretch;
+            background: #0b1670;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 8px 0;
+            text-align: center;
+            margin-bottom: 10px;
+          }
+
+          /* Tour name large */
+          .tourName {
+            font-size: 17px;
+            font-weight: 700;
+            color: #0b1670;
+            margin-bottom: 6px;
+          }
+
+          /* Inline info row */
+          .infoRow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            font-size: 14px;
+            margin-top: 6px;
+
+            .uDays {
+              font-weight: 600;
+              color: #555;
+            }
+
+            .status {
+              font-weight: 700;
+
+              &.available {
+                color: #27ae60;
+              }
+
+              &.unavailable {
+                color: #e74c3c;
+              }
+            }
+
+            .uPrice {
+              font-weight: 700;
+              color: #0b1670;
+            }
+          }
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      
+      
+
+      [class*="uDays"] {
+        display: none !important;
+      }
+
+      
+      .upcomingSection {
+        padding: 0;
+        overflow-x: hidden;
+
+        h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: left;
+        }
+
+        .upcomingList {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          align-items: center;
+          width: 80% !important;
+        }
+
+        .upcomingCard {
+          grid-template-columns: 90px 1fr 90px 90px;
+          box-sizing: border-box;
+          padding: 5px 10px;
+          border-radius: 12px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          background: #fff;
+          border: 1px solid #e8ecf5;
+          box-shadow: 0 4px 10px rgba(10, 26, 68, 0.06);
+          transition: transform 0.2s ease;
+
+          &:hover {
+            transform: translateY(-2px);
+          }
+
+          .dateBox {
+            font-size: 14px;
+            padding: 8px;
+            border-radius: 6px;
+            width: 100%;
+            text-align: center;
+            background: #0b1670;
+            color: white;
+            font-weight: 700;
+            box-sizing: border-box;
+          }
+
+          .tourName {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0b1670;
+            margin: 8px 0 6px;
+            text-align: center;
+            width: 100%;
+            word-wrap: break-word;
+          }
+
+          /* ✅ Hide the .status element completely on small screens */
+          :global(.status) {
+            display: none !important;
+          }
+
+          .uDays {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            width: 100%;
+          }
+
+          .uPrice {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0b1670;
+            text-align: center;
+            width: 100%;
+          }
+        }
       }
     }
   }
@@ -487,6 +697,196 @@
     transition: background 0.3s ease;
     &:hover {
       background: #286090;
+    }
+  }
+
+  /* 🌍 GLOBAL RESPONSIVE ENHANCEMENTS */
+  @media (max-width: 1200px) {
+    .hero {
+      height: 450px;
+    }
+    .heroText h1 {
+      font-size: 38px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .hero {
+      height: 400px;
+    }
+    .heroText {
+      left: 20px;
+      bottom: 30px;
+      h1 {
+        font-size: 32px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      height: 360px;
+      background-position: top center;
+    }
+    .heroText {
+      left: 15px;
+      right: 15px;
+      bottom: 20px;
+      text-align: center;
+      h1 {
+        font-size: 26px;
+      }
+      p {
+        font-size: 15px;
+      }
+    }
+
+    .promoSlider {
+      height: 480px;
+      .sliderContent h2 {
+        font-size: 28px;
+      }
+      .sliderContent p {
+        font-size: 15px;
+      }
+      .readMoreBtn {
+        font-size: 14px;
+        padding: 10px 22px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hero {
+      height: 300px;
+    }
+    .heroText h1 {
+      font-size: 22px;
+    }
+    .heroText p {
+      font-size: 14px;
+    }
+    .tourCard .details h2 {
+      font-size: 18px;
+    }
+    .tourCard .details .price {
+      font-size: 16px;
+    }
+    .promoSlider {
+      height: 380px;
+      margin: 20px 10px;
+    }
+    .contactSection p {
+      font-size: 15px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .hero {
+      height: 260px;
+    }
+    .heroText h1 {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+    .heroText p {
+      font-size: 13px;
+    }
+    .tourCard {
+      .details h2 {
+        font-size: 16px;
+      }
+      .textbtn .viewBtn {
+        padding: 8px 18px;
+        font-size: 13px;
+      }
+    }
+    .contactBtn {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+  }
+}
+/* ✅ Responsive adjustments for Promo Slider */
+@media (max-width: 992px) {
+  .promoSlider {
+    max-width: 95%;
+    height: 520px;
+    margin: 30px auto;
+    border-radius: 10px;
+
+    .sliderContent {
+      h2 {
+        font-size: 30px;
+      }
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .promoSlider {
+    max-width: 92%;
+    height: 450px;
+    margin: 20px auto;
+
+    .sliderContent {
+      h2 {
+        font-size: 26px;
+      }
+      p {
+        font-size: 15px;
+      }
+    }
+
+    .arrow {
+      width: 38px;
+      height: 38px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .promoSlider {
+    width: 90%;
+    height: 360px;
+    margin: 20px auto;
+    border-radius: 8px;
+
+    .sliderContent {
+      padding: 0 10px;
+      h2 {
+        font-size: 22px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .promoSlider {
+    width: 80%;
+    height: 320px;
+    margin: 10px 0;
+
+    .sliderContent {
+      h2 {
+        font-size: 18px;
+      }
+      p {
+        font-size: 13px;
+      }
+      .readMoreBtn {
+        font-size: 13px;
+        padding: 8px 18px;
+      }
     }
   }
 }

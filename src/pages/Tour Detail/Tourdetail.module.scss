@@ -2,7 +2,6 @@
    TOUR DETAIL PAGE STYLES (UPDATED + SIDEBAR)
    ========================================================= */
 
-   
 /* Page base */
 .tourPage {
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto,
@@ -1136,5 +1135,208 @@
         justify-content: space-between;
       }
     }
+  }
+}
+
+/* =========================================================
+   UNIVERSAL RESPONSIVE FIXES — PLACE AT END
+   ========================================================= */
+
+/* Large tablets & small laptops (≤1024px) */
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    margin: 20px auto;
+  }
+
+  .detailsCard,
+  .sidebar {
+    max-width: 100%;
+    margin: 0 auto 20px;
+  }
+
+  .tabsNav {
+    
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero {
+    height: 420px;
+  }
+}
+
+/* Tablets (≤768px) */
+@media (max-width: 768px) {
+  .hero {
+    height: 340px;
+  }
+
+  .heroContent {
+    left: 20px;
+    bottom: 28px;
+
+    h1 {
+      font-size: 28px;
+      line-height: 1.25;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  .infoSection .tabContent {
+    margin-left: 0;
+    padding: 18px;
+  }
+
+  .detailsCard {
+    padding: 18px;
+    margin: 20px auto;
+    max-width: 95%;
+  }
+
+  .tabsNav button {
+    font-size: 16px;
+    padding: 8px 14px;
+  }
+
+  .reviewForm {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .preview {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .requestBtn {
+    margin-left: 0;
+    align-self: center;
+  }
+
+  .accommodationSection {
+    margin-left: 0;
+    padding: 18px;
+  }
+
+  .reviewImages {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Medium (≤600px) */
+@media (max-width: 600px) {
+  .hero {
+    height: 280px;
+  }
+
+  .heroContent h1 {
+    font-size: 22px;
+  }
+
+  .heroContent p {
+    font-size: 14px;
+  }
+
+  .tabsNav {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 10px;
+  }
+
+  .tabsNav button {
+    flex: 0 0 auto;
+    font-size: 15px;
+    padding: 6px 10px;
+  }
+
+  .infoSection .tabContent h2 {
+    font-size: 18px;
+  }
+
+  .priceBox {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .pricesBox {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .reviewImages {
+    grid-template-columns: 1fr;
+  }
+
+  .reviewForm form {
+    gap: 12px;
+  }
+
+  .requestBtn {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+/* Small phones (≤480px) */
+@media (max-width: 480px) {
+  .hero {
+    height: 240px;
+  }
+
+  .heroContent {
+    left: 14px;
+    bottom: 18px;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+
+  .detailsCard {
+    padding: 14px;
+  }
+
+  .infoSection .tabContent {
+    padding: 14px;
+  }
+
+  .tabsNav button {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .priceItem strong {
+    font-size: 14px;
+  }
+
+  .reviewForm {
+    padding: 16px;
+  }
+
+  .reviewImages {
+    grid-template-columns: 1fr;
+  }
+
+  .accommodationSection {
+    padding: 16px;
+  }
+
+  .accommodationTable .hotelItem {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
+
+  .requestBtn {
+    width: 100%;
+    font-size: 13px;
+    padding: 10px 14px;
   }
 }

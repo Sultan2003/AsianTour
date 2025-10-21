@@ -30,10 +30,12 @@
 
       @media (max-width: 768px) {
         margin-left: 0;
+        gap: 2px;
       }
 
       @media (max-width: 480px) {
         margin-left: 0;
+        gap: 2px;
       }
 
       a {
@@ -90,6 +92,15 @@
       height: 70px;
       width: 150px;
       flex-shrink: 0;
+      @media (max-width: 768px) {
+        height: 60px;
+        width: 120px;
+      }
+
+      @media (max-width: 480px) {
+        max-height: 70px;
+        width: 120px;
+      }
     }
 
     .banner {
@@ -102,6 +113,17 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
+      @media (max-width: 768px) {
+        height: 80px;
+        font-size: 12px;
+      }
+
+      @media (max-width: 480px) {
+        display: flex;
+        justify-content: flex-start;
+        height: 70px;
+        font-size: 12px;
+      }
 
       .badge {
         background: orange;
@@ -109,6 +131,13 @@
         padding: 2px 6px;
         font-size: 12px;
         border-radius: 4px;
+        @media (max-width: 768px) {
+          font-size: 11px;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 12px;
+        }
       }
 
       .title {
@@ -146,17 +175,19 @@
       @media (max-width: 768px) {
         margin-left: 0;
         justify-content: none;
-        gap: 0;
+        gap: 5px;
+        min-width: none;
       }
       @media (max-width: 480px) {
         flex-direction: column;
         justify-content: left;
         margin-left: -20px;
-        font-size: 12px;
+        font-size: 11px;
         margin-bottom: 8px;
         display: flex;
         height: 30px;
-        gap: 0;
+        gap: 5px;
+        min-width: none;
       }
 
       li {
@@ -175,6 +206,14 @@
         &:hover {
           background: rgba(255, 255, 255, 0.1);
         }
+        @media (max-width: 768px) {
+          width: min-content;
+          padding: 3px 6px;
+        }
+        @media (max-width: 480px) {
+          width: min-content;
+          padding: 3px 6px;
+        }
       }
 
       .dropdownMenu {
@@ -189,6 +228,7 @@
         padding: 3px 0;
         list-style: none;
         left: 0;
+        transition: all 0.3s ease;
 
         li {
           padding: 8px 15px;
@@ -198,7 +238,46 @@
           &:hover {
             background: #f0f0f0;
           }
+
+          /* ✅ For tablet/mobile dropdown items */
+          @media (max-width: 768px) {
+            text-align: center;
+            font-size: 14px;
+            padding: 10px;
+          }
+
+          @media (max-width: 480px) {
+            font-size: 13px;
+            padding: 12px;
+          }
         }
+
+        /* ✅ Centered dropdown on mobile/tablet */
+        @media (max-width: 768px) {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          width: 80%;
+          max-width: 250px;
+          transform: translate(-50%, -60%);
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+          z-index: 3000;
+          text-align: center;
+          padding: 10px 2;
+        }
+
+        @media (max-width: 480px) {
+          width: 90%;
+          max-width: 200px;
+          padding: 5px 0;
+        }
+      }
+
+      /* ✅ Make dropdown visible on click (JS toggles .active) */
+      .dropdownMenu.active {
+        display: block !important;
       }
 
       .dropdown:hover .dropdownMenu {
