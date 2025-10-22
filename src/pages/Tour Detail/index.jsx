@@ -3,7 +3,6 @@ import { LanguageContext } from "../../context/LanguageContext";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
-import { Section } from "lucide-react";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -528,17 +527,13 @@ export default function TourIdPage() {
 
                         return (
                           <tr key={item.id}>
-                            <td>{formattedStart}</td>
-                            <td>{formattedEnd}</td>
-                            <td
-                              className={
-                                isAvailable ? styles.available : styles.soldout
-                              }
-                            >
+                            <td data-label="Start Date">{formattedStart}</td>
+                            <td data-label="End Date">{formattedEnd}</td>
+                            <td data-label="Status">
                               {isAvailable ? "Available" : "Sold out"}
                             </td>
-                            <td>US$ {item.price}</td>
-                            <td>
+                            <td data-label="Price">US$ {item.price}</td>
+                            <td data-label="Book">
                               <button
                                 className={styles.bookBtn}
                                 disabled={!isAvailable}
@@ -1012,7 +1007,7 @@ export default function TourIdPage() {
                         className={styles.catItem}
                         onClick={() => {
                           navigate(`/tour/${tItem.documentId}`);
-                          window.scrollTo({ top: 0, behavior: "smooth" }); 
+                          window.scrollTo({ top: 0, behavior: "smooth" });
                         }}
                         style={{ cursor: "pointer" }}
                       >

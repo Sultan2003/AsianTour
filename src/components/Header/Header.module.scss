@@ -164,13 +164,19 @@
     .navLinks {
       list-style: none;
       display: flex;
-      min-width: 600px;
+      min-width: 500px;
 
       margin: 0;
       padding: 0;
       margin-left: calc((100% - 1150px) / 2);
       min-width: auto;
       flex-wrap: wrap;
+
+      li.service {
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
 
       @media (max-width: 768px) {
         margin-left: 0;
@@ -198,6 +204,7 @@
         padding: 8px 12px;
         justify-content: center;
         width: 210px;
+
         .arrow {
           font-size: 10px;
           margin-left: 1px;
@@ -211,8 +218,8 @@
           padding: 3px 6px;
         }
         @media (max-width: 480px) {
-          width: min-content;
-          padding: 3px 6px;
+          width: 130px;
+          padding: 3px 25px;
         }
       }
 
@@ -250,28 +257,6 @@
             font-size: 13px;
             padding: 12px;
           }
-        }
-
-        /* ✅ Centered dropdown on mobile/tablet */
-        @media (max-width: 768px) {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          max-width: 150px;
-          transform: translate(-50%, -60%);
-          background: white;
-          border-radius: 10px;
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-          z-index: 3000;
-          text-align: center;
-          padding: 10px 2;
-        }
-
-        @media (max-width: 480px) {
-          max-width: 150px;
-          width: 90%;
-          max-width: 200px;
-          padding: 5px 0;
         }
       }
 
