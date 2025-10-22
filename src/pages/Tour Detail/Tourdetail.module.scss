@@ -641,6 +641,12 @@
     }
   }
 
+  .datesTable .bookBtn {
+    max-width: 80px;
+    width: 100%;
+    font-size: 12px;
+    padding: 6px 8px;
+  }
   /* Dates table converts to cards */
   .datesTableWrapper {
     overflow-x: visible;

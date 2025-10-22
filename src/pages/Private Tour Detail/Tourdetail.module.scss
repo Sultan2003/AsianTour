@@ -729,6 +729,16 @@
     font-size: 13px;
   }
 
+  .datesTable td .statusLabel {
+    font-weight: 700;
+  }
+  .datesTable td .statusLabel.available {
+    color: #0d1e8a;
+  }
+  .datesTable td .statusLabel.soldout {
+    color: #c32d2d;
+  }
+
   .datesTable .priceTag {
     font-size: 16px;
   }
