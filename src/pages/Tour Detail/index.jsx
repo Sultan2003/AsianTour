@@ -529,13 +529,22 @@ export default function TourIdPage() {
                           <tr key={item.id}>
                             <td data-label="Start Date">{formattedStart}</td>
                             <td data-label="End Date">{formattedEnd}</td>
-                            <td data-label="Status">
+                            <td
+                              data-label="Status"
+                              className={
+                                isAvailable ? styles.available : styles.soldout
+                              }
+                            >
                               {isAvailable ? "Available" : "Sold out"}
                             </td>
                             <td data-label="Price">US$ {item.price}</td>
                             <td data-label="Book">
                               <button
-                                className={styles.bookBtn}
+                                className={`${styles.bookBtn} ${
+                                  isAvailable
+                                    ? styles.availableBtn
+                                    : styles.soldoutBtn
+                                }`}
                                 disabled={!isAvailable}
                               >
                                 Book
