@@ -547,7 +547,7 @@ export default function TourIdPage() {
                                 }`}
                                 disabled={!isAvailable}
                               >
-                                Book
+                                Book Now
                               </button>
                             </td>
                           </tr>
