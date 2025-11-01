@@ -326,7 +326,7 @@
   }
 
   .bookBtn {
-    margin-top: 18px;
+    margin-top: 10px;
     width: 100%;
     padding: 14px 16px;
     border: 0;
@@ -727,12 +727,12 @@
 /* 🧭 Extra small phones (≤480px) */
 @media (max-width: 480px) {
   .yearTabs .yearTab {
-    font-size: 12px;
+    font-size: 14px;
     padding: 5px 10px;
   }
 
   .datesTable td {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .datesTable td .statusLabel {
@@ -746,14 +746,14 @@
   }
 
   .datesTable .priceTag {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   /* ✅ Book button fix */
   .datesTable .bookBtn {
     max-width: 80px;
     width: 100%;
-    font-size: 12px;
+    font-size: 13px;
     padding: 6px 8px;
   }
 }
@@ -1507,7 +1507,7 @@
   }
 
   .priceItem strong {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .reviewForm {

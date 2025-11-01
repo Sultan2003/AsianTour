@@ -291,3 +291,287 @@
     }
   }
 }
+/* =========================================================
+   📱 RESPONSIVE STYLES FOR UZBEKISTAN TOURS PAGE
+   ========================================================= */
+
+/* 💻 Large desktops (≥1200px) */
+@media (min-width: 1200px) {
+  .wrapper {
+    padding: 3rem 2rem;
+  }
+  .tours .mainImage img {
+    width: 100%;
+  }
+  .sidebar {
+    max-width: 320px;
+  }
+}
+
+/* 💻 Tablets & small laptops (≤1199px) */
+@media (max-width: 1199px) and (min-width: 993px) {
+  .container {
+    gap: 1.5rem;
+  }
+
+  .tours .cardsHeader {
+    grid-template-columns: 70px 1fr 100px 80px 100px;
+    font-size: 0.95rem;
+  }
+
+  .tours .tourCard {
+    grid-template-columns: 80px 1fr 100px 80px 100px;
+    padding: 12px;
+  }
+
+  .tours .bigTourCard .bigImg {
+    width: 180px;
+    min-width: 180px;
+    height: 180px;
+  }
+}
+
+/* 📱 Tablets (≤992px) */
+@media (max-width: 992px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    order: 2;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .tours {
+    order: 1;
+    width: 100%;
+  }
+
+  .tours .cardsHeader {
+    display: none; /* hide grid header */
+  }
+
+  .tours .tourCard {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .tours .dateBox {
+    width: 100%;
+  }
+
+  .tours .tourInfo {
+    text-align: center;
+  }
+
+  .tours .bigTourCard {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .tours .bigTourCard .bigImg {
+    width: 100%;
+    height: 260px;
+  }
+
+  .tours .bigTourCard .bottomRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sidebar .catBlock .catTitle {
+    font-size: 0.95rem;
+  }
+}
+
+/* 📱 Mobile (≤768px) */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    gap: 1rem;
+  }
+
+  .tours {
+    gap: 1.2rem;
+  }
+
+  .tours h2 {
+    font-size: 1.05rem;
+  }
+
+  .tours .mainImage img {
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .tours .bigTourCard .bigImg {
+    height: 200px;
+  }
+
+  .tours .bigTourCard .bigTitle {
+    font-size: 1rem;
+  }
+
+  .tours .summary {
+    font-size: 0.9rem;
+  }
+
+  .sidebar {
+    padding: 1.2rem;
+    box-shadow: 0 4px 12px rgba(10, 26, 68, 0.05);
+  }
+
+  .sidebar h3 {
+    font-size: 1rem;
+  }
+
+  .sidebar .catItem {
+    font-size: 0.9rem;
+  }
+}
+
+/* 📱 Small Mobile (≤576px) */
+@media (max-width: 576px) {
+  .wrapper {
+    padding: 1.5rem 0.8rem;
+  }
+
+  .tours {
+    gap: 1rem;
+  }
+
+  .tours .mainImage img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .tours .tourCard {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .tours .dateBox {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+
+  .tours .tourInfo .title {
+    font-size: 1rem;
+  }
+
+  .tours .tourInfo .departures {
+    font-size: 0.85rem;
+  }
+
+  .tours .bigTourCard {
+    padding: 10px;
+  }
+
+  .tours .bigTourCard .bigImg {
+    height: 180px;
+  }
+
+  .tours .bigTourCard .summary {
+    font-size: 0.9rem;
+  }
+
+  .tours .bottomRow .price {
+    font-size: 1rem;
+  }
+
+  .sidebar {
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+
+  .sidebar .catTitle {
+    padding: 8px 10px;
+  }
+
+  .sidebar .catItem {
+    padding: 8px 10px;
+  }
+}
+
+/* 📱 Extra Small Phones (≤480px) */
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 1rem 0.5rem;
+  }
+
+  .tours h2 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .tours .tourCard {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  .tours .dateBox {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  .tours .tourInfo .title {
+    font-size: 0.9rem;
+  }
+
+  .tours .bigTourCard {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tours .bigTourCard .bigImg {
+    height: 160px;
+  }
+
+  .tours .bigTourCard .summary {
+    font-size: 0.85rem;
+  }
+
+  .tours .bottomRow .price {
+    font-size: 0.9rem;
+  }
+
+  .tours .detailsBtn {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  .sidebar {
+    padding: 0.8rem;
+  }
+
+  .sidebar h3 {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .sidebar .catTitle {
+    font-size: 0.9rem;
+    padding: 6px 8px;
+  }
+
+  .sidebar .catItem {
+    font-size: 0.85rem;
+  }
+}

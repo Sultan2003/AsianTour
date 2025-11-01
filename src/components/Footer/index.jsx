@@ -72,13 +72,13 @@ const Footer = () => {
           <h3 className={styles.heading}>{t.services}</h3>
           <ul>
             <li>
-              <Link to="/small-group-tours">{t.smallGroupTours}</Link>
+              <Link to="/Asian-Tour-Transfer">Transfer</Link>
             </li>
             <li>
-              <Link to="/private-tours">{t.privateTours}</Link>
+              <Link to="/Asian-Tour-Hotel-Booking">Hotel Booking</Link>
             </li>
             <li>
-              <Link to="/custom-tours">{t.customTours}</Link>
+              <Link to="/Asian-Tour-Hotel-Guide-Service">Guide Service</Link>
             </li>
           </ul>
         </div>
