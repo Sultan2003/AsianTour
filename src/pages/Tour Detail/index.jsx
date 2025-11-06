@@ -367,25 +367,48 @@ export default function TourIdPage() {
   return (
     <div className={styles.tourPage}>
       {/* HERO */}
-      <div
-        className={styles.hero}
-        style={{
-          backgroundImage:
-            tourImages?.length && tourImages[currentIndex]?.url
-              ? `url(${tourImages[currentIndex].url})`
-              : "url(/no-image.png)",
-        }}
-      >
-        <div className={styles.overlay} />
-        <div className={styles.heroContent}>
-          <h1>{tour.title}</h1>
-          <p>
-            {days} {t.days} • {tour.location}
-          </p>
-          {tour.status1 && (
-            <span className={styles.heroBadge}>{t.bestseller}</span>
-          )}
+      <div className={styles.heroContainer}>
+        {/* Main hero image */}
+        <div
+          className={styles.hero}
+          style={{
+            backgroundImage:
+              tourImages?.length && tourImages[currentIndex]?.url
+                ? `url(${tourImages[currentIndex].url})`
+                : "url(/no-image.png)",
+          }}
+        >
+          <div className={styles.overlay} />
+          <div className={styles.heroContent}>
+            <h1>{tour.title}</h1>
+            <p>
+              {days} {t.days} • {tour.location}
+            </p>
+            {tour.status1 && (
+              <span className={styles.heroBadge}>{t.bestseller}</span>
+            )}
+          </div>
         </div>
+
+        {/* Vertical gallery thumbnails */}
+        {tourImages.length > 1 && (
+          <div className={styles.verticalGallery}>
+            {tourImages.map((img, idx) => (
+              <div
+                key={idx}
+                className={`${styles.thumb} ${
+                  idx === currentIndex ? styles.active : ""
+                }`}
+                onClick={() => setCurrentIndex(idx)}
+              >
+                <img
+                  src={img.url}
+                  alt={img.alternativeText || `Image ${idx + 1}`}
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* NAV */}
