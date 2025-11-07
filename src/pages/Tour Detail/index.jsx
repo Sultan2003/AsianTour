@@ -14,6 +14,7 @@ export default function TourIdPage() {
   const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   // --- Related tours (right sidebar) state ---
   const [relatedTours, setRelatedTours] = useState([]);
@@ -363,6 +364,13 @@ export default function TourIdPage() {
 
   const days = calculateDays(tour.startDate, tour.endDate);
   const tourImages = images.filter((img) => img.alternativeText === tour.title);
+
+  const tourVideo = images.find(
+    (file) =>
+      file.mime.startsWith("video/") &&
+      file.caption &&
+      file.caption.trim().toLowerCase() === tour.title.trim().toLowerCase()
+  );
 
   return (
     <div className={styles.tourPage}>
@@ -1051,6 +1059,86 @@ export default function TourIdPage() {
               );
             })}
           </aside>
+
+          {tourVideo && (
+            <div className={styles.videoContainer}>
+              <h3>{t.videoTitle || "Travel Route Map"}</h3>
+
+              <div
+                className={styles.videoPreview}
+                onClick={() => setShowVideoModal(true)}
+              >
+                <video
+                  controls={false}
+                  preload="none"
+                  poster={
+                    tourImages?.length
+                      ? tourImages[0].url
+                      : "/placeholder-video-thumbnail.jpg"
+                  }
+                  width="100%"
+                  style={{
+                    borderRadius: "10px",
+                    marginTop: "10px",
+                    maxHeight: "250px",
+                    objectFit: "cover",
+                    backgroundColor: "#000",
+                    cursor: "pointer",
+                  }}
+                >
+                  <source
+                    src={
+                      tourVideo.url.startsWith("http")
+                        ? tourVideo.url
+                        : `${STRAPI_BASE}${tourVideo.url}`
+                    }
+                    type="video/mp4"
+                  />
+                </video>
+
+                <div className={styles.playOverlay}>▶</div>
+              </div>
+            </div>
+          )}
+
+          {showVideoModal && (
+            <div
+              className={styles.videoModalOverlay}
+              onClick={() => setShowVideoModal(false)}
+            >
+              <div
+                className={styles.videoModalContent}
+                onClick={(e) => e.stopPropagation()} // prevent closing when clicking video
+              >
+                <button
+                  className={styles.closeButton}
+                  onClick={() => setShowVideoModal(false)}
+                >
+                  ×
+                </button>
+
+                <video
+                  controls
+                  autoPlay
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: "10px",
+                    maxHeight: "80vh",
+                  }}
+                >
+                  <source
+                    src={
+                      tourVideo.url.startsWith("http")
+                        ? tourVideo.url
+                        : `${STRAPI_BASE}${tourVideo.url}`
+                    }
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
