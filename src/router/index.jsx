@@ -46,6 +46,7 @@ import ReligiousTours from "../pages/Tour Types/Religious Tours";
 import EcoTours from "../pages/Tour Types/Eco Tours";
 import BusinessTours from "../pages/Tour Types/Business Tours";
 import Transfers from "../pages/Transfers";
+import VisaPolicy from "../pages/VisaPolicy";
 
 const Router = () => {
   return (
@@ -416,6 +417,14 @@ const Router = () => {
         element={
           <MainLayout>
             <CaucasusPrivateTours />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/visa-policy"
+        element={
+          <MainLayout>
+            <VisaPolicy />
           </MainLayout>
         }
       />

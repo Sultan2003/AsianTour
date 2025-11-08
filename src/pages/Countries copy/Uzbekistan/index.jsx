@@ -54,8 +54,41 @@ export default function UzbekistanTours() {
     {
       id: "note2",
       title: notes[1],
-      text: `Uzbekistan has a free visa policy towards most of countries. Foreign citizen can visit Uzbekistan for personal, official, tourist, vacation, study and medical treatment purposes. All needed is valid national passport with a validity more than 6 months from the date of entry. There are nationalities with unlimited visa free regime. Citizens from Azerbaijan, Georgia, Armenia, Belarus, Kazakhstan, Moldova, Russia and Ukraine are granted with unlimited visa free regime. Citizen of EU and countries like Canada, Israil, UK, Japan, Australia and many more can travel visa free up to 30 days. Also, citizen of almost 60 countries, including the USA, China, South Africa, India, Iran and others can obtain simplified electronic visa (e-visa) up to 30 days. The processing time for a visa application is 2 working days and can be sent to traveler by e-mail. The cost of a single time e-visa is 20 USD. Registration matter should be looked at, as all foreign citizen traveling to Uzbekistan will need to get registration at the place for residence within 3 days from the date of arrival. Almost all hotels and hostels will make registration on guest arrival and will provide you with confirmation at your request.`,
+      text: (
+        <>
+          Uzbekistan has a free{" "}
+          <span
+            style={{
+              color: "blue",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/visa-policy")}
+          >
+            visa policy
+          </span>{" "}
+          towards most of countries. Foreign citizen can visit Uzbekistan for
+          personal, official, tourist, vacation, study and medical treatment
+          purposes. All needed is a valid national passport with a validity more
+          than 6 months from the date of entry. There are nationalities with
+          unlimited visa free regime. Citizens from Azerbaijan, Georgia,
+          Armenia, Belarus, Kazakhstan, Moldova, Russia and Ukraine are granted
+          with unlimited visa free regime. Citizens of EU and countries like
+          Canada, Israel, UK, Japan, Australia and many more can travel visa
+          free up to 30 days. Also, citizens of almost 60 countries, including
+          the USA, China, South Africa, India, Iran and others can obtain a
+          simplified electronic visa (e-visa) up to 30 days. The processing time
+          for a visa application is 2 working days and can be sent to the
+          traveler by e-mail. The cost of a single-entry e-visa is 20 USD.
+          Registration matters should be looked at, as all foreign citizens
+          traveling to Uzbekistan will need to get registration at their place
+          of residence within 3 days from the date of arrival. Almost all hotels
+          and hostels will make registration on guest arrival and will provide
+          you with confirmation upon request.
+        </>
+      ),
     },
+
     {
       id: "note3",
       title: notes[2],
