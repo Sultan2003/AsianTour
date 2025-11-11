@@ -10,6 +10,7 @@ import hikingImg from "../../assets/images/front-img/hiking.avif";
 import businessImg from "../../assets/images/front-img/business.avif";
 import { LanguageContext } from "../../context/LanguageContext";
 import translations from "../../translations/mainpage";
+import HistoricalTimeline from "../../components/timeline";
 
 export default function MainPage() {
   const { lang, strapiLocale } = useContext(LanguageContext);
@@ -139,6 +140,13 @@ export default function MainPage() {
         <div className={styles.heroText}>
           <h1>{t.heroTitle}</h1>
           <p>{t.heroSubtitle}</p>
+        </div>
+      </div>
+
+      <div className={styles.timelineSection}>
+        <h2 className={styles.title}>Historical Timeline</h2>
+        <div className={styles.timelineWrapper}>
+          <HistoricalTimeline />
         </div>
       </div>
 
