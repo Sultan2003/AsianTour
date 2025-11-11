@@ -215,3 +215,38 @@
   outline: 3px solid #0a2ab5;
   transform: scale(1.1);
 }
+/* === SPECIAL YEAR 0 MARKER === */
+.specialEventNode {
+  position: absolute;
+  top: 38%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  text-align: center;
+  cursor: pointer;
+}
+
+.specialMarker {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd700 0%, #ffb700 70%, #e09e00 100%);
+  border: 3px solid #fff5b5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #081545;
+  font-weight: 700;
+  font-size: 10px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  animation: glowPulse 2s infinite ease-in-out;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 1);
+  }
+}
