@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import styles from "./timeline.module.scss";
 import { motion, AnimatePresence } from "framer-motion";
-import pyramid from "../../assets/timeline/pyramid.jpg";
 import olympic from "../../assets/timeline/olympic.jpg";
 
 const HistoricalTimeline = () => {
@@ -43,17 +42,18 @@ const HistoricalTimeline = () => {
 
   // === Events data ===
   const events = [
+    // ======== ANCIENT ERA ========
     {
-      year: -900,
+      year: -911,
       title: "Rise of the Neo-Assyrian Empire",
       description:
-        "Assyria begins expanding from northern Mesopotamia, forming the first true imperial power in history.",
+        "Assyria expands from northern Mesopotamia, establishing one of the first great empires in history.",
     },
     {
       year: -814,
       title: "Founding of Carthage",
       description:
-        "Phoenician settlers establish Carthage in North Africa, which becomes a major maritime and trading empire.",
+        "Phoenician settlers establish Carthage in North Africa, a key maritime power of the Mediterranean.",
     },
     {
       year: -776,
@@ -61,6 +61,12 @@ const HistoricalTimeline = () => {
       image: olympic,
       description:
         "Held in Olympia, Greece — celebrating unity and athletic excellence.",
+    },
+    {
+      year: -745,
+      title: "Reforms of Tiglath-Pileser III",
+      description:
+        "Neo-Assyrian king centralizes power, reorganizes provinces, and creates an efficient imperial system.",
     },
     {
       year: -612,
@@ -72,7 +78,7 @@ const HistoricalTimeline = () => {
       year: -550,
       title: "Formation of the Achaemenid Persian Empire",
       description:
-        "Cyrus the Great unites Medes and Persians into one of history’s largest empires.",
+        "Cyrus the Great unites the Medes and Persians into one of history’s largest empires.",
     },
     {
       year: -539,
@@ -84,13 +90,25 @@ const HistoricalTimeline = () => {
       year: -490,
       title: "Battle of Marathon",
       description:
-        "Greek forces defeat the Persian invasion, symbolizing democracy’s resilience.",
+        "Greek city-states defeat the Persian invasion, symbolizing democracy’s resilience.",
+    },
+    {
+      year: -480,
+      title: "Battle of Thermopylae and Salamis",
+      description:
+        "Greek resistance under Leonidas and naval victory at Salamis turn the tide against Persia.",
+    },
+    {
+      year: -331,
+      title: "Alexander the Great Conquers Persia",
+      description:
+        "Alexander defeats Darius III at Gaugamela, ending the Achaemenid Empire and expanding into Central Asia.",
     },
     {
       year: -327,
-      title: "Alexander the Great Invades Central Asia",
+      title: "Alexander Invades Central Asia",
       description:
-        "Alexander conquers Bactria and Sogdiana — present-day Uzbekistan and Afghanistan.",
+        "Alexander conquers Bactria and Sogdiana — regions of modern Uzbekistan and Afghanistan.",
     },
     {
       year: -256,
@@ -105,10 +123,16 @@ const HistoricalTimeline = () => {
         "Qin Shi Huang centralizes power and begins construction of the Great Wall.",
     },
     {
+      year: -146,
+      title: "Rome Destroys Carthage",
+      description:
+        "The end of the Punic Wars establishes Rome as the dominant Mediterranean power.",
+    },
+    {
       year: -141,
       title: "Han Dynasty Expands into Central Asia",
       description:
-        "Emperor Wu sends Zhang Qian westward — the Silk Road is born.",
+        "Emperor Wu sends Zhang Qian westward — opening the Silk Road.",
     },
     {
       year: -44,
@@ -117,27 +141,48 @@ const HistoricalTimeline = () => {
     },
     {
       year: 0,
-      title: "Traditional Birth of Jesus Christ",
-      description: "Marks the beginning of the Anno Domini era.",
+      title: "Birth of Jesus Christ",
+      description:
+        "Traditional date marking the beginning of the Anno Domini era.",
       isSpecial: true,
     },
     {
       year: 224,
       title: "Rise of the Sassanid Empire",
       description:
-        "Ardashir I overthrows the Parthians and founds the Sassanid dynasty.",
+        "Ardashir I overthrows the Parthians and founds the Sassanid dynasty in Persia.",
+    },
+
+    // ======== EARLY MEDIEVAL ERA ========
+    {
+      year: 330,
+      title: "Founding of Constantinople",
+      description:
+        "Constantine establishes a new Roman capital that becomes the Byzantine Empire’s center.",
+    },
+    {
+      year: 476,
+      title: "Fall of the Western Roman Empire",
+      description:
+        "Deposition of Romulus Augustulus marks the traditional end of ancient Rome.",
     },
     {
       year: 552,
       title: "First Turkic Khaganate Established",
       description:
-        "Turkic tribes unite under Bumin Qaghan — start of Turkic statehood.",
+        "Turkic tribes unite under Bumin Qaghan — beginning Turkic statehood.",
     },
     {
       year: 622,
       title: "Hijra — Founding of Islam",
       description:
         "Prophet Muhammad migrates to Medina — year 1 of the Islamic calendar.",
+    },
+    {
+      year: 651,
+      title: "Islamic Expansion into Central Asia",
+      description:
+        "Caliphates reach Transoxiana; local elites begin gradual conversion to Islam.",
     },
     {
       year: 751,
@@ -154,13 +199,39 @@ const HistoricalTimeline = () => {
     {
       year: 999,
       title: "Karakhanid Dynasty Conquers Transoxiana",
-      description: "First Turkic Muslim state forms in Central Asia.",
+      description: "The first Turkic Muslim state forms in Central Asia.",
+    },
+
+    // ======== HIGH MEDIEVAL ERA ========
+    {
+      year: 1055,
+      title: "Seljuk Turks Enter Baghdad",
+      description:
+        "Seljuks become protectors of the Abbasid Caliphate, spreading Turkic rule westward.",
+    },
+    {
+      year: 1096,
+      title: "First Crusade",
+      description:
+        "Western European crusaders launch campaigns to seize the Holy Land.",
+    },
+    {
+      year: 1219,
+      title: "Genghis Khan Invades Central Asia",
+      description:
+        "Mongol armies devastate Khwarezmian cities including Samarkand and Bukhara.",
     },
     {
       year: 1220,
-      title: "Destruction of Samarkand by the Mongols",
+      title: "Destruction of Samarkand",
       description:
         "Genghis Khan’s invasion devastates but later revitalizes Central Asia.",
+    },
+    {
+      year: 1258,
+      title: "Mongols Sack Baghdad",
+      description:
+        "End of the Abbasid Caliphate and massive Mongol expansion across Eurasia.",
     },
     {
       year: 1336,
@@ -171,7 +242,13 @@ const HistoricalTimeline = () => {
       year: 1369,
       title: "Samarkand Becomes Timurid Capital",
       description:
-        "Timur transforms Samarkand into a jewel of architecture and culture.",
+        "Timur transforms Samarkand into a center of architecture and culture.",
+    },
+    {
+      year: 1405,
+      title: "Death of Timur",
+      description:
+        "Timur dies during his campaign to China, ending his conquests.",
     },
     {
       year: 1469,
@@ -179,10 +256,29 @@ const HistoricalTimeline = () => {
       description:
         "His observatory in Samarkand produces world-leading star catalogs.",
     },
+
+    // ======== EARLY MODERN ERA ========
     {
       year: 1500,
       title: "Shaybani Khan Captures Samarkand",
       description: "The Uzbek Shaybanids establish control over Central Asia.",
+    },
+    {
+      year: 1517,
+      title: "Ottomans Conquer Egypt",
+      description:
+        "End of the Mamluk Sultanate; Ottomans dominate the Islamic world.",
+    },
+    {
+      year: 1588,
+      title: "Reign of Shah Abbas I Begins",
+      description:
+        "Safavid Persia experiences cultural and architectural flourishing.",
+    },
+    {
+      year: 1644,
+      title: "Qing Dynasty Established in China",
+      description: "Manchu conquest ushers in China’s last imperial dynasty.",
     },
     {
       year: 1740,
@@ -197,10 +293,42 @@ const HistoricalTimeline = () => {
         "The U.S. is founded, reshaping global political philosophy.",
     },
     {
+      year: 1796,
+      title: "Rise of Qajar Dynasty",
+      description:
+        "New Persian dynasty emerges as regional powers shift in Central Asia.",
+    },
+
+    // ======== INDUSTRIAL & IMPERIAL ERA ========
+    {
+      year: 1813,
+      title: "Russian Expansion into the Caucasus",
+      description:
+        "Treaty of Gulistan marks Russian dominance over northern Persia’s territories.",
+    },
+    {
       year: 1868,
       title: "Russian Conquest of Samarkand",
       description:
         "Russian Empire annexes Samarkand and Bukhara, ending local independence.",
+    },
+    {
+      year: 1884,
+      title: "Berlin Conference",
+      description:
+        "European powers divide Africa, intensifying global imperialism.",
+    },
+    {
+      year: 1905,
+      title: "First Russian Revolution",
+      description:
+        "Social unrest foreshadows the collapse of the Tsarist regime.",
+    },
+    {
+      year: 1914,
+      title: "World War I Begins",
+      description:
+        "A global conflict reshapes borders, empires, and ideologies.",
     },
     {
       year: 1917,
@@ -214,6 +342,20 @@ const HistoricalTimeline = () => {
         "Uzbekistan becomes a Soviet Republic, entering modernization.",
     },
     {
+      year: 1939,
+      title: "World War II Begins",
+      description:
+        "Global conflict reshapes politics, economics, and alliances worldwide.",
+    },
+    {
+      year: 1945,
+      title: "End of World War II",
+      description:
+        "Defeat of Axis powers leads to Soviet dominance in Eastern Europe and Central Asia’s integration into USSR structure.",
+    },
+
+    // ======== CONTEMPORARY ERA ========
+    {
       year: 1966,
       title: "Tashkent Earthquake",
       description:
@@ -226,6 +368,12 @@ const HistoricalTimeline = () => {
         "Uzbekistan declares sovereignty on August 31 after the USSR’s collapse.",
     },
     {
+      year: 2001,
+      title: "21st Century Globalization",
+      description:
+        "Digital revolution, climate awareness, and global connectivity redefine economics and politics.",
+    },
+    {
       year: 2016,
       title: "Shavkat Mirziyoyev Becomes President",
       description:
@@ -233,9 +381,9 @@ const HistoricalTimeline = () => {
     },
     {
       year: 2025,
-      title: "Uzbekistan Expands Regional Connectivity",
+      title: "Regional Connectivity Projects Expand",
       description:
-        "Rail and infrastructure projects link Uzbekistan with China and Europe.",
+        "Uzbekistan strengthens ties with China, Europe, and neighboring states through new infrastructure projects.",
     },
   ];
 
@@ -250,8 +398,8 @@ const HistoricalTimeline = () => {
   for (let y = minYear; y < 1800; y += stepBefore1800) years.push(y);
   for (let y = 1800; y <= maxYear; y += stepAfter1800) years.push(y);
 
-  const gapBefore1800 = 120;
-  const gapAfter1800 = 120;
+  const gapBefore1800 = 140;
+  const gapAfter1800 = 140;
 
   const before1800Count = Math.floor((1800 - minYear) / stepBefore1800);
   const after1800Count = Math.floor((maxYear - 1800) / stepAfter1800);
@@ -284,7 +432,7 @@ const HistoricalTimeline = () => {
         setExpanded(false);
         setActiveIndex(null);
       }}
-      animate={{ height: expanded ? 400 : 200 }}
+      animate={{ height: expanded ? 500 : 200 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
     >
       <div className={styles.timelineInner}>
@@ -317,6 +465,55 @@ const HistoricalTimeline = () => {
           {/* === Events === */}
           {events.map((event, i) => {
             const isAbove = i % 2 === 0;
+
+            // === Special event (e.g., Year 0) ===
+            if (event.isSpecial) {
+              const isActive = activeIndex === i;
+
+              return (
+                <motion.div
+                  key={i}
+                  className={styles.specialEventNode}
+                  style={{ left: `${getLeft(event.year)}px` }}
+                  onClick={() => handleClick(i)} // ✅ make it clickable
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <div
+                    className={`${styles.specialMarker} ${
+                      isActive ? styles.activeSpecial : ""
+                    }`}
+                  >
+                    Anno Domini
+                  </div>
+
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        className={`${styles.eventTooltip} ${styles.tooltipAbove}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className={styles.tooltipContent}>
+                          <h4 className={styles.tooltipTitle}>{event.title}</h4>
+                          <p className={styles.tooltipYear}>
+                            {event.year === 0
+                              ? "Year 0 (AD Era Begins)"
+                              : event.year}
+                          </p>
+                          <p className={styles.tooltipText}>
+                            {event.description}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            }
+
+            // === Normal events ===
             return (
               <motion.div
                 key={i}
@@ -336,7 +533,6 @@ const HistoricalTimeline = () => {
                       <div className={styles.overlay}></div>
                       <span className={styles.buttonText}>{event.title}</span>
                     </button>
-
                     <AnimatePresence>
                       {activeIndex === i && (
                         <motion.div
