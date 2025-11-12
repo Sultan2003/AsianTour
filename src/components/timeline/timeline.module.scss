@@ -222,9 +222,10 @@
 /* === SPECIAL YEAR 0 MARKER === */
 .specialEventNode {
   position: absolute;
-  top: 40%;
+  top: 42%;
   transform: translate(-50%, -50%);
   z-index: 9;
+  margin-left: 10px;
   text-align: center;
   cursor: pointer;
 }
@@ -292,4 +293,15 @@
 
 .tooltipBelow {
   top: 100px;
+}
+/* === EXPANDED STATE BORDER === */
+.timelineContainer {
+  border: 2px solid transparent;
+  border-radius: 16px;
+  transition: border 0.4s ease, box-shadow 0.4s ease;
+}
+
+.expanded {
+  border: 2px solid #0a2ab5; /* bright deep-blue border */
+  box-shadow: 0 0 20px rgba(10, 42, 181, 0.4);
 }

@@ -420,7 +420,9 @@ const HistoricalTimeline = () => {
 
   return (
     <motion.div
-      className={styles.timelineContainer}
+      className={`${styles.timelineContainer} ${
+        expanded ? styles.expanded : ""
+      }`}
       ref={scrollRef}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
@@ -432,7 +434,7 @@ const HistoricalTimeline = () => {
         setExpanded(false);
         setActiveIndex(null);
       }}
-      animate={{ height: expanded ? 500 : 200 }}
+      animate={{ height: expanded ? 500 : 150 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
     >
       <div className={styles.timelineInner}>
