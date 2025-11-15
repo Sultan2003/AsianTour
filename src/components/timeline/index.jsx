@@ -8,415 +8,304 @@ const HistoricalTimeline = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const scrollRef = useRef(null);
 
-  // === 👇 Mouse drag-to-scroll setup ===
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-
-  const handleMouseDown = (e) => {
-    // Only respond to left-click
-    if (e.button !== 0) return;
-    isDragging.current = true;
-    startX.current = e.pageX - scrollRef.current.offsetLeft;
-    scrollLeft.current = scrollRef.current.scrollLeft;
-    scrollRef.current.style.cursor = "grabbing";
-  };
-
-  const handleMouseUp = () => {
-    isDragging.current = false;
-    scrollRef.current.style.cursor = "grab";
-  };
-
-  const handleMouseLeave = () => {
-    isDragging.current = false;
-    scrollRef.current.style.cursor = "grab";
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging.current || e.buttons !== 1) return;
-    e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.2;
-    scrollRef.current.scrollLeft = scrollLeft.current - walk;
-  };
-
-  // === Events data ===
+  // === EVENTS DATA (unchanged) ===
   const events = [
-    // ======== ANCIENT ERA ========
     {
       year: -911,
       title: "Rise of the Neo-Assyrian Empire",
       description:
-        "Assyria expands from northern Mesopotamia, establishing one of the first great empires in history.",
+        "This period marks the rise of one of the world's most powerful early empires. Travelers visiting ancient sites in Iraq or the wider region can still see the influence of Assyrian art, stone carvings, and architectural styles that shaped later civilizations. This era laid the foundation for road networks, trade routes, and administrative systems that later connected Asia, the Middle East, and Central Asia. It’s a glimpse into how early states organized massive territories long before modern countries existed.",
     },
     {
       year: -814,
       title: "Founding of Carthage",
       description:
-        "Phoenician settlers establish Carthage in North Africa, a key maritime power of the Mediterranean.",
+        "Carthage began as a Phoenician trading colony and later grew into one of the Mediterranean’s most influential cities. Its history helps travelers understand how maritime trade once shaped cultural connections across Europe, Africa, and Asia. Many traditions in Mediterranean cuisine, craftsmanship, and navigation trace back to this era. The Carthaginian story also adds depth to understanding ancient trade routes leading toward Central Asia",
     },
     {
       year: -776,
       title: "First Ancient Olympic Games",
       image: olympic,
       description:
-        "Held in Olympia, Greece — celebrating unity and athletic excellence.",
+        "The first Olympic Games were held in Olympia, Greece, creating a tradition that still attracts millions of travelers today. Visitors to the region can explore the original stadium, temples, and ruins that inspired modern sports culture. This event also highlights how ancient societies celebrated peace, athleticism, and unity—values that influenced civilizations across Eurasia, including Central Asia along the Silk Road",
     },
     {
       year: -745,
       title: "Reforms of Tiglath-Pileser III",
       description:
-        "Neo-Assyrian king centralizes power, reorganizes provinces, and creates an efficient imperial system.",
+        "This Assyrian king reorganized the empire, improving roads, communication, and military structure. For travelers, this period shows how some of the earliest 'administrative systems' in history allowed goods, ideas, and cultures to travel long distances. These early networks contributed to the routes that would later connect Mesopotamia to Central Asia",
     },
     {
       year: -612,
       title: "Fall of Nineveh",
       description:
-        "The Neo-Assyrian capital is destroyed by Babylonians and Medes, ending Assyrian dominance.",
+        "The dramatic fall of Nineveh marked the end of a major ancient empire. Today, travelers visiting northern Iraq can explore archaeological remains that tell the story of this once-great capital. The collapse reshaped regional powers and slowly opened new paths for trade toward Persia and Central Asia. It’s a reminder of how ancient cities rose and fell, but their cultural traces still influence art and architecture across the region.",
     },
     {
       year: -550,
-      title: "Formation of the Achaemenid Persian Empire",
+      title: "Achaemenid Empire Founded",
       description:
-        "Cyrus the Great unites the Medes and Persians into one of history’s largest empires.",
+        "Cyrus the Great established one of history’s largest and most diverse empires. Travelers visiting Iran and Central Asia can experience monumental palaces, ancient inscriptions, and early road systems like the Royal Road. This period deeply influenced Central Asian culture, from language to architecture, and played a major role in shaping the Silk Road. It’s a key moment for anyone interested in the shared heritage of Iran and Uzbekistan.",
     },
     {
       year: -539,
       title: "Cyrus Captures Babylon",
       description:
-        "Cyrus the Great conquers Babylon and issues the Cyrus Cylinder — considered the first human rights declaration.",
+        "When Cyrus took Babylon, he introduced new ideas of governance, tolerance, and cultural unity. Travelers exploring modern-day Iraq and Iran can find artifacts and museums that highlight this moment, including the famous Cyrus Cylinder. This event also strengthened Persia’s connection to Central Asia, eventually shaping trade and cultural exchange along the Silk Road.",
     },
     {
       year: -490,
       title: "Battle of Marathon",
       description:
-        "Greek city-states defeat the Persian invasion, symbolizing democracy’s resilience.",
+        "The Greek victory at Marathon became a legendary symbol of bravery and independence. Visitors to Greece can still walk the battlefield and learn how this event influenced Western military history. For travelers in Asia, it’s important because it marks a crucial phase in the long interaction between Greek and Persian civilizations—cultures that would later blend dramatically in Central Asia under Alexander the Great.",
     },
     {
       year: -480,
-      title: "Battle of Thermopylae and Salamis",
+      title: "Thermopylae & Salamis",
       description:
-        "Greek resistance under Leonidas and naval victory at Salamis turn the tide against Persia.",
+        "These iconic battles between Greece and Persia shaped regional history and are popular attractions for cultural tourists. Thermopylae represents heroic resistance, while Salamis showcases naval strategy that changed the ancient world. These clashes between East and West influenced the balance of power that eventually allowed Alexander the Great to reach Central Asia, leaving long-lasting cultural landmarks in Uzbekistan.",
     },
     {
       year: -331,
-      title: "Alexander the Great Conquers Persia",
+      title: "Alexander Conquers Persia",
       description:
-        "Alexander defeats Darius III at Gaugamela, ending the Achaemenid Empire and expanding into Central Asia.",
+        "Alexander’s conquest opened the door to one of the most fascinating cultural blends in history—Greek and Central Asian traditions merging together. Travelers visiting Uzbekistan can still see traces of Hellenistic architecture, coins, and city layouts, especially in places like Termez and Samarkand. This conquest created new trade routes, artistic styles, and urban centers that shaped the future of the Silk Road.",
     },
     {
       year: -327,
-      title: "Alexander Invades Central Asia",
+      title: "Alexander in Central Asia",
       description:
-        "Alexander conquers Bactria and Sogdiana — regions of modern Uzbekistan and Afghanistan.",
+        "Alexander’s conquest opened the door to one of the most fascinating cultural blends in history—Greek and Central Asian traditions merging together. Travelers visiting Uzbekistan can still see traces of Hellenistic architecture, coins, and city layouts, especially in places like Termez and Samarkand. This conquest created new trade routes, artistic styles, and urban centers that shaped the future of the Silk Road.",
     },
     {
       year: -256,
-      title: "Formation of the Greco-Bactrian Kingdom",
-      description:
-        "Greek settlers establish a Hellenistic state blending Greek and Asian cultures.",
+      title: "Greco-Bactrian Kingdom",
+      description: "Hellenistic culture spreads in Central Asia.",
     },
     {
       year: -221,
-      title: "Unification of China under the Qin Dynasty",
-      description:
-        "Qin Shi Huang centralizes power and begins construction of the Great Wall.",
+      title: "Qin Unifies China",
+      description: "Qin Shi Huang establishes first empire.",
     },
     {
       year: -146,
       title: "Rome Destroys Carthage",
-      description:
-        "The end of the Punic Wars establishes Rome as the dominant Mediterranean power.",
+      description: "End of Punic Wars.",
     },
     {
       year: -141,
-      title: "Han Dynasty Expands into Central Asia",
-      description:
-        "Emperor Wu sends Zhang Qian westward — opening the Silk Road.",
+      title: "Han Dynasty Expands West",
+      description: "Silk Road begins forming.",
     },
     {
       year: -44,
       title: "Assassination of Julius Caesar",
-      description: "The fall of the Roman Republic and the rise of the Empire.",
+      description: "End of Roman Republic.",
     },
     {
       year: 0,
       title: "Birth of Jesus Christ",
-      description:
-        "Traditional date marking the beginning of the Anno Domini era.",
+      description: "Beginning of AD era.",
       isSpecial: true,
     },
     {
       year: 224,
-      title: "Rise of the Sassanid Empire",
-      description:
-        "Ardashir I overthrows the Parthians and founds the Sassanid dynasty in Persia.",
+      title: "Rise of Sassanid Empire",
+      description: "Ardashir I founds new empire.",
     },
-
-    // ======== EARLY MEDIEVAL ERA ========
     {
       year: 330,
-      title: "Founding of Constantinople",
-      description:
-        "Constantine establishes a new Roman capital that becomes the Byzantine Empire’s center.",
+      title: "Constantinople Founded",
+      description: "New Roman capital.",
     },
     {
       year: 476,
-      title: "Fall of the Western Roman Empire",
-      description:
-        "Deposition of Romulus Augustulus marks the traditional end of ancient Rome.",
+      title: "Fall of Western Rome",
+      description: "Traditional end of Roman Empire.",
     },
     {
       year: 552,
-      title: "First Turkic Khaganate Established",
-      description:
-        "Turkic tribes unite under Bumin Qaghan — beginning Turkic statehood.",
+      title: "First Turkic Khaganate",
+      description: "Beginning of Turkic statehood.",
     },
     {
       year: 622,
-      title: "Hijra — Founding of Islam",
-      description:
-        "Prophet Muhammad migrates to Medina — year 1 of the Islamic calendar.",
+      title: "Hijra — Birth of Islam",
+      description: "Year 1 in Islamic calendar.",
     },
     {
       year: 651,
-      title: "Islamic Expansion into Central Asia",
-      description:
-        "Caliphates reach Transoxiana; local elites begin gradual conversion to Islam.",
+      title: "Islam Reaches Central Asia",
+      description: "Caliphates expand.",
     },
     {
       year: 751,
       title: "Battle of Talas",
-      description:
-        "Arabs defeat Tang China; papermaking spreads westward through Central Asia.",
+      description: "Papermaking spreads to Islamic world.",
     },
     {
       year: 819,
-      title: "Rise of the Samanid Dynasty in Bukhara",
-      description:
-        "Bukhara becomes a cultural capital of the Islamic Golden Age.",
+      title: "Samanids in Bukhara",
+      description: "Cultural Golden Age.",
     },
     {
       year: 999,
-      title: "Karakhanid Dynasty Conquers Transoxiana",
-      description: "The first Turkic Muslim state forms in Central Asia.",
+      title: "Karakhanids Take Transoxiana",
+      description: "First Turkic Muslim state.",
     },
-
-    // ======== HIGH MEDIEVAL ERA ========
     {
       year: 1055,
-      title: "Seljuk Turks Enter Baghdad",
-      description:
-        "Seljuks become protectors of the Abbasid Caliphate, spreading Turkic rule westward.",
+      title: "Seljuks Enter Baghdad",
+      description: "Turkic influence spreads.",
     },
     {
       year: 1096,
       title: "First Crusade",
-      description:
-        "Western European crusaders launch campaigns to seize the Holy Land.",
+      description: "Western crusaders invade Near East.",
     },
     {
       year: 1219,
-      title: "Genghis Khan Invades Central Asia",
-      description:
-        "Mongol armies devastate Khwarezmian cities including Samarkand and Bukhara.",
+      title: "Mongols Invade Central Asia",
+      description: "Destruction of cities.",
     },
     {
       year: 1220,
       title: "Destruction of Samarkand",
-      description:
-        "Genghis Khan’s invasion devastates but later revitalizes Central Asia.",
+      description: "Mongol invasion.",
     },
     {
       year: 1258,
-      title: "Mongols Sack Baghdad",
-      description:
-        "End of the Abbasid Caliphate and massive Mongol expansion across Eurasia.",
+      title: "Fall of Baghdad",
+      description: "End of Abbasid rule.",
     },
     {
       year: 1336,
-      title: "Birth of Amir Timur (Tamerlane)",
-      description: "Founder of the Timurid Empire, born in Shahrisabz.",
+      title: "Birth of Amir Timur",
+      description: "Founder of Timurid Empire.",
     },
     {
       year: 1369,
-      title: "Samarkand Becomes Timurid Capital",
-      description:
-        "Timur transforms Samarkand into a center of architecture and culture.",
+      title: "Samarkand — Timurid Capital",
+      description: "Cultural renaissance.",
     },
     {
       year: 1405,
       title: "Death of Timur",
-      description:
-        "Timur dies during his campaign to China, ending his conquests.",
+      description: "Ends conquest campaigns.",
     },
     {
       year: 1469,
-      title: "Ulugh Beg’s Astronomical Legacy",
-      description:
-        "His observatory in Samarkand produces world-leading star catalogs.",
+      title: "Ulugh Beg’s Legacy",
+      description: "Astronomy revolution.",
     },
-
-    // ======== EARLY MODERN ERA ========
     {
       year: 1500,
-      title: "Shaybani Khan Captures Samarkand",
-      description: "The Uzbek Shaybanids establish control over Central Asia.",
+      title: "Shaybanid Conquest",
+      description: "Uzbek statehood rises.",
     },
     {
       year: 1517,
-      title: "Ottomans Conquer Egypt",
-      description:
-        "End of the Mamluk Sultanate; Ottomans dominate the Islamic world.",
+      title: "Ottomans Take Egypt",
+      description: "Islamic world unified.",
     },
-    {
-      year: 1588,
-      title: "Reign of Shah Abbas I Begins",
-      description:
-        "Safavid Persia experiences cultural and architectural flourishing.",
-    },
+    { year: 1588, title: "Shah Abbas I", description: "Safavid Golden Age." },
     {
       year: 1644,
-      title: "Qing Dynasty Established in China",
-      description: "Manchu conquest ushers in China’s last imperial dynasty.",
+      title: "Qing Dynasty Begins",
+      description: "Last dynasty of China.",
     },
     {
       year: 1740,
-      title: "Nadir Shah Invades Central Asia",
-      description:
-        "Persian ruler captures Khiva and Bukhara, extending Persian power.",
+      title: "Nadir Shah Invades CA",
+      description: "Persian expansion.",
     },
     {
       year: 1776,
-      title: "American Declaration of Independence",
-      description:
-        "The U.S. is founded, reshaping global political philosophy.",
+      title: "American Independence",
+      description: "Birth of USA.",
     },
-    {
-      year: 1796,
-      title: "Rise of Qajar Dynasty",
-      description:
-        "New Persian dynasty emerges as regional powers shift in Central Asia.",
-    },
-
-    // ======== INDUSTRIAL & IMPERIAL ERA ========
+    { year: 1796, title: "Qajar Dynasty", description: "New Persian rule." },
     {
       year: 1813,
-      title: "Russian Expansion into the Caucasus",
-      description:
-        "Treaty of Gulistan marks Russian dominance over northern Persia’s territories.",
+      title: "Russia in Caucasus",
+      description: "Treaty of Gulistan.",
     },
     {
       year: 1868,
-      title: "Russian Conquest of Samarkand",
-      description:
-        "Russian Empire annexes Samarkand and Bukhara, ending local independence.",
+      title: "Russia Takes Samarkand",
+      description: "End of independence.",
     },
     {
       year: 1884,
       title: "Berlin Conference",
-      description:
-        "European powers divide Africa, intensifying global imperialism.",
+      description: "Peak colonialism.",
     },
     {
       year: 1905,
-      title: "First Russian Revolution",
-      description:
-        "Social unrest foreshadows the collapse of the Tsarist regime.",
+      title: "Russian Revolution Begins",
+      description: "Tsarist decline.",
     },
-    {
-      year: 1914,
-      title: "World War I Begins",
-      description:
-        "A global conflict reshapes borders, empires, and ideologies.",
-    },
+    { year: 1914, title: "World War I", description: "Global conflict." },
     {
       year: 1917,
       title: "Russian Revolution",
-      description: "Collapse of the Tsarist regime; USSR’s foundations begin.",
+      description: "USSR begins forming.",
     },
     {
       year: 1924,
-      title: "Formation of the Uzbek SSR",
-      description:
-        "Uzbekistan becomes a Soviet Republic, entering modernization.",
+      title: "Uzbek SSR Formed",
+      description: "Beginning of Soviet era.",
     },
-    {
-      year: 1939,
-      title: "World War II Begins",
-      description:
-        "Global conflict reshapes politics, economics, and alliances worldwide.",
-    },
-    {
-      year: 1945,
-      title: "End of World War II",
-      description:
-        "Defeat of Axis powers leads to Soviet dominance in Eastern Europe and Central Asia’s integration into USSR structure.",
-    },
-
-    // ======== CONTEMPORARY ERA ========
+    { year: 1939, title: "World War II", description: "Global conflict." },
+    { year: 1945, title: "End of WWII", description: "New world order." },
     {
       year: 1966,
       title: "Tashkent Earthquake",
-      description:
-        "A devastating quake reshapes Tashkent’s architecture and society.",
+      description: "Rebuilt in Soviet style.",
     },
     {
       year: 1991,
       title: "Independence of Uzbekistan",
-      description:
-        "Uzbekistan declares sovereignty on August 31 after the USSR’s collapse.",
+      description: "Post-Soviet statehood.",
     },
     {
       year: 2001,
       title: "21st Century Globalization",
-      description:
-        "Digital revolution, climate awareness, and global connectivity redefine economics and politics.",
+      description: "Digital revolution.",
     },
-    {
-      year: 2016,
-      title: "Shavkat Mirziyoyev Becomes President",
-      description:
-        "A new era of reform and modernization begins in Uzbekistan.",
-    },
+    { year: 2016, title: "Mirziyoyev Presidency", description: "Reform era." },
     {
       year: 2025,
-      title: "Regional Connectivity Projects Expand",
-      description:
-        "Uzbekistan strengthens ties with China, Europe, and neighboring states through new infrastructure projects.",
+      title: "Connectivity Projects",
+      description: "New infrastructure.",
     },
   ];
 
-  // === Year spacing logic ===
-  const minYear = Math.min(...events.map((e) => e.year)) - 40;
-  const maxYear = Math.max(...events.map((e) => e.year)) + 20;
+  // === MIXED YEAR SPACING (unchanged) ===
+  const minYear = Math.min(...events.map((e) => e.year)) - 50;
+  const maxYear = Math.max(...events.map((e) => e.year)) + 50;
 
-  const stepBefore1800 = 40;
-  const stepAfter1800 = 10;
+  const stepBefore = 40;
+  const stepAfter = 10;
+  const gap = 200;
 
   const years = [];
-  for (let y = minYear; y < 1800; y += stepBefore1800) years.push(y);
-  for (let y = 1800; y <= maxYear; y += stepAfter1800) years.push(y);
+  for (let y = minYear; y < 1800; y += stepBefore) years.push(y);
+  for (let y = 1800; y <= maxYear; y += stepAfter) years.push(y);
 
-  const gapBefore1800 = 140;
-  const gapAfter1800 = 140;
+  const beforeCount = Math.floor((1800 - minYear) / stepBefore);
+  const afterCount = Math.floor((maxYear - 1800) / stepAfter) + 1;
 
-  const before1800Count = Math.floor((1800 - minYear) / stepBefore1800);
-  const after1800Count = Math.floor((maxYear - 1800) / stepAfter1800);
-  const totalWidth =
-    before1800Count * gapBefore1800 + after1800Count * gapAfter1800;
+  const totalWidth = beforeCount * gap + afterCount * gap;
 
   const getLeft = (year) => {
     if (year < 1800) {
-      return ((year - minYear) / stepBefore1800) * gapBefore1800;
-    } else {
-      const beforeWidth = before1800Count * gapBefore1800;
-      return beforeWidth + ((year - 1800) / stepAfter1800) * gapAfter1800;
+      return ((year - minYear) / stepBefore) * gap;
     }
+    return beforeCount * gap + ((year - 1800) / stepAfter) * gap;
   };
 
-  const handleClick = (index) =>
-    setActiveIndex(activeIndex === index ? null : index);
+  const handleClick = (i) => setActiveIndex(activeIndex === i ? null : i);
 
   return (
     <motion.div
@@ -424,127 +313,107 @@ const HistoricalTimeline = () => {
         expanded ? styles.expanded : ""
       }`}
       ref={scrollRef}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
-      style={{ cursor: "grab" }}
+      style={{ cursor: "default" }} // ⬅ cursor not grab
       onMouseEnter={() => setExpanded(true)}
       onMouseLeave={() => {
         setExpanded(false);
         setActiveIndex(null);
       }}
-      animate={{ height: expanded ? 500 : 150 }}
+      animate={{ height: expanded ? 500 : 220 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
     >
       <div className={styles.timelineInner}>
         <div
           className={styles.timelineWrapper}
-          style={{ width: `${totalWidth + 200}px` }}
+          style={{ width: `${totalWidth}px` }}
         >
-          {/* === Base Timeline Line === */}
           <div
             className={styles.timelineLine}
-            style={{ width: `${totalWidth + 200}px` }}
-          ></div>
+            style={{ width: `${totalWidth}px` }}
+          />
 
-          {/* === Year Marks === */}
           {years.map((year, i) => (
-            <motion.div
+            <div
               key={i}
               className={styles.yearMark}
               style={{ left: `${getLeft(year)}px` }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: i * 0.01 }}
             >
               <span className={styles.yearLabel}>
                 {year < 0 ? `${Math.abs(year)} BC` : `${year} AD`}
               </span>
-            </motion.div>
+            </div>
           ))}
 
-          {/* === Events === */}
           {events.map((event, i) => {
             const isAbove = i % 2 === 0;
+            const isActive = activeIndex === i;
 
-            // === Special event (e.g., Year 0) ===
             if (event.isSpecial) {
-              const isActive = activeIndex === i;
-
               return (
-                <motion.div
+                <div
                   key={i}
                   className={styles.specialEventNode}
                   style={{ left: `${getLeft(event.year)}px` }}
-                  onClick={() => handleClick(i)} // ✅ make it clickable
-                  whileHover={{ scale: 1.1 }}
+                  onClick={() => handleClick(i)}
                 >
                   <div
                     className={`${styles.specialMarker} ${
                       isActive ? styles.activeSpecial : ""
                     }`}
                   >
-                    Anno Domini
+                    AD
                   </div>
 
-                  <AnimatePresence>
-                    {isActive && (
+                  {isActive && (
+                    <AnimatePresence>
                       <motion.div
                         className={`${styles.eventTooltip} ${styles.tooltipAbove}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 20 }}
-                        transition={{ duration: 0.3 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
                       >
                         <div className={styles.tooltipContent}>
                           <h4 className={styles.tooltipTitle}>{event.title}</h4>
-                          <p className={styles.tooltipYear}>
-                            {event.year === 0
-                              ? "Year 0 (AD Era Begins)"
-                              : event.year}
-                          </p>
+                          <p className={styles.tooltipYear}>0 AD</p>
                           <p className={styles.tooltipText}>
                             {event.description}
                           </p>
                         </div>
                       </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                    </AnimatePresence>
+                  )}
+                </div>
               );
             }
 
-            // === Normal events ===
             return (
-              <motion.div
+              <div
                 key={i}
                 className={`${styles.eventNode} ${
                   isAbove ? styles.above : styles.below
-                } ${activeIndex === i ? styles.active : ""}`}
+                } ${isActive ? styles.active : ""}`}
                 style={{ left: `${getLeft(event.year)}px` }}
                 onClick={() => handleClick(i)}
-                whileHover={{ scale: 1.08 }}
               >
                 {expanded && (
                   <>
+                    <span className={styles.buttonLabel}>{event.title}</span>
                     <button
                       className={styles.eventButton}
                       style={{ backgroundImage: `url(${event.image})` }}
                     >
                       <div className={styles.overlay}></div>
-                      <span className={styles.buttonText}>{event.title}</span>
                     </button>
-                    <AnimatePresence>
-                      {activeIndex === i && (
+
+                    {isActive && (
+                      <AnimatePresence>
                         <motion.div
                           className={`${styles.eventTooltip} ${
                             isAbove ? styles.tooltipAbove : styles.tooltipBelow
                           }`}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 20 }}
-                          transition={{ duration: 0.3 }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
                         >
                           <div className={styles.tooltipContent}>
                             <h4 className={styles.tooltipTitle}>
@@ -560,11 +429,11 @@ const HistoricalTimeline = () => {
                             </p>
                           </div>
                         </motion.div>
-                      )}
-                    </AnimatePresence>
+                      </AnimatePresence>
+                    )}
                   </>
                 )}
-              </motion.div>
+              </div>
             );
           })}
         </div>

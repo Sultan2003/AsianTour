@@ -1,7 +1,7 @@
 .timelineContainer {
   width: 1200px;
   margin: 20px auto 20px;
-  overflow: visible; /* ✅ allow tooltips to overflow outside */
+  overflow: visible;
   white-space: nowrap;
   position: relative;
   background: transparent;
@@ -10,7 +10,9 @@
   align-items: center;
   scroll-behavior: smooth;
   transition: height 0.4s ease;
-  z-index: 10; /* ✅ higher stacking context */
+  z-index: 10;
+  border: 2px solid transparent;
+  border-radius: 16px;
 
   &::-webkit-scrollbar {
     height: 6px;
@@ -24,24 +26,58 @@
   }
 }
 
+.expanded {
+  border: 2px solid #0a2ab5;
+  box-shadow: 0 0 20px rgba(10, 42, 181, 0.4);
+}
+
+/* ↑ NEW: when container is expanded, make the inner scroll area taller */
+.expanded .timelineInner {
+  min-height: 400px; /* taller scrollable area when expanded */
+}
+
+/* default inner size */
 .timelineInner {
   width: 100%;
+  min-height: 200px;
   height: 100%;
   display: flex;
   justify-content: center;
-  overflow-x: auto; /* ✅ moved scroll here */
+  overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
-    height: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #aaa;
-    border-radius: 4px;
-  }
-  &::-webkit-scrollbar-track {
+    height: 20px; /* sleek horizontal scrollbar */
     background: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(8, 21, 69, 0.15); /* subtle dark blue glass */
+    backdrop-filter: blur(6px);
+    border-radius: 50px;
+    border: 1px solid rgba(8, 21, 69, 0.25);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      135deg,
+      #081545,
+      #132c8c
+    ); /* elegant blue shades */
+    border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 10px rgba(8, 21, 69, 0.6);
+    transition: 0.25s ease;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0a1e70, #1f3bb0);
+    box-shadow: 0 0 14px rgba(8, 21, 69, 0.75);
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
   }
 }
 
@@ -50,7 +86,6 @@
   height: 100%;
 }
 
-/* Timeline line full width */
 .timelineLine {
   position: absolute;
   top: 50%;
@@ -61,7 +96,6 @@
   z-index: 1;
 }
 
-/* Year Marks */
 .yearMark {
   position: absolute;
   top: 45%;
@@ -88,28 +122,46 @@
   }
 }
 
-/* Alternate positioning */
 .above {
-  top: 25%;
+  top: 10%;
 }
 .below {
-  top: 52%;
+  top: 55%;
 }
 
-/* Event Nodes */
 .eventNode {
   position: absolute;
   transform: translateX(-50%);
-  z-index: 5; /* ✅ keep under tooltip */
+  z-index: 5;
   text-align: center;
   cursor: pointer;
 }
+.buttonLabel {
+  font-size: 16px;
+  font-weight: 700; /* <-- HERE you set the font weight */
+  color: #081545;
+  margin-bottom: 8px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 10;
+}
 
-/* Event Button */
+/* === NO HOVER ANIMATION VERSION === */
+.eventNode {
+  position: absolute;
+  transform: translateX(-50%);
+  text-align: center;
+
+  display: flex;
+  flex-direction: column; /* <-- forces top-to-bottom */
+  align-items: center; /* <-- centers horizontally */
+  justify-content: center;
+}
+
 .eventButton {
   position: relative;
-  width: 160px;
-  height: 80px;
+  width: 200px;
+  height: 120px;
   border-radius: 14px;
   border: none;
   background-size: cover;
@@ -119,41 +171,25 @@
   cursor: pointer;
   color: #fff;
   box-shadow: 0 5px 15px rgba(8, 21, 69, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: none;
 
   .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(8, 21, 69, 0.55);
-    transition: background 0.3s ease;
-  }
-
-  .buttonText {
-    position: relative;
-    z-index: 2;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.3;
-    padding: 0 8px;
-    display: block;
-    text-align: center;
   }
 
   &:hover {
-    transform: scale(1.07);
-    box-shadow: 0 8px 20px rgba(8, 21, 69, 0.5);
+    transform: none !important;
+    box-shadow: none !important;
   }
 
   &:hover .overlay {
-    background: rgba(8, 21, 69, 0.4);
+    background: rgba(8, 21, 69, 0.55) !important;
   }
 }
 
-/* Tooltip container (on click) */
 .eventTooltip {
   position: absolute;
-  top: auto;
-  left: 50%;
   transform: translate(-50%, 0);
   background: #ffffff;
   color: #081545;
@@ -163,28 +199,22 @@
   max-width: 400px;
   word-wrap: break-word;
   white-space: normal;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   border: 1px solid #d4d4d4;
   text-align: left;
-  z-index: 10000; /* ✅ always above everything */
-  pointer-events: auto;
-
-  p {
-    font-size: 12px;
-    color: #333;
-    line-height: 1.3;
-  }
+  z-index: 999999;
+  margin-left: 300px;
 }
 
 .tooltipAbove {
-  top: -50px; /* ✅ above event */
+  top: -45px;
 }
 
 .tooltipBelow {
-  top: -50px; /* ✅ below event */
+  top: 60px;
+
 }
 
-/* Tooltip content */
 .tooltipContent {
   display: flex;
   flex-direction: column;
@@ -213,19 +243,16 @@
   text-align: left;
 }
 
-/* Active node highlight */
 .active .eventButton {
   outline: 3px solid #0a2ab5;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
-/* === SPECIAL YEAR 0 MARKER === */
 .specialEventNode {
   position: absolute;
-  top: 42%;
+  top: 45%;
   transform: translate(-50%, -50%);
   z-index: 9;
-  margin-left: 10px;
   text-align: center;
   cursor: pointer;
 }
@@ -243,65 +270,9 @@
   font-weight: 700;
   font-size: 10px;
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-  animation: glowPulse 2s infinite ease-in-out;
 }
 
 .activeSpecial {
-  transform: scale(1.2);
+  transform: scale(1.15);
   box-shadow: 0 0 30px rgba(255, 215, 0, 1);
-}
-
-@keyframes glowPulse {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 215, 0, 1);
-  }
-}
-.tooltipLayer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 999999; /* ✅ stays above all transforms */
-}
-
-.eventTooltip {
-  position: absolute;
-  transform: translate(-50%, 0);
-  background: #ffffff;
-  color: #081545;
-  border-radius: 8px;
-  padding: 10px 12px;
-  min-width: 350px;
-  max-width: 400px;
-  word-wrap: break-word;
-  white-space: normal;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  border: 1px solid #d4d4d4;
-  text-align: left;
-  z-index: 999999;
-}
-
-.tooltipAbove {
-  top: -100px;
-}
-
-.tooltipBelow {
-  top: 100px;
-}
-/* === EXPANDED STATE BORDER === */
-.timelineContainer {
-  border: 2px solid transparent;
-  border-radius: 16px;
-  transition: border 0.4s ease, box-shadow 0.4s ease;
-}
-
-.expanded {
-  border: 2px solid #0a2ab5; /* bright deep-blue border */
-  box-shadow: 0 0 20px rgba(10, 42, 181, 0.4);
 }
