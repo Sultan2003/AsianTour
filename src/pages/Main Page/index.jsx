@@ -10,7 +10,9 @@ import hikingImg from "../../assets/images/front-img/hiking.avif";
 import businessImg from "../../assets/images/front-img/business.avif";
 import { LanguageContext } from "../../context/LanguageContext";
 import translations from "../../translations/mainpage";
-import HistoricalTimeline from "../../components/timeline";
+import React, { lazy, Suspense } from "react";
+
+const HistoricalTimeline = lazy(() => import("../../components/timeline"));
 
 export default function MainPage() {
   const { lang, strapiLocale } = useContext(LanguageContext);
@@ -83,6 +85,27 @@ export default function MainPage() {
     .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
     .slice(0, 8);
 
+  const [loadTimeline, setLoadTimeline] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const timelineElement = document.getElementById("timelineSection");
+      if (!timelineElement) return;
+
+      const rect = timelineElement.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // When user scrolls CLOSE to the timeline (250px)
+      if (rect.top < windowHeight + 250) {
+        setLoadTimeline(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const slides = [
     {
       title: "Cultural Tours",
@@ -140,13 +163,6 @@ export default function MainPage() {
         <div className={styles.heroText}>
           <h1>{t.heroTitle}</h1>
           <p>{t.heroSubtitle}</p>
-        </div>
-      </div>
-
-      <div className={styles.timelineSection}>
-        <h2 className={styles.title}>Historical Timeline</h2>
-        <div className={styles.timelineWrapper}>
-          <HistoricalTimeline />
         </div>
       </div>
 
@@ -312,6 +328,21 @@ export default function MainPage() {
               onClick={() => setCurrent(idx)}
             />
           ))}
+        </div>
+      </div>
+      <div id="timelineSection" className={styles.timelineSection}>
+        <h2 className={styles.title}>Historical Timeline</h2>
+
+        <div className={styles.timelineWrapper}>
+          {loadTimeline ? (
+            <Suspense fallback={<div>Loading timeline...</div>}>
+              <HistoricalTimeline />
+            </Suspense>
+          ) : (
+            <div className={styles.timelinePlaceholder}>
+              Scroll to load timeline…
+            </div>
+          )}
         </div>
       </div>
     </div>

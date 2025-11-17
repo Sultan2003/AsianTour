@@ -268,16 +268,14 @@ export default function TashkentPage() {
 
         <div className={styles.carousel3d}>
           {imgs.map((src, i) => {
-            const diff = i - active;
+            // circular distance between slides
+            let diff = (i - active + imgs.length) % imgs.length;
 
-            let pos =
-              diff === 0
-                ? 0
-                : diff === 1 || diff === -imgs.length + 1
-                ? 1
-                : diff === -1 || diff === imgs.length - 1
-                ? -1
-                : Math.sign(diff) * 2;
+            // shift range from [0, imgs.length-1] to negative/positive center
+            if (diff > imgs.length / 2) diff -= imgs.length;
+
+            // Now diff is -2, -1, 0, 1, 2 for 5 images
+            let pos = diff;
 
             return (
               <div
