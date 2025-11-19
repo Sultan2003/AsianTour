@@ -30,7 +30,7 @@ export default function UzbekistanTours() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = ["Tashkent", "Samarkand"];
+  const destinations = ["Tashkent", "Samarkand", "Bukhara"];
 
   const notes = [
     "Travel safety matters",

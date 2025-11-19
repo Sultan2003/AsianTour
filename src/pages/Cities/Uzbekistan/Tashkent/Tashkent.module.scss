@@ -101,12 +101,12 @@
   width: 46px;
   border: none;
   border-radius: 50%;
-  background: white;
+  color: white;
   box-shadow: 0 8px 24px rgba(10, 26, 68, 0.1);
   cursor: pointer;
   font-size: 25px;
-  color: #0b1670;
   transition: 0.2s ease;
+  background-color: #0b1670;
 
   &:hover {
     background: #f1f5f9;
@@ -154,7 +154,7 @@
   display: flex;
   margin-left: 6%;
   width: 85%;
-  height: 400px;     /* let height be natural */
+  height: 400px; /* let height be natural */
   border-radius: 16px;
   overflow: hidden;
   margin-top: 16px;
@@ -167,8 +167,6 @@
     object-fit: contain;
   }
 }
-
-
 
 /* ================================
    RIGHT SIDE — DO NOT TOUCH

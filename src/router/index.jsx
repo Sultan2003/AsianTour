@@ -48,6 +48,7 @@ import BusinessTours from "../pages/Tour Types/Business Tours";
 import Transfers from "../pages/Transfers";
 import VisaPolicy from "../pages/VisaPolicy";
 import SamarkandPage from "../pages/Cities/Uzbekistan/Samarkand";
+import BukharaPage from "../pages/Cities/Uzbekistan/Bukhara";
 
 const Router = () => {
   return (
@@ -337,6 +338,14 @@ const Router = () => {
         element={
           <MainLayout>
             <SamarkandPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/Uzbekistan-Bukhara"
+        element={
+          <MainLayout>
+            <BukharaPage />
           </MainLayout>
         }
       />

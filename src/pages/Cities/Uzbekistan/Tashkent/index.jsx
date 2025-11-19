@@ -180,7 +180,7 @@ export default function TashkentPage() {
   ------------------------------------------*/
       afterParagraphs: [
         [
-          "🥗 <strong>3. Options for Vegetarians and Healthy Eaters</strong>",
+          "🥗 <strong> Options for Vegetarians and Healthy Eaters</strong>",
           "While Uzbek cuisine is meat-heavy, Tashkent offers:",
         ],
       ],
@@ -196,7 +196,7 @@ export default function TashkentPage() {
       /* -----------------------------------------
       AFTER GROUP 2 — TEA CULTURE
   ------------------------------------------*/
-      afterParagraphs1: [["🍵 <strong>4. Tea Culture & Desserts</strong>"]],
+      afterParagraphs1: [["🍵 <strong>Tea Culture & Desserts</strong>"]],
 
       afterItems1: [
         [
