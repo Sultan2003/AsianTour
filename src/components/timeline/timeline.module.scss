@@ -212,7 +212,6 @@
 
 .tooltipBelow {
   top: 60px;
-
 }
 
 .tooltipContent {
@@ -275,4 +274,22 @@
 .activeSpecial {
   transform: scale(1.15);
   box-shadow: 0 0 30px rgba(255, 215, 0, 1);
+}
+.eventButton {
+  position: relative;
+  width: 200px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.eventImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }

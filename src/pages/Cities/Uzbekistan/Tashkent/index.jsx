@@ -33,7 +33,7 @@ import landmark18 from "../../../../assets/Cities/Tashkent City Images/Khazrati 
 
 /* Food */
 import food1 from "../../../../assets/Cities/Tashkent City Images/Osh (2).jpg";
-import food2 from "../../../../assets/Cities/Tashkent City Images/Somsa.jpg";
+import food2 from "../../../../assets/Cities/Tashkent City Images/Plov 1.jpg";
 import food3 from "../../../../assets/Cities/Tashkent City Images/Самса.jpg";
 
 /* Shopping */
@@ -284,7 +284,7 @@ export default function TashkentPage() {
                 style={{ "--pos": pos }}
                 onClick={() => setActive(i)}
               >
-                <img src={src} alt="" />
+                <img src={src} loading="lazy" alt="" />
               </div>
             );
           })}
@@ -300,7 +300,7 @@ export default function TashkentPage() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <img src={Tashkent} className={styles.heroImage} />
+        <img src={Tashkent} loading="lazy" className={styles.heroImage} />
 
         {/* NEW TABLE NAVIGATION */}
         <div className={styles.tableNav}>
@@ -378,7 +378,11 @@ export default function TashkentPage() {
 
             {/* SINGLE IMAGE */}
             {sec.images?.length === 1 && (
-              <img src={sec.images[0]} className={styles.singleImage} />
+              <img
+                src={sec.images[0]}
+                loading="lazy"
+                className={styles.singleImage}
+              />
             )}
 
             {/* AFTER CAROUSEL PARAGRAPHS */}
@@ -408,6 +412,7 @@ export default function TashkentPage() {
                   <img
                     key={`afterImg${i}`}
                     src={src}
+                    loading="lazy"
                     className={styles.singleImage}
                     alt=""
                   />
@@ -443,6 +448,7 @@ export default function TashkentPage() {
                     src={src}
                     className={styles.singleImage}
                     alt=""
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -476,6 +482,7 @@ export default function TashkentPage() {
                     src={src}
                     className={styles.singleImage}
                     alt=""
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -509,6 +516,7 @@ export default function TashkentPage() {
                     src={src}
                     className={styles.singleImage}
                     alt=""
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -542,6 +550,7 @@ export default function TashkentPage() {
                     src={src}
                     className={styles.singleImage}
                     alt=""
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -575,6 +584,7 @@ export default function TashkentPage() {
                     src={src}
                     className={styles.singleImage}
                     alt=""
+                    loading="lazy"
                   />
                 ))
               ))}

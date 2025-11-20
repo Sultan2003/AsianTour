@@ -228,7 +228,7 @@ export default function SamarkandPage() {
                 style={{ "--pos": pos }}
                 onClick={() => setActive(i)}
               >
-                <img src={src} alt="" />
+                <img src={src} alt="" loading="lazy" />
               </div>
             );
           })}
@@ -245,7 +245,7 @@ export default function SamarkandPage() {
     <div className={styles.container}>
       {/* LEFT — main content */}
       <div className={styles.left}>
-        <img src={Samarkand} className={styles.heroImage} alt="Samarkand" />
+        <img src={Samarkand} className={styles.heroImage} alt="Samarkand" loading="lazy"/>
 
         {/* TABLE NAVIGATION */}
         <div className={styles.tableNav}>
@@ -310,7 +310,7 @@ export default function SamarkandPage() {
 
             {sec.images?.length > 1 && <ThreeDCarousel imgs={sec.images} />}
             {sec.images?.length === 1 && (
-              <img src={sec.images[0]} className={styles.singleImage} />
+              <img src={sec.images[0]} className={styles.singleImage} loading="lazy"/>
             )}
 
             {sec.afterParagraphs?.map((p, i) => (
@@ -338,6 +338,7 @@ export default function SamarkandPage() {
                     src={src}
                     className={styles.singleImage}
                     alt=""
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -367,6 +368,7 @@ export default function SamarkandPage() {
                     src={src}
                     className={styles.singleImage}
                     alt=""
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -396,6 +398,7 @@ export default function SamarkandPage() {
                     src={src}
                     className={styles.singleImage}
                     alt=""
+                    loading="lazy"
                   />
                 ))
               ))}

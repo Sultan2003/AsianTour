@@ -160,7 +160,7 @@ export default function BukharaPage() {
                 style={{ "--pos": pos }}
                 onClick={() => setActive(i)}
               >
-                <img src={src} alt="" />
+                <img src={src} alt="" loading="lazy" />
               </div>
             );
           })}
@@ -176,7 +176,7 @@ export default function BukharaPage() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <img src={BukharaImg} className={styles.heroImage} />
+        <img src={BukharaImg} className={styles.heroImage} loading="lazy" />
 
         <div className={styles.tableNav}>
           <div
@@ -229,7 +229,11 @@ export default function BukharaPage() {
 
             {sec.images?.length > 1 && <ThreeDCarousel imgs={sec.images} />}
             {sec.images?.length === 1 && (
-              <img src={sec.images[0]} className={styles.singleImage} />
+              <img
+                src={sec.images[0]}
+                className={styles.singleImage}
+                loading="lazy"
+              />
             )}
 
             {/* AFTER PARAGRAPHS */}
@@ -257,6 +261,7 @@ export default function BukharaPage() {
                     key={`aimg${i}`}
                     src={src}
                     className={styles.singleImage}
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -286,6 +291,7 @@ export default function BukharaPage() {
                     key={`aimg1${i}`}
                     src={src}
                     className={styles.singleImage}
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -315,6 +321,7 @@ export default function BukharaPage() {
                     key={`aimg2${i}`}
                     src={src}
                     className={styles.singleImage}
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -344,6 +351,7 @@ export default function BukharaPage() {
                     key={`aimg3${i}`}
                     src={src}
                     className={styles.singleImage}
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -373,6 +381,7 @@ export default function BukharaPage() {
                     key={`aimg4${i}`}
                     src={src}
                     className={styles.singleImage}
+                    loading="lazy"
                   />
                 ))
               ))}
@@ -402,6 +411,7 @@ export default function BukharaPage() {
                     key={`aimg5${i}`}
                     src={src}
                     className={styles.singleImage}
+                    loading="lazy"
                   />
                 ))
               ))}

@@ -459,10 +459,13 @@ const HistoricalTimeline = () => {
                 {expanded && (
                   <>
                     <span className={styles.buttonLabel}>{event.title}</span>
-                    <button
-                      className={styles.eventButton}
-                      style={{ backgroundImage: `url(${event.image})` }}
-                    >
+                    <button className={styles.eventButton}>
+                      <img
+                        src={event.image}
+                        loading="lazy"
+                        alt={event.title}
+                        className={styles.eventImage}
+                      />
                       <div className={styles.overlay}></div>
                     </button>
 
