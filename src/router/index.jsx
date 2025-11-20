@@ -49,404 +49,408 @@ import Transfers from "../pages/Transfers";
 import VisaPolicy from "../pages/VisaPolicy";
 import SamarkandPage from "../pages/Cities/Uzbekistan/Samarkand";
 import BukharaPage from "../pages/Cities/Uzbekistan/Bukhara";
+import ScrollToTop from "../components/ScrollToTop";
 
 const Router = () => {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <MainLayout>
-            <MainPage />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/tour/:documentId"
-        element={
-          <MainLayout>
-            <TourIdPage />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Private-tour/:documentId"
-        element={
-          <MainLayout>
-            <PrivateTourIdPage />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/contact"
-        element={
-          <MainLayout>
-            <ContactUs />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Uzbek-Tours"
-        element={
-          <MainLayout>
-            <UzbekistanTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Kazakh-Tours"
-        element={
-          <MainLayout>
-            <KazakhstanTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Kyrgyz-Tours"
-        element={
-          <MainLayout>
-            <KyrgyzstanTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Tajik-Tours"
-        element={
-          <MainLayout>
-            <TajikistanTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Turkmen-Tours"
-        element={
-          <MainLayout>
-            <TurkmenistanTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Central-Asia-Tours"
-        element={
-          <MainLayout>
-            <CentralAsiaTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Silk-Road-Tours"
-        element={
-          <MainLayout>
-            <SilkRoadTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Caucas-Tours"
-        element={
-          <MainLayout>
-            <CaucasusTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Armenia-Tours"
-        element={
-          <MainLayout>
-            <ArmeniaTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Azerbaijan-Tours"
-        element={
-          <MainLayout>
-            <AzerbaijanTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Georgia-Tours"
-        element={
-          <MainLayout>
-            <GeorgiaTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Uzbekistan"
-        element={
-          <MainLayout>
-            <UzbekistanToursDestinations />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Armenia"
-        element={
-          <MainLayout>
-            <ArmeniaToursDestination />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Azerbaijan"
-        element={
-          <MainLayout>
-            <AzerbaijanToursDestination />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Georgia"
-        element={
-          <MainLayout>
-            <GeorgiaToursDestination />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Kazakhstan"
-        element={
-          <MainLayout>
-            <KazakhstanToursDestinations />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Kyrgyzstan"
-        element={
-          <MainLayout>
-            <KyrgyzstanToursDestinations />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Tajikistan"
-        element={
-          <MainLayout>
-            <TajikistanToursDestinations />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Turkmenistan"
-        element={
-          <MainLayout>
-            <TurkmenistanToursDestinations />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Central-Asia"
-        element={
-          <MainLayout>
-            <CentralAsiaToursDestinations />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Silk-Road"
-        element={
-          <MainLayout>
-            <SilkRoadToursDestinations />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Caucasus"
-        element={
-          <MainLayout>
-            <CaucasusToursDestinations />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/City-Tours"
-        element={
-          <MainLayout>
-            <CityTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Cultural-Tours"
-        element={
-          <MainLayout>
-            <CulturalTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Gastronomy-Tours"
-        element={
-          <MainLayout>
-            <GastronomyTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Religious-Tours"
-        element={
-          <MainLayout>
-            <ReligiousTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Eco-Tours"
-        element={
-          <MainLayout>
-            <EcoTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Business-Mice-Tours"
-        element={
-          <MainLayout>
-            <BusinessTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Asian-Tour-Transfer"
-        element={
-          <MainLayout>
-            <Transfers />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/weather/:countrySlug"
-        element={
-          <MainLayout>
-            <WeatherPage />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Uzbekistan-Tashkent"
-        element={
-          <MainLayout>
-            <TashkentPage />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Uzbekistan-Samarkand"
-        element={
-          <MainLayout>
-            <SamarkandPage />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Uzbekistan-Bukhara"
-        element={
-          <MainLayout>
-            <BukharaPage />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Uzbekistan-Private-Tours"
-        element={
-          <MainLayout>
-            <UzbekistanPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Kazakhstan-Private-Tours"
-        element={
-          <MainLayout>
-            <KazakhstanPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Silk-Road-Private-Tours"
-        element={
-          <MainLayout>
-            <SilkRoadPrivateTours />
-          </MainLayout>
-        }
-      />
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <MainPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/tour/:documentId"
+          element={
+            <MainLayout>
+              <TourIdPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Private-tour/:documentId"
+          element={
+            <MainLayout>
+              <PrivateTourIdPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <MainLayout>
+              <ContactUs />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Uzbek-Tours"
+          element={
+            <MainLayout>
+              <UzbekistanTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Kazakh-Tours"
+          element={
+            <MainLayout>
+              <KazakhstanTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Kyrgyz-Tours"
+          element={
+            <MainLayout>
+              <KyrgyzstanTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Tajik-Tours"
+          element={
+            <MainLayout>
+              <TajikistanTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Turkmen-Tours"
+          element={
+            <MainLayout>
+              <TurkmenistanTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Central-Asia-Tours"
+          element={
+            <MainLayout>
+              <CentralAsiaTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Silk-Road-Tours"
+          element={
+            <MainLayout>
+              <SilkRoadTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Caucas-Tours"
+          element={
+            <MainLayout>
+              <CaucasusTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Armenia-Tours"
+          element={
+            <MainLayout>
+              <ArmeniaTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Azerbaijan-Tours"
+          element={
+            <MainLayout>
+              <AzerbaijanTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Georgia-Tours"
+          element={
+            <MainLayout>
+              <GeorgiaTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Uzbekistan"
+          element={
+            <MainLayout>
+              <UzbekistanToursDestinations />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Armenia"
+          element={
+            <MainLayout>
+              <ArmeniaToursDestination />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Azerbaijan"
+          element={
+            <MainLayout>
+              <AzerbaijanToursDestination />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Georgia"
+          element={
+            <MainLayout>
+              <GeorgiaToursDestination />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Kazakhstan"
+          element={
+            <MainLayout>
+              <KazakhstanToursDestinations />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Kyrgyzstan"
+          element={
+            <MainLayout>
+              <KyrgyzstanToursDestinations />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Tajikistan"
+          element={
+            <MainLayout>
+              <TajikistanToursDestinations />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Turkmenistan"
+          element={
+            <MainLayout>
+              <TurkmenistanToursDestinations />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Central-Asia"
+          element={
+            <MainLayout>
+              <CentralAsiaToursDestinations />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Silk-Road"
+          element={
+            <MainLayout>
+              <SilkRoadToursDestinations />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Caucasus"
+          element={
+            <MainLayout>
+              <CaucasusToursDestinations />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/City-Tours"
+          element={
+            <MainLayout>
+              <CityTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Cultural-Tours"
+          element={
+            <MainLayout>
+              <CulturalTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Gastronomy-Tours"
+          element={
+            <MainLayout>
+              <GastronomyTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Religious-Tours"
+          element={
+            <MainLayout>
+              <ReligiousTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Eco-Tours"
+          element={
+            <MainLayout>
+              <EcoTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Business-Mice-Tours"
+          element={
+            <MainLayout>
+              <BusinessTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Asian-Tour-Transfer"
+          element={
+            <MainLayout>
+              <Transfers />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/weather/:countrySlug"
+          element={
+            <MainLayout>
+              <WeatherPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Uzbekistan-Tashkent"
+          element={
+            <MainLayout>
+              <TashkentPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Uzbekistan-Samarkand"
+          element={
+            <MainLayout>
+              <SamarkandPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Uzbekistan-Bukhara"
+          element={
+            <MainLayout>
+              <BukharaPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Uzbekistan-Private-Tours"
+          element={
+            <MainLayout>
+              <UzbekistanPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Kazakhstan-Private-Tours"
+          element={
+            <MainLayout>
+              <KazakhstanPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Silk-Road-Private-Tours"
+          element={
+            <MainLayout>
+              <SilkRoadPrivateTours />
+            </MainLayout>
+          }
+        />
 
-      <Route
-        path="/Central-Asia-Private-Tours"
-        element={
-          <MainLayout>
-            <CentralAsiaPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Kyrgyzstan-Private-Tours"
-        element={
-          <MainLayout>
-            <KyrgyzstanPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Tajikistan-Private-Tours"
-        element={
-          <MainLayout>
-            <TajikistanPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Turkmenistan-Private-Tours"
-        element={
-          <MainLayout>
-            <TurkmenistanPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Armenia-Private-Tours"
-        element={
-          <MainLayout>
-            <ArmeniaPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Azerbaijan-Private-Tours"
-        element={
-          <MainLayout>
-            <AzerbaijanPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Georgia-Private-Tours"
-        element={
-          <MainLayout>
-            <GeorgiaPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/Caucasus-Private-Tours"
-        element={
-          <MainLayout>
-            <CaucasusPrivateTours />
-          </MainLayout>
-        }
-      />
-      <Route
-        path="/visa-policy"
-        element={
-          <MainLayout>
-            <VisaPolicy />
-          </MainLayout>
-        }
-      />
-    </Routes>
+        <Route
+          path="/Central-Asia-Private-Tours"
+          element={
+            <MainLayout>
+              <CentralAsiaPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Kyrgyzstan-Private-Tours"
+          element={
+            <MainLayout>
+              <KyrgyzstanPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Tajikistan-Private-Tours"
+          element={
+            <MainLayout>
+              <TajikistanPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Turkmenistan-Private-Tours"
+          element={
+            <MainLayout>
+              <TurkmenistanPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Armenia-Private-Tours"
+          element={
+            <MainLayout>
+              <ArmeniaPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Azerbaijan-Private-Tours"
+          element={
+            <MainLayout>
+              <AzerbaijanPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Georgia-Private-Tours"
+          element={
+            <MainLayout>
+              <GeorgiaPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Caucasus-Private-Tours"
+          element={
+            <MainLayout>
+              <CaucasusPrivateTours />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/visa-policy"
+          element={
+            <MainLayout>
+              <VisaPolicy />
+            </MainLayout>
+          }
+        />
+      </Routes>
+    </>
   );
 };
 

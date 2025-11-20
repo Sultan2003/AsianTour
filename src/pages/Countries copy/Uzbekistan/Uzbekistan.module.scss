@@ -515,6 +515,12 @@
     }
   }
 
+  .sidebar {
+    order: -1; /* ⭐ Move sidebar BEFORE tours section */
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
   .dosDontsWrapper {
     flex-direction: column;
     gap: 1rem;
@@ -552,6 +558,12 @@
         font-size: 0.8rem;
       }
     }
+  }
+
+  .sidebar {
+    order: -1; 
+    width: 100%;
+    margin-bottom: 1rem;
   }
 
   .sidebar h3 {

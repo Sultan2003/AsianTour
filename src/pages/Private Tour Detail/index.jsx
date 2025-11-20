@@ -15,6 +15,7 @@ export default function PrivateTourIdPage() {
   const [files, setFiles] = useState([]);
   const navigate = useNavigate();
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   // --- Related tours (right sidebar) state ---
   const [relatedTours, setRelatedTours] = useState([]);
@@ -364,27 +365,56 @@ export default function PrivateTourIdPage() {
   const days = calculateDays(tour.startDate, tour.endDate);
   const tourImages = images.filter((img) => img.alternativeText === tour.title);
 
+  const tourVideo = images.find(
+    (file) =>
+      file.mime.startsWith("video/") &&
+      file.caption &&
+      file.caption.trim().toLowerCase() === tour.title.trim().toLowerCase()
+  );
+
   return (
     <div className={styles.tourPage}>
       {/* HERO */}
-      <div
-        className={styles.hero}
-        style={{
-          backgroundImage: tourImages.length
-            ? `url(${tourImages[currentIndex].url})`
-            : "url(/no-image.png)",
-        }}
-      >
-        <div className={styles.overlay} />
-        <div className={styles.heroContent}>
-          <h1>{tour.title}</h1>
-          <p>
-            {days} {t.days} • {tour.location}
-          </p>
-          {tour.status1 && (
-            <span className={styles.heroBadge}>{t.bestseller}</span>
-          )}
+      <div className={styles.heroContainer}>
+        <div
+          className={styles.hero}
+          style={{
+            backgroundImage: tourImages.length
+              ? `url(${tourImages[currentIndex].url})`
+              : "url(/no-image.png)",
+          }}
+        >
+          <div className={styles.overlay} />
+          <div className={styles.heroContent}>
+            <h1>{tour.title}</h1>
+            <p>
+              {days} {t.days} • {tour.location}
+            </p>
+            {tour.status1 && (
+              <span className={styles.heroBadge}>{t.bestseller}</span>
+            )}
+          </div>
         </div>
+
+        {/* Vertical Gallery */}
+        {tourImages.length > 1 && (
+          <div className={styles.verticalGallery}>
+            {tourImages.map((img, idx) => (
+              <div
+                key={idx}
+                className={`${styles.thumb} ${
+                  idx === currentIndex ? styles.active : ""
+                }`}
+                onClick={() => setCurrentIndex(idx)}
+              >
+                <img
+                  src={img.url}
+                  alt={img.alternativeText || `Image ${idx + 1}`}
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* NAV */}
@@ -1028,8 +1058,87 @@ export default function PrivateTourIdPage() {
               );
             })}
           </aside>
+
+          {tourVideo && (
+            <div className={styles.videoContainer}>
+              <h3>{t.videoTitle || "Travel Route Map"}</h3>
+
+              <div
+                className={styles.videoPreview}
+                onClick={() => setShowVideoModal(true)}
+              >
+                <video
+                  controls={false}
+                  preload="none"
+                  poster={
+                    tourImages?.length
+                      ? tourImages[0].url
+                      : "/placeholder-video-thumbnail.jpg"
+                  }
+                  width="100%"
+                  style={{
+                    borderRadius: "10px",
+                    marginTop: "10px",
+                    maxHeight: "250px",
+                    objectFit: "cover",
+                    backgroundColor: "#000",
+                    cursor: "pointer",
+                  }}
+                >
+                  <source
+                    src={
+                      tourVideo.url.startsWith("http")
+                        ? tourVideo.url
+                        : `${STRAPI_BASE}${tourVideo.url}`
+                    }
+                    type="video/mp4"
+                  />
+                </video>
+
+                <div className={styles.playOverlay}>▶</div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+      {showVideoModal && (
+        <div
+          className={styles.videoModalOverlay}
+          onClick={() => setShowVideoModal(false)}
+        >
+          <div
+            className={styles.videoModalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className={styles.closeButton}
+              onClick={() => setShowVideoModal(false)}
+            >
+              ×
+            </button>
+
+            <video
+              controls
+              autoPlay
+              style={{
+                width: "100%",
+                height: "auto",
+                borderRadius: "10px",
+                maxHeight: "80vh",
+              }}
+            >
+              <source
+                src={
+                  tourVideo.url.startsWith("http")
+                    ? tourVideo.url
+                    : `${STRAPI_BASE}${tourVideo.url}`
+                }
+                type="video/mp4"
+              />
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
