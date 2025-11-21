@@ -241,14 +241,14 @@ export default function TashkentPage() {
 
       images: [transport1],
 
-      /* AFTER ITEMS (the ones you mentioned!) */
+      
       afterItems: [
         "It’s clean, safe, cheap (around $0.10 per ride), and beautifully decorated — every station has unique architecture and mosaics.",
         "There are 4 main lines connecting almost all city districts and tourist spots.",
         "Best stations to see: Kosmonavtlar, Alisher Navoi, Pakhtakor, Mustaqillik Maydoni, Yunus Rajabiy Subway Station.",
       ],
 
-      /* IMAGES: you will adjust these yourself */
+     
       afterImages: [transport2, transport3, transport4, transport5, transport6], // Carousel group
     },
   ];
