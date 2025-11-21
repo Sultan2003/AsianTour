@@ -50,6 +50,7 @@ import VisaPolicy from "../pages/VisaPolicy";
 import SamarkandPage from "../pages/Cities/Uzbekistan/Samarkand";
 import BukharaPage from "../pages/Cities/Uzbekistan/Bukhara";
 import ScrollToTop from "../components/ScrollToTop";
+import SearchPage from "../components/Search";
 
 const Router = () => {
   return (
@@ -441,6 +442,15 @@ const Router = () => {
             </MainLayout>
           }
         />
+        <Route
+          path="/search"
+          element={
+            <MainLayout>
+              <SearchPage />
+            </MainLayout>
+          }
+        />
+
         <Route
           path="/visa-policy"
           element={

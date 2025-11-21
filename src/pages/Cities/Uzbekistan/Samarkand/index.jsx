@@ -3,11 +3,6 @@ import styles from "./Samarkand.module.scss";
 import Samarkand from "../../../../assets/Cities/Samarkand/Registan Square Samarkand.jpg";
 import { useNavigate } from "react-router-dom";
 
-/* History — sample paths */
-import history1 from "../../../../assets/Cities/Samarkand/Registan Square 2.jpg";
-import history2 from "../../../../assets/Cities/Samarkand/Registan Square Samarkand.jpg";
-import history3 from "../../../../assets/Cities/Samarkand/Registan Square.jpg";
-
 /* Cultural Landmarks — sample paths */
 import registan1 from "../../../../assets/Cities/Samarkand/Registan Square 2.jpg";
 import registan2 from "../../../../assets/Cities/Samarkand/Registan Square Samarkand.jpg";
@@ -121,7 +116,7 @@ export default function SamarkandPage() {
         "Its revival began in 1887 as a provincial capital of the Russian Empire, later becoming a major railway center.",
         "From 1924 to 1936, Samarkand was the capital of the Uzbek SSR. Today, it blends its medieval core with modern Russian colonial-era districts.",
       ],
-      images: [history1, history2, history3],
+      images: [],
     },
 
     {

@@ -11,7 +11,13 @@ body {
 
 #translateButton {
   max-width: 90vw !important;
-  right: 11vw  !important;
+  right: 11vw !important;
+}
+
+@media (min-width: 1600px) {
+  #translateButton {
+    right: 19vw !important;
+  }
 }
 
 @media (max-width: 768px) {

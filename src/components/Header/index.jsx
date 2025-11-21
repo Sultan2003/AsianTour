@@ -11,6 +11,20 @@ export default function Header() {
   const { lang, setLang } = useContext(LanguageContext);
   const t = headerTranslations[lang];
 
+  const [selectedDestinations, setSelectedDestinations] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [tourType, setTourType] = useState("");
+
+  const handleSearch = () => {
+    const query = new URLSearchParams({
+      destinations: selectedDestinations.join(","),
+      month: selectedMonth,
+      type: tourType,
+    }).toString();
+
+    navigate(`/search?${query}`);
+  };
+
   return (
     <header className={styles.header}>
       {/* Top bar */}
@@ -159,7 +173,23 @@ export default function Header() {
                     "Uzbekistan",
                   ].map((d) => (
                     <label key={d}>
-                      <input type="checkbox" /> {d}
+                      <input
+                        type="checkbox"
+                        value={d}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedDestinations([
+                              ...selectedDestinations,
+                              d,
+                            ]);
+                          } else {
+                            setSelectedDestinations(
+                              selectedDestinations.filter((item) => item !== d)
+                            );
+                          }
+                        }}
+                      />{" "}
+                      {d}
                     </label>
                   ))}
                 </div>
@@ -167,7 +197,11 @@ export default function Header() {
 
               <div className={styles.filterSection}>
                 <h4>{t.departure}</h4>
-                <select className={styles.selectBox}>
+                <select
+                  className={styles.selectBox}
+                  value={selectedMonth}
+                  onChange={(e) => setSelectedMonth(e.target.value)}
+                >
                   <option value="">Any Month</option>
                   {[
                     "Jan",
@@ -193,14 +227,28 @@ export default function Header() {
               <div className={styles.filterSection}>
                 <h4>{t.tourType}</h4>
                 <label>
-                  <input type="radio" name="tourType" /> {t.group}
+                  <input
+                    type="radio"
+                    name="tourType"
+                    value="Group"
+                    onChange={() => setTourType("Group")}
+                  />{" "}
+                  {t.group}
                 </label>
                 <label>
-                  <input type="radio" name="tourType" /> {t.private}
+                  <input
+                    type="radio"
+                    name="tourType"
+                    value="Private"
+                    onChange={() => setTourType("Private")}
+                  />{" "}
+                  {t.private}
                 </label>
               </div>
 
-              <button className={styles.searchBtn}>{t.searchBtn}</button>
+              <button className={styles.searchBtn} onClick={handleSearch}>
+                {t.searchBtn}
+              </button>
             </div>
           )}
         </div>
