@@ -561,7 +561,7 @@
   }
 
   .sidebar {
-    order: -1; 
+    order: -1;
     width: 100%;
     margin-bottom: 1rem;
   }
@@ -573,4 +573,13 @@
   table td {
     font-size: 0.85rem;
   }
+}
+.sidebarLink {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit; /* remove blue color */
+}
+
+.sidebarLink:hover {
+  text-decoration: underline;
 }

@@ -178,11 +178,11 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
             {tours.map((tour) => {
               const statusText = tour.status1 ? "Available" : "Unavailable";
               return (
-                <div
+                <Link
                   key={tour.id}
+                  to={`/tour/${tour.documentId}`}
                   className={styles.tourCard}
-                  onClick={() => navigate(`/tour/${tour.documentId}`)}
-                  style={{ cursor: "pointer" }}
+                  style={{ textDecoration: "none", color: "inherit" }}
                 >
                   <div className={styles.dateBox}>
                     {new Date(tour.startDate).toLocaleDateString()}
@@ -211,7 +211,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                     days
                   </div>
                   <div>${tour.price}</div>
-                </div>
+                </Link>
               );
             })}
 
@@ -268,12 +268,9 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <span
-                    style={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/Uzbekistan-${d}`)}
-                  >
+                  <Link to={`/Uzbekistan-${d}`} className={styles.sidebarLink}>
                     {d}
-                  </span>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -299,7 +299,7 @@ export default function MainPage() {
           <p>{slides[current].description}</p>
           {slides[current].link && (
             <Link to={slides[current].link} className={styles.readMoreBtn}>
-              {t.readMore}
+              Read more about {slides[current].title}
             </Link>
           )}
         </div>
