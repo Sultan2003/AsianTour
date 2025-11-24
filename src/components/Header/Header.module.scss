@@ -235,27 +235,32 @@
         padding: 3px 0;
         list-style: none;
         left: 0;
-        transition: all 0.3s ease;
 
         li {
-          padding: 8px 15px;
-          font-weight: normal;
-          color: #333;
+          padding: 0; /* remove padding here because <a> will handle it */
 
-          &:hover {
-            background: #f0f0f0;
-          }
+          a {
+            padding: 8px 15px;
+            display: block;
+            text-decoration: none;
+            color: #333;
+            width: 100%;
+            font-weight: normal;
 
-          /* ✅ For tablet/mobile dropdown items */
-          @media (max-width: 768px) {
-            text-align: center;
-            font-size: 14px;
-            padding: 10px;
-          }
+            &:hover {
+              background: #f0f0f0;
+            }
 
-          @media (max-width: 480px) {
-            font-size: 13px;
-            padding: 12px;
+            @media (max-width: 768px) {
+              text-align: center;
+              font-size: 14px;
+              padding: 10px;
+            }
+
+            @media (max-width: 480px) {
+              font-size: 13px;
+              padding: 12px;
+            }
           }
         }
       }

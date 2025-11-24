@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styles from "./MainPage.module.scss";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import culturalImg from "../../assets/images/front-img/cultural.avif";
@@ -298,12 +298,9 @@ export default function MainPage() {
           <h2>{slides[current].title.toUpperCase()}</h2>
           <p>{slides[current].description}</p>
           {slides[current].link && (
-            <button
-              className={styles.readMoreBtn}
-              onClick={() => navigate(slides[current].link)}
-            >
+            <Link to={slides[current].link} className={styles.readMoreBtn}>
               {t.readMore}
-            </button>
+            </Link>
           )}
         </div>
         <button

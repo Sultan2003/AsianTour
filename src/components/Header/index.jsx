@@ -8,7 +8,7 @@ import headerTranslations from "../../translations/header";
 export default function Header() {
   const [openFilter, setOpenFilter] = useState(false);
   const navigate = useNavigate();
-  const { lang, setLang } = useContext(LanguageContext);
+  const { lang } = useContext(LanguageContext);
   const t = headerTranslations[lang];
 
   const [selectedDestinations, setSelectedDestinations] = useState([]);
@@ -30,19 +30,19 @@ export default function Header() {
       {/* Top bar */}
       <div className={styles.topBar}>
         <div className={styles.topLinks}>
-          <a href="#">{t.about}</a>
-          <a onClick={() => navigate("/contact")}>{t.contact}</a>
+          <Link to="/about">{t.about}</Link>
+          <Link to="/contact">{t.contact}</Link>
         </div>
-        {/* <div className={styles.languages}>
-          <a onClick={() => setLang("en")}>ENG</a>
-          <a onClick={() => setLang("ru")}>РУС</a>
-        </div> */}
       </div>
 
       {/* Logo + banner */}
       <div className={styles.logoBanner}>
         <Link to="/">
-          <img src={logo} alt="Logo" className={styles.logo} />
+          <img
+            src={logo}
+            alt="Go To Central Asia Logo"
+            className={styles.logo}
+          />
         </Link>
         <div className={styles.banner}>
           <span className={styles.badge}>{t.bestSeller}</span>
@@ -55,94 +55,135 @@ export default function Header() {
       {/* Nav bar */}
       <nav className={styles.navBar}>
         <ul className={styles.navLinks}>
+          {/* Destinations */}
           <li className={styles.dropdown}>
             {t.destinations} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-              <li onClick={() => navigate("/Silk-Road")}>{t.silkRoadd}</li>
-              <li onClick={() => navigate("/Central-Asia")}>
-                {t.centralAsiad}
+              <li>
+                <Link to="/Silk-Road">{t.silkRoadd}</Link>
               </li>
-              <li onClick={() => navigate("/Uzbekistan")}>{t.uzbekistand}</li>
-              <li onClick={() => navigate("/Kazakhstan")}>{t.kazakhstand}</li>
-              <li onClick={() => navigate("/Kyrgyzstan")}>{t.kyrgyzstand}</li>
-              <li onClick={() => navigate("/Tajikistan")}>{t.tajikistand}</li>
-              <li onClick={() => navigate("/Turkmenistan")}>
-                {t.turkmenistand}
+              <li>
+                <Link to="/Central-Asia">{t.centralAsiad}</Link>
               </li>
-              <li onClick={() => navigate("/Caucasus")}>{t.caucasusd}</li>
-              <li onClick={() => navigate("/Armenia")}>{t.armeniad}</li>
-              <li onClick={() => navigate("/Azerbaijan")}>{t.azerbaijand}</li>
-              <li onClick={() => navigate("/Georgia")}>{t.georgiad}</li>
+              <li>
+                <Link to="/Uzbekistan">{t.uzbekistand}</Link>
+              </li>
+              <li>
+                <Link to="/Kazakhstan">{t.kazakhstand}</Link>
+              </li>
+              <li>
+                <Link to="/Kyrgyzstan">{t.kyrgyzstand}</Link>
+              </li>
+              <li>
+                <Link to="/Tajikistan">{t.tajikistand}</Link>
+              </li>
+              <li>
+                <Link to="/Turkmenistan">{t.turkmenistand}</Link>
+              </li>
+              <li>
+                <Link to="/Caucasus">{t.caucasusd}</Link>
+              </li>
+              <li>
+                <Link to="/Armenia">{t.armeniad}</Link>
+              </li>
+              <li>
+                <Link to="/Azerbaijan">{t.azerbaijand}</Link>
+              </li>
+              <li>
+                <Link to="/Georgia">{t.georgiad}</Link>
+              </li>
             </ul>
           </li>
+
+          {/* Group Packages */}
           <li className={styles.dropdown}>
             {t.groupPackages} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-              <li onClick={() => navigate("/Silk-Road-Tours")}>{t.silkRoad}</li>
-              <li onClick={() => navigate("/Central-Asia-Tours")}>
-                {t.centralAsia}
+              <li>
+                <Link to="/Silk-Road-Tours">{t.silkRoad}</Link>
               </li>
-              <li onClick={() => navigate("/Uzbek-Tours")}>{t.uzbekistan}</li>
-              <li onClick={() => navigate("/Kazakh-Tours")}>{t.kazakhstan}</li>
-              <li onClick={() => navigate("/Kyrgyz-Tours")}>{t.kyrgyzstan}</li>
-              <li onClick={() => navigate("/Tajik-Tours")}>{t.tajikistan}</li>
-              <li onClick={() => navigate("/Turkmen-Tours")}>
-                {t.turkmenistan}
+              <li>
+                <Link to="/Central-Asia-Tours">{t.centralAsia}</Link>
               </li>
-              <li onClick={() => navigate("/Caucas-Tours")}>{t.caucasus}</li>
-              <li onClick={() => navigate("/Armenia-Tours")}>{t.armenia}</li>
-              <li onClick={() => navigate("/Azerbaijan-Tours")}>
-                {t.azerbaijan}
+              <li>
+                <Link to="/Uzbek-Tours">{t.uzbekistan}</Link>
               </li>
-              <li onClick={() => navigate("/Georgia-Tours")}>{t.georgia}</li>
+              <li>
+                <Link to="/Kazakh-Tours">{t.kazakhstan}</Link>
+              </li>
+              <li>
+                <Link to="/Kyrgyz-Tours">{t.kyrgyzstan}</Link>
+              </li>
+              <li>
+                <Link to="/Tajik-Tours">{t.tajikistan}</Link>
+              </li>
+              <li>
+                <Link to="/Turkmen-Tours">{t.turkmenistan}</Link>
+              </li>
+              <li>
+                <Link to="/Caucas-Tours">{t.caucasus}</Link>
+              </li>
+              <li>
+                <Link to="/Armenia-Tours">{t.armenia}</Link>
+              </li>
+              <li>
+                <Link to="/Azerbaijan-Tours">{t.azerbaijan}</Link>
+              </li>
+              <li>
+                <Link to="/Georgia-Tours">{t.georgia}</Link>
+              </li>
             </ul>
           </li>
+
+          {/* Private Tours */}
           <li className={styles.dropdown}>
             {t.privateTours} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-              <li onClick={() => navigate("/Silk-Road-Private-Tours")}>
-                {t.silkRoad}
+              <li>
+                <Link to="/Silk-Road-Private-Tours">{t.silkRoad}</Link>
               </li>
-              <li onClick={() => navigate("/Central-Asia-Private-Tours")}>
-                {t.centralAsia}
+              <li>
+                <Link to="/Central-Asia-Private-Tours">{t.centralAsia}</Link>
               </li>
-              <li onClick={() => navigate("/Uzbekistan-Private-Tours")}>
-                {t.uzbekistan}
+              <li>
+                <Link to="/Uzbekistan-Private-Tours">{t.uzbekistan}</Link>
               </li>
-              <li onClick={() => navigate("/Kazakhstan-Private-Tours")}>
-                {t.kazakhstan}
+              <li>
+                <Link to="/Kazakhstan-Private-Tours">{t.kazakhstan}</Link>
               </li>
-              <li onClick={() => navigate("/Kyrgyzstan-Private-Tours")}>
-                {t.kyrgyzstan}
+              <li>
+                <Link to="/Kyrgyzstan-Private-Tours">{t.kyrgyzstan}</Link>
               </li>
-              <li onClick={() => navigate("/Tajikistan-Private-Tours")}>
-                {t.tajikistan}
+              <li>
+                <Link to="/Tajikistan-Private-Tours">{t.tajikistan}</Link>
               </li>
-              <li onClick={() => navigate("/Turkmenistan-Private-Tours")}>
-                {t.turkmenistan}
+              <li>
+                <Link to="/Turkmenistan-Private-Tours">{t.turkmenistan}</Link>
               </li>
-              <li onClick={() => navigate("/Caucasus-Private-Tours")}>
-                {t.caucasus}
+              <li>
+                <Link to="/Caucasus-Private-Tours">{t.caucasus}</Link>
               </li>
-              <li onClick={() => navigate("/Armenia-Private-Tours")}>
-                {t.armenia}
+              <li>
+                <Link to="/Armenia-Private-Tours">{t.armenia}</Link>
               </li>
-              <li onClick={() => navigate("/Azerbaijan-Private-Tours")}>
-                {t.azerbaijan}
+              <li>
+                <Link to="/Azerbaijan-Private-Tours">{t.azerbaijan}</Link>
               </li>
-              <li onClick={() => navigate("/Georgia-Private-Tours")}>
-                {t.georgia}
+              <li>
+                <Link to="/Georgia-Private-Tours">{t.georgia}</Link>
               </li>
-              <li onClick={() => navigate("/Tailor-Private-Tours")}>
-                {t.tailor}
+              <li>
+                <Link to="/Tailor-Private-Tours">{t.tailor}</Link>
               </li>
             </ul>
           </li>
+
+          {/* Services */}
           <li className={`${styles.dropdown} ${styles.service}`}>
             {t.services} <span className={styles.arrow}>▼</span>
             <ul className={styles.dropdownMenu}>
-              <li onClick={() => navigate("/Asian-Tour-Transfer")}>
-                {t.transfer}
+              <li>
+                <Link to="/Asian-Tour-Transfer">{t.transfer}</Link>
               </li>
               <li>{t.hotelbooking}</li>
               <li>{t.guideservice}</li>

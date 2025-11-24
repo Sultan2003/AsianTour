@@ -1,0 +1,83 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    Go To Central Asia – Silk Road Tours & Multi-Country Travel in Uzbekistan,
+    Kazakhstan, Kyrgyzstan, Tajikistan, Turkmenistan, Armenia, Azerbaijan &
+    Georgia
+  </title>
+
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+  <meta
+    name="description"
+    content="Book the best tours in Central Asia: Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan & Turkmenistan. Group tours, private tours, Silk Road trips, custom itineraries, and guaranteed departures."
+  />
+
+  <meta
+    name="keywords"
+    content="Central Asia tours, Silk Road tours, Uzbekistan tours, Kazakhstan tours, Kyrgyzstan tours, private tours Central Asia, group tours Central Asia"
+  />
+
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="https://gotocentralasia.com/" />
+
+  <meta
+    property="og:title"
+    content="Go To Central Asia — Silk Road & Central Asia Tours"
+  />
+  <meta
+    property="og:description"
+    content="Official tour operator offering Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan & Turkmenistan tours. Group, private, & multi-country Silk Road packages."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gotocentralasia.com/" />
+  <meta property="og:image" content="https://gotocentralasia.com/preview.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:title"
+    content="Go To Central Asia — Silk Road & Central Asia Tours"
+  />
+  <meta
+    name="twitter:description"
+    content="Travel across Central Asia. Group tours, private tours & Silk Road adventures in Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan, Turkmenistan."
+  />
+  <meta
+    name="twitter:image"
+    content="https://gotocentralasia.com/preview.jpg"
+  />
+
+  <style>
+    body > .skiptranslate {
+      display: none !important;
+    }
+    body {
+      top: 0px !important;
+      position: static !important;
+    }
+    .goog-te-banner-frame.skiptranslate,
+    .goog-te-banner-frame,
+    #goog-gt-tt,
+    .goog-te-balloon-frame,
+    .goog-text-highlight {
+      display: none !important;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .goog-te-menu-value span {
+      color: #004aad !important;
+      font-weight: 500 !important;
+    }
+  </style>
+</head>
