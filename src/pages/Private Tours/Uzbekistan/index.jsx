@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
 import styles from "./UzbekistanPrivate.module.scss";
-import mainImg from "../../../assets/Countries/uzb-registan.jpg";
+import mainImg from "../../../assets/Countries/Uzbekistan.jpg";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 

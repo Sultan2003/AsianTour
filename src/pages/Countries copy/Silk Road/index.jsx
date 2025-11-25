@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
 import styles from "./SilkRoad.module.scss";
-import mainImg from "../../../assets/Countries/Silkroad.jpg";
+import mainImg from "../../../assets/Countries/Silkroad.png";
 
 export default function SilkRoadToursDestinations() {
   const { lang: strapiLocale } = useContext(LanguageContext);

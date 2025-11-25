@@ -240,6 +240,22 @@ export default function MainPage() {
           })}
       </div>
 
+      <div id="timelineSection" className={styles.timelineSection}>
+        <h2 className={styles.title}>Historical Timeline</h2>
+
+        <div className={styles.timelineWrapper}>
+          {loadTimeline ? (
+            <Suspense fallback={<div>Loading timeline...</div>}>
+              <HistoricalTimeline />
+            </Suspense>
+          ) : (
+            <div className={styles.timelinePlaceholder}>
+              Scroll to load timeline…
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* UPCOMING TOURS */}
       <div className={styles.upcomingSection}>
         <h2>{t.upcomingTitle}</h2>
@@ -325,21 +341,6 @@ export default function MainPage() {
               onClick={() => setCurrent(idx)}
             />
           ))}
-        </div>
-      </div>
-      <div id="timelineSection" className={styles.timelineSection}>
-        <h2 className={styles.title}>Historical Timeline</h2>
-
-        <div className={styles.timelineWrapper}>
-          {loadTimeline ? (
-            <Suspense fallback={<div>Loading timeline...</div>}>
-              <HistoricalTimeline />
-            </Suspense>
-          ) : (
-            <div className={styles.timelinePlaceholder}>
-              Scroll to load timeline…
-            </div>
-          )}
         </div>
       </div>
     </div>

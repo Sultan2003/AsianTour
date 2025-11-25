@@ -1830,3 +1830,56 @@
     border-bottom: 3px solid #081545;
   }
 }
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease;
+}
+
+.closeModal {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  float: right;
+  cursor: pointer;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.submitBtn {
+  background: #0e73c0;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submitBtn:hover {
+  background: #095a97;
+}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Caucasus.module.scss";
-import mainImg from "../../../assets/Countries/Caucasus.webp";
+import mainImg from "../../../assets/Countries/Caucasus.jpg";
 
 export default function CaucasusTours() {
   const { lang: strapiLocale } = useContext(LanguageContext);

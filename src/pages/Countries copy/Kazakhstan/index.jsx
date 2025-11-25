@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Kazakhstan.module.scss";
-import mainImg from "../../../assets/Countries/kazakhstan.jpeg";
+import mainImg from "../../../assets/Countries/kazakhstan.jpg";
 
 export default function KazakhstanTours() {
   const { lang: strapiLocale } = useContext(LanguageContext);

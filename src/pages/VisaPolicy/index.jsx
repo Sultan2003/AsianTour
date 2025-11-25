@@ -1,5 +1,5 @@
 import styles from "./VisaPolicy.module.scss";
-import mainImg from "../../assets/Countries/uzb-registan.jpg";
+import mainImg from "../../assets/Countries/Uzbekistan.jpg";
 
 export default function VisaPolicy() {
   return (

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Uzbekistan.module.scss";
-import mainImg from "../../../assets/Countries/uzb-registan.jpg";
+import mainImg from "../../../assets/Countries/Uzbekistan.jpg";
 
 export default function UzbekistanTours() {
   const { lang: strapiLocale } = useContext(LanguageContext);

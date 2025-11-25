@@ -15,6 +15,8 @@ export default function TourIdPage() {
   const navigate = useNavigate();
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   // --- Related tours (right sidebar) state ---
   const [relatedTours, setRelatedTours] = useState([]);
@@ -630,6 +632,14 @@ export default function TourIdPage() {
                                     : styles.soldoutBtn
                                 }`}
                                 disabled={!isAvailable}
+                                onClick={() => {
+                                  setSelectedDate({
+                                    start: item.startDate,
+                                    end: item.endDate,
+                                    price: item.price,
+                                  });
+                                  setShowBookingModal(true);
+                                }}
                               >
                                 Book Now
                               </button>
@@ -1010,7 +1020,19 @@ export default function TourIdPage() {
               <span>{tour.availableSeats}</span>
             </div>
 
-            <button className={styles.bookBtn}>{t.bookNow}</button>
+            <button
+              className={styles.bookBtn}
+              onClick={() => {
+                setSelectedDate({
+                  start: tour.startDate,
+                  end: tour.endDate,
+                  price: tour.price,
+                });
+                setShowBookingModal(true);
+              }}
+            >
+              {t.bookNow}
+            </button>
           </div>
 
           {/* === RELATED TOURS SIDEBAR (matching Uzbekistan page behaviour) === */}
@@ -1141,6 +1163,83 @@ export default function TourIdPage() {
           )}
         </div>
       </div>
+      {showBookingModal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <button
+              className={styles.closeModal}
+              onClick={() => setShowBookingModal(false)}
+            >
+              ×
+            </button>
+
+            <h2>Book This Tour</h2>
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+
+                const fullName = formData.get("fullName");
+                const email = formData.get("email");
+
+                const message = `
+New Booking Request
+
+Tour: ${tour.title}
+Start Date: ${selectedDate.start}
+End Date: ${selectedDate.end}
+Price: ${selectedDate.price}
+
+Guest Name: ${fullName}
+Guest Email: ${email}
+          `;
+
+                try {
+                  await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      access_key: "86fb5231-beba-4945-826b-7728bb77b4db",
+                      to: "reservation@gotocentralasia.com",
+                      subject: "New Tour Booking Request",
+                      text: message,
+                    }),
+                  });
+
+                  alert(
+                    "Your request has been sent to reservation@gotocentralasia.com. We will contact you soon."
+                  );
+                  setShowBookingModal(false);
+                } catch (error) {
+                  alert("Failed to send. Please try again.");
+                }
+              }}
+            >
+              <label>Full Name</label>
+              <input name="fullName" required type="text" />
+
+              <label>Email</label>
+              <input name="email" required type="email" />
+
+              <label>Tour</label>
+              <input value={tour.title} readOnly />
+
+              <label>Date</label>
+              <input
+                value={`${selectedDate.start} → ${selectedDate.end}`}
+                readOnly
+              />
+
+              <button type="submit" className={styles.submitBtn}>
+                Send Booking Request
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
