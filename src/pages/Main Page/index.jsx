@@ -205,7 +205,7 @@ export default function MainPage() {
                     ))
                   ) : (
                     <img
-                      src="https://via.placeholder.com/400x250?text=No+Image"
+                      src="https://via.placeholder.com?text=No+Image"
                       alt="No tour available"
                       className={styles.imageSlide}
                       style={{ opacity: 1 }}

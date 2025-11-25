@@ -14,7 +14,8 @@
     height: 500px;
     max-width: 1200px;
     margin: 0 auto;
-    background: url("../../assets/images/background.png") center/cover no-repeat;
+    background: url("../../assets/Cities/Samarkand/Registan\ Square.jpg")
+      center/cover no-repeat;
     border-bottom: 4px solid linear-gradient(90deg, #0b1670, #4f46e5);
     border-radius: 12px;
   }
@@ -901,34 +902,33 @@
   align-items: center;
   justify-content: center;
 
+  .title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #081545;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
 
-.title {
-  font-size: 34px;
-  font-weight: 800;
-  color: #081545;
-  margin-bottom: 40px;
-  text-align: center;
-  position: relative;
-
-  /* subtle underline */
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: #0a2ab5;
-    border-radius: 2px;
+    /* subtle underline */
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #0a2ab5;
+      border-radius: 2px;
+    }
   }
-}
 
-.timelineWrapper {
-  width: 100%;
-  max-width: 1300px;
-  padding: 0 20px;
-  display: flex;
-  justify-content: center;
-}
+  .timelineWrapper {
+    width: 100%;
+    max-width: 1300px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+  }
 }
