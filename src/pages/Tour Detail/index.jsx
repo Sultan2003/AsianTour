@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, useContext } from "react";
+import { Helmet } from "react-helmet";
 import { LanguageContext } from "../../context/LanguageContext";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
@@ -376,6 +377,88 @@ export default function TourIdPage() {
 
   return (
     <div className={styles.tourPage}>
+      <Helmet>
+        <title>{tour.title} | Gotocentralasia</title>
+        <meta
+          name="description"
+          content={`${tour.title} — explore ${tour.location}. Tour lasts ${days} days. Price: $${tour.price}. Full itinerary, dates, prices & booking.`}
+        />
+        <meta
+          name="keywords"
+          content={`tour, ${tour.location} tour, ${tour.title}, Central Asia tours`}
+        />
+        <link
+          rel="canonical"
+          href={`https://www.gotocentralasia.com/tour/${tour.documentId}`}
+        />
+
+        {/* Open Graph (for Facebook) */}
+        <meta property="og:title" content={tour.title} />
+        <meta
+          property="og:description"
+          content={`${tour.title} — ${tour.location}. ${days} days.`}
+        />
+        <meta property="og:image" content={tourImages[0]?.url} />
+
+        {/* Twitter Card */}
+        <meta name="twitter:title" content={tour.title} />
+        <meta
+          name="twitter:description"
+          content={`${tour.title}, ${days} days.`}
+        />
+        <meta name="twitter:image" content={tourImages[0]?.url} />
+      </Helmet>
+      ;
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://www.gotocentralasia.com/",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Tours",
+              item: "https://www.gotocentralasia.com/all-tours",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: tour.title,
+              item: `https://www.gotocentralasia.com/tour/${tour.documentId}`,
+            },
+          ],
+        })}
+      </script>
+      ;
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "TouristTrip",
+          name: tour?.title,
+          description: tour?.description,
+          image: tourImages.map((i) => i.url),
+          offers: {
+            "@type": "Offer",
+            price: tour?.price,
+            priceCurrency: "USD",
+            availability: tour?.availableSeats > 0 ? "InStock" : "SoldOut",
+          },
+          itinerary: parsedDays.map((d) => ({
+            "@type": "TouristAttraction",
+            name: d.title,
+            description: d.body,
+          })),
+          startDate: tour?.startDate,
+          endDate: tour?.endDate,
+          areaServed: tour?.location,
+        })}
+      </script>
       {/* HERO */}
       <div className={styles.heroContainer}>
         {/* Main hero image */}
@@ -413,14 +496,17 @@ export default function TourIdPage() {
               >
                 <img
                   src={img.url}
-                  alt={img.alternativeText || `Image ${idx + 1}`}
+                  alt={
+                    img.alternativeText?.trim()
+                      ? `${tour.title} — ${img.alternativeText}`
+                      : `${tour.title} in ${tour.location}`
+                  }
                 />
               </div>
             ))}
           </div>
         )}
       </div>
-
       {/* NAV */}
       <div className={styles.tabsNav}>
         <button onClick={() => scrollTo(itineraryRef)}>{t.itinerary}</button>
@@ -428,7 +514,6 @@ export default function TourIdPage() {
         <button onClick={() => scrollTo(requestRef)}>{t.enquiry}</button>
         <button onClick={() => scrollTo(reviewsRef)}>{t.reviews}</button>
       </div>
-
       {/* MAIN */}
       <div className={styles.content}>
         <div className={styles.infoSection}>
