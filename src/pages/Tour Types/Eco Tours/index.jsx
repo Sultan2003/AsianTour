@@ -10,6 +10,11 @@ export default function EcoTours() {
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   useEffect(() => {
     fetch(`${STRAPI_BASE}/api/asian-tours?locale=${strapiLocale}`)
@@ -78,7 +83,7 @@ export default function EcoTours() {
         <div
           key={tour.id}
           className={styles.card}
-          onClick={() => navigate(`/tour/${tour.documentId}`)}
+          onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
         >
           <div className={styles.imageWrapper}>
             <img src={imageUrl} alt={tour.title} />

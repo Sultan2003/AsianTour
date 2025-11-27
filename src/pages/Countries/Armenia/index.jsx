@@ -10,7 +10,11 @@ export default function ArmeniaTours() {
   const ctx = useContext(LanguageContext) || {};
   const strapiLocale = ctx.strapiLocale || ctx.lang || "";
   const navigate = useNavigate();
-
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const [openCats, setOpenCats] = useState({});
@@ -220,7 +224,7 @@ export default function ArmeniaTours() {
               <div
                 key={tour.id}
                 className={styles.tourCard}
-                onClick={() => navigate(`/tour/${tour.documentId}`)}
+                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
               >
                 <div className={styles.dateBox}>
                   {tour.startDate

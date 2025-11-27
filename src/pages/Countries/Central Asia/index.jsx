@@ -10,6 +10,11 @@ export default function CentralAsiaTours() {
   const ctx = useContext(LanguageContext) || {};
   const strapiLocale = ctx.strapiLocale || ctx.lang || "";
   const navigate = useNavigate();
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
@@ -258,7 +263,7 @@ export default function CentralAsiaTours() {
               <div
                 key={tour.id}
                 className={styles.tourCard}
-                onClick={() => navigate(`/tour/${tour.documentId}`)}
+                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
               >
                 <div className={styles.dateBox}>
                   {tour.startDate

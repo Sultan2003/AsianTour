@@ -22,6 +22,11 @@ export default function MainPage() {
   const [images, setImages] = useState([]);
   const [imageIndexes, setImageIndexes] = useState({});
   const navigate = useNavigate();
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   // Fetch tours and images
   useEffect(() => {
@@ -189,7 +194,7 @@ export default function MainPage() {
               <div
                 key={tour.id}
                 className={styles.tourCard}
-                onClick={() => navigate(`/tour/${tour.documentId}`)}
+                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
               >
                 <div className={styles.image}>
                   {tourImages.length > 0 ? (
@@ -276,7 +281,7 @@ export default function MainPage() {
               <div
                 key={tour.id}
                 className={styles.upcomingCard}
-                onClick={() => navigate(`/tour/${tour.documentId}`)}
+                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
               >
                 <div className={styles.dateBox}>
                   <span className={styles.month}>{month}</span>

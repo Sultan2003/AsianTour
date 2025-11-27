@@ -417,7 +417,7 @@ export default function AstanaPage() {
           <div
             key={tour.id}
             className={styles.tourCard}
-            onClick={() => navigate(`/tour/${tour.documentId}`)}
+            
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>

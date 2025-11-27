@@ -8,7 +8,8 @@ import translations from "../../translations/tourdetail";
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
 export default function TourIdPage() {
-  const { documentId } = useParams();
+  const { slug } = useParams();
+
   const [tour, setTour] = useState(null);
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,6 +40,12 @@ export default function TourIdPage() {
         ? "uz"
         : "en"
     ];
+
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   // helper: extract plain text from Strapi rich text blocks
   const extractPlainText = (desc) => {
@@ -103,26 +110,31 @@ export default function TourIdPage() {
   };
 
   // fetch data: tour list (to find the selected tour) and images
+  // fetch tour data
   useEffect(() => {
-    fetch(`${STRAPI_BASE}/api/asian-tours?locale=${strapiLocale}`)
+    if (!slug) return;
+
+    fetch(`${STRAPI_BASE}/api/asian-tours?locale=${strapiLocale}&populate=*`)
       .then((r) => r.json())
       .then((data) => {
-        // find tour by documentId
-        const found = (data?.data || []).find(
-          (t) => t.documentId?.toString() === documentId
-        );
+        const rawList = data?.data || [];
+
+        const list = rawList.map((item) => normalizeTour(item));
+
+        const found = list.find((tour) => makeSlug(tour.title) === slug);
+
         setTour(found || null);
       })
       .catch(console.error);
+  }, [slug, strapiLocale]);
 
+  // Load images
+  useEffect(() => {
     fetch(`${STRAPI_BASE}/api/upload/files`)
       .then((r) => r.json())
-      .then((data) => {
-        const arr = Array.isArray(data) ? data : [];
-        setImages(arr);
-      })
+      .then((data) => setImages(Array.isArray(data) ? data : []))
       .catch(console.error);
-  }, [documentId, strapiLocale]);
+  }, [slug, strapiLocale]);
 
   // --- Fetch related tours by location once tour is loaded ---
   useEffect(() => {
@@ -389,7 +401,7 @@ export default function TourIdPage() {
         />
         <link
           rel="canonical"
-          href={`https://www.gotocentralasia.com/tour/${tour.documentId}`}
+          href={`https://www.gotocentralasia.com/tour/${slug}`}
         />
 
         {/* Open Graph (for Facebook) */}
@@ -1153,7 +1165,9 @@ export default function TourIdPage() {
                         key={tItem.id}
                         className={styles.catItem}
                         onClick={() => {
-                          navigate(`/tour/${tItem.documentId}`);
+                          const slug = makeSlug(tItem.title);
+                          navigate(`/tour/${slug}`);
+
                           window.scrollTo({ top: 0, behavior: "smooth" });
                         }}
                         style={{ cursor: "pointer" }}

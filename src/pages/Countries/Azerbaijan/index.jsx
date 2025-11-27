@@ -14,6 +14,11 @@ export default function AzerbaijanTours() {
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const [openCats, setOpenCats] = useState({});
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   const extractPlainText = (desc) => {
     if (!desc) return "";
@@ -224,7 +229,7 @@ export default function AzerbaijanTours() {
               <div
                 key={tour.id}
                 className={styles.tourCard}
-                onClick={() => navigate(`/tour/${tour.documentId}`)}
+                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
               >
                 <div className={styles.dateBox}>
                   {tour.startDate

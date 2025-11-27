@@ -261,7 +261,7 @@ export default function KazakhstanTours() {
               <div
                 key={tour.id}
                 className={styles.tourCard}
-                onClick={() => navigate(`/tour/${tour.documentId}`)}
+                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
               >
                 <div className={styles.dateBox}>
                   {tour.startDate
@@ -299,7 +299,7 @@ export default function KazakhstanTours() {
                 <div
                   key={tour.id}
                   className={styles.bigTourCard}
-                  onClick={() => navigate(`/tour/${tour.documentId}`)}
+                  onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
                 >
                   <div className={styles.bigImg}>
                     <img

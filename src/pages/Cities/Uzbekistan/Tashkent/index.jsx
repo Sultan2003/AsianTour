@@ -54,6 +54,11 @@ export default function TashkentPage() {
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   /* TOURS API */
   useEffect(() => {
@@ -598,7 +603,7 @@ export default function TashkentPage() {
           <div
             key={tour.id}
             className={styles.tourCard}
-            onClick={() => navigate(`/tour/${tour.documentId}`)}
+            onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>

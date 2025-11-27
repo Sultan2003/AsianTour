@@ -41,6 +41,11 @@ export default function SamarkandPage() {
   const [imagesLoading, setImagesLoading] = useState(true);
   const [toursError, setToursError] = useState(null);
   const [imagesError, setImagesError] = useState(null);
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   const navigate = useNavigate();
 
@@ -417,7 +422,7 @@ export default function SamarkandPage() {
             <div
               key={tour.id}
               className={styles.tourCard}
-              onClick={() => navigate(`/tour/${tour.documentId}`)}
+              onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
             >
               <img
                 src={getTourImage(tour)}

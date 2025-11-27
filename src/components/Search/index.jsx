@@ -71,6 +71,11 @@ export default function SearchPage() {
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   // FILTER STATES
   const [destinations, setDestinations] = useState([]);
@@ -255,147 +260,150 @@ export default function SearchPage() {
     });
 
   return (
-    <div className={styles.background} >
-    <div className={styles.searchPage}>
-      {/* LEFT RESULTS */}
-      <div className={styles.results}>
-        <h2>Search Results</h2>
+    <div className={styles.background}>
+      <div className={styles.searchPage}>
+        {/* LEFT RESULTS */}
+        <div className={styles.results}>
+          <h2>Search Results</h2>
 
-        {loading ? (
-          <p>Loading tours…</p>
-        ) : (
-          <p>{filteredTours.length} tour(s) found</p>
-        )}
+          {loading ? (
+            <p>Loading tours…</p>
+          ) : (
+            <p>{filteredTours.length} tour(s) found</p>
+          )}
 
-        {!loading &&
-          filteredTours.map((tour) => {
-            const datesForMonth = getDatesForSelectedMonth(tour, month);
+          {!loading &&
+            filteredTours.map((tour) => {
+              const datesForMonth = getDatesForSelectedMonth(tour, month);
 
-            return (
-              <div
-                key={tour.id}
-                className={styles.bigTourCard}
-                onClick={() => navigate(`/tour/${tour.documentId}`)}
-              >
-                <div className={styles.bigImg}>
-                  <img src={imageOrPlaceholder(tour.title)} alt={tour.title} />
-                </div>
-
-                <div className={styles.bigInfo}>
-                  <h3 className={styles.bigTitle}>{tour.title}</h3>
-
-                  {/* Date section */}
-                  {month ? (
-                    <>
-                      {datesForMonth.length > 0 ? (
-                        <p className={styles.summary}>
-                          <b>Dates in {month}:</b>
-                          <br />
-                          {datesForMonth.map((d, i) => (
-                            <span key={i}>
-                              {d.startDate} → {d.endDate}
-                              <br />
-                            </span>
-                          ))}
-                        </p>
-                      ) : (
-                        <p className={styles.summary}>
-                          No dates available for {month}.
-                        </p>
-                      )}
-                    </>
-                  ) : (
-                    <p className={styles.summary}>
-                      {tour.startDate} → {tour.endDate}
-                    </p>
-                  )}
-
-                  <div className={styles.metaRow}>
-                    <span>{tour.location}</span>
-                    <span className={styles.dot}>•</span>
-                    <span>{tour.tour_type}</span>
-                    <span className={styles.dot}>•</span>
-                    <span>{tour.availableSeats} seats</span>
+              return (
+                <div
+                  key={tour.id}
+                  className={styles.bigTourCard}
+                  onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
+                >
+                  <div className={styles.bigImg}>
+                    <img
+                      src={imageOrPlaceholder(tour.title)}
+                      alt={tour.title}
+                    />
                   </div>
 
-                  <div className={styles.bottomRow}>
-                    <div className={styles.price}>US$ {tour.price}</div>
-                    <button className={styles.detailsBtn}>Details</button>
+                  <div className={styles.bigInfo}>
+                    <h3 className={styles.bigTitle}>{tour.title}</h3>
+
+                    {/* Date section */}
+                    {month ? (
+                      <>
+                        {datesForMonth.length > 0 ? (
+                          <p className={styles.summary}>
+                            <b>Dates in {month}:</b>
+                            <br />
+                            {datesForMonth.map((d, i) => (
+                              <span key={i}>
+                                {d.startDate} → {d.endDate}
+                                <br />
+                              </span>
+                            ))}
+                          </p>
+                        ) : (
+                          <p className={styles.summary}>
+                            No dates available for {month}.
+                          </p>
+                        )}
+                      </>
+                    ) : (
+                      <p className={styles.summary}>
+                        {tour.startDate} → {tour.endDate}
+                      </p>
+                    )}
+
+                    <div className={styles.metaRow}>
+                      <span>{tour.location}</span>
+                      <span className={styles.dot}>•</span>
+                      <span>{tour.tour_type}</span>
+                      <span className={styles.dot}>•</span>
+                      <span>{tour.availableSeats} seats</span>
+                    </div>
+
+                    <div className={styles.bottomRow}>
+                      <div className={styles.price}>US$ {tour.price}</div>
+                      <button className={styles.detailsBtn}>Details</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-      </div>
-
-      {/* RIGHT FILTERS */}
-      <aside className={styles.rightFilters}>
-        <h3>Filters</h3>
-
-        <div className={styles.filterBlock}>
-          <h4>Destinations</h4>
-          {[
-            "Uzbekistan",
-            "Kazakhstan",
-            "Kyrgyzstan",
-            "Tajikistan",
-            "Turkmenistan",
-          ].map((d) => (
-            <label key={d}>
-              <input
-                type="checkbox"
-                checked={destinations.includes(d)}
-                onChange={() => handleDestinationChange(d)}
-              />
-              {d}
-            </label>
-          ))}
+              );
+            })}
         </div>
 
-        <div className={styles.filterBlock}>
-          <h4>Departure Month</h4>
-          <select
-            value={month}
-            onChange={(e) => handleMonthChange(e.target.value)}
-          >
-            <option value="">Any</option>
+        {/* RIGHT FILTERS */}
+        <aside className={styles.rightFilters}>
+          <h3>Filters</h3>
+
+          <div className={styles.filterBlock}>
+            <h4>Destinations</h4>
             {[
-              "Jan",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec",
-            ].map((m) => (
-              <option key={m} value={m}>
-                {m}
-              </option>
+              "Uzbekistan",
+              "Kazakhstan",
+              "Kyrgyzstan",
+              "Tajikistan",
+              "Turkmenistan",
+            ].map((d) => (
+              <label key={d}>
+                <input
+                  type="checkbox"
+                  checked={destinations.includes(d)}
+                  onChange={() => handleDestinationChange(d)}
+                />
+                {d}
+              </label>
             ))}
-          </select>
-        </div>
+          </div>
 
-        <div className={styles.filterBlock}>
-          <h4>Tour Type</h4>
-          {["Group", "Private"].map((t) => (
-            <label key={t}>
-              <input
-                type="radio"
-                name="type"
-                checked={type === t}
-                onChange={() => handleTypeChange(t)}
-              />
-              {t}
-            </label>
-          ))}
-        </div>
-      </aside>
-    </div>
+          <div className={styles.filterBlock}>
+            <h4>Departure Month</h4>
+            <select
+              value={month}
+              onChange={(e) => handleMonthChange(e.target.value)}
+            >
+              <option value="">Any</option>
+              {[
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+              ].map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.filterBlock}>
+            <h4>Tour Type</h4>
+            {["Group", "Private"].map((t) => (
+              <label key={t}>
+                <input
+                  type="radio"
+                  name="type"
+                  checked={type === t}
+                  onChange={() => handleTypeChange(t)}
+                />
+                {t}
+              </label>
+            ))}
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }

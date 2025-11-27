@@ -68,13 +68,14 @@ const Router = () => {
           }
         />
         <Route
-          path="/tour/:documentId"
+          path="/tour/:slug"
           element={
             <MainLayout>
               <TourIdPage />
             </MainLayout>
           }
         />
+
         <Route
           path="/Private-tour/:documentId"
           element={

@@ -14,6 +14,11 @@ export default function UzbekistanTours() {
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const [openCats, setOpenCats] = useState({}); // accordion state
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   // helper: extract plain text from Strapi rich text blocks
   const extractPlainText = (desc) => {
@@ -276,7 +281,7 @@ export default function UzbekistanTours() {
               <div
                 key={tour.id}
                 className={styles.tourCard}
-                onClick={() => navigate(`/tour/${tour.documentId}`)}
+                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
               >
                 <div className={styles.dateBox}>
                   {tour.startDate
@@ -316,7 +321,7 @@ export default function UzbekistanTours() {
                 <div
                   key={tour.id}
                   className={styles.bigTourCard}
-                  onClick={() => navigate(`/tour/${tour.documentId}`)}
+                  onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
                 >
                   <div className={styles.bigImg}>
                     <img
@@ -394,7 +399,7 @@ export default function UzbekistanTours() {
                       <li
                         key={t.id}
                         className={styles.catItem}
-                        onClick={() => navigate(`/tour/${t.documentId}`)}
+                        onClick={() => navigate(`/tour/${makeSlug(t.title)}`)}
                       >
                         {t.title}
                       </li>
