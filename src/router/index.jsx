@@ -52,6 +52,7 @@ import BukharaPage from "../pages/Cities/Uzbekistan/Bukhara";
 import ScrollToTop from "../components/ScrollToTop";
 import SearchPage from "../components/Search";
 import KhivaPage from "../pages/Cities/Uzbekistan/Khiva";
+import AstanaPage from "../pages/Cities/Kazakhstan/Astana/Astana";
 
 const Router = () => {
   return (
@@ -359,6 +360,14 @@ const Router = () => {
           element={
             <MainLayout>
               <BukharaPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Kazakhstan-Astana"
+          element={
+            <MainLayout>
+              <AstanaPage />
             </MainLayout>
           }
         />

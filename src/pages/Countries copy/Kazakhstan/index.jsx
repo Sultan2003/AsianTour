@@ -21,29 +21,7 @@ export default function KazakhstanTours() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = [
-    "Almaty",
-    "Astana",
-    "Shymkent",
-    "Aktau",
-    "Aktobe",
-    "Karaganda",
-    "Taraz",
-    "Oskemen",
-    "Kostanay",
-    "Kyzylorda",
-    "Pavlodar",
-    "Petropavl",
-    "Semey",
-    "Turkestan",
-    "Baikonur",
-    "Charyn Canyon",
-    "Burabay",
-    "Medeu",
-    "Shymbulak",
-    "Lake Balkhash",
-    "Caspian Sea",
-  ];
+  const destinations = ["Astana"];
 
   const notes = [
     "Travel safety matters",
@@ -239,7 +217,9 @@ export default function KazakhstanTours() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <a href="#">{d}</a>
+                  <Link to={`/Kazakhstan-${d}`} className={styles.sidebarLink}>
+                    {d}
+                  </Link>
                 </li>
               ))}
             </ul>
