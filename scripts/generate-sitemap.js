@@ -10,15 +10,9 @@ async function generate() {
   });
 
   // 1) MAIN STATIC PAGES
-  const staticPages = [
-    "/",
-    "/all-tours",
-    "/contact",
-    "/search",
-    "/visa-policy",
-  ];
+  const staticPages = ["/", "/contact", "/search", "/visa-policy"];
 
-  staticPages.forEach((url) => sitemap.write({ url, priority: 0.9 }));
+  staticPages.forEach((url) => sitemap.write({ url, priority: 0.7 }));
 
   // 2) STATIC ROUTES (COUNTRIES, CITIES, TOUR TYPES, PRIVATE TOURS)
   const staticRoutes = [
@@ -76,7 +70,7 @@ async function generate() {
     sitemap.write({
       url,
       changefreq: "monthly",
-      priority: 0.7,
+      priority: 0.8,
     })
   );
 
@@ -98,7 +92,7 @@ async function generate() {
     sitemap.write({
       url: `/tour/${slug}`,
       changefreq: "weekly",
-      priority: 0.8,
+      priority: 0.9,
     });
   });
 
