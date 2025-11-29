@@ -98,7 +98,9 @@ export default function TourIdPage() {
         0,
       location: raw.location || raw.place || rawItem.location || "",
       daysdescription: raw.daysdescription || rawItem.daysdescription || "",
-      description: extractPlainText(raw.description) || raw.description || "",
+      description: raw.description, // original blocks
+      plainDescription: extractPlainText(raw.description), // plain text for SEO
+
       tour_type:
         (raw.tour_type ?? raw.tourType ?? raw.type) ||
         rawItem.tour_type ||
@@ -533,25 +535,31 @@ export default function TourIdPage() {
 
           <section className={styles.tabContent}>
             <h2>{t.overview}</h2>
-            {Array.isArray(tour.description) &&
-              (() => {
-                let fullText = tour.description
-                  .map(
-                    (node) =>
-                      node?.children?.map?.((c) => c.text).join("") ?? ""
-                  )
-                  .join("\n");
 
-                // Remove the entire Array = [...] and Accommodation = [...] blocks
-                fullText = fullText
-                  .replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "")
-                  .replace(/Accomodation\s*=\s*\[[\s\S]*?\];?/g, "")
-                  .trim();
+            {(() => {
+              if (!Array.isArray(tour.description)) return null;
 
-                const cleanParagraphs = fullText.split(/\n+/).filter(Boolean);
+              // Convert blocks → text
+              let fullText = tour.description
+                .map(
+                  (node) => node?.children?.map((c) => c.text).join("") ?? ""
+                )
+                .join("\n");
 
-                return cleanParagraphs.map((txt, i) => <p key={i}>{txt}</p>);
-              })()}
+              // Remove Array block completely
+              fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "");
+
+              // Remove Accommodation block completely
+              fullText = fullText.replace(
+                /Accomodation\s*=\s*\[[\s\S]*?\];?/g,
+                ""
+              );
+
+              // Split into paragraphs
+              const paragraphs = fullText.split(/\n+/).filter(Boolean);
+
+              return paragraphs.map((p, i) => <p key={i}>{p}</p>);
+            })()}
           </section>
 
           {/* Itinerary */}
