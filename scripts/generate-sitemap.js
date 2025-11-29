@@ -9,36 +9,46 @@ async function generate() {
     hostname: "https://www.gotocentralasia.com",
   });
 
-  // Base URLs
+  // Base pages
   sitemap.write({ url: "/", priority: 1.0 });
   sitemap.write({ url: "/all-tours", priority: 0.9 });
 
-  // Fetch tours from Strapi
-  const res = await fetch(
-    `${STRAPI}/api/asian-tours?pagination[limit]=500&populate=*`
-  );
-  const data = await res.json();
+  try {
+    const res = await fetch(
+      `${STRAPI}/api/asian-tours?pagination[limit]=500&populate=*`
+    );
+    const data = await res.json();
 
-  (data.data || []).forEach((tour) => {
-    const title = tour.attributes.title || "";
-    const slug = title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
+    (data.data || []).forEach((tour) => {
+      // Skip empty / invalid items
+      if (!tour || !tour.attributes) return;
 
-    sitemap.write({
-      url: `/tour/${slug}`,
-      changefreq: "monthly",
-      priority: 0.8,
+      const title = tour.attributes.title ?? "";
+      if (!title.trim()) return;
+
+      // Create slug same as your React makeSlug()
+      const slug = title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+      sitemap.write({
+        url: `/tour/${slug}`,
+        changefreq: "monthly",
+        priority: 0.8,
+        lastmod: new Date().toISOString(),
+      });
     });
-  });
+  } catch (error) {
+    console.error("❌ Failed to fetch Strapi tours:", error);
+  }
 
   sitemap.end();
 
   const xml = await streamToPromise(sitemap);
   createWriteStream("./public/sitemap.xml").write(xml);
 
-  console.log("✅ Sitemap generated!");
+  console.log("✅ Sitemap generated successfully!");
 }
 
 generate();
