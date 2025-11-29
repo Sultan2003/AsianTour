@@ -53,6 +53,8 @@ import ScrollToTop from "../components/ScrollToTop";
 import SearchPage from "../components/Search";
 import KhivaPage from "../pages/Cities/Uzbekistan/Khiva";
 import AstanaPage from "../pages/Cities/Kazakhstan/Astana/Astana";
+import AlmatyPage from "../pages/Cities/Almaty";
+import BishkekPage from "../pages/Cities/Bishkek";
 
 const Router = () => {
   return (
@@ -369,6 +371,22 @@ const Router = () => {
           element={
             <MainLayout>
               <AstanaPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Kazakhstan-Almaty"
+          element={
+            <MainLayout>
+              <AlmatyPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Kyrgyzstan-Bishkek"
+          element={
+            <MainLayout>
+              <BishkekPage />
             </MainLayout>
           }
         />

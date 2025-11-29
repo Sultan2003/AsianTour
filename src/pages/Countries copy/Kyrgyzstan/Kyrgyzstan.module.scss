@@ -515,6 +515,12 @@
     }
   }
 
+  .sidebar {
+    order: -1; /* ⭐ Move sidebar BEFORE tours section */
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
   .dosDontsWrapper {
     flex-direction: column;
     gap: 1rem;
@@ -554,6 +560,12 @@
     }
   }
 
+  .sidebar {
+    order: -1;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
   .sidebar h3 {
     font-size: 1.1rem;
   }
@@ -561,4 +573,13 @@
   table td {
     font-size: 0.85rem;
   }
+}
+.sidebarLink {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit; /* remove blue color */
+}
+
+.sidebarLink:hover {
+  text-decoration: underline;
 }

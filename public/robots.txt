@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gotocentralasia.com/sitemap.xml
+Sitemap: https://www.gotocentralasia.com/sitemap.xml

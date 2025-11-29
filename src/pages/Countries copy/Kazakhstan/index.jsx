@@ -21,7 +21,7 @@ export default function KazakhstanTours() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = ["Astana"];
+  const destinations = ["Astana","Almaty"];
 
   const notes = [
     "Travel safety matters",

@@ -21,26 +21,7 @@ export default function KyrgyzstanTours() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = [
-    "Bishkek",
-    "Osh",
-    "Karakol",
-    "Tokmok",
-    "Cholpon-Ata",
-    "Naryn",
-    "Talas",
-    "Batken",
-    "Osh Bazaar",
-    "Burana Tower",
-    "Song-Kul Lake",
-    "Issyk-Kul Lake",
-    "Ala-Archa Gorge",
-    "Arslanbob",
-    "Sary-Chelek",
-    "Tash-Rabat Caravanserai",
-    "Sulaiman-Too Sacred Mountain",
-    "Kel-Suu Lake",
-  ];
+  const destinations = ["Bishkek"];
 
   const notes = [
     "Travel safety matters",
@@ -233,10 +214,10 @@ export default function KyrgyzstanTours() {
           <div className={styles.sidebar}>
             <h3>Travel Destinations</h3>
             <ul>
-              {destinations.map((d, i) => (
-                <li key={i}>
-                  <a href="#">{d}</a>
-                </li>
+              {destinations.map((d) => (
+                <Link to={`/Kyrgyzstan-${d}`} className={styles.sidebarLink}>
+                  {d}
+                </Link>
               ))}
             </ul>
           </div>

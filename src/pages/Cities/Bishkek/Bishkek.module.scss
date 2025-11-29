@@ -1,0 +1,334 @@
+/* =========================================================
+   GLOBAL — prevent overflow issues on mobile
+   ========================================================= */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   MAIN LAYOUT (Desktop: 1200px fixed, Mobile: 100%)
+   ========================================================= */
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 32px;
+  padding: 32px 0;
+  box-sizing: border-box;
+}
+
+/* Left = main content */
+.left {
+  flex: 2;
+}
+
+/* Right sidebar */
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =========================================================
+   HERO IMAGE
+   ========================================================= */
+.heroImage {
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 28px rgba(10, 26, 68, 0.12);
+  object-fit: cover;
+}
+
+/* =========================================================
+   SIDE LINKS
+   ========================================================= */
+.links {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+.links li {
+  color: #2563eb;
+  font-weight: 600;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.links li:hover {
+  transform: translateX(4px);
+  color: #1d4ed8;
+}
+
+/* =========================================================
+   PAGE SECTIONS
+   ========================================================= */
+.section {
+  background: #ffffff;
+  padding: 28px 30px;
+  border-radius: 18px;
+  margin-top: 26px;
+  border: 1px solid #e8ecf5;
+  box-shadow: 0 8px 24px rgba(10, 26, 68, 0.06);
+}
+.section h3 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #0b1670;
+  margin-bottom: 14px;
+}
+.section p {
+  font-size: 1.06rem;
+  line-height: 1.7;
+  color: #3b4461;
+  margin-bottom: 10px;
+}
+.section ul {
+  padding-left: 20px;
+}
+.section ul li {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  color: #3b4461;
+}
+
+/* =========================================================
+   CAROUSEL
+   ========================================================= */
+.carouselContainer {
+  margin-top: 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+
+.arrow {
+  height: 46px;
+  width: 46px;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  box-shadow: 0 8px 24px rgba(10, 26, 68, 0.1);
+  cursor: pointer;
+  font-size: 25px;
+  transition: 0.2s ease;
+  background-color: #0b1670;
+}
+.arrow:hover {
+  background: #f1f5f9;
+  transform: scale(1.07);
+}
+
+.carousel3d {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1600px;
+}
+
+.slide {
+  position: absolute;
+  width: 340px;
+  height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  box-shadow: 0 16px 32px rgba(10, 26, 68, 0.18);
+
+  transform: translateX(calc(var(--pos) * 150px))
+    scale(calc(1 - (abs(var(--pos)) * 0.17))) rotateY(calc(var(--pos) * -18deg));
+
+  opacity: calc(1 - (abs(var(--pos)) * 0.32));
+  z-index: calc(10 - abs(var(--pos)));
+  margin-bottom: 50px;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Single image mode */
+.singleImage {
+  display: flex;
+  margin-left: 6%;
+  width: 85%;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 16px;
+  margin-bottom: 60px;
+  box-shadow: 0 10px 24px rgba(10, 26, 68, 0.08);
+}
+.singleImage img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* =========================================================
+   RIGHT SIDE – TOUR CARDS
+   ========================================================= */
+.tourCard {
+  border: 1px solid #e8e8e8;
+  padding: 12px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.tourCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.07);
+}
+
+.tourImage {
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+
+.price {
+  font-weight: 700;
+  color: #c62828;
+}
+
+.extraBlock {
+  padding: 18px;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+}
+.extraBlock h3 {
+  color: #0b66a3;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.extraBlock li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  color: #0077cc;
+}
+.extraBlock li:last-child {
+  border-bottom: none;
+}
+
+/* Table navigation */
+.tableNav {
+  width: 100%;
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #e8ecf5;
+  box-shadow: 0 8px 24px rgba(10, 26, 68, 0.06);
+  padding: 20px;
+  margin-bottom: 22px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.tableNav div {
+  padding: 12px 16px;
+  background: #f6f8fb;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+  color: #0b1670;
+  border: 1px solid #e2e6f1;
+}
+.tableNav div:hover {
+  background: #e2e8f8;
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================= */
+
+/* 1200px and below */
+@media (max-width: 1200px) {
+  .container {
+    width: 100%;
+    padding: 24px 20px;
+    gap: 28px;
+  }
+}
+
+/* 992px and below (tablet) */
+@media (max-width: 992px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .singleImage {
+    width: 100%;
+    margin-left: 0;
+    height: auto;
+  }
+
+  .carousel3d {
+    height: 240px;
+  }
+  .slide {
+    width: 280px;
+    height: 180px;
+  }
+}
+
+/* 768px and below (mobile) */
+@media (max-width: 768px) {
+  .container {
+    padding: 18px 14px;
+  }
+
+  .slide {
+    width: 240px;
+    height: 160px;
+    transform: translateX(calc(var(--pos) * 110px))
+      scale(calc(1 - (abs(var(--pos)) * 0.22)))
+      rotateY(calc(var(--pos) * -18deg));
+  }
+
+  .carousel3d {
+    height: 200px;
+  }
+
+  .section {
+    padding: 22px 20px;
+  }
+}
+
+/* 576px and below (small mobile) */
+@media (max-width: 576px) {
+  .carouselContainer {
+    gap: 14px;
+  }
+
+  .slide {
+    width: 200px;
+    height: 140px;
+    transform: translateX(calc(var(--pos) * 90px))
+      scale(calc(1 - (abs(var(--pos)) * 0.28)))
+      rotateY(calc(var(--pos) * -18deg));
+  }
+
+  .tableNav {
+    grid-template-columns: 1fr;
+  }
+}
