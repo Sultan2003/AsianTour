@@ -9,46 +9,39 @@ async function generate() {
     hostname: "https://www.gotocentralasia.com",
   });
 
-  // Base pages
   sitemap.write({ url: "/", priority: 1.0 });
   sitemap.write({ url: "/all-tours", priority: 0.9 });
 
-  try {
-    const res = await fetch(
-      `${STRAPI}/api/asian-tours?pagination[limit]=500&populate=*`
-    );
-    const data = await res.json();
+  const res = await fetch(`${STRAPI}/api/asian-tours?locale=en`);
+  const data = await res.json();
 
-    (data.data || []).forEach((tour) => {
-      // Skip empty / invalid items
-      if (!tour || !tour.attributes) return;
+  console.log("Strapi raw response:\n", JSON.stringify(data, null, 2));
 
-      const title = tour.attributes.title ?? "";
-      if (!title.trim()) return;
+  const tours = data?.data || [];
 
-      // Create slug same as your React makeSlug()
-      const slug = title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
+  tours.forEach((tour) => {
+    // Real tour title — works for your project
+    const title =
+      tour.title || tour.attributes?.title || tour.attributes?.Name || "";
 
-      sitemap.write({
-        url: `/tour/${slug}`,
-        changefreq: "monthly",
-        priority: 0.8,
-        lastmod: new Date().toISOString(),
-      });
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    sitemap.write({
+      url: `/tour/${slug}`,
+      changefreq: "weekly",
+      priority: 0.8,
     });
-  } catch (error) {
-    console.error("❌ Failed to fetch Strapi tours:", error);
-  }
+  });
 
   sitemap.end();
 
   const xml = await streamToPromise(sitemap);
   createWriteStream("./public/sitemap.xml").write(xml);
 
-  console.log("✅ Sitemap generated successfully!");
+  console.log("✅ Sitemap generated!");
 }
 
 generate();
