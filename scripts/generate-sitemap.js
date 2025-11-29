@@ -9,18 +9,84 @@ async function generate() {
     hostname: "https://www.gotocentralasia.com",
   });
 
-  sitemap.write({ url: "/", priority: 1.0 });
-  sitemap.write({ url: "/all-tours", priority: 0.9 });
+  // 1) MAIN STATIC PAGES
+  const staticPages = [
+    "/",
+    "/all-tours",
+    "/contact",
+    "/search",
+    "/visa-policy",
+  ];
 
-  const res = await fetch(`${STRAPI}/api/asian-tours?locale=en`);
+  staticPages.forEach((url) => sitemap.write({ url, priority: 0.9 }));
+
+  // 2) STATIC ROUTES (COUNTRIES, CITIES, TOUR TYPES, PRIVATE TOURS)
+  const staticRoutes = [
+    "/Uzbek-Tours",
+    "/Kazakh-Tours",
+    "/Kyrgyz-Tours",
+    "/Tajik-Tours",
+    "/Turkmen-Tours",
+    "/Central-Asia-Tours",
+    "/Silk-Road-Tours",
+    "/Caucas-Tours",
+    "/Armenia-Tours",
+    "/Azerbaijan-Tours",
+    "/Georgia-Tours",
+
+    "/Uzbekistan",
+    "/Armenia",
+    "/Azerbaijan",
+    "/Georgia",
+    "/Kazakhstan",
+    "/Kyrgyzstan",
+    "/Tajikistan",
+    "/Turkmenistan",
+    "/Central-Asia",
+    "/Silk-Road",
+    "/Caucasus",
+
+    "/City-Tours",
+    "/Cultural-Tours",
+    "/Gastronomy-Tours",
+    "/Religious-Tours",
+    "/Eco-Tours",
+    "/Business-Mice-Tours",
+
+    "/Uzbekistan-Tashkent",
+    "/Uzbekistan-Samarkand",
+    "/Uzbekistan-Khiva",
+    "/Uzbekistan-Bukhara",
+    "/Kazakhstan-Astana",
+
+    "/Uzbekistan-Private-Tours",
+    "/Kazakhstan-Private-Tours",
+    "/Silk-Road-Private-Tours",
+    "/Central-Asia-Private-Tours",
+    "/Kyrgyzstan-Private-Tours",
+    "/Tajikistan-Private-Tours",
+    "/Turkmenistan-Private-Tours",
+    "/Armenia-Private-Tours",
+    "/Azerbaijan-Private-Tours",
+    "/Georgia-Private-Tours",
+    "/Caucasus-Private-Tours",
+  ];
+
+  staticRoutes.forEach((url) =>
+    sitemap.write({
+      url,
+      changefreq: "monthly",
+      priority: 0.7,
+    })
+  );
+
+  // 3) DYNAMIC TOUR PAGES (FROM STRAPI)
+  const res = await fetch(`${STRAPI}/api/asian-tours?pagination[limit]=500`);
   const data = await res.json();
 
-  console.log("Strapi raw response:\n", JSON.stringify(data, null, 2));
-
-  const tours = data?.data || [];
+  const tours = data.data || [];
 
   tours.forEach((tour) => {
-    // Real tour title — works for your project
     const title =
       tour.title || tour.attributes?.title || tour.attributes?.Name || "";
 
@@ -37,11 +103,14 @@ async function generate() {
   });
 
   sitemap.end();
-
   const xml = await streamToPromise(sitemap);
+
   createWriteStream("./public/sitemap.xml").write(xml);
 
-  console.log("✅ Sitemap generated!");
+  console.log("✅ FULL sitemap generated with:");
+  console.log(`→ ${staticPages.length} main pages`);
+  console.log(`→ ${staticRoutes.length} static category pages`);
+  console.log(`→ ${tours.length} dynamic tour pages`);
 }
 
 generate();
