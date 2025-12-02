@@ -10,8 +10,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 15px;
-    font-size: 14px;
-    gap: 10px;
+    font-size: 16px;
+    gap: 15px;
 
     @media (max-width: 768px) {
       font-size: 12x;
@@ -182,7 +182,6 @@
         margin-left: 0;
         justify-content: none;
         gap: 5px;
-        min-width: none;
       }
       @media (max-width: 480px) {
         flex-direction: column;
@@ -193,7 +192,6 @@
         display: flex;
         height: 30px;
         gap: 5px;
-        min-width: none;
       }
 
       li {
@@ -237,7 +235,7 @@
         left: 0;
 
         li {
-          padding: 0; /* remove padding here because <a> will handle it */
+          padding: 0;
 
           a {
             padding: 8px 15px;
@@ -265,7 +263,6 @@
         }
       }
 
-      /* ✅ Make dropdown visible on click (JS toggles .active) */
       .dropdownMenu.active {
         display: block !important;
       }
@@ -275,33 +272,40 @@
       }
     }
 
+    /* ============================================================
+          🔹 SEARCHBOX — INCREASED EVERYTHING BY ~30%
+       ============================================================ */
     .searchBox {
       position: relative;
       min-width: 300px;
       margin-right: calc((100% - 1200px) / 2);
 
       @media (max-width: 768px) {
-        min-width: none;
         margin-right: 10px;
       }
       @media (max-width: 480px) {
-        min-width: none;
         margin-right: 10px;
       }
 
       .searchInput {
         display: flex;
+
         input {
           flex: 1;
-          padding: 6px 10px;
-          border-radius: 20px 0 0 20px;
+          padding: 9px 16px; /* ↑ bigger */
+          font-size: 17px; /* ↑ bigger */
+          height: 40px; /* ↑ bigger */
+          border-radius: 25px 0 0 25px;
           border: none;
           cursor: pointer;
         }
+
         button {
-          padding: 6px 12px;
+          padding: 4px 18px; /* ↑ bigger */
+          font-size: 14px; /* ↑ bigger */
+          height: 40px; /* ↑ bigger */
           border: none;
-          border-radius: 0 20px 20px 0;
+          border-radius: 0 25px 25px 0;
           background: white;
           cursor: pointer;
         }
@@ -313,42 +317,43 @@
         right: 0;
         background: white;
         border: 1px solid #ddd;
-        border-radius: 6px;
-        padding: 15px;
-        width: 300px;
+        border-radius: 8px;
+        padding: 20px; /* ↑ bigger */
+        width: 300px; /* ↑ bigger */
         z-index: 2000;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 
         h4 {
-          margin: 10px 0 6px;
-          font-size: 14px;
+          margin: 12px 0 8px;
+          font-size: 18px; /* ↑ bigger */
           color: #355c7d;
         }
 
         .grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 6px 12px;
-          margin-bottom: 10px;
+          gap: 10px 16px; /* ↑ bigger */
+          margin-bottom: 14px;
         }
 
         label {
-          font-size: 13px;
+          font-size: 16px; /* ↑ bigger */
           color: #333;
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: 8px; /* ↑ bigger */
         }
 
         .searchBtn {
           width: 100%;
           background: #9bc8a4;
           color: white;
-          padding: 8px;
+          padding: 12px; /* ↑ bigger */
+          font-size: 17px; /* ↑ bigger */
           border: none;
-          border-radius: 20px;
+          border-radius: 25px;
           cursor: pointer;
-          margin-top: 10px;
+          margin-top: 12px;
 
           &:hover {
             background: #0b1670;
@@ -358,7 +363,6 @@
     }
   }
 
-  /* 📱 Responsive tweaks */
   @media (max-width: 768px) {
     .hero {
       height: 45vh;
@@ -410,4 +414,9 @@
       width: 100%;
     }
   }
+}
+
+.banner {
+  text-decoration: none !important;
+  color: inherit !important;
 }

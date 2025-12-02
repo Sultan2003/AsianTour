@@ -3,9 +3,10 @@ const headerTranslations = {
     about: "About Us",
     contact: "Contact Us",
     bestSeller: "Best seller",
+    bestSeller2: "8-day Classic Uzbekistan",
     centralAsia: "Central Asia Tours",
-    groupTour: "Group Tour 2025-2027",
-    fromPrice: "from US$ 3,940",
+    groupTour: "Group Tour 2026-2027",
+    fromPrice: "from US$ 1,375",
     destinations: "DESTINATIONS",
     privateTours: "PRIVATE TOURS",
     groupPackages: "GROUP TOURS",
@@ -102,7 +103,6 @@ const headerTranslations = {
     armeniad: "Армения",
     azerbaijand: "Азербайджан",
     georgiad: "Грузия",
-    
   },
 };
 

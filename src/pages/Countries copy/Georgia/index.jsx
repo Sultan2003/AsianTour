@@ -23,28 +23,7 @@ export default function GeorgiaToursDestination() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = [
-    "Tbilisi",
-    "Mtskheta",
-    "Kazbegi (Stepantsminda)",
-    "Batumi",
-    "Kutaisi",
-    "Telavi (Kakheti wine region)",
-    "Svaneti (Mestia, Ushguli)",
-    "Borjomi",
-    "Vardzia Cave Monastery",
-    "Gudauri Ski Resort",
-    "Signagi",
-    "David Gareja Monastery",
-    "Uplistsikhe",
-    "Gelati Monastery",
-    "Martvili Canyon",
-    "Okatse Canyon",
-    "Racha",
-    "Poti",
-    "Anaklia",
-    "Tskaltubo",
-  ];
+  const destinations = ["Tbilisi"];
 
   const notes = [
     "Travel safety matters",
@@ -244,13 +223,15 @@ export default function GeorgiaToursDestination() {
             </div>
           </div>
 
-          {/* ✅ Sidebar */}
+          {/* ✅ Sidebar with Destinations */}
           <div className={styles.sidebar}>
             <h3>Travel Destinations</h3>
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <a href="#">{d}</a>
+                  <Link to={`/Georgia-${d}`} className={styles.sidebarLink}>
+                    {d}
+                  </Link>
                 </li>
               ))}
             </ul>

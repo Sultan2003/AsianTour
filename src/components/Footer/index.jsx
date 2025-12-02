@@ -75,7 +75,13 @@ const Footer = () => {
               <Link to="/Asian-Tour-Transfer">Transfer</Link>
             </li>
             <li>
-              <Link to="/Asian-Tour-Hotel-Booking">Hotel Booking</Link>
+              <a
+                href="https://www.airporthotel24.uz/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Hotel Booking
+              </a>
             </li>
             <li>
               <Link to="/Asian-Tour-Hotel-Guide-Service">Guide Service</Link>
@@ -89,15 +95,6 @@ const Footer = () => {
           <ul>
             <li onClick={() => navigate("/contact")}>{t.aboutUs}</li>
             <li>
-              <Link to="/testimonials">{t.testimonials}</Link>
-            </li>
-            <li>
-              <Link to="/team">{t.ourTeam}</Link>
-            </li>
-            <li>
-              <Link to="/careers">{t.careers}</Link>
-            </li>
-            <li>
               <Link to="/booking-terms">{t.bookingTerms}</Link>
             </li>
             <li>
@@ -105,12 +102,6 @@ const Footer = () => {
             </li>
             <li>
               <Link to="/privacy-policy">{t.privacyPolicy}</Link>
-            </li>
-            <li>
-              <Link to="/sustainability-policy">{t.sustainabilityPolicy}</Link>
-            </li>
-            <li>
-              <Link to="/partnership">{t.partnership}</Link>
             </li>
             <li>
               <Link to="/contacts">{t.contacts}</Link>

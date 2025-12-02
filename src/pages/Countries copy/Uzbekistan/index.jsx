@@ -9,6 +9,11 @@ export default function UzbekistanTours() {
   const { lang: strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   const countries = [{ slug: "uzbekistan", name: "Uzbekistan" }];
 
@@ -180,7 +185,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
               return (
                 <Link
                   key={tour.id}
-                  to={`/tour/${tour.documentId}`}
+                  to={`/tour/${makeSlug(tour.title)}`}
                   className={styles.tourCard}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >

@@ -55,6 +55,7 @@ import KhivaPage from "../pages/Cities/Uzbekistan/Khiva";
 import AstanaPage from "../pages/Cities/Kazakhstan/Astana/Astana";
 import AlmatyPage from "../pages/Cities/Almaty";
 import BishkekPage from "../pages/Cities/Bishkek";
+import TbilisiPage from "../pages/Cities/Tbilisi";
 
 const Router = () => {
   return (
@@ -387,6 +388,14 @@ const Router = () => {
           element={
             <MainLayout>
               <BishkekPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Georgia-Tbilisi"
+          element={
+            <MainLayout>
+              <TbilisiPage />
             </MainLayout>
           }
         />

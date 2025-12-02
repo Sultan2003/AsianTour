@@ -44,12 +44,17 @@ export default function Header() {
             className={styles.logo}
           />
         </Link>
-        <div className={styles.banner}>
+        <a
+          href="https://www.gotocentralasia.com/tour/8-day-classic-uzbekistan-group-tour-2026-2027"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.banner}
+        >
           <span className={styles.badge}>{t.bestSeller}</span>
-          <span className={styles.title}>{t.centralAsia}</span>
+          <span className={styles.title}>{t.bestSeller2}</span>
           <span className={styles.subtitle}>{t.groupTour}</span>
           <span className={styles.price}>{t.fromPrice}</span>
-        </div>
+        </a>
       </div>
 
       {/* Nav bar */}
