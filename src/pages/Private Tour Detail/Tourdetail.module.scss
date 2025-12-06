@@ -293,8 +293,8 @@
   border-radius: 18px;
   padding: 22px 20px;
   box-shadow: 0 10px 28px rgba(10, 26, 68, 0.08);
-  max-width: 300px;
-  margin-left: 10px;
+  max-width: 355px;
+  margin-left: 0px;
 
   h2 {
     font-size: 18px;
@@ -1829,4 +1829,199 @@
     border-radius: 8px;
     border-bottom: 3px solid #081545;
   }
+}
+/* =========================================================
+   ⭐ CLEAN PRICING TABLE (Advantour-style)
+   ========================================================= */
+
+.datesTableWrapper {
+  margin-top: 12px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.datesTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.datesTable thead th {
+  background: #f4f6fb;
+  padding: 12px;
+  text-align: left;
+  font-weight: 700;
+  color: #1d2641;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.datesTable td {
+  padding: 12px;
+  border-bottom: 1px solid #eceff5;
+  color: #2a3459;
+}
+
+/* Remove blue color from prices */
+.priceLink {
+  color: #2a3459 !important;
+  font-weight: 700;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.priceLink:hover {
+  text-decoration: underline !important;
+  opacity: 0.85;
+}
+
+/* Rounded row effect */
+.datesTable tr:nth-child(even) td {
+  background: #fafbfe;
+}
+
+/* Last row border removal */
+.datesTable tr:last-child td {
+  border-bottom: none;
+}
+
+/* Request button small styling */
+.datesTable td .bookBtn {
+  background: #2eac3f;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.datesTable td .bookBtn:hover {
+  background: #239633;
+}
+/* =========================================================
+   ⭐ RIGHT-SIDE MINI PRICE TABLE (PERFECT MATCH)
+   ========================================================= */
+
+.datesTableWrapper {
+  margin-top: 12px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.datesTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.datesTable thead th {
+  background: #f4f6fb;
+  padding: 12px;
+  text-align: left;
+  font-weight: 700;
+  color: #1d2641;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.datesTable td {
+  padding: 12px;
+  border-bottom: 1px solid #eceff5;
+  color: #2a3459;
+}
+
+/* Remove blue color from prices */
+.priceLink {
+  color: #2a3459 !important;
+  font-weight: 700;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.priceLink:hover {
+  text-decoration: underline !important;
+  opacity: 0.85;
+}
+
+/* Rounded row effect */
+.datesTable tr:nth-child(even) td {
+  background: #fafbfe;
+}
+
+/* Last row border removal */
+.datesTable tr:last-child td {
+  border-bottom: none;
+}
+
+/* Request button small styling */
+.datesTable td .bookBtn {
+  background: #2eac3f;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.datesTable td .bookBtn:hover {
+  background: #239633;
+}
+/* =========================================================
+   ⭐ RIGHT-SIDE MINI PRICE TABLE (PERFECT MATCH)
+   ========================================================= */
+.shortPrice {
+  width: 100%;
+  margin: 12px 5px;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* ⬅ increased spacing */
+}
+
+.shortPrice th {
+  text-align: right;
+  padding: 6px 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0a1a44;
+}
+
+.shortPrice th:first-child {
+  text-align: center;
+}
+
+.shortPrice td {
+  background: #f4f6fb;
+  padding: 10px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #2a3459;
+  font-weight: 600;
+  text-align: center;
+}
+
+.shortPrice td:first-child {
+  text-align: left;
+  font-weight: 700;
+}
+
+/* clickable price */
+.shortPriceValue {
+  cursor: pointer;
+  color: #2a3459;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.shortPriceValue:hover {
+  opacity: 0.7;
+  text-decoration: underline;
 }

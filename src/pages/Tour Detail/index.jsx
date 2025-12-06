@@ -589,6 +589,7 @@ export default function TourIdPage() {
             </div>
           </section>
 
+        
           {/* ACCOMMODATION */}
           {Array.isArray(tour.description) &&
             (() => {
@@ -599,28 +600,44 @@ export default function TourIdPage() {
                 .join("\n");
 
               const match = descText.match(
-                /Accomodation\s*=\s*\[([\s\S]*?)\];/
+                /Accomodation\s*=\s*\[([\s\S]*?)\];/i
               );
               if (!match) return null;
 
-              // Split by '}' or ',' between accommodation objects
+              // Split into object-like blocks. Use a strict split for `},{` variants.
               const objectBlocks = match[1]
-                .split(/}\s*,\s*{|\n|},/)
-                .map((b) => b.replace(/[\[\]{}]/g, "").trim())
-                .filter((b) => b.includes("City"));
+                .split(/}\s*,\s*{/) // split between objects
+                .map((b) => b.replace(/^[\s\[{]+|[\s\]}]+$/g, "").trim()) // remove leftover braces/brackets
+                .filter((b) => /City\s*:/i.test(b)); // only blocks that contain City
 
               const accommodations = objectBlocks.map((block) => {
-                const cityMatch = block.match(/City\s*:\s*([^,]+)\s*,/);
-                const hotelsMatch = block.match(/Hotels\s*:\s*([\s\S]+)/);
-                return {
-                  city: cityMatch ? cityMatch[1].trim() : "",
-                  hotels: hotelsMatch
-                    ? hotelsMatch[1]
-                        .split(",")
-                        .map((h) => h.trim())
-                        .filter(Boolean)
-                    : [],
-                };
+                // Get City
+                const cityMatch = block.match(/City\s*:\s*([^,}]+)/i);
+                const city = cityMatch ? cityMatch[1].trim() : "";
+
+                // Get Days (number)
+                const daysMatch = block.match(/Days\s*:\s*([0-9]+)/i);
+                const days = daysMatch ? Number(daysMatch[1]) : null;
+
+                // Get Hotels — capture up to the Days token (if present)
+                // Use non-greedy match and lookahead for Days or end of block
+                const hotelsMatch = block.match(
+                  /Hotels\s*:\s*([\s\S]*?)(?=(\s*Days\s*:)|$)/i
+                );
+                let hotelsRaw = hotelsMatch ? hotelsMatch[1].trim() : "";
+
+                // Remove any accidental 'Days: X' appearing inside hotelsRaw (safety)
+                hotelsRaw = hotelsRaw.replace(/Days\s*:\s*[0-9]+/gi, "").trim();
+
+                // Split hotels by commas, trim each and filter empties
+                const hotels = hotelsRaw
+                  ? hotelsRaw
+                      .split(/\s*,\s*/)
+                      .map((h) => h.trim())
+                      .filter(Boolean)
+                  : [];
+
+                return { city, hotels, days };
               });
 
               return (
@@ -629,11 +646,20 @@ export default function TourIdPage() {
                   <div className={styles.accommodationTable}>
                     {accommodations.map((a, i) => (
                       <div key={i} className={styles.accommodationRow}>
+                        {/* show days next to city (top) */}
                         <div className={styles.cityRow}>
-                          {a.city} <span>- 2 nights</span>
+                          <strong>{a.city}</strong>{" "}
+                          <span className={styles.days}>
+                            {" "}
+                            - {a.days ?? "-"} nights
+                          </span>
                         </div>
+
+                        {/* hotels list (Days token removed) */}
                         <div className={styles.hotelList}>
-                          {a.hotels.join(", ")}
+                          {a.hotels.length
+                            ? a.hotels.join(", ")
+                            : "No hotels provided"}
                         </div>
                       </div>
                     ))}
@@ -641,6 +667,7 @@ export default function TourIdPage() {
                 </section>
               );
             })()}
+
           {/* DATES & PRICES */}
           <section ref={pricesRef} className={styles.tabContent}>
             <h2>{t.datesPrices}</h2>

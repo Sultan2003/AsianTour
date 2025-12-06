@@ -56,6 +56,7 @@ import AstanaPage from "../pages/Cities/Kazakhstan/Astana/Astana";
 import AlmatyPage from "../pages/Cities/Almaty";
 import BishkekPage from "../pages/Cities/Bishkek";
 import TbilisiPage from "../pages/Cities/Tbilisi";
+import AboutUs from "../pages/AboutUs";
 
 const Router = () => {
   return (
@@ -502,6 +503,14 @@ const Router = () => {
           element={
             <MainLayout>
               <VisaPolicy />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <MainLayout>
+              <AboutUs />
             </MainLayout>
           }
         />

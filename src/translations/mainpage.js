@@ -4,7 +4,7 @@ const mainPageTranslations = {
     heroSubtitle: "with expertly crafted tours by a local operator",
     aboutTitle: "Our Curated Asian Journeys",
     aboutText:
-      "Asian Tour is a boutique tour operator specializing in authentic and personalized travel experiences across Asia. As a trusted and highly rated company, we place your safety and comfort at the heart of every journey. Through our expert local partnerships, we create meaningful adventures that leave lasting memories.",
+      "Take a change to discover Central Asia’s unique culture and traditions. Historical towns and villages hold ancient atmosphere offering authentic experiences to visitors. As a tour company with years of experience we offer memorable trips which will recall long after the journey and be remembered with felt warmth and kindness of local hospitality. Our group and private tours are offering you these experiences with best available comfort and rate along with constant supervision of our team member.",
     upcomingTitle: "Recent tours to join",
     upcomingHeader: {
       date: "Date",

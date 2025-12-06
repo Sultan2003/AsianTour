@@ -339,6 +339,10 @@ export default function PrivateTourIdPage() {
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
+  const scrollToRequest = () => {
+    scrollTo(requestRef);
+  };
+
   // grouped years for dates/prices table
   const groupedByYear = parsedArray.reduce((acc, item) => {
     const year = new Date(item.startDate).getFullYear();
@@ -489,28 +493,44 @@ export default function PrivateTourIdPage() {
                 .join("\n");
 
               const match = descText.match(
-                /Accomodation\s*=\s*\[([\s\S]*?)\];/
+                /Accomodation\s*=\s*\[([\s\S]*?)\];/i
               );
               if (!match) return null;
 
-              // Split by '}' or ',' between accommodation objects
+              // Split into object-like blocks. Use a strict split for `},{` variants.
               const objectBlocks = match[1]
-                .split(/}\s*,\s*{|\n|},/)
-                .map((b) => b.replace(/[\[\]{}]/g, "").trim())
-                .filter((b) => b.includes("City"));
+                .split(/}\s*,\s*{/) // split between objects
+                .map((b) => b.replace(/^[\s\[{]+|[\s\]}]+$/g, "").trim()) // remove leftover braces/brackets
+                .filter((b) => /City\s*:/i.test(b)); // only blocks that contain City
 
               const accommodations = objectBlocks.map((block) => {
-                const cityMatch = block.match(/City\s*:\s*([^,]+)\s*,/);
-                const hotelsMatch = block.match(/Hotels\s*:\s*([\s\S]+)/);
-                return {
-                  city: cityMatch ? cityMatch[1].trim() : "",
-                  hotels: hotelsMatch
-                    ? hotelsMatch[1]
-                        .split(",")
-                        .map((h) => h.trim())
-                        .filter(Boolean)
-                    : [],
-                };
+                // Get City
+                const cityMatch = block.match(/City\s*:\s*([^,}]+)/i);
+                const city = cityMatch ? cityMatch[1].trim() : "";
+
+                // Get Days (number)
+                const daysMatch = block.match(/Days\s*:\s*([0-9]+)/i);
+                const days = daysMatch ? Number(daysMatch[1]) : null;
+
+                // Get Hotels — capture up to the Days token (if present)
+                // Use non-greedy match and lookahead for Days or end of block
+                const hotelsMatch = block.match(
+                  /Hotels\s*:\s*([\s\S]*?)(?=(\s*Days\s*:)|$)/i
+                );
+                let hotelsRaw = hotelsMatch ? hotelsMatch[1].trim() : "";
+
+                // Remove any accidental 'Days: X' appearing inside hotelsRaw (safety)
+                hotelsRaw = hotelsRaw.replace(/Days\s*:\s*[0-9]+/gi, "").trim();
+
+                // Split hotels by commas, trim each and filter empties
+                const hotels = hotelsRaw
+                  ? hotelsRaw
+                      .split(/\s*,\s*/)
+                      .map((h) => h.trim())
+                      .filter(Boolean)
+                  : [];
+
+                return { city, hotels, days };
               });
 
               return (
@@ -519,11 +539,20 @@ export default function PrivateTourIdPage() {
                   <div className={styles.accommodationTable}>
                     {accommodations.map((a, i) => (
                       <div key={i} className={styles.accommodationRow}>
+                        {/* show days next to city (top) */}
                         <div className={styles.cityRow}>
-                          {a.city} <span>- 2 nights</span>
+                          <strong>{a.city}</strong>{" "}
+                          <span className={styles.days}>
+                            {" "}
+                            - {a.days ?? "-"} nights
+                          </span>
                         </div>
+
+                        {/* hotels list (Days token removed) */}
                         <div className={styles.hotelList}>
-                          {a.hotels.join(", ")}
+                          {a.hotels.length
+                            ? a.hotels.join(", ")
+                            : "No hotels provided"}
                         </div>
                       </div>
                     ))}
@@ -534,107 +563,44 @@ export default function PrivateTourIdPage() {
 
           {/* DATES & PRICES */}
           <section ref={pricesRef} className={styles.tabContent}>
-            <h2>{t.datesPrices}</h2>
-
-            <div className={styles.pricesBox}>
-              <div className={styles.priceItem}>
-                <span>{t.startDate}</span>
-                <strong>{formatDate(tour.startDate)}</strong>
-              </div>
-              <div className={styles.priceItem}>
-                <span>{t.endDate}</span>
-                <strong>{formatDate(tour.endDate)}</strong>
-              </div>
-              <div className={styles.priceItem}>
-                <span>{t.seats}</span>
-                <strong
-                  style={{
-                    color: tour.availableSeats > 0 ? "green" : "red",
-                    fontWeight: 600,
-                  }}
-                >
-                  {tour.availableSeats > 0 ? "Available" : "Sold out"}
-                </strong>
-              </div>
-              <div className={`${styles.priceItem} ${styles.highlight}`}>
-                <span>{t.price}</span>
-                <strong>US${tour.price}</strong>
-              </div>
-            </div>
+            <h2>Prices, per person</h2>
 
             {parsedArray.length > 0 && (
               <div className={styles.datesTableSection}>
-                <div className={styles.yearTabs}>
-                  {years.map((year) => (
-                    <button
-                      key={year}
-                      className={`${styles.yearTab} ${
-                        Number(year) === activeYear ? styles.active : ""
-                      }`}
-                      onClick={() => setActiveYear(Number(year))}
-                    >
-                      {year}
-                    </button>
-                  ))}
-                </div>
-
                 <div className={styles.datesTableWrapper}>
                   <table className={styles.datesTable}>
                     <thead>
                       <tr>
-                        <th>Tour Start Date</th>
-                        <th>End Date</th>
-                        <th>Status</th>
-                        <th>Price</th>
-                        <th>Book</th>
+                        <th>Persons</th>
+                        <th>Standard</th>
+                        <th>Comfort</th>
+                        <th>Deluxe</th>
+                        <th>Request</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      {groupedByYear[activeYear]?.map((item) => {
-                        const isAvailable = Number(item.availableSeats) > 0;
-                        const formattedStart = new Date(
-                          item.startDate
-                        ).toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        });
-                        const formattedEnd = new Date(
-                          item.endDate
-                        ).toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        });
 
-                        return (
-                          <tr key={item.id}>
-                            <td data-label="Start Date">{formattedStart}</td>
-                            <td data-label="End Date">{formattedEnd}</td>
-                            <td
-                              data-label="Status"
-                              className={
-                                isAvailable ? styles.available : styles.soldout
-                              }
-                            >
-                              {isAvailable ? "Available" : "Sold out"}
-                            </td>
-                            <td data-label="Price">US$ {item.price}</td>
-                            <td data-label="Book">
-                              <button
-                                className={`${styles.bookBtn} ${
-                                  isAvailable
-                                    ? styles.availableBtn
-                                    : styles.soldoutBtn
-                                }`}
-                                disabled={!isAvailable}
-                              >
-                                Book Now
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
+                    <tbody>
+                      {parsedArray.map((row, index) => (
+                        <tr key={index}>
+                          <td data-label="Persons">{row.persons}</td>
+
+                          <td data-label="Standard">
+                            US$ {row.Standard.toLocaleString()}
+                          </td>
+
+                          <td data-label="Comfort">
+                            US$ {row.Comfort.toLocaleString()}
+                          </td>
+
+                          <td data-label="Deluxe">
+                            US$ {row.Deluxe.toLocaleString()}
+                          </td>
+
+                          <td data-label="Request">
+                            <button className={styles.bookBtn}>Request</button>
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -989,24 +955,54 @@ export default function PrivateTourIdPage() {
         <div>
           <div className={styles.detailsCard}>
             <h2>{tour.title}</h2>
-            <div className={styles.price}>US${tour.price}</div>
 
-            <div className={styles.infoLine}>
-              <span>{t.days}</span>
-              <span>{days}</span>
-            </div>
-            <div className={styles.infoLine}>
-              <span>{t.start}</span>
-              <span>{formatDate(tour.startDate)}</span>
-            </div>
-            <div className={styles.infoLine}>
-              <span>{t.end}</span>
-              <span>{formatDate(tour.endDate)}</span>
-            </div>
-            <div className={styles.infoLine}>
-              <span>{t.availableSeats}</span>
-              <span>{tour.availableSeats}</span>
-            </div>
+            {/* SHORT PRICE TABLE */}
+            {/* SHORT PRICE TABLE – CLEANED + ALIGNED */}
+            <table className={styles.shortPrice}>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Stan</th>
+                  <th>Comf</th>
+                  <th>Deluxe</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {parsedArray.map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.persons}</td>
+
+                    <td>
+                      <span
+                        className={styles.shortPriceValue}
+                        onClick={scrollToRequest}
+                      >
+                        {row.Standard.toLocaleString()}
+                      </span>
+                    </td>
+
+                    <td>
+                      <span
+                        className={styles.shortPriceValue}
+                        onClick={scrollToRequest}
+                      >
+                        {row.Comfort.toLocaleString()}
+                      </span>
+                    </td>
+
+                    <td>
+                      <span
+                        className={styles.shortPriceValue}
+                        onClick={scrollToRequest}
+                      >
+                        {row.Deluxe.toLocaleString()}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
             <button className={styles.bookBtn}>{t.bookNow}</button>
           </div>

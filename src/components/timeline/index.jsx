@@ -42,10 +42,10 @@ const HistoricalTimeline = () => {
   const events = [
     {
       year: -911,
-      title: "Rise of the Neo-Assyrian Empire",
+      title: "Early Scythian & Steppe Cultures",
       image: neoAssyrian,
       description:
-        "This period marks the rise of one of the world's most powerful early empires. Travelers visiting ancient sites in Iraq or the wider region can still see the influence of Assyrian art, stone carvings, and architectural styles that shaped later civilizations. This era laid the foundation for road networks, trade routes, and administrative systems that later connected Asia, the Middle East, and Central Asia. It’s a glimpse into how early states organized massive territories long before modern countries existed.",
+        "Steppe pastoral societies and early Scythian groups shape nomadic life across Central Asia and the Caucasus. These mobile cultures lay the foundations for later Silk Road interactions.",
     },
     {
       year: -814,
