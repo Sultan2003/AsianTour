@@ -10,6 +10,11 @@ export default function UzbekistanPrivateTours() {
   const ctx = useContext(LanguageContext) || {};
   const strapiLocale = ctx.strapiLocale || ctx.lang || "";
   const navigate = useNavigate();
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
 
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
@@ -202,7 +207,9 @@ export default function UzbekistanPrivateTours() {
               <div
                 key={tour.id}
                 className={styles.tourCard}
-                onClick={() => navigate(`/tour/${tour.documentId}`)}
+                onClick={() =>
+                  navigate(`/Private-tour/${makeSlug(tour.title)}`)
+                }
               >
                 <div className={styles.dateBox}>
                   {tour.startDate
@@ -236,7 +243,9 @@ export default function UzbekistanPrivateTours() {
                 <div
                   key={tour.id}
                   className={styles.bigTourCard}
-                  onClick={() => navigate(`/tour/${tour.documentId}`)}
+                  onClick={() =>
+                    navigate(`/Private-tour/${makeSlug(tour.title)}`)
+                  }
                 >
                   <div className={styles.bigImg}>
                     <img
@@ -306,7 +315,7 @@ export default function UzbekistanPrivateTours() {
                         key={t.id}
                         className={styles.catItem}
                         onClick={() =>
-                          navigate(`/Private-tour/${t.documentId}`)
+                          navigate(`/Private-tour/${makeSlug(t.title)}`)
                         }
                       >
                         {t.title}

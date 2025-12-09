@@ -81,7 +81,7 @@ const Router = () => {
         />
 
         <Route
-          path="/Private-tour/:documentId"
+          path="/Private-tour/:slug"
           element={
             <MainLayout>
               <PrivateTourIdPage />

@@ -14,6 +14,19 @@ const normalizeSlashDate = (str) => {
   return `${yyyy}-${mm}-${dd}`;
 };
 
+// ✅ Subtract 1 day safely from a date string (YYYY-MM-DD)
+const subtractOneDay = (dateStr) => {
+  if (!dateStr) return dateStr;
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() - 1);
+
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+
+  return `${yyyy}-${mm}-${dd}`;
+};
+
 // Extract plain text (used when reading description blocks)
 const extractPlainText = (desc) => {
   if (!desc) return "";
@@ -159,7 +172,7 @@ export default function SearchPage() {
       matches.forEach((m) => {
         dates.push({
           startDate: normalizeSlashDate(m[1]),
-          endDate: normalizeSlashDate(m[2]),
+          endDate: subtractOneDay(normalizeSlashDate(m[2])),
         });
       });
     });
@@ -301,7 +314,7 @@ export default function SearchPage() {
                             <br />
                             {datesForMonth.map((d, i) => (
                               <span key={i}>
-                                {d.startDate} → {d.endDate}
+                                {d.startDate} → {subtractOneDay(d.endDate)}
                                 <br />
                               </span>
                             ))}
@@ -314,7 +327,7 @@ export default function SearchPage() {
                       </>
                     ) : (
                       <p className={styles.summary}>
-                        {tour.startDate} → {tour.endDate}
+                        {tour.startDate} → {subtractOneDay(tour.endDate)}
                       </p>
                     )}
 

@@ -7,7 +7,15 @@ import translations from "../../translations/tourdetail";
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
 export default function PrivateTourIdPage() {
-  const { documentId } = useParams();
+  const [selectedPriceType, setSelectedPriceType] = useState("Standard");
+
+  const { slug } = useParams();
+  const makeSlug = (title) =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
   const [tour, setTour] = useState(null);
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,6 +24,8 @@ export default function PrivateTourIdPage() {
   const navigate = useNavigate();
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
   // --- Related tours (right sidebar) state ---
   const [relatedTours, setRelatedTours] = useState([]);
@@ -27,6 +37,77 @@ export default function PrivateTourIdPage() {
   const pricesRef = useRef(null);
   const requestRef = useRef(null);
   const reviewsRef = useRef(null);
+  const LINK_WORDS = [
+    // ✅ Main pages
+    { word: "Home", url: "/" },
+    { word: "About Us", url: "/about" },
+    { word: "Contact", url: "/contact" },
+    { word: "Search", url: "/search" },
+    { word: "Visa Policy", url: "/visa-policy" },
+    { word: "Transfers", url: "/Asian-Tour-Transfer" },
+
+    // ✅ Country tours
+    { word: "Uzbekistan Tours", url: "/Uzbek-Tours" },
+    { word: "Kazakhstan Tours", url: "/Kazakh-Tours" },
+    { word: "Kyrgyzstan Tours", url: "/Kyrgyz-Tours" },
+    { word: "Tajikistan Tours", url: "/Tajik-Tours" },
+    { word: "Turkmenistan Tours", url: "/Turkmen-Tours" },
+    { word: "Central Asia Tours", url: "/Central-Asia-Tours" },
+    { word: "Silk Road Tours", url: "/Silk-Road-Tours" },
+    { word: "Caucasus Tours", url: "/Caucas-Tours" },
+    { word: "Armenia Tours", url: "/Armenia-Tours" },
+    { word: "Azerbaijan Tours", url: "/Azerbaijan-Tours" },
+    { word: "Georgia Tours", url: "/Georgia-Tours" },
+
+    // ✅ Destinations (country pages)
+    { word: "Uzbekistan", url: "/Uzbekistan" },
+    { word: "Kazakhstan", url: "/Kazakhstan" },
+    { word: "Kyrgyzstan", url: "/Kyrgyzstan" },
+    { word: "Tajikistan", url: "/Tajikistan" },
+    { word: "Turkmenistan", url: "/Turkmenistan" },
+    { word: "Central Asia", url: "/Central-Asia" },
+    { word: "Silk Road", url: "/Silk-Road" },
+    { word: "Caucasus", url: "/Caucasus" },
+    { word: "Armenia", url: "/Armenia" },
+    { word: "Azerbaijan", url: "/Azerbaijan" },
+    { word: "Georgia", url: "/Georgia" },
+
+    // ✅ City pages
+    { word: "Tashkent", url: "/Uzbekistan-Tashkent" },
+    { word: "Samarkand", url: "/Uzbekistan-Samarkand" },
+    { word: "Bukhara", url: "/Uzbekistan-Bukhara" },
+    { word: "Khiva", url: "/Uzbekistan-Khiva" },
+    { word: "Astana", url: "/Kazakhstan-Astana" },
+    { word: "Almaty", url: "/Kazakhstan-Almaty" },
+    { word: "Bishkek", url: "/Kyrgyzstan-Bishkek" },
+    { word: "Tbilisi", url: "/Georgia-Tbilisi" },
+
+    // ✅ Tour types
+    { word: "City Tours", url: "/City-Tours" },
+    { word: "Cultural Tours", url: "/Cultural-Tours" },
+    { word: "Gastronomy Tours", url: "/Gastronomy-Tours" },
+    { word: "Religious Tours", url: "/Religious-Tours" },
+    { word: "Eco Tours", url: "/Eco-Tours" },
+    { word: "Business Tours", url: "/Business-Mice-Tours" },
+
+    // ✅ Private tours
+    { word: "Uzbekistan Private Tours", url: "/Uzbekistan-Private-Tours" },
+    { word: "Kazakhstan Private Tours", url: "/Kazakhstan-Private-Tours" },
+    { word: "Silk Road Private Tours", url: "/Silk-Road-Private-Tours" },
+    { word: "Central Asia Private Tours", url: "/Central-Asia-Private-Tours" },
+    { word: "Kyrgyzstan Private Tours", url: "/Kyrgyzstan-Private-Tours" },
+    { word: "Tajikistan Private Tours", url: "/Tajikistan-Private-Tours" },
+    { word: "Turkmenistan Private Tours", url: "/Turkmenistan-Private-Tours" },
+    { word: "Armenia Private Tours", url: "/Armenia-Private-Tours" },
+    { word: "Azerbaijan Private Tours", url: "/Azerbaijan-Private-Tours" },
+    { word: "Georgia Private Tours", url: "/Georgia-Private-Tours" },
+    { word: "Caucasus Private Tours", url: "/Caucasus-Private-Tours" },
+  ];
+
+  const STYLED_WORDS = [
+    { word: "Important", className: styles.importantWord },
+    { word: "Luxury", className: styles.luxuryWord },
+  ];
 
   const t =
     translations[
@@ -105,9 +186,11 @@ export default function PrivateTourIdPage() {
       .then((r) => r.json())
       .then((data) => {
         // find tour by documentId
-        const found = (data?.data || []).find(
-          (t) => t.documentId?.toString() === documentId
-        );
+        const found = (data?.data || []).find((t) => {
+          const rawTitle = t.attributes?.title || t.title || "";
+          return makeSlug(rawTitle) === slug;
+        });
+
         setTour(found || null);
       })
       .catch(console.error);
@@ -119,7 +202,7 @@ export default function PrivateTourIdPage() {
         setImages(arr);
       })
       .catch(console.error);
-  }, [documentId, strapiLocale]);
+  }, [slug, strapiLocale]);
 
   // --- Fetch related tours by location once tour is loaded ---
   useEffect(() => {
@@ -376,6 +459,67 @@ export default function PrivateTourIdPage() {
       file.caption.trim().toLowerCase() === tour.title.trim().toLowerCase()
   );
 
+  const processTextBeforeRender = (rawText) => {
+    if (!rawText) return null;
+
+    // 1️⃣ First split by new lines
+    const lines = rawText.split("\n");
+
+    return lines.map((line, lineIndex) => {
+      let parts = [line];
+
+      // 2️⃣ Apply LINKS
+      LINK_WORDS.forEach(({ word, url }) => {
+        parts = parts.flatMap((part, i) => {
+          if (typeof part !== "string") return part;
+
+          const regex = new RegExp(`(${word})`, "gi");
+          const split = part.split(regex);
+
+          return split.map((chunk, idx) =>
+            chunk.toLowerCase() === word.toLowerCase() ? (
+              <a
+                key={`${word}-${i}-${idx}`}
+                href={url}
+                className={styles.autoLink}
+              >
+                {chunk}
+              </a>
+            ) : (
+              chunk
+            )
+          );
+        });
+      });
+
+      // 3️⃣ Apply STYLED WORDS
+      STYLED_WORDS.forEach(({ word, className }) => {
+        parts = parts.flatMap((part, i) => {
+          if (typeof part !== "string") return part;
+
+          const regex = new RegExp(`(${word})`, "gi");
+          const split = part.split(regex);
+
+          return split.map((chunk, idx) =>
+            chunk.toLowerCase() === word.toLowerCase() ? (
+              <span key={`${word}-${i}-${idx}`} className={className}>
+                {chunk}
+              </span>
+            ) : (
+              chunk
+            )
+          );
+        });
+      });
+
+      return (
+        <p key={lineIndex} className={styles.processedParagraph}>
+          {parts}
+        </p>
+      );
+    });
+  };
+
   return (
     <div className={styles.tourPage}>
       {/* HERO */}
@@ -434,27 +578,27 @@ export default function PrivateTourIdPage() {
         <div className={styles.infoSection}>
           {/* Overview */}
 
+          {/* Overview */}
           <section className={styles.tabContent}>
             <h2>{t.overview}</h2>
-            {Array.isArray(tour.description) &&
-              (() => {
-                let fullText = tour.description
-                  .map(
-                    (node) =>
-                      node?.children?.map?.((c) => c.text).join("") ?? ""
-                  )
-                  .join("\n");
 
-                // Remove the entire Array = [...] and Accommodation = [...] blocks
-                fullText = fullText
-                  .replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "")
-                  .replace(/Accomodation\s*=\s*\[[\s\S]*?\];?/g, "")
-                  .trim();
+            {(() => {
+              if (!Array.isArray(tour.description)) return null;
 
-                const cleanParagraphs = fullText.split(/\n+/).filter(Boolean);
+              let fullText = tour.description
+                .map(
+                  (node) => node?.children?.map((c) => c.text).join("") ?? ""
+                )
+                .join("\n");
 
-                return cleanParagraphs.map((txt, i) => <p key={i}>{txt}</p>);
-              })()}
+              fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "");
+              fullText = fullText.replace(
+                /Accomodation\s*=\s*\[[\s\S]*?\];?/g,
+                ""
+              );
+
+              return processTextBeforeRender(fullText);
+            })()}
           </section>
 
           {/* Itinerary */}
@@ -477,7 +621,9 @@ export default function PrivateTourIdPage() {
                       open[idx] ? styles.show : ""
                     }`}
                   >
-                    <p>{d.body}</p>
+                    <div className={styles.itineraryText}>
+                      {processTextBeforeRender(d.body)}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -571,7 +717,7 @@ export default function PrivateTourIdPage() {
                   <table className={styles.datesTable}>
                     <thead>
                       <tr>
-                        <th>Persons</th>
+                        <th></th>
                         <th>Standard</th>
                         <th>Comfort</th>
                         <th>Deluxe</th>
@@ -597,7 +743,20 @@ export default function PrivateTourIdPage() {
                           </td>
 
                           <td data-label="Request">
-                            <button className={styles.bookBtn}>Request</button>
+                            <button
+                              className={styles.bookBtn}
+                              onClick={() => {
+                                setSelectedBooking({
+                                  persons: row.persons,
+                                  standard: row.Standard,
+                                  comfort: row.Comfort,
+                                  deluxe: row.Deluxe,
+                                });
+                                setShowBookingModal(true);
+                              }}
+                            >
+                              Request
+                            </button>
                           </td>
                         </tr>
                       ))}
@@ -1003,8 +1162,6 @@ export default function PrivateTourIdPage() {
                 ))}
               </tbody>
             </table>
-
-            <button className={styles.bookBtn}>{t.bookNow}</button>
           </div>
 
           {/* === RELATED TOURS SIDEBAR (matching Uzbekistan page behaviour) === */}
@@ -1027,7 +1184,7 @@ export default function PrivateTourIdPage() {
                     <span>{cat} Tours</span>
                     <div className={styles.catMeta}>
                       <span className={styles.count}>({items.length})</span>
-                      <span className={styles.chev}>{isOpen ? "▾" : "▸"}</span>
+                      <span>{isOpen ? "▾" : "▸"}</span>
                     </div>
                   </div>
 
@@ -1132,6 +1289,121 @@ export default function PrivateTourIdPage() {
                 type="video/mp4"
               />
             </video>
+          </div>
+        </div>
+      )}
+
+      {showBookingModal && selectedBooking && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <button
+              className={styles.closeModal}
+              onClick={() => setShowBookingModal(false)}
+            >
+              ×
+            </button>
+
+            <h2>Book This Tour</h2>
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+
+                const fullName = formData.get("fullName");
+                const email = formData.get("email");
+
+                const message = `
+New Private Tour Booking Request
+
+Tour: ${tour.title}
+Location: ${tour.location}
+
+Persons: ${selectedBooking.persons}
+Standard: ${selectedBooking.standard || "-"}
+Comfort: ${selectedBooking.comfort || "-"}
+Deluxe: ${selectedBooking.deluxe || "-"}
+
+Guest Name: ${fullName}
+Guest Email: ${email}
+          `;
+
+                try {
+                  await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      access_key: "86fb5231-beba-4945-826b-7728bb77b4db",
+                      to: "reservation@gotocentralasia.com",
+                      subject: "New Private Tour Booking Request",
+                      text: message,
+                    }),
+                  });
+
+                  alert(
+                    "Your request has been sent to reservation@gotocentralasia.com. We will contact you soon."
+                  );
+                  setShowBookingModal(false);
+                } catch (error) {
+                  alert("Failed to send. Please try again.");
+                }
+              }}
+            >
+              <label>Full Name</label>
+              <input name="fullName" required type="text" />
+
+              <label>Email</label>
+              <input name="email" required type="email" />
+
+              <label>Tour</label>
+              <input value={tour.title} readOnly />
+
+              <label>Persons</label>
+              <input value={selectedBooking.persons} readOnly />
+
+              <label>Select Package</label>
+
+              <div className={styles.priceOptions}>
+                <label>
+                  <input
+                    type="radio"
+                    name="priceType"
+                    value="Standard"
+                    checked={selectedPriceType === "Standard"}
+                    onChange={() => setSelectedPriceType("Standard")}
+                  />
+                  Standard — {selectedBooking.standard}
+                </label>
+
+                <label>
+                  <input
+                    type="radio"
+                    name="priceType"
+                    value="Comfort"
+                    checked={selectedPriceType === "Comfort"}
+                    onChange={() => setSelectedPriceType("Comfort")}
+                  />
+                  Comfort — {selectedBooking.comfort}
+                </label>
+
+                <label>
+                  <input
+                    type="radio"
+                    name="priceType"
+                    value="Deluxe"
+                    checked={selectedPriceType === "Deluxe"}
+                    onChange={() => setSelectedPriceType("Deluxe")}
+                  />
+                  Deluxe — {selectedBooking.deluxe}
+                </label>
+              </div>
+
+              <button type="submit" className={styles.submitBtn}>
+                Send Booking Request
+              </button>
+            </form>
           </div>
         </div>
       )}

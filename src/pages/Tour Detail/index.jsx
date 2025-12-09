@@ -26,6 +26,80 @@ export default function TourIdPage() {
   const [openCats, setOpenCats] = useState({});
   const [files, setFiles] = useState([]);
 
+  // ✅ Words that must become links
+  const LINK_WORDS = [
+    // ✅ Main pages
+    { word: "Home", url: "/" },
+    { word: "About Us", url: "/about" },
+    { word: "Contact", url: "/contact" },
+    { word: "Search", url: "/search" },
+    { word: "Visa Policy", url: "/visa-policy" },
+    { word: "Transfers", url: "/Asian-Tour-Transfer" },
+
+    // ✅ Country tours
+    { word: "Uzbekistan Tours", url: "/Uzbek-Tours" },
+    { word: "Kazakhstan Tours", url: "/Kazakh-Tours" },
+    { word: "Kyrgyzstan Tours", url: "/Kyrgyz-Tours" },
+    { word: "Tajikistan Tours", url: "/Tajik-Tours" },
+    { word: "Turkmenistan Tours", url: "/Turkmen-Tours" },
+    { word: "Central Asia Tours", url: "/Central-Asia-Tours" },
+    { word: "Silk Road Tours", url: "/Silk-Road-Tours" },
+    { word: "Caucasus Tours", url: "/Caucas-Tours" },
+    { word: "Armenia Tours", url: "/Armenia-Tours" },
+    { word: "Azerbaijan Tours", url: "/Azerbaijan-Tours" },
+    { word: "Georgia Tours", url: "/Georgia-Tours" },
+
+    // ✅ Destinations (country pages)
+    { word: "Uzbekistan", url: "/Uzbekistan" },
+    { word: "Kazakhstan", url: "/Kazakhstan" },
+    { word: "Kyrgyzstan", url: "/Kyrgyzstan" },
+    { word: "Tajikistan", url: "/Tajikistan" },
+    { word: "Turkmenistan", url: "/Turkmenistan" },
+    { word: "Central Asia", url: "/Central-Asia" },
+    { word: "Silk Road", url: "/Silk-Road" },
+    { word: "Caucasus", url: "/Caucasus" },
+    { word: "Armenia", url: "/Armenia" },
+    { word: "Azerbaijan", url: "/Azerbaijan" },
+    { word: "Georgia", url: "/Georgia" },
+
+    // ✅ City pages
+    { word: "Tashkent", url: "/Uzbekistan-Tashkent" },
+    { word: "Samarkand", url: "/Uzbekistan-Samarkand" },
+    { word: "Bukhara", url: "/Uzbekistan-Bukhara" },
+    { word: "Khiva", url: "/Uzbekistan-Khiva" },
+    { word: "Astana", url: "/Kazakhstan-Astana" },
+    { word: "Almaty", url: "/Kazakhstan-Almaty" },
+    { word: "Bishkek", url: "/Kyrgyzstan-Bishkek" },
+    { word: "Tbilisi", url: "/Georgia-Tbilisi" },
+
+    // ✅ Tour types
+    { word: "City Tours", url: "/City-Tours" },
+    { word: "Cultural Tours", url: "/Cultural-Tours" },
+    { word: "Gastronomy Tours", url: "/Gastronomy-Tours" },
+    { word: "Religious Tours", url: "/Religious-Tours" },
+    { word: "Eco Tours", url: "/Eco-Tours" },
+    { word: "Business Tours", url: "/Business-Mice-Tours" },
+
+    // ✅ Private tours
+    { word: "Uzbekistan Private Tours", url: "/Uzbekistan-Private-Tours" },
+    { word: "Kazakhstan Private Tours", url: "/Kazakhstan-Private-Tours" },
+    { word: "Silk Road Private Tours", url: "/Silk-Road-Private-Tours" },
+    { word: "Central Asia Private Tours", url: "/Central-Asia-Private-Tours" },
+    { word: "Kyrgyzstan Private Tours", url: "/Kyrgyzstan-Private-Tours" },
+    { word: "Tajikistan Private Tours", url: "/Tajikistan-Private-Tours" },
+    { word: "Turkmenistan Private Tours", url: "/Turkmenistan-Private-Tours" },
+    { word: "Armenia Private Tours", url: "/Armenia-Private-Tours" },
+    { word: "Azerbaijan Private Tours", url: "/Azerbaijan-Private-Tours" },
+    { word: "Georgia Private Tours", url: "/Georgia-Private-Tours" },
+    { word: "Caucasus Private Tours", url: "/Caucasus-Private-Tours" },
+  ];
+
+  // ✅ Words that must change font style
+  const STYLED_WORDS = [
+    { word: "Important", className: styles.importantWord },
+    { word: "Luxury", className: styles.luxuryWord },
+  ];
+
   // refs for sticky nav
   const itineraryRef = useRef(null);
   const pricesRef = useRef(null);
@@ -269,12 +343,19 @@ export default function TourIdPage() {
     }
   };
 
-  const formatDate = (iso) =>
-    new Date(iso).toLocaleDateString("en-GB", {
+  const formatDate = (iso, subtractOneDay = false) => {
+    const date = new Date(iso);
+
+    if (subtractOneDay) {
+      date.setDate(date.getDate() - 1);
+    }
+
+    return date.toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "short",
       year: "numeric",
     });
+  };
 
   // Parse itinerary safely
   const parsedDays = useMemo(() => {
@@ -388,6 +469,67 @@ export default function TourIdPage() {
       file.caption &&
       file.caption.trim().toLowerCase() === tour.title.trim().toLowerCase()
   );
+
+  const processTextBeforeRender = (rawText) => {
+    if (!rawText) return null;
+
+    // 1️⃣ First split by new lines
+    const lines = rawText.split("\n");
+
+    return lines.map((line, lineIndex) => {
+      let parts = [line];
+
+      // 2️⃣ Apply LINKS
+      LINK_WORDS.forEach(({ word, url }) => {
+        parts = parts.flatMap((part, i) => {
+          if (typeof part !== "string") return part;
+
+          const regex = new RegExp(`(${word})`, "gi");
+          const split = part.split(regex);
+
+          return split.map((chunk, idx) =>
+            chunk.toLowerCase() === word.toLowerCase() ? (
+              <a
+                key={`${word}-${i}-${idx}`}
+                href={url}
+                className={styles.autoLink}
+              >
+                {chunk}
+              </a>
+            ) : (
+              chunk
+            )
+          );
+        });
+      });
+
+      // 3️⃣ Apply STYLED WORDS
+      STYLED_WORDS.forEach(({ word, className }) => {
+        parts = parts.flatMap((part, i) => {
+          if (typeof part !== "string") return part;
+
+          const regex = new RegExp(`(${word})`, "gi");
+          const split = part.split(regex);
+
+          return split.map((chunk, idx) =>
+            chunk.toLowerCase() === word.toLowerCase() ? (
+              <span key={`${word}-${i}-${idx}`} className={className}>
+                {chunk}
+              </span>
+            ) : (
+              chunk
+            )
+          );
+        });
+      });
+
+      return (
+        <p key={lineIndex} className={styles.processedParagraph}>
+          {parts}
+        </p>
+      );
+    });
+  };
 
   return (
     <div className={styles.tourPage}>
@@ -533,32 +675,26 @@ export default function TourIdPage() {
         <div className={styles.infoSection}>
           {/* Overview */}
 
+          {/* Overview */}
           <section className={styles.tabContent}>
             <h2>{t.overview}</h2>
 
             {(() => {
               if (!Array.isArray(tour.description)) return null;
 
-              // Convert blocks → text
               let fullText = tour.description
                 .map(
                   (node) => node?.children?.map((c) => c.text).join("") ?? ""
                 )
                 .join("\n");
 
-              // Remove Array block completely
               fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "");
-
-              // Remove Accommodation block completely
               fullText = fullText.replace(
                 /Accomodation\s*=\s*\[[\s\S]*?\];?/g,
                 ""
               );
 
-              // Split into paragraphs
-              const paragraphs = fullText.split(/\n+/).filter(Boolean);
-
-              return paragraphs.map((p, i) => <p key={i}>{p}</p>);
+              return processTextBeforeRender(fullText);
             })()}
           </section>
 
@@ -582,14 +718,15 @@ export default function TourIdPage() {
                       open[idx] ? styles.show : ""
                     }`}
                   >
-                    <p>{d.body}</p>
+                    <div className={styles.itineraryText}>
+                      {processTextBeforeRender(d.body)}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </section>
 
-        
           {/* ACCOMMODATION */}
           {Array.isArray(tour.description) &&
             (() => {
@@ -679,7 +816,7 @@ export default function TourIdPage() {
               </div>
               <div className={styles.priceItem}>
                 <span>{t.endDate}</span>
-                <strong>{formatDate(tour.endDate)}</strong>
+                <strong>{formatDate(tour.endDate, true)}</strong>
               </div>
               <div className={styles.priceItem}>
                 <span>{t.seats}</span>
@@ -1145,7 +1282,7 @@ export default function TourIdPage() {
             </div>
             <div className={styles.infoLine}>
               <span>{t.end}</span>
-              <span>{formatDate(tour.endDate)}</span>
+              <span>{formatDate(tour.endDate, true)}</span>
             </div>
             <div className={styles.infoLine}>
               <span>{t.availableSeats}</span>
@@ -1187,7 +1324,7 @@ export default function TourIdPage() {
                     <span>{cat} Tours</span>
                     <div className={styles.catMeta}>
                       <span className={styles.count}>({items.length})</span>
-                      <span className={styles.chev}>{isOpen ? "▾" : "▸"}</span>
+                      <span>{isOpen ? "▾" : "▸"}</span>
                     </div>
                   </div>
 

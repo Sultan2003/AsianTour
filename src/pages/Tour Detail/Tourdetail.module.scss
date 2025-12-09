@@ -236,17 +236,6 @@
   }
 }
 
-.chev {
-  /* remove CSS arrow completely, keep only text arrow */
-  width: auto;
-  height: auto;
-
-  &::before,
-  &::after {
-    content: none !important;
-  }
-}
-
 .accHead.open .chev::after {
   transform: rotate(135deg);
 }
@@ -971,7 +960,6 @@
   overflow: hidden;
   background: #f4f6fb;
   border: 1px solid #e8ecf5;
-
 
   img,
   video {
@@ -1876,4 +1864,68 @@
 
 .submitBtn:hover {
   background: #095a97;
+}
+.chev {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-right: 2px solid #3b4461;
+    border-bottom: 2px solid #3b4461;
+    transform: rotate(-45deg);
+    transition: transform 0.2s ease;
+  }
+}
+
+.accHead.open .chev::after {
+  transform: rotate(135deg);
+}
+
+.accPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+  background: #fff;
+
+  > * {
+    overflow: hidden;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+.autoLink {
+  color: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+.importantWord {
+  font-weight: 700;
+  color: red;
+}
+
+.luxuryWord {
+  font-style: italic;
+  color: #c9a227;
+}
+
+.processedParagraph {
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+
+.itineraryText {
+  line-height: 1.7;
 }
