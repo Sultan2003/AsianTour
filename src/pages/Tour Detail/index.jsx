@@ -96,8 +96,8 @@ export default function TourIdPage() {
 
   // ✅ Words that must change font style
   const STYLED_WORDS = [
-    { word: "Important", className: styles.importantWord },
-    { word: "Luxury", className: styles.luxuryWord },
+    { word: "", className: styles.importantWord },
+    { word: "", className: styles.luxuryWord },
   ];
 
   // refs for sticky nav
@@ -865,20 +865,9 @@ export default function TourIdPage() {
                     <tbody>
                       {groupedByYear[activeYear]?.map((item) => {
                         const isAvailable = Number(item.availableSeats) > 0;
-                        const formattedStart = new Date(
-                          item.startDate
-                        ).toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        });
-                        const formattedEnd = new Date(
-                          item.endDate
-                        ).toLocaleDateString("en-GB", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        });
+
+                        const formattedStart = formatDate(item.startDate);
+                        const formattedEnd = formatDate(item.endDate, true); // ✅ subtracts 1 day
 
                         return (
                           <tr key={item.id}>
@@ -904,7 +893,7 @@ export default function TourIdPage() {
                                 onClick={() => {
                                   setSelectedDate({
                                     start: item.startDate,
-                                    end: item.endDate,
+                                    end: item.endDate, // raw value is fine here
                                     price: item.price,
                                   });
                                   setShowBookingModal(true);
@@ -1458,8 +1447,8 @@ export default function TourIdPage() {
 New Booking Request
 
 Tour: ${tour.title}
-Start Date: ${selectedDate.start}
-End Date: ${selectedDate.end}
+Start Date: ${formatDate(selectedDate.start)}
+End Date: ${formatDate(selectedDate.end, true)}
 Price: ${selectedDate.price}
 
 Guest Name: ${fullName}
@@ -1500,7 +1489,10 @@ Guest Email: ${email}
 
               <label>Date</label>
               <input
-                value={`${selectedDate.start} → ${selectedDate.end}`}
+                value={`${formatDate(selectedDate.start)} → ${formatDate(
+                  selectedDate.end,
+                  true
+                )}`}
                 readOnly
               />
 
