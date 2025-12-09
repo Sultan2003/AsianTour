@@ -20,32 +20,7 @@ export default function TurkmenistanTours() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = [
-    "Ashgabat",
-    "Merv",
-    "Darvaza Gas Crater",
-    "Kunya-Urgench",
-    "Mary",
-    "Yangykala Canyon",
-    "Karakum Desert",
-    "Dashoguz",
-    "Avaza",
-    "Gonur Depe",
-    "Nisa",
-    "Balkanabat",
-    "Turkmenbashi",
-    "Kopet Dag Mountains",
-    "Serdar",
-    "Koytendag Mountains",
-    "Dekhana",
-    "Atamurat",
-    "Farap",
-    "Bamy",
-    "Erbent",
-    "Garabogazköl",
-    "Geok-Tepe",
-    "Parau Bibi Mausoleum",
-  ];
+  const destinations = ["Ashgabat"];
 
   const notes = [
     "Travel safety matters",
@@ -240,7 +215,12 @@ export default function TurkmenistanTours() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <a href="#">{d}</a>
+                  <Link
+                    to={`/Turkmenistan-${d}`}
+                    className={styles.sidebarLink}
+                  >
+                    {d}
+                  </Link>
                 </li>
               ))}
             </ul>

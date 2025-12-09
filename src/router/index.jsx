@@ -57,6 +57,11 @@ import AlmatyPage from "../pages/Cities/Almaty";
 import BishkekPage from "../pages/Cities/Bishkek";
 import TbilisiPage from "../pages/Cities/Tbilisi";
 import AboutUs from "../pages/AboutUs";
+import OshPage from "../pages/Cities/Osh";
+import DushanbePage from "../pages/Cities/Dushanbe";
+import ErevanPage from "../pages/Cities/Erevan";
+import AshgabatPage from "../pages/Cities/Ashgabat";
+import BakuPage from "../pages/Cities/Baku";
 
 const Router = () => {
   return (
@@ -393,7 +398,71 @@ const Router = () => {
           }
         />
         <Route
+          path="/Kyrgyzstan-Osh"
+          element={
+            <MainLayout>
+              <OshPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Tajikistan-Dushanbe"
+          element={
+            <MainLayout>
+              <DushanbePage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Turkmenistan-Ashgabat"
+          element={
+            <MainLayout>
+              <AshgabatPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Azerbaijan-Baku"
+          element={
+            <MainLayout>
+              <BakuPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Caucasus-Baku"
+          element={
+            <MainLayout>
+              <BakuPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Armenia-Yerevan"
+          element={
+            <MainLayout>
+              <ErevanPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Caucasus-Yerevan"
+          element={
+            <MainLayout>
+              <ErevanPage />
+            </MainLayout>
+          }
+        />
+        <Route
           path="/Georgia-Tbilisi"
+          element={
+            <MainLayout>
+              <TbilisiPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/Caucasus-Tbilisi"
           element={
             <MainLayout>
               <TbilisiPage />

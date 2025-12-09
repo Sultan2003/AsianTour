@@ -21,33 +21,7 @@ export default function TajikistanTours() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = [
-    "Dushanbe",
-    "Khujand",
-    "Istaravshan",
-    "Kulob",
-    "Pamir Mountains",
-    "Khorog",
-    "Murghab",
-    "Fann Mountains",
-    "Panjakent",
-    "Iskanderkul Lake",
-    "Nurek Dam",
-    "Wakhan Valley",
-    "Seven Lakes",
-    "Yagnob Valley",
-    "Sarazm",
-    "Bartang Valley",
-    "Shahriston Pass",
-    "Hissar Fortress",
-    "Varzob",
-    "Garm",
-    "Danghara",
-    "Romit Gorge",
-    "Zeravshan Valley",
-    "Lake Karakul",
-    "Fergana Valley",
-  ];
+  const destinations = ["Dushanbe"];
 
   const notes = [
     "Travel safety matters",
@@ -241,7 +215,9 @@ export default function TajikistanTours() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <a href="#">{d}</a>
+                  <Link to={`/Tajikistan-${d}`} className={styles.sidebarLink}>
+                    {d}
+                  </Link>
                 </li>
               ))}
             </ul>

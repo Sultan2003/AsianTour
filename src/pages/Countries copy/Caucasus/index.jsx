@@ -24,37 +24,11 @@ export default function CaucasusTours() {
   const destinations = [
     // Georgia
     "Tbilisi",
-    "Mtskheta",
-    "Kazbegi",
-    "Batumi",
-    "Kutaisi",
-    "Svaneti",
-    "Uplistsikhe",
-    "Borjomi",
-    "David Gareja",
-    "Kakheti",
     // Armenia
     "Yerevan",
-    "Garni",
-    "Geghard Monastery",
-    "Lake Sevan",
-    "Dilijan",
-    "Tatev Monastery",
-    "Khor Virap",
-    "Noravank",
-    "Gyumri",
-    "Amberd Fortress",
+
     // Azerbaijan
     "Baku",
-    "Gobustan",
-    "Sheki",
-    "Quba",
-    "Gabala",
-    "Khinalug",
-    "Lahij",
-    "Naftalan",
-    "Shamakhi",
-    "Nakhchivan",
   ];
 
   const notes = [
@@ -250,7 +224,9 @@ export default function CaucasusTours() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <a href="#">{d}</a>
+                  <Link to={`/Caucasus-${d}`} className={styles.sidebarLink}>
+                    {d}
+                  </Link>
                 </li>
               ))}
             </ul>

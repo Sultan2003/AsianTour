@@ -21,28 +21,7 @@ export default function ArmeniaToursDestination() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = [
-    "Yerevan",
-    "Lake Sevan",
-    "Dilijan",
-    "Garni Temple",
-    "Geghard Monastery",
-    "Khor Virap",
-    "Noravank",
-    "Gyumri",
-    "Amberd Fortress",
-    "Tatev Monastery",
-    "Jermuk",
-    "Areni",
-    "Etchmiadzin",
-    "Saghmosavank",
-    "Haghpat",
-    "Sanahin",
-    "Zvartnots Cathedral",
-    "Debed Canyon",
-    "Shaki Waterfall",
-    "Selim Caravanserai",
-  ];
+  const destinations = ["Yerevan"];
 
   const notes = [
     "Travel safety matters",
@@ -266,7 +245,9 @@ export default function ArmeniaToursDestination() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <a href="#">{d}</a>
+                  <Link to={`/Armenia-${d}`} className={styles.sidebarLink}>
+                    {d}
+                  </Link>
                 </li>
               ))}
             </ul>

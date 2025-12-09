@@ -389,6 +389,47 @@ export default function PrivateTourIdPage() {
     }
   }, [tour]);
 
+  const parsedPriceInclude = useMemo(() => {
+    if (!Array.isArray(tour?.description)) return null;
+
+    const fullText = tour.description
+      .map((n) => n?.children?.map((c) => c.text).join("") ?? "")
+      .join("\n");
+
+    const match = fullText.match(/Priceinclude\s*=\s*\[([\s\S]*?)\]/i);
+    if (!match) return null;
+
+    const block = match[1];
+
+    const does = [];
+    const doesNot = [];
+
+    const lines = block
+      .replace(/Does:/i, "DOES:")
+      .replace(/Doesnot:/i, "DOESNOT:")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+
+    let current = null;
+
+    lines.forEach((line) => {
+      if (line.includes("DOES:")) {
+        current = "does";
+        return;
+      }
+      if (line.includes("DOESNOT:")) {
+        current = "doesNot";
+        return;
+      }
+
+      if (current === "does") does.push(line.replace(/;$/, ""));
+      if (current === "doesNot") doesNot.push(line.replace(/;$/, ""));
+    });
+
+    return { does, doesNot };
+  }, [tour]);
+
   // accordion
   const [open, setOpen] = useState([]);
   useEffect(() => {
@@ -591,9 +632,13 @@ export default function PrivateTourIdPage() {
                 )
                 .join("\n");
 
-              fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "");
+              fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/gi, "");
               fullText = fullText.replace(
-                /Accomodation\s*=\s*\[[\s\S]*?\];?/g,
+                /Accomodation\s*=\s*\[[\s\S]*?\];?/gi,
+                ""
+              );
+              fullText = fullText.replace(
+                /Priceinclude\s*=\s*\[[\s\S]*?\];?/gi,
                 ""
               );
 
@@ -706,6 +751,39 @@ export default function PrivateTourIdPage() {
                 </section>
               );
             })()}
+
+          {/* ✅ PRICE INCLUDES / EXCLUDES — MATCHED WITH TAB STYLE */}
+          {parsedPriceInclude && (
+            <section className={styles.tabContent}>
+              <h2>Price Includes & Excludes</h2>
+
+              <div className={styles.priceIncludeWrapper}>
+                {/* ✅ INCLUDES */}
+                <div className={styles.priceIncludeBox}>
+                  <h3 className={styles.priceIncludeTitle}>
+                    ✅ Price includes:
+                  </h3>
+                  <ul>
+                    {parsedPriceInclude.does.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* ❌ EXCLUDES */}
+                <div className={styles.priceExcludeBox}>
+                  <h3 className={styles.priceExcludeTitle}>
+                    ❌ Price doesn’t include:
+                  </h3>
+                  <ul>
+                    {parsedPriceInclude.doesNot.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* DATES & PRICES */}
           <section ref={pricesRef} className={styles.tabContent}>

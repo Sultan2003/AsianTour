@@ -21,28 +21,7 @@ export default function AzerbaijanToursDestination() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = [
-    "Baku",
-    "Gobustan",
-    "Sheki",
-    "Gabala",
-    "Naftalan",
-    "Quba",
-    "Ganja",
-    "Lankaran",
-    "Shamakhi",
-    "Khinalug",
-    "Nakhchivan",
-    "Absheron Peninsula",
-    "Caspian Sea Coast",
-    "Maiden Tower",
-    "Flame Towers",
-    "Palace of the Shirvanshahs",
-    "Qusar",
-    "Tufandag Mountain Resort",
-    "Aghdam",
-    "Mingachevir",
-  ];
+  const destinations = ["Baku"];
 
   const notes = [
     "Travel safety matters",
@@ -263,7 +242,9 @@ export default function AzerbaijanToursDestination() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <a href="#">{d}</a>
+                  <Link to={`/Azerbaijan-${d}`} className={styles.sidebarLink}>
+                    {d}
+                  </Link>
                 </li>
               ))}
             </ul>

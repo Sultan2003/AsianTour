@@ -21,7 +21,7 @@ export default function KyrgyzstanTours() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = ["Bishkek"];
+  const destinations = ["Bishkek", "Osh"];
 
   const notes = [
     "Travel safety matters",
@@ -214,10 +214,12 @@ export default function KyrgyzstanTours() {
           <div className={styles.sidebar}>
             <h3>Travel Destinations</h3>
             <ul>
-              {destinations.map((d) => (
-                <Link to={`/Kyrgyzstan-${d}`} className={styles.sidebarLink}>
-                  {d}
-                </Link>
+              {destinations.map((d, i) => (
+                <li key={i}>
+                  <Link to={`/Kyrgyzstan-${d}`} className={styles.sidebarLink}>
+                    {d}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>

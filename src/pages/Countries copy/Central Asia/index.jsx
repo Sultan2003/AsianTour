@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./centralasia.module.scss";
-import mainImg from "../../../assets/Countries/centralasia.webp";
+import mainImg from "../../../assets/Cities/Bukhara/Kalyan Minaret and Mosque 1.jpg";
 
 export default function CentralAsiaToursDestinations() {
   const { lang: strapiLocale } = useContext(LanguageContext);
@@ -21,37 +21,13 @@ export default function CentralAsiaToursDestinations() {
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = [
-    // Uzbekistan
-    "Tashkent",
-    "Samarkand",
-    "Bukhara",
-    "Khiva",
-    "Shahrisabz",
-    "Fergana Valley",
-    // Kazakhstan
-    "Almaty",
-    "Astana",
-    "Shymkent",
-    "Turkistan",
-    "Charyn Canyon",
-    // Kyrgyzstan
-    "Bishkek",
-    "Osh",
-    "Issyk-Kul Lake",
-    "Karakol",
-    "Song-Kol Lake",
-    // Tajikistan
-    "Dushanbe",
-    "Khujand",
-    "Pamir Highway",
-    "Iskanderkul Lake",
-    // Turkmenistan
-    "Ashgabat",
-    "Darvaza Gas Crater",
-    "Merv",
-    "Konye-Urgench",
-  ];
+  const destinationsByCountry = {
+    Uzbekistan: ["Tashkent", "Samarkand", "Bukhara", "Khiva"],
+    Kazakhstan: ["Almaty", "Astana"],
+    Kyrgyzstan: ["Bishkek", "Osh"],
+    Tajikistan: ["Dushanbe"],
+    Turkmenistan: ["Ashgabat"],
+  };
 
   const notes = [
     "Travel safety matters",
@@ -245,13 +221,23 @@ export default function CentralAsiaToursDestinations() {
           {/* ✅ Sidebar with Destinations */}
           <div className={styles.sidebar}>
             <h3>Travel Destinations</h3>
-            <ul>
-              {destinations.map((d, i) => (
-                <li key={i}>
-                  <a href="#">{d}</a>
-                </li>
-              ))}
-            </ul>
+
+            {Object.entries(destinationsByCountry).map(([country, cities]) => (
+              <div key={country} className={styles.countryBlock}>
+                <ul>
+                  {cities.map((city, i) => (
+                    <li key={i}>
+                      <Link
+                        to={`/${country}-${city}`}
+                        className={styles.sidebarLink}
+                      >
+                        {city}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </div>
