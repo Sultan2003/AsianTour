@@ -1,14 +1,9 @@
 import styles from "./VisaPolicy.module.scss";
-import mainImg from "../../assets/Countries/Uzbekistan.jpg";
 
 export default function VisaPolicy() {
   return (
     <div className={styles.visaPage}>
-      {/* ===== HERO SECTION ===== */}
-      <div
-        className={styles.hero}
-        style={{ backgroundImage: `url(${mainImg})` }}
-      >
+      <div>
         <div className={styles.heroOverlay}></div>
         <div className={styles.heroText}>
           <h1>Uzbekistan Visa Policy</h1>
@@ -25,7 +20,7 @@ export default function VisaPolicy() {
         <div className={styles.visaInfo}>
           {/* 1️⃣ Unlimited Visa-Free Entry */}
           <section className={styles.card}>
-            <h2>1. Unlimited Visa-Free Entry</h2>
+            <h2>Unlimited Visa-Free Entry</h2>
             <p>
               Citizens of the following countries may enter and stay in
               Uzbekistan without any time restriction:
@@ -52,16 +47,16 @@ export default function VisaPolicy() {
 
           {/* 2️⃣ 60 Days Visa-Free */}
           <section className={styles.card}>
-            <h2>2. 60 Days Visa-Free</h2>
+            <h2>60 Days Visa-Free</h2>
             <p>
-              Citizens of <strong>Kyrgyzstan 🇰🇬</strong> may visit and stay in
+              Citizens of <strong>Kyrgyzstan</strong> may visit and stay in
               Uzbekistan for up to <strong>60 days</strong> without a visa.
             </p>
           </section>
 
           {/* 3️⃣ 30 Days Visa-Free */}
           <section className={styles.card}>
-            <h2>3. 30 Days Visa-Free</h2>
+            <h2>30 Days Visa-Free</h2>
             <p>
               Citizens from more than 70 countries can enter Uzbekistan without
               a visa for up to 30 days. The list includes:
@@ -140,7 +135,7 @@ export default function VisaPolicy() {
 
           {/* 4️⃣ e-Visa */}
           <section className={styles.card}>
-            <h2>4. Simplified Electronic Visa (e-Visa)</h2>
+            <h2>Simplified Electronic Visa (e-Visa)</h2>
             <p>
               Citizens of 57 countries may apply online for an electronic visa
               via{" "}
@@ -194,7 +189,7 @@ export default function VisaPolicy() {
 
           {/* 5️⃣ Embassy Application */}
           <section className={styles.card}>
-            <h2>5. Applying for a Visa Through an Embassy</h2>
+            <h2>Applying for a Visa Through an Embassy</h2>
             <ol>
               <li>
                 Obtain <b>Visa Support</b> from the Ministry of Foreign Affairs.
@@ -208,7 +203,7 @@ export default function VisaPolicy() {
 
           {/* 6️⃣ Visa Support (LOI) */}
           <section className={styles.card}>
-            <h2>6. Visa Support / Letter of Invitation (LOI)</h2>
+            <h2>Visa Support / Letter of Invitation (LOI)</h2>
             <p>
               Travelers not eligible for visa-free or e-Visa entry must obtain
               an LOI, arranged through a licensed travel agency. The Ministry of
@@ -223,7 +218,7 @@ export default function VisaPolicy() {
 
           {/* 7️⃣ Transit Visa */}
           <section className={styles.card}>
-            <h2>7. Transit Visa</h2>
+            <h2>Transit Visa</h2>
             <p>
               Allows a stay of up to 72 hours for travelers passing through
               Uzbekistan.
@@ -238,7 +233,7 @@ export default function VisaPolicy() {
 
           {/* 8️⃣ Under 16 */}
           <section className={styles.card}>
-            <h2>8. Visa for Applicants Under 16</h2>
+            <h2>Visa for Applicants Under 16</h2>
             <p>
               Children under 16 may enter Uzbekistan visa-free if accompanied by
               guardians with valid visas. Their stay must not exceed 90 days or
@@ -248,7 +243,7 @@ export default function VisaPolicy() {
 
           {/* 9️⃣ Registration */}
           <section className={styles.card}>
-            <h2>9. Registration in Uzbekistan</h2>
+            <h2>Registration in Uzbekistan</h2>
             <p>
               All visitors must register within 3 days after arrival. Hotels and
               hostels automatically register guests, while private travelers can

@@ -71,12 +71,10 @@ export default function BishkekPage() {
       title: "About Bishkek",
 
       paragraphs: [
-        "Bishkek, the capital of Kyrgyzstan, is a modern and multicultural city located in the Chüy Valley at the foothills of the Tian Shan mountains.",
-        "The city has around 1 million residents — Kyrgyz, Russians, Uzbeks, Ukrainians, Koreans, and others — creating a unique cultural blend.",
-        "The people are known for hospitality, calm character, and deep nomadic traditions, mixed with Soviet heritage and modern urban life.",
+        "Bishkek, the capital of Kyrgyzstan, is a modern and multicultural city located in the Chüy Valley at the foothills of the Tian Shan mountains. The city has a population of around 1 million, made up of Kyrgyz as well as Russians, Uzbeks, Ukrainians, Koreans, and other ethnic groups. This diversity gives Bishkek a unique cultural atmosphere, where nomadic traditions mix with Soviet history and modern urban life. The people of Bishkek are known for their hospitality, calm character, and respect for guests — a tradition deeply rooted in Kyrgyz nomadic values. Kyrgyz culture is visible in daily life through traditional clothing, music, felt crafts, horse-related customs, and cuisine like beshbarmak, plov, and kumis. At the same time, Bishkek is influenced by its Soviet past, which is reflected in its architecture, public squares, and cultural institutions such as theaters and museums. Young people in Bishkek often blend traditional values with modern lifestyles, enjoying cafés, parks, art events, and outdoor activities.",
       ],
 
-      images: [city1, city2],
+      images: [],
     },
 
     /* ----------------------------------------------------------
@@ -87,8 +85,8 @@ export default function BishkekPage() {
       title: "Cultural Landmarks",
       paragraphs: ["Ala-Too Square"],
       items: [
-        "The central square of Bishkek — originally Lenin Square, built in 1984.",
-        "A statue of Manas today replaces the former Lenin statue.",
+        "Ala-Too Square is the main public square of Bishkek and the political heart of the city. It hosts national celebrations, public events, and official ceremonies. ",
+        "The square is surrounded by key government buildings and cultural institutions. It serves as a symbol of Kyrgyzstan’s independence and civic life.",
         "The State Historical Museum stands beside the square.",
       ],
       images: [city1],
@@ -96,31 +94,36 @@ export default function BishkekPage() {
       /* Victory Square */
       afterParagraphs: ["Victory Square"],
       afterItems: [
-        "Dedicated to WWII victory.",
-        "Features a sculpture of a waiting woman under yurt-like granite arches.",
+        "Victory Square was established to commemorate the victory in World War II. ",
+        "The square features a central monument dedicated to fallen soldiers and eternal flame memorials. It is an important site for remembrance ceremonies and national holidays. ",
+        "Victory Square reflects the country’s respect for historical sacrifice and peace.",
       ],
       afterImages: [victory],
 
       /* Mosque */
       afterParagraphs1: ["Bishkek Central Mosque"],
       afterItems1: [
-        "One of the largest mosques in Central Asia.",
-        "Built in Ottoman revival style and opened in 2018.",
+        "Bishkek Central Mosque is the largest mosque in Kyrgyzstan and a major religious center of the capital. It was opened in 2018 with support from international partners.",
+        "The mosque can accommodate thousands of worshippers and features classical Islamic architectural elements. It plays an important role in religious education and community life.",
       ],
       afterImages1: [mosque1, mosque2, mosque3],
 
       /* Philharmonic */
       afterParagraphs2: ["Kyrgyz National Philharmonic"],
       afterItems2: [
-        "Large Soviet-era concert hall named after Toktogul Satylganov.",
+        "The Kyrgyz National Philharmonic is one of the leading cultural institutions in Bishkek. ",
+        "Named after Toktogul Satylganov, it hosts concerts of classical, folk, and contemporary music. ",
+        "The building is a notable example of Soviet-era monumental architecture. It contributes significantly to the preservation and promotion of Kyrgyz musical heritage.",
       ],
       afterImages2: [phil1, phil3, phil4],
 
       /* Burana Tower */
       afterParagraphs3: ["Burana Tower (near Bishkek)"],
       afterItems3: [
-        "Ancient minaret located outside Bishkek.",
-        "Famous for legends, stone balbals, and a history museum.",
+        "Burana Tower is an ancient minaret located near Bishkek, dating back to the 11th century.",
+        "It is part of the archaeological remains of the medieval city of Balasagun. ",
+        "The tower is surrounded by stone sculptures and burial monuments.",
+        "Burana Tower stands as one of the most important historical landmarks in Kyrgyzstan.",
       ],
       afterImages3: [burana],
     },
@@ -168,6 +171,9 @@ export default function BishkekPage() {
     <div className={styles.container}>
       {/* LEFT SIDE */}
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Bishkek, Kyrgyzstan</h1>
+        </div>
         <img src={BishkekHero} loading="lazy" className={styles.heroImage} />
 
         {/* TABLE NAV */}

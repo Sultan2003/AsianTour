@@ -52,43 +52,92 @@ export default function AlmatyPage() {
 
   /* ALMATY CONTENT */
   const sections = [
+    /* ================= HISTORY ================= */
     {
       key: "history",
       title: "History of Almaty",
-      paragraphs: [
+      paragraphs: [],
+      items: [
         "Almaty, formerly known as Alma-Ata, is the largest city in Kazakhstan and one of the most important cultural and economic centers of Central Asia.",
         "It was the capital of Kazakhstan until 1997 and remains the country's main hub for finance, art, education, and tourism.",
         "The city lies at the foothills of the Trans-Ili Alatau mountains, giving it one of the most picturesque urban landscapes in the region.",
+
+        "Almaty (formerly Verny, then Alma-Ata) is the largest city in Kazakhstan and was the country’s capital until 1997.",
+        "Its origins date back to a 19th-century Russian fort called Verny, and over time it developed into a major cultural and commercial hub in the region.",
+        "During the Soviet period, many of its important buildings and institutions were built, and the city became a center for education, art, and science.",
+        "Today, Almaty is considered the cultural capital of Kazakhstan, with a dense network of theaters, museums, and historic architecture.",
       ],
-      images: [history1],
+      images: [],
     },
 
+    /* ================= LANDMARKS ================= */
     {
       key: "landmarks",
       title: "Cultural Landmarks",
+
+      /* ASCENSION CATHEDRAL */
       paragraphs: ["Ascension Cathedral (Zenkov Cathedral)"],
       items: [
-        "One of the tallest wooden churches in the world — built entirely without nails.",
-        "Constructed in 1907; survived major earthquakes due to its unique engineering.",
-        "Located inside Panfilov Park; one of Almaty’s main attractions.",
+        "This is a striking wooden Russian Orthodox cathedral in Panfilov Park, built between 1904–1907.",
+        "Despite its wooden structure, it survived a powerful earthquake in 1911 thanks to its special engineering.",
+        "It is one of the tallest wooden church buildings in the world, reaching approximately 56 meters in height.",
       ],
       images: [asc1, asc2, asc3],
 
-      afterParagraphs: ["Memory of Glory (Almaty)"],
+      /* PARK OF 28 PANFILOV GUARDSMEN / MEMORIAL OF GLORY */
+      afterParagraphs: ["Park of 28 Panfilov Guardsmen"],
       afterItems: [
-        "A patriotic memorial complex dedicated to soldiers of WWII.",
-        "Located in the heart of Panfilov Park.",
-        "Famous for its eternal flame and expressive granite sculptures.",
+        "This park is named after 28 soldiers from the Panfilov Division who died defending Moscow during World War II.",
+        "Within the park, there are several culturally important sites including the Ascension Cathedral, the Memorial of Glory, the Eternal Flame, and other monuments.",
       ],
-      afterImages: [memory],
+      afterImages: [],
 
-      afterParagraphs1: ["Museum of Folk Instruments (Almaty)"],
+      /* MUSEUM OF FOLK MUSICAL INSTRUMENTS */
+      afterParagraphs1: [],
       afterItems1: [
-        "A unique museum showcasing traditional Kazakh musical instruments.",
-        "Located inside a beautifully preserved wooden building in Panfilov Park.",
-        "Features the famous dombra, kobyz, sybyzgy, and more.",
+        "Kazakh Museum of Folk Musical Instruments (Ykhlas Museum)",
+        "The museum is located in Park of 28 Panfilov Guardsmen in central Almaty.",
+        "It was founded in 1980 and is one of Kazakhstan’s most important cultural institutions.",
+        "The building itself is a historic wooden structure built in 1908, reflecting traditional Russian architecture.",
+        "The museum is named after Ykhlas Dukenuly, a respected Kazakh musician and composer.",
+        "Its collection includes over 1,000 traditional Kazakh musical instruments, making it the largest of its kind in the country.",
+        "The displays feature instruments such as dombra, kobyz, sybyzgy, zhetigen, kerney, and many rare regional instruments.",
+        "Many instruments belonged to famous musicians, including national artists and legendary performers.",
+        "The museum explains the role of music in Kazakh nomadic culture, rituals, battles, and storytelling traditions.",
+        "Visitors can see both ancient archaeological instruments and modern versions used in contemporary folk ensembles.",
+        "The museum also hosts cultural events, performances, and educational programs dedicated to preserving Kazakhstan’s musical heritage.",
       ],
       afterImages1: [museum],
+
+      /* MEMORIAL OF GLORY */
+      afterParagraphs2: ["Memorial of Glory"],
+      afterItems2: [
+        "Also located in the Park of 28 Panfilov Guardsmen, this memorial complex was opened in 1975 to honor the heroes of World War II.",
+        "It includes a triptych of sculptures titled “Feat,” “Oath,” and “Trumpeters of Glory.”",
+        "An eternal flame burns at the center of the memorial.",
+        "Capsules of earth from Soviet ‘hero cities’ are embedded beneath the monument.",
+      ],
+      afterImages2: [memory],
+
+      /* KASTEEV MUSEUM */
+      afterParagraphs3: ["A. Kasteyev State Museum of Arts"],
+      afterItems3: [
+        "This is the largest art museum in Kazakhstan.",
+        "It is named after the prominent Kazakh painter Abilkhan Kasteev.",
+        "The collection includes more than 23,000 works.",
+        "Exhibits feature Kazakh and Soviet art, as well as European, East Asian, and decorative art pieces.",
+      ],
+      afterImages3: [],
+
+      /* MUSEUM OF HISTORY OF ALMATY */
+      afterParagraphs4: ["Museum of History of Almaty"],
+      afterItems4: [
+        "This museum is located in a historic building that once served as the Vernensky orphanage.",
+        "It presents the story of Almaty from ancient times to the present day.",
+        "Exhibits include archaeology, city development, and major historical events.",
+        "One of the key topics covered is the December 1986 protests.",
+      ],
+      afterImages4: [],
     },
   ];
 
@@ -135,6 +184,9 @@ export default function AlmatyPage() {
     <div className={styles.container}>
       {/* LEFT SIDE */}
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Almaty, Kazakhstan</h1>
+        </div>
         <img src={AlmatyHero} loading="lazy" className={styles.heroImage} />
 
         {/* TABLE NAVIGATION */}

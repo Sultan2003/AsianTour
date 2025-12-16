@@ -713,13 +713,19 @@ export default function PrivateTourIdPage() {
                 // Remove any accidental 'Days: X' appearing inside hotelsRaw (safety)
                 hotelsRaw = hotelsRaw.replace(/Days\s*:\s*[0-9]+/gi, "").trim();
 
-                // Split hotels by commas, trim each and filter empties
-                const hotels = hotelsRaw
-                  ? hotelsRaw
-                      .split(/\s*,\s*/)
-                      .map((h) => h.trim())
-                      .filter(Boolean)
-                  : [];
+                const hotels = {};
+
+                const economyMatch = hotelsRaw.match(
+                  /Economy\s*:\s*"([^"]+)"/i
+                );
+                const standardMatch = hotelsRaw.match(
+                  /Standard\s*:\s*"([^"]+)"/i
+                );
+                const deluxeMatch = hotelsRaw.match(/Deluxe\s*:\s*"([^"]+)"/i);
+
+                if (economyMatch) hotels.Economy = economyMatch[1];
+                if (standardMatch) hotels.Standard = standardMatch[1];
+                if (deluxeMatch) hotels.Deluxe = deluxeMatch[1];
 
                 return { city, hotels, days };
               });
@@ -741,8 +747,26 @@ export default function PrivateTourIdPage() {
 
                         {/* hotels list (Days token removed) */}
                         <div className={styles.hotelList}>
-                          {a.hotels.length
-                            ? a.hotels.join(", ")
+                          {a.hotels && Object.keys(a.hotels).length
+                            ? Object.entries(a.hotels).map(
+                                ([type, hotelStr]) => (
+                                  <div key={type} className={styles.hotelGroup}>
+                                    <span className={styles.hotelType}>
+                                      {type}:
+                                    </span>
+
+                                    {hotelStr.split("/").map((hotel, idx) => (
+                                      <span
+                                        key={idx}
+                                        className={styles.hotelItem}
+                                      >
+                                        {idx > 0 && " / "}
+                                        {hotel.trim()}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )
+                              )
                             : "No hotels provided"}
                         </div>
                       </div>
@@ -796,8 +820,8 @@ export default function PrivateTourIdPage() {
                     <thead>
                       <tr>
                         <th></th>
+                        <th>Economy</th>
                         <th>Standard</th>
-                        <th>Comfort</th>
                         <th>Deluxe</th>
                         <th>Request</th>
                       </tr>
@@ -808,12 +832,12 @@ export default function PrivateTourIdPage() {
                         <tr key={index}>
                           <td data-label="Persons">{row.persons}</td>
 
-                          <td data-label="Standard">
-                            US$ {row.Standard.toLocaleString()}
+                          <td data-label="Economy">
+                            US$ {row.Economy.toLocaleString()}
                           </td>
 
-                          <td data-label="Comfort">
-                            US$ {row.Comfort.toLocaleString()}
+                          <td data-label="Standard">
+                            US$ {row.Standard.toLocaleString()}
                           </td>
 
                           <td data-label="Deluxe">
@@ -826,8 +850,8 @@ export default function PrivateTourIdPage() {
                               onClick={() => {
                                 setSelectedBooking({
                                   persons: row.persons,
+                                  economy: row.Economy,
                                   standard: row.Standard,
-                                  comfort: row.Comfort,
                                   deluxe: row.Deluxe,
                                 });
                                 setShowBookingModal(true);
@@ -1199,12 +1223,11 @@ export default function PrivateTourIdPage() {
               <thead>
                 <tr>
                   <th></th>
-                  <th>Stan</th>
-                  <th>Comf</th>
+                  <th>Economy</th>
+                  <th>Standard</th>
                   <th>Deluxe</th>
                 </tr>
               </thead>
-
               <tbody>
                 {parsedArray.map((row, index) => (
                   <tr key={index}>
@@ -1215,7 +1238,7 @@ export default function PrivateTourIdPage() {
                         className={styles.shortPriceValue}
                         onClick={scrollToRequest}
                       >
-                        {row.Standard.toLocaleString()}
+                        {row.Economy.toLocaleString()}
                       </span>
                     </td>
 
@@ -1224,7 +1247,7 @@ export default function PrivateTourIdPage() {
                         className={styles.shortPriceValue}
                         onClick={scrollToRequest}
                       >
-                        {row.Comfort.toLocaleString()}
+                        {row.Standard.toLocaleString()}
                       </span>
                     </td>
 
@@ -1398,8 +1421,8 @@ Tour: ${tour.title}
 Location: ${tour.location}
 
 Persons: ${selectedBooking.persons}
+Economy: ${selectedBooking.economy || "-"}
 Standard: ${selectedBooking.standard || "-"}
-Comfort: ${selectedBooking.comfort || "-"}
 Deluxe: ${selectedBooking.deluxe || "-"}
 
 Guest Name: ${fullName}
@@ -1459,11 +1482,11 @@ Guest Email: ${email}
                   <input
                     type="radio"
                     name="priceType"
-                    value="Comfort"
-                    checked={selectedPriceType === "Comfort"}
-                    onChange={() => setSelectedPriceType("Comfort")}
+                    value="Economy"
+                    checked={selectedPriceType === "Economy"}
+                    onChange={() => setSelectedPriceType("Economy")}
                   />
-                  Comfort — {selectedBooking.comfort}
+                  Economy — {selectedBooking.economy}
                 </label>
 
                 <label>

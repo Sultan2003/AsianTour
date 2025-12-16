@@ -21,6 +21,12 @@ body {
 /* Left = main content */
 .left {
   flex: 2;
+
+  .h1text {
+    font-size: 14px;
+    color: #0b1670;
+    margin-bottom: 20px;
+  }
 }
 
 /* Right sidebar */

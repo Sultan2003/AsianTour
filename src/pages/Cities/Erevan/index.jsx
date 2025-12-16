@@ -4,7 +4,6 @@ import ErevanHero from "../../../assets/Cities/Erevan/Eravan.png";
 import { useNavigate } from "react-router-dom";
 
 /* Yerevan */
-import er1 from "../../../assets/Cities/Erevan/Eravan.png";
 import er2 from "../../../assets/Cities/Erevan/Erevan 2.png";
 
 /* Garni Temple */
@@ -80,7 +79,7 @@ export default function ErevanPage() {
     {
       key: "history",
       title: "History",
-      paragraphs: [
+      items: [
         "Armenia is one of the world’s oldest nations, with a cultural legacy dating back over three millennia. The early Armenian state traces its roots to the Kingdom of Urartu (9th–6th century BC), centered around Lake Van.",
         "After the fall of Urartu, Armenians formed their own kingdom, and by the 6th century BC the region became widely known as Armenia. Under Tigranes the Great in the 1st century BC, Armenia briefly became a regional empire stretching from the Mediterranean to the Caspian Sea.",
         "A major turning point in Armenian history occurred in 301 AD, when Armenia became the first country to adopt Christianity as a state religion. This milestone shaped Armenian identity and inspired the creation of the Armenian alphabet in 405 AD by Mesrop Mashtots.",
@@ -90,15 +89,16 @@ export default function ErevanPage() {
         "Following brief independence in 1918, Armenia became part of the Soviet Union until its dissolution.",
         "Since declaring independence in 1991, Armenia has developed as a sovereign republic known for its ancient monasteries, dramatic mountain landscapes, and rich cultural heritage.",
       ],
-      images: [er1, er2],
+      images: [],
     },
 
     {
       key: "garni",
       title: "Garni Temple",
-      paragraphs: [
-        "Garni is the only preserved Greco-Roman pagan temple in the region.",
-        "It was built in the 1st century AD and stands above the Azat River Gorge.",
+      items: [
+        "Garni Temple is the only preserved Greco-Roman colonnaded temple in Armenia. ",
+        "Built in the 1st century AD, it was dedicated to the sun god Mihr. The temple stands dramatically above the Azat River gorge, offering panoramic views of the surrounding mountains.",
+        "Garni Temple represents Armenia’s pre-Christian heritage and classical architectural influence. It remains one of the country’s most visited historical landmarks.",
       ],
       images: [garni1, garni2, garni3],
     },
@@ -106,61 +106,79 @@ export default function ErevanPage() {
     {
       key: "geghard",
       title: "Geghard Monastery",
-      paragraphs: [
-        "A UNESCO World Heritage Site carved into rock.",
-        "Known for its ancient chambers and sacred relics.",
+      afterItems: [
+        "Geghard Monastery is a UNESCO World Heritage Site carved partially into solid rock. ",
+        "Dating back to the 4th century, it is renowned for its unique rock-cut churches and chambers.",
+        "The monastery was an important spiritual and cultural center of medieval Armenia. Its name means “Monastery of the Spear,” linked to the Holy Lance.",
+        "Geghard is admired for its harmony with the natural landscape and acoustic interiors.",
       ],
-      images: [geghard2, geghard3, geghard5],
+      afterImages: [geghard2, geghard3, geghard5],
     },
 
     {
       key: "khor",
       title: "Khor Virap",
-      paragraphs: [
-        "The most famous viewpoint of Mount Ararat.",
-        "Saint Gregory the Illuminator was imprisoned here.",
+      afterItems1: [
+        "Khor Virap is a historic monastery located near the Armenian-Turkish border with iconic views of Mount Ararat. It is closely associated with Saint Gregory the Illuminator, who was imprisoned here in the 4th century.",
+        "The site played a key role in the adoption of Christianity as Armenia’s state religion. Today, Khor Virap is an important pilgrimage and tourist destination. ",
+        "Its location makes it one of the most photographed sites in Armenia.",
       ],
-      images: [khor1, khor2, khor3],
+      afterImages1: [khor1, khor2, khor3],
     },
 
     {
       key: "sevan",
       title: "Lake Sevan",
-      paragraphs: [
-        "One of the largest high-altitude freshwater lakes in the world.",
-        "A major summer resort with beaches and monasteries.",
+      afterItems2: [
+        "Lake Sevan is the largest freshwater lake in Armenia and one of the highest alpine lakes in the world.",
+        "Situated at an altitude of about 1,900 meters, it is a vital source of water and biodiversity ",
+        "Lake Sevan plays an important role in Armenia’s ecology, economy, and tourism. It is a popular destination for summer отдых and cultural visits. The lake is surrounded by beaches, monasteries, and resort towns. ",
       ],
-      images: [sevan1, sevan2, sevan3],
+      afterImages2: [sevan1, sevan2, sevan3],
     },
-
     {
       key: "noravank",
       title: "Noravank Monastery",
-      paragraphs: [
-        "Built in the 13th century among red rock cliffs.",
-        "One of Armenia’s most beautiful canyon monasteries.",
+      afterItems3: [
+        "Noravank Monastery is a 13th-century religious complex set within a dramatic red rock canyon. It was an important spiritual and cultural center during medieval times.",
+        "The monastery is known for its intricate stone carvings and the two-storey Surb Astvatsatsin Church. ",
+        "Noravank is closely associated with the architect and sculptor Momik. Its scenic location makes it one of Armenia’s most picturesque monuments.",
       ],
-      images: [nor1, nor2, nor3],
+      afterImages3: [nor1, nor2, nor3],
     },
 
     {
       key: "tatev",
       title: "Tatev Monastery & Wings of Tatev",
-      paragraphs: [
-        "Medieval monastery on a dramatic cliff.",
-        "World-famous longest reversible cable car.",
+      afterItems4: [
+        "Tatev Monastery is a 9th-century monastic complex located on a cliff edge in southern Armenia. It once served as a major religious and educational center.",
+        "The monastery is accessible via the Wings of Tatev, the world’s longest reversible aerial tramway. ",
+        "This engineering achievement offers breathtaking views of the Vorotan Gorge. Together, they form one of Armenia’s top cultural and adventure tourism attractions.",
       ],
-      images: [tat1, tat2, tat3],
+      afterImages4: [tat1, tat2, tat3],
     },
 
     {
       key: "zvartnots",
       title: "Zvartnots Cathedral Ruins",
-      paragraphs: [
-        "A unique 7th-century circular cathedral.",
-        "UNESCO World Heritage Site.",
+      afterItems5: [
+        "Zvartnots Cathedral Ruins are the remains of a 7th-century circular cathedral near Yerevan.",
+        "The site is a UNESCO World Heritage Site recognized for its innovative architectural design.",
+        "Although destroyed by an earthquake, the ruins reveal advanced engineering techniques of early Armenian architecture. ",
+        "Zvartnots once symbolized the power of the Armenian Church. Today, it is an important archaeological and historical landmark.",
       ],
-      images: [zv1, zv2, zv3],
+      afterImages5: [zv1, zv2, zv3],
+    },
+    {
+      key: "Yerevan Republic Square & Cascade Complex",
+      title: "Yerevan Republic Square & Cascade Complex",
+      afterItems6: [
+        "Zvartnots Cathedral Ruins are the remains of a 7th-century circular cathedral near Yerevan.",
+        "The site is a UNESCO World Heritage Site recognized for its innovative architectural design.",
+        "Although destroyed by an earthquake, the ruins reveal advanced engineering techniques of early Armenian architecture. ",
+        "Zvartnots once symbolized the power of the Armenian Church. Today, it is an important archaeological and historical landmark.",
+      ],
+      afterImages6: [er2],
     },
   ];
 
@@ -202,6 +220,9 @@ export default function ErevanPage() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Yerevan - capital of Armenia</h1>
+        </div>
         <img src={ErevanHero} loading="lazy" className={styles.heroImage} />
 
         <div className={styles.tableNav}>
@@ -219,13 +240,213 @@ export default function ErevanPage() {
           ))}
         </div>
 
+        {/* CONTENT SECTIONS */}
         {sections.map((sec) => (
           <section key={sec.key} id={sec.key} className={styles.section}>
             <h3>{sec.title}</h3>
-            {sec.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
+
+            {sec.paragraphs?.map((p, i) => (
+              <p
+                key={i}
+                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+              />
             ))}
-            <ThreeDCarousel imgs={sec.images} />
+
+            {sec.items && (
+              <ul className={styles.bulletList}>
+                {sec.items.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {sec.images?.length > 1 && <ThreeDCarousel imgs={sec.images} />}
+            {sec.images?.length === 1 && (
+              <img
+                src={sec.images[0]}
+                loading="lazy"
+                className={styles.singleImage}
+              />
+            )}
+            {/* AFTER GROUP 1 */}
+            {sec.afterParagraphs?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages &&
+              (sec.afterImages.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages} />
+              ) : (
+                sec.afterImages.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {/* AFTER GROUP 2 */}
+            {sec.afterParagraphs1?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems1 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems1.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages1 &&
+              (sec.afterImages1.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages1} />
+              ) : (
+                sec.afterImages1.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {/* AFTER GROUP 3 */}
+            {sec.afterParagraphs2?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems2 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems2.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages2 &&
+              (sec.afterImages2.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages2} />
+              ) : (
+                sec.afterImages2.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {/* AFTER GROUP 4 */}
+            {sec.afterParagraphs3?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems3 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems3.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages3 &&
+              (sec.afterImages3.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages3} />
+              ) : (
+                sec.afterImages3.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+            {/* AFTER GROUP 5 */}
+            {sec.afterParagraphs4?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems4 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems4.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages4 &&
+              (sec.afterImages4.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages4} />
+              ) : (
+                sec.afterImages4.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+            {/* AFTER GROUP 6 */}
+            {sec.afterParagraphs5?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems5 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems5.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages5 &&
+              (sec.afterImages5.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages5} />
+              ) : (
+                sec.afterImages5.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+            {sec.afterItems6 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems6.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages6 &&
+              (sec.afterImages6.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages6} />
+              ) : (
+                sec.afterImages6.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
           </section>
         ))}
       </div>

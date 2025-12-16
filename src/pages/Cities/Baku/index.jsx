@@ -75,13 +75,13 @@ export default function BakuPage() {
         "In 1918, Azerbaijan declared the first democratic republic in the Muslim world.",
         "After Soviet rule, Azerbaijan regained independence in 1991 and became a modern energy and tourism hub.",
       ],
-      images: [boul1],
+      images: [],
     },
 
     {
       key: "old",
       title: "Baku Old City (Icherisheher)",
-      paragraphs: [
+      items: [
         "Baku Old City is the oldest part of the capital and a UNESCO World Heritage Site.",
         "It contains fortress walls, narrow streets, mosques, and caravanserais.",
         "The iconic Maiden Tower and Shirvanshahs Palace stand at its center.",
@@ -93,49 +93,49 @@ export default function BakuPage() {
     {
       key: "flame",
       title: "Flame Towers",
-      paragraphs: [
+      afterItems: [
         "The Flame Towers are the most recognizable modern buildings of Azerbaijan.",
         "Completed in 2012, they symbolize the country’s fire heritage.",
         "At night, LED screens display flames, water, and the national flag.",
         "They overlook the Caspian Sea and dominate Baku’s skyline.",
       ],
-      images: [flame1, flame2, flame3],
+      afterImages: [flame1, flame2, flame3],
     },
 
     {
       key: "boulevard",
       title: "Baku Boulevard (Caspian Sea Promenade)",
-      paragraphs: [
+      afterItems1: [
         "Baku Boulevard is one of the longest seaside promenades in the world.",
         "It was originally built in 1909 and is now a modern leisure zone.",
         "It includes parks, cafés, gondola canals, and the Carpet Museum.",
         "In the evening, the boulevard lights up with Flame Tower views.",
       ],
-      images: [boul1, boul2, boul3],
+      afterImages1: [boul1, boul2, boul3],
     },
 
     {
       key: "ateshgah",
       title: "Ateshgah Fire Temple (Surakhani)",
-      paragraphs: [
+      afterItems2: [
         "Ateshgah is a 17th–18th century fire worship temple near Baku.",
         "It was used by Hindu, Sikh, and Zoroastrian pilgrims.",
         "The temple is built around a central fire altar.",
         "Today it serves as a museum and major tourist site.",
       ],
-      images: [ate1],
+      afterImages2: [ate1],
     },
 
     {
       key: "sheki",
       title: "Sheki & Sheki Khan’s Palace",
-      paragraphs: [
+      afterItems3: [
         "Sheki is a mountain town known for architecture and crafts.",
         "Sheki Khan’s Palace was built in 1762 as a royal residence.",
         "It features unique stained-glass windows without glue or nails.",
         "The town is a UNESCO World Heritage Site.",
       ],
-      images: [sheki1, sheki2, sheki3],
+      afterImages3: [sheki1, sheki2, sheki3],
     },
   ];
 
@@ -179,6 +179,9 @@ export default function BakuPage() {
     <div className={styles.container}>
       {/* LEFT SIDE */}
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Baku, Azerbaijan</h1>
+        </div>
         <img src={BakuHero} loading="lazy" className={styles.heroImage} />
 
         {/* TABLE NAV */}
@@ -202,19 +205,142 @@ export default function BakuPage() {
           <section key={sec.key} id={sec.key} className={styles.section}>
             <h3>{sec.title}</h3>
 
-            {sec.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
+            {sec.paragraphs?.map((p, i) => (
+              <p
+                key={i}
+                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+              />
             ))}
 
-            {sec.images.length > 1 ? (
-              <ThreeDCarousel imgs={sec.images} />
-            ) : (
+            {sec.items && (
+              <ul className={styles.bulletList}>
+                {sec.items.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {sec.images?.length > 1 && <ThreeDCarousel imgs={sec.images} />}
+            {sec.images?.length === 1 && (
               <img
                 src={sec.images[0]}
                 className={styles.singleImage}
                 loading="lazy"
               />
             )}
+
+            {sec.afterParagraphs?.map((p, i) => (
+              <p
+                key={`afterP${i}`}
+                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+              />
+            ))}
+
+            {sec.afterItems && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems.map((item, i) => (
+                  <li key={`afterItem${i}`}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {sec.afterImages &&
+              (sec.afterImages.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages} />
+              ) : (
+                sec.afterImages.map((src, i) => (
+                  <img
+                    key={`afterImg${i}`}
+                    src={src}
+                    className={styles.singleImage}
+                    alt=""
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {sec.afterParagraphs1?.map((p, i) => (
+              <p
+                key={`afterParagraphs1${i}`}
+                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+              />
+            ))}
+
+            {sec.afterItems1 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems1.map((item, i) => (
+                  <li key={`afterItem1${i}`}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {sec.afterImages1 &&
+              (sec.afterImages1.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages1} />
+              ) : (
+                sec.afterImages1.map((src, i) => (
+                  <img
+                    key={`afterImg1${i}`}
+                    src={src}
+                    className={styles.singleImage}
+                    alt=""
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {sec.afterParagraphs2?.map((p, i) => (
+              <p
+                key={`afterParagraphs2${i}`}
+                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+              />
+            ))}
+
+            {sec.afterItems2 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems2.map((item, i) => (
+                  <li key={`afterItem2${i}`}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {sec.afterImages2 &&
+              (sec.afterImages2.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages2} />
+              ) : (
+                sec.afterImages2.map((src, i) => (
+                  <img
+                    key={`afterImg2${i}`}
+                    src={src}
+                    className={styles.singleImage}
+                    alt=""
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {sec.afterItems3 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems3.map((item, i) => (
+                  <li key={`afterItem3${i}`}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {sec.afterImages3 &&
+              (sec.afterImages3.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages3} />
+              ) : (
+                sec.afterImages3.map((src, i) => (
+                  <img
+                    key={`afterImg3${i}`}
+                    src={src}
+                    className={styles.singleImage}
+                    alt=""
+                    loading="lazy"
+                  />
+                ))
+              ))}
           </section>
         ))}
       </div>

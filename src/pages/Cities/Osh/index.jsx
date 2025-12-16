@@ -60,53 +60,65 @@ export default function OshPage() {
   const sections = [
     {
       key: "history",
-      title: "Osh – The Southern Capital of Kyrgyzstan",
+      title: "Hystory of Osh",
       paragraphs: [
-        "Osh is one of the oldest cities in Central Asia, often called the Southern Capital of Kyrgyzstan.",
+        "Osh is one of the oldest cities in Central Asia, often called the “Southern Capital” of Kyrgyzstan.",
         "Located in the fertile Fergana Valley, it has been a major trading center on the Silk Road for more than 3,000 years.",
-        "The city’s life revolves around a mix of ancient traditions, vibrant bazaars, and a strong multicultural atmosphere shaped by Kyrgyz, Uzbek, Tajik, and other communities.",
+        "The city’s life revolves around a mix of ancient traditions, vibrant bazaars, and a strong multicultural atmosphere shaped by Kyrgyz, Uzbek, Tajik, and other communities who have lived here for centuries.",
+        "At the heart of Osh stands Sulayman-Too Sacred Mountain, a UNESCO World Heritage Site and one of the most important spiritual places in the region.",
+        "Pilgrims climb the mountain for its panoramic views and its centuries-old shrines and caves associated with Islamic history and local legends.",
+        "Below the mountain lies Jayma Bazaar, one of the largest and oldest markets in Central Asia, where merchants have traded silk, spices, fabrics, fruits, and handmade goods for generations.",
       ],
-      images: [osh1],
+
+      images: [],
     },
 
     {
       key: "sulayman",
       title: "Sulayman-Too Sacred Mountain (UNESCO)",
-      paragraphs: [
-        "The main symbol of Osh and one of the most sacred mountains in Central Asia.",
-        "Visitors climb to the top for panoramic views of the city and explore ancient shrines, caves, and the small historical museum built inside the mountain.",
+      paragraphs: [],
+      items: [
+        "Sulayman-Too Sacred Mountain is a UNESCO World Heritage Site and the most important cultural landmark of Osh.",
+        "The mountain has been a place of pilgrimage for over a thousand years. It contains ancient petroglyphs, shrines, and historical pathways. ",
+        "Sulayman-Too represents a unique blend of spiritual traditions and cultural history in Central Asia.",
       ],
+
       images: [sul1],
     },
 
     {
       key: "jayma",
       title: "Jayma Bazaar",
-      paragraphs: [
-        "One of the oldest Silk Road bazaars, famous for its lively atmosphere.",
-        "Travelers come here to see traditional trade culture and buy spices, dried fruits, fabrics, handicrafts, and local food.",
+      paragraphs: [],
+      afterItems: [
+        "Jayma Bazaar is one of the oldest and largest markets in southern Kyrgyzstan. ",
+        "Located along the Ak-Buura River, it has served as a trading center since the Silk Road era. ",
+        "The bazaar offers a wide range of local products, including food, textiles, and handicrafts. It remains a vital part of daily economic and social life in Osh.",
       ],
-      images: [jayma1, jayma2, jayma3],
+      afterImages: [jayma1, jayma2, jayma3],
     },
 
     {
       key: "museum",
       title: "Osh National Historical & Archaeological Museum",
-      paragraphs: [
-        "Located at the base of Sulayman-Too, this museum shows thousands of years of Osh’s history.",
-        "It includes artifacts from ancient settlements, nomadic traditions, and Islamic culture.",
+      paragraphs: [],
+      afterItems1: [
+        "The Osh National Historical and Archaeological Museum is located within the Sulayman-Too mountain complex.",
+        "The museum showcases artifacts dating from ancient times to the medieval period. Its exhibits highlight the cultural development of the Fergana Valley.",
+        "The museum is an important center for historical research and education.",
       ],
-      images: [museum1],
+      afterImages1: [museum1],
     },
 
     {
       key: "yurt",
       title: "Osh Three-Storey Yurt (Ethnographic Complex)",
-      paragraphs: [
-        "A modern cultural complex designed like a giant traditional yurt.",
-        "It showcases Kyrgyz culture, crafts, and traditional performances.",
+      paragraphs: [],
+      afterItems2: [
+        "The Osh Three-Storey Yurt is a modern ethnographic complex inspired by traditional Kyrgyz dwellings. It represents nomadic culture through architecture, exhibitions, and cultural events",
+        "The structure symbolizes hospitality and national identity. It serves as a venue for festivals and educational programs in Osh.",
       ],
-      images: [yurt1],
+      afterImages2: [yurt1],
     },
   ];
 
@@ -150,6 +162,9 @@ export default function OshPage() {
     <div className={styles.container}>
       {/* LEFT SIDE */}
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Osh, Kyrgyzystan</h1>
+        </div>
         <img src={OshHero} loading="lazy" className={styles.heroImage} />
 
         {/* TABLE NAV */}
@@ -173,19 +188,134 @@ export default function OshPage() {
           <section key={sec.key} id={sec.key} className={styles.section}>
             <h3>{sec.title}</h3>
 
-            {sec.paragraphs.map((p, i) => (
+            {sec.paragraphs?.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
 
-            {sec.images.length > 1 ? (
-              <ThreeDCarousel imgs={sec.images} />
-            ) : (
-              <img
-                src={sec.images[0]}
-                className={styles.singleImage}
-                loading="lazy"
-              />
+            {sec.items && (
+              <ul className={styles.bulletList}>
+                {sec.items.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
             )}
+
+            {sec.images?.length > 1 && <ThreeDCarousel imgs={sec.images} />}
+            {sec.images?.length === 1 && (
+              <img src={sec.images[0]} className={styles.singleImage} />
+            )}
+
+            {/* afterParagraphs */}
+            {sec.afterParagraphs?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages &&
+              (sec.afterImages.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages} />
+              ) : (
+                sec.afterImages.map((src, i) => (
+                  <img key={i} src={src} className={styles.singleImage} />
+                ))
+              ))}
+            {/* AFTER PARAGRAPHS */}
+            {sec.afterParagraphs?.map((p, i) => (
+              <p
+                key={`ap${i}`}
+                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+              />
+            ))}
+
+            {sec.afterItems && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems.map((item, i) => (
+                  <li key={`ai${i}`}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {sec.afterImages &&
+              (sec.afterImages.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages} />
+              ) : (
+                sec.afterImages.map((src, i) => (
+                  <img
+                    key={`aimg${i}`}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {/* AFTER 1 */}
+            {sec.afterParagraphs1?.map((p, i) => (
+              <p
+                key={`ap1${i}`}
+                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+              />
+            ))}
+
+            {sec.afterItems1 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems1.map((item, i) => (
+                  <li key={`ai1${i}`}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {sec.afterImages1 &&
+              (sec.afterImages1.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages1} />
+              ) : (
+                sec.afterImages1.map((src, i) => (
+                  <img
+                    key={`aimg1${i}`}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {/* AFTER 2 */}
+            {sec.afterParagraphs2?.map((p, i) => (
+              <p
+                key={`ap2${i}`}
+                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+              />
+            ))}
+
+            {sec.afterItems2 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems2.map((item, i) => (
+                  <li key={`ai2${i}`}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {sec.afterImages2 &&
+              (sec.afterImages2.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages2} />
+              ) : (
+                sec.afterImages2.map((src, i) => (
+                  <img
+                    key={`aimg2${i}`}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+            {/* same for afterParagraphs1, 2, 3 */}
           </section>
         ))}
       </div>

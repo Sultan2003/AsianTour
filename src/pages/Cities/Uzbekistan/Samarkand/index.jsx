@@ -245,7 +245,15 @@ export default function SamarkandPage() {
     <div className={styles.container}>
       {/* LEFT — main content */}
       <div className={styles.left}>
-        <img src={Samarkand} className={styles.heroImage} alt="Samarkand" loading="lazy"/>
+        <div className={styles.h1text}>
+          <h1>Samarkand, Uzbekistan</h1>
+        </div>
+        <img
+          src={Samarkand}
+          className={styles.heroImage}
+          alt="Samarkand"
+          loading="lazy"
+        />
 
         {/* TABLE NAVIGATION */}
         <div className={styles.tableNav}>
@@ -310,7 +318,11 @@ export default function SamarkandPage() {
 
             {sec.images?.length > 1 && <ThreeDCarousel imgs={sec.images} />}
             {sec.images?.length === 1 && (
-              <img src={sec.images[0]} className={styles.singleImage} loading="lazy"/>
+              <img
+                src={sec.images[0]}
+                className={styles.singleImage}
+                loading="lazy"
+              />
             )}
 
             {sec.afterParagraphs?.map((p, i) => (

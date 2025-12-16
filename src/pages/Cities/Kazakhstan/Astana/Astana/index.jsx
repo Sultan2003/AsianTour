@@ -102,20 +102,29 @@ export default function AstanaPage() {
 
   /* CONTENT SECTIONS FOR ASTANA */
   const sections = [
+    /* ================= HISTORY ================= */
     {
       key: "history",
       title: "History",
-      paragraphs: [
-        "Astana, formerly Akmolinsk, began as a Cossack fort in 1830.",
-        "During Soviet times it became Tselinograd under the Virgin Lands campaign.",
-        "In 1997, Kazakhstan moved the capital from Almaty to Akmola.",
-        "In 1998, the city was renamed Astana, meaning “capital.”",
-        "Astana developed rapidly under a master plan by architect Kisho Kurokawa.",
+      paragraphs: [],
+      items: [
+        "The city began as a small settlement called Akmolinsk, founded in 1830 as a Cossack fort.",
+        "During Soviet times, under the Virgin Lands campaign, it became Tselinograd.",
+        "After Kazakhstan gained independence, in 1997, the capital was moved from Almaty to Akmola.",
+        "In 1998, Akmola was renamed Astana, which literally means “capital” in Kazakh.",
+        "The city has rapidly modernized, growing in population, size, and infrastructure.",
+        "There is a master plan for the city designed by the Japanese architect Kisho Kurokawa, giving much of its distinctive futuristic look.",
+        "The city began as a small settlement called Akmolinsk, founded in 1830 as a Cossack fort.",
+        "During Soviet times, under the Virgin Lands campaign, it became known as Tselinograd.",
+        "After Kazakhstan gained independence, in 1997, the capital was moved from Almaty to Akmola.",
+        "In 1998, Akmola was renamed Astana, which literally means “capital” in Kazakh.",
+        "The city has rapidly modernized, growing in population, size, and infrastructure.",
+        "There is a master plan for the city designed by the Japanese architect Kisho Kurokawa, giving much of Astana its distinctive futuristic look.",
       ],
       images: [],
     },
 
-    /* LANDMARKS */
+    /* ================= LANDMARKS ================= */
     {
       key: "landmarks",
       title: "Cultural Landmarks",
@@ -123,59 +132,85 @@ export default function AstanaPage() {
       /* BAITEREK */
       paragraphs: ["Baiterek Tower"],
       items: [
-        "Symbol of the Tree of Life and the sacred bird Samruk.",
-        "Panoramic 360° views of the capital.",
-        "One of the most famous icons of Kazakhstan.",
+        "Baiterek Tower is the main symbol of Astana, representing the Kazakh legend of the Tree of Life and the sacred bird Samruk.",
+        "The tower offers panoramic views of the modern capital from its glass observation deck.",
+        "Its futuristic design reflects Kazakhstan’s vision for progress and national identity.",
+        "It is one of the most visited attractions in the city.",
       ],
       images: [baiterek1, baiterek2, baiterek3],
 
       /* KHAN SHATYR */
       afterParagraphs: ["Khan Shatyr Entertainment Center"],
       afterItems: [
-        "Designed by Norman Foster; world’s largest tent structure.",
-        "Indoor beach, shops, cafes, and entertainment.",
-        "Symbolizes a modern version of the traditional Kazakh yurt.",
+        "Khan Shatyr is a giant tent-shaped complex designed by Norman Foster and serves as a major cultural and recreational hub.",
+        "Inside, visitors find shops, cafes, and even an indoor sandy beach.",
+        "The building symbolizes the traditional Kazakh yurt in a modern form.",
+        "It stands as one of Astana’s architectural icons.",
       ],
       afterImages: [khanShatyr],
 
       /* PALACE OF PEACE */
       afterParagraphs1: ["Palace of Peace and Reconciliation (The Pyramid)"],
       afterItems1: [
-        "Designed by Norman Foster for interfaith and cultural conferences.",
-        "Hosts opera halls, meeting rooms, and cultural exhibitions.",
-        "Symbol of unity among nations and religions.",
+        "This pyramid-shaped building hosts international peace, cultural, and interfaith events.",
+        "Designed by Norman Foster, it symbolizes unity among different nations and religions.",
+        "Inside, there are conference halls, an opera hall, and cultural exhibitions.",
+        "It is considered one of the most meaningful structures in the capital.",
       ],
       afterImages1: [palacePeace],
 
       /* HAZRAT SULTAN MOSQUE */
       afterParagraphs2: ["Hazrat Sultan Mosque"],
       afterItems2: [
-        "One of the largest mosques in Central Asia.",
-        "Features traditional Islamic architecture, domes, and calligraphy.",
-        "A spiritual and cultural center of the capital.",
+        "The Hazrat Sultan Mosque is one of the largest in Central Asia and features traditional Islamic architecture.",
+        "It includes beautifully decorated domes, spacious prayer halls, and ornate calligraphy.",
+        "The mosque serves as both a spiritual and cultural center for visitors and locals.",
+        "It is a key landmark representing Kazakh religious heritage.",
       ],
       afterImages2: [hazrat1, hazrat2, hazrat3, hazrat4, hazrat5],
 
       /* INDEPENDENCE SQUARE */
       afterParagraphs3: ["Independence Square (Kazakh Eli Square)"],
       afterItems3: [
-        "Central ceremonial square of Astana.",
-        "Home to the Kazakh Eli monument — symbol of independence.",
-        "Surrounded by major cultural and government buildings.",
+        "Independence Square is the central ceremonial area of Astana, used for national events and celebrations.",
+        "The Kazakh Eli monument, located here, symbolizes the country’s strength and unity.",
+        "Surrounding buildings include major cultural and government institutions.",
+        "It is an important gathering place for public life in the capital.",
       ],
       afterImages3: [independence1],
 
-      /* BOTANICAL GARDEN */
-      afterParagraphs4: ["Astana Botanical Garden"],
+      /* TRIUMPHAL ARCH */
+      afterParagraphs4: ["Triumphal Arch Mäñgilik El"],
       afterItems4: [
-        "One of the largest urban green zones.",
-        "Walking paths, diverse plants, and trees from different regions.",
-        "A natural contrast to the futuristic architecture of Astana.",
+        "The Triumphal Arch symbolizes Kazakhstan’s independence and aspirations for a bright future.",
+        "It features artistic sculptures representing history, culture, and peace.",
+        "The structure stands as a gateway to the modern part of the city.",
+        "It is a popular spot for photos and city tours.",
       ],
-      afterImages4: [botanical1, botanical2, botanical3],
+      afterImages4: [],
+
+      /* BOTANICAL GARDEN */
+      afterParagraphs5: ["Astana Botanical Garden"],
+      afterItems5: [
+        "The Botanical Garden is one of the largest urban green zones in the city, offering peaceful walking paths and diverse plant collections.",
+        "It features flora from different regions of the world, including Asia, Europe, and North America.",
+        "The garden is designed for both recreation and environmental education.",
+        "It provides a natural contrast to Astana’s futuristic architecture.",
+      ],
+      afterImages5: [botanical1, botanical2, botanical3],
+
+      /* JETISU PARK */
+      afterParagraphs6: ["Jetisu Park"],
+      afterItems6: [
+        "Jetisu Park reflects the natural landscapes and culture of the Jetisu region of Kazakhstan.",
+        "It contains fountains, bike paths, playgrounds, and large green spaces for families.",
+        "The park blends cultural symbolism with modern recreational design.",
+        "It is a popular place for relaxation and outdoor activities.",
+      ],
+      afterImages6: [],
     },
 
-    /* TRANSPORT */
+    /* ================= TRANSPORT ================= */
     {
       key: "transport",
       title: "City Transport",
@@ -184,18 +219,20 @@ export default function AstanaPage() {
         "The city uses buses, BRT lines, taxis, and modern infrastructure.",
       ],
       items: [
-        "Public buses cover entire city.",
-        "Modern BRT routes connect districts.",
+        "Public buses cover the entire city.",
+        "Modern BRT routes connect different districts.",
         "Taxi services include Yandex, Uber, and inDriver.",
       ],
       images: [],
-      afterParagraphs: [],
     },
   ];
 
   return (
     <div className={styles.container}>
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Astana, Kazakhstan</h1>
+        </div>
         <img src={Astana} loading="lazy" className={styles.heroImage} />
 
         {/* NAV MENU */}
@@ -414,11 +451,7 @@ export default function AstanaPage() {
       {/* RIGHT SIDE — SAME AS TASHKENT */}
       <div className={styles.right}>
         {astanaTours.map((tour) => (
-          <div
-            key={tour.id}
-            className={styles.tourCard}
-            
-          >
+          <div key={tour.id} className={styles.tourCard}>
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
               <h3>{tour.title}</h3>

@@ -85,45 +85,54 @@ export default function BukharaPage() {
       title: "Cultural Landmarks",
       paragraphs: ["Lyabi-Hauz Ensemble"],
       items: [
-        "A picturesque square centered around a pond, surrounded by historic madrasas and tea houses.",
-        "A great spot to relax and enjoy traditional architecture.",
+        "Lyabi-Hauz Ensemble is one of the most important historical squares in Bukhara, formed around a large water reservoir (hauz).",
+        "The complex dates back to the 16th–17th centuries and includes religious and educational buildings. It served as a social and cultural center for residents and travelers.",
+        "Lyabi-Hauz remains a popular gathering place reflecting the traditional urban design of Central Asia.",
       ],
       images: [lyabi, lyabi1, lyabi2],
 
       afterParagraphs: ["Kalyan Minaret and Mosque"],
       afterItems: [
-        "The iconic 12th-century minaret, part of the Po-i-Kalyan complex.",
-        "Famous as the ‘Tower of Death’ historically, offering stunning views.",
+        "The Kalyan Minaret and Mosque are iconic symbols of Bukhara’s Islamic heritage.",
+        "Built in the 12th century, the minaret was used both for the call to prayer and as a city landmark.",
+        "The mosque complex could accommodate thousands of worshippers during major religious events. Its architectural scale and decorative brickwork demonstrate the advanced engineering of the Karakhanid period.",
       ],
       afterImages: [kalyan, kalyan1, kalyan2],
 
       afterParagraphs1: ["Ark Fortress"],
       afterItems1: [
-        "An ancient citadel that served as residence of Bukhara’s rulers.",
-        "Contains museums and preserved royal chambers.",
+        "Ark Fortress is an ancient citadel that served as the political and administrative center of Bukhara for centuries. It was the residence of emirs and housed government offices, courts, and military barracks.",
+        "Archaeological evidence indicates continuous use of the fortress from at least the 5th century.",
+        "Ark Fortress functions as an open-air museum illustrating the city’s ruling history.",
       ],
       afterImages1: [ark, ark1, ark2],
 
       afterParagraphs2: ["Samanid Mausoleum"],
       afterItems2: [
-        "One of the oldest Islamic monuments in Central Asia.",
-        "Known for its incredible baked brickwork from the 9th–10th centuries.",
+        "The Samanid Mausoleum is one of the oldest surviving Islamic monuments in Central Asia, dating to the 9th–10th centuries. It was built as a family tomb for the Samanid dynasty.",
+        "The structure is renowned for its symmetrical design and intricate brick patterns. The mausoleum represents a transition between pre-Islamic and Islamic architectural traditions.",
       ],
       afterImages2: [samadin, samadin1, samadin2],
 
       afterParagraphs3: ["Bolo-Hauz Mosque"],
       afterItems3: [
-        "Famous for elegant wooden pillars and peaceful courtyard.",
+        "Bolo-Hauz Mosque was constructed in the early 18th century and served as a Friday mosque for the emir and officials. It is famous for its wooden columns decorated with colorful carvings.",
+        "The mosque is located near a water pool that enhanced its visual prominence. It remains an important example of traditional Bukharan religious architecture.",
       ],
       afterImages3: [bolo1, bolo2, bolo3, bolo4, bolo5],
 
       afterParagraphs4: ["Chor-Minor"],
-      afterItems4: ["A small but unique mosque with four distinct minarets."],
+      afterItems4: [
+        "Chor-Minor is a unique architectural monument distinguished by its four turquoise-domed towers. ",
+        "Built in the early 19th century, it originally served as a gatehouse for a madrasa. Each tower features different decorative elements, symbolizing cultural diversity.",
+        "Chor-Minor stands as one of the most recognizable landmarks in Bukhara.",
+      ],
       afterImages4: [chor1, chor2, chor3],
 
       afterParagraphs5: ["Magok-i-Attari Mosque"],
       afterItems5: [
-        "Built over a Zoroastrian temple, showcasing layers of Bukhara’s history.",
+        "Magok-i-Attari Mosque is one of the oldest religious sites in Bukhara, with origins dating back to pre-Islamic times. It was built on the site of an ancient market and later reconstructed as a mosque. ",
+        "The building is partially sunken due to centuries of urban development. Its architectural layers reflect the long religious and cultural history of the city.",
       ],
       afterImages5: [magoki],
     },
@@ -181,6 +190,9 @@ export default function BukharaPage() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Bukhara, Uzbekistan</h1>
+        </div>
         <img src={BukharaImg} className={styles.heroImage} loading="lazy" />
 
         <div className={styles.tableNav}>

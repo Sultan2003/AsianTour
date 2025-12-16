@@ -9,39 +9,15 @@
   padding-top: 20px;
 }
 
-/* ===== HERO ===== */
-.hero {
-  position: relative;
-  width: 100%;
-  max-width: 1000px;
-  height: 480px;
-  margin: 0 auto 24px;
-  border-bottom: 4px solid #081545;
-  border-radius: 8px;
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(10, 26, 68, 0.1);
-}
-
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.55),
-    rgba(0, 0, 0, 0.25),
-    transparent
-  );
-}
-
 .heroText {
-  position: absolute;
-  left: 40px;
-  bottom: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   z-index: 2;
-  color: #fff;
-  max-width: 700px;
+  color: #0b1670;
+  max-width: 1150px;
+  margin-left: calc((100% - 1150px) / 2);
 
   h1 {
     font-size: 42px;
@@ -61,8 +37,9 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: 20px auto 60px;
+  margin: 20px auto 0;
   padding: 0 1rem;
+  padding-bottom: 40px;
 }
 
 .visaInfo {

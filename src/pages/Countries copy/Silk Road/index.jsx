@@ -21,29 +21,15 @@ export default function SilkRoadToursDestinations() {
   }, [strapiLocale]);
 
   const destinations = [
-    // Uzbekistan
     "Samarkand",
     "Bukhara",
     "Khiva",
     "Tashkent",
-    "Shahrisabz",
-    // Kazakhstan
-    "Turkistan",
+
     "Almaty",
-    "Shymkent",
-    // Kyrgyzstan
+
     "Osh",
     "Bishkek",
-    "Uzgen",
-    "Tash Rabat Caravanserai",
-    // Tajikistan
-    "Khujand",
-    "Istaravshan",
-    "Panjakent",
-    // Turkmenistan
-    "Merv",
-    "Konye-Urgench",
-    "Ashgabat",
   ];
 
   const notes = [

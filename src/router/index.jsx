@@ -62,6 +62,7 @@ import DushanbePage from "../pages/Cities/Dushanbe";
 import ErevanPage from "../pages/Cities/Erevan";
 import AshgabatPage from "../pages/Cities/Ashgabat";
 import BakuPage from "../pages/Cities/Baku";
+import PlacestoVisit from "../pages/10BestPlaces";
 
 const Router = () => {
   return (
@@ -580,6 +581,14 @@ const Router = () => {
           element={
             <MainLayout>
               <AboutUs />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/10-Best-Places-to-visit-in-Uzbekistan"
+          element={
+            <MainLayout>
+              <PlacestoVisit />
             </MainLayout>
           }
         />

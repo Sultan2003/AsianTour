@@ -73,14 +73,14 @@ export default function TbilisiPage() {
         "Throughout the centuries, Persians, Arabs, Mongols, Turks, and Russians ruled or influenced the city, forming its multicultural identity.",
         "After Georgia regained independence in 1991, Tbilisi transformed into a modern capital while preserving its ancient heritage.",
       ],
-      images: [city1],
+      images: [],
     },
 
     /* Narikala Fortress */
     {
       key: "narikala",
       title: "Narikala Fortress",
-      paragraphs: [
+      items: [
         "Narikala Fortress is one of Tbilisi’s most iconic and oldest structures, originating from the 4th century.",
         "It was expanded by Persians, Arabs, Mongols, and Georgians throughout history.",
         "The fortress offers the best panoramic views of the Mtkvari River and historic districts.",
@@ -88,44 +88,43 @@ export default function TbilisiPage() {
       ],
       images: [nar1, nar2, nar3],
     },
-
     /* Old Tbilisi */
     {
       key: "old",
       title: "Old Tbilisi (Abanotubani & Historic District)",
-      paragraphs: [
+      afterItems: [
         "Old Tbilisi is known for its wooden balconies, narrow streets, old bathhouses, and multicultural architecture.",
         "Abanotubani is the famous sulfur bath district — the birthplace of the city.",
         "The neighborhood includes Georgian, Persian, Armenian, and Russian elements, reflecting centuries of coexistence.",
         "Walking here feels like stepping into a living open-air museum.",
       ],
-      images: [old1, old2, old3],
+      afterImages: [old1, old2, old3],
     },
 
     /* Bridge of Peace */
     {
       key: "bridge",
       title: "Bridge of Peace",
-      paragraphs: [
+      afterItems1: [
         "Opened in 2010, the Bridge of Peace is one of Tbilisi’s most modern and futuristic landmarks.",
         "Its glass and steel structure symbolizes unity and a connection between old and new Tbilisi.",
         "At night, over 10,000 LED lights illuminate the bridge with moving patterns.",
         "It provides stunning views of Narikala Fortress and the Mtkvari River.",
       ],
-      images: [bop1, bop2, bop3],
+      afterImages1: [bop1, bop2, bop3],
     },
 
     /* Sameba Cathedral */
     {
       key: "sameba",
       title: "Sameba Cathedral (Holy Trinity Cathedral)",
-      paragraphs: [
+      afterItems2: [
         "Sameba is one of the largest Orthodox cathedrals in the world and a major symbol of Georgian Christianity.",
         "Completed in 2004, it represents Georgia’s spiritual revival after Soviet rule.",
         "The cathedral’s golden dome is visible from many parts of the city.",
         "The complex includes chapels, a theological academy, and beautiful outdoor areas.",
       ],
-      images: [sam1, sam2, sam3],
+      afterImages2: [sam1, sam2, sam3],
     },
   ];
 
@@ -169,6 +168,9 @@ export default function TbilisiPage() {
     <div className={styles.container}>
       {/* LEFT SIDE */}
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Tbilisi - capital of Georgia</h1>
+        </div>
         <img src={TbilisiHero} loading="lazy" className={styles.heroImage} />
 
         {/* TABLE NAV */}
@@ -221,23 +223,138 @@ export default function TbilisiPage() {
         </div>
 
         {/* SECTIONS */}
+        {/* SECTIONS LOOP */}
         {sections.map((sec) => (
           <section key={sec.key} id={sec.key} className={styles.section}>
             <h3>{sec.title}</h3>
 
-            {sec.paragraphs.map((p, i) => (
+            {/* MAIN PARAGRAPHS */}
+            {sec.paragraphs?.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
 
-            {sec.images.length > 1 ? (
-              <ThreeDCarousel imgs={sec.images} />
-            ) : (
+            {/* MAIN BULLET LIST */}
+            {sec.items && (
+              <ul className={styles.bulletList}>
+                {sec.items.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            {/* CAROUSEL / SINGLE IMAGE */}
+            {sec.images?.length > 1 && <ThreeDCarousel imgs={sec.images} />}
+            {sec.images?.length === 1 && (
               <img
                 src={sec.images[0]}
                 className={styles.singleImage}
                 loading="lazy"
               />
             )}
+
+            {/* AFTER GROUP 1 */}
+            {sec.afterParagraphs?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages &&
+              (sec.afterImages.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages} />
+              ) : (
+                sec.afterImages.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {/* AFTER GROUP 2 */}
+            {sec.afterParagraphs1?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems1 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems1.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages1 &&
+              (sec.afterImages1.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages1} />
+              ) : (
+                sec.afterImages1.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {/* AFTER GROUP 3 */}
+            {sec.afterParagraphs2?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems2 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems2.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages2 &&
+              (sec.afterImages2.length > 1 ? (
+                <ThreeDCarousel imgs={sec.afterImages2} />
+              ) : (
+                sec.afterImages2.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    className={styles.singleImage}
+                    loading="lazy"
+                  />
+                ))
+              ))}
+
+            {/* AFTER GROUP 4 */}
+            {sec.afterParagraphs3?.map((p, i) => (
+              <p key={i}>
+                <strong>{p}</strong>
+              </p>
+            ))}
+            {sec.afterItems3 && (
+              <ul className={styles.bulletList}>
+                {sec.afterItems3.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
+            {sec.afterImages3 &&
+              sec.afterImages3.map((src, i) => (
+                <img
+                  key={i}
+                  src={src}
+                  className={styles.singleImage}
+                  loading="lazy"
+                />
+              ))}
           </section>
         ))}
       </div>

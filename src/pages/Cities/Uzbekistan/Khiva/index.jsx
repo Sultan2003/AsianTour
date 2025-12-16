@@ -10,7 +10,6 @@ import ichanQala1 from "../../../../assets/Cities/Khiva/Ichan qal'a.jpg";
 import itchanKala2 from "../../../../assets/Cities/Khiva/Itchan Kala (Inner Fortress) 2.jpg";
 import itchanKala3 from "../../../../assets/Cities/Khiva/Ichan qal'a 1.jpg";
 
-
 /* LANDMARKS */
 import islamKhodja1 from "../../../../assets/Cities/Khiva/Islam Khodja Minaret 2.jpg";
 import islamKhodja2 from "../../../../assets/Cities/Khiva/Islam Khodja Minaret.jpg";
@@ -37,8 +36,6 @@ import tashkhauli2 from "../../../../assets/Cities/Khiva/Tash-Khauli Palace (Sto
 import islamMinaret from "../../../../assets/Cities/Khiva/минарет Ислам-Ходжа.JPG";
 
 import pexels500 from "../../../../assets/Cities/Khiva/pexels-axp-photography-500641970-19473605.jpg";
-
-
 
 /* PAGE START */
 export default function KhivaPage() {
@@ -82,10 +79,15 @@ export default function KhivaPage() {
       key: "history",
       title: "History",
       paragraphs: [
-        "Khiva is one of the most ancient cities of Uzbekistan, with a history that stretches back more than 2,000 years.",
-        "It was an oasis city on the Silk Road and once the capital of the Khiva Khanate.",
-        "According to legend, Khiva was founded by Shem, the son of Noah.",
-        "Today, the inner city Itchan Kala is a UNESCO World Heritage Site.",
+        "According to legend, the ancient city of Khiva developed around a sacred well known as Heyvak, which was believed to have been dug by Sim, the son of the righteous Noah. Archaeological evidence confirms that the city already existed in the 6th century BC and was originally called Kheyvak. Remarkably, the legendary well still survives today in the very heart of the old city, making it one of Khiva’s most symbolic historical landmarks.",
+
+        "Before the Arab conquest, Khiva was an important Zoroastrian settlement and played a significant role in early regional culture and trade. In 712, following the conquest led by Qutayb Ibn Muslim, the city experienced major upheaval, during which many scholars and members of noble families were executed. Despite this devastation, Khiva recovered and flourished between the 9th and 11th centuries, becoming a prominent center of Islamic religion, science, and education.",
+
+        "During this golden era, world-renowned scholars such as Al-Khorezmi, the founder of algebra, and Al-Beruni made invaluable contributions to global science while working in the region. In 1220, however, the city was once again destroyed during the invasion of Central Asia by the armies of Genghis Khan.",
+
+        "In the 16th century, Uzbek nomadic tribes settled in Khiva, marking a new stage in its political history. In 1598, the city was officially declared the capital of the Khanate of Khiva and soon became one of the leading Islamic centers of Central Asia. Numerous mosques and madrassas were built during this period, transforming the city into a major hub of religious education.",
+
+        "The 18th and 19th centuries further enriched Khiva with magnificent architectural monuments, including grand khan palaces that still impress visitors today. In 1873, the Khanate of Khiva was partially conquered by Russian imperial forces, significantly altering its political status. The final chapter of the khanate ended in 1920 with the overthrow of the last ruler, Said Abdullah Khan. In 1924, Khiva was incorporated into the Uzbek SSR, becoming part of modern Uzbekistan’s historical legacy.",
       ],
       images: [],
     },
@@ -95,27 +97,33 @@ export default function KhivaPage() {
       title: "Cultural Landmarks",
       paragraphs: ["Itchan Kala (Inner Fortress)"],
       items: [
-        "The heart of Khiva — a walled city with narrow streets and ancient monuments.",
+        "Itchan Kala is the historic inner fortress of Khiva and a UNESCO World Heritage Site. It is surrounded by massive mud-brick walls and contains more than fifty historical monuments. ",
+        "The fortress served as the political, religious, and cultural center of Khiva. ",
+        "Itchan Kala functions as an open-air museum preserving the city’s medieval urban layout.",
       ],
       images: [ichanQala1, itchanKala2, itchanKala3],
 
       afterParagraphs: ["Kunya-Ark Citadel"],
       afterItems: [
-        "A fortified residence of Khiva’s khans with throne room, mosque, and harem.",
+        "Kunya-Ark Citadel was built in the 17th century as the residence of Khiva’s rulers. It included royal living quarters, administrative offices, and military facilities. .",
+        "The citadel symbolized the power and independence of the Khiva Khanate.",
+        "Visitors can explore its courtyards, mosque, and ceremonial halls.",
       ],
       afterImages: [kunya1, kunya2, kunya3],
 
       afterParagraphs1: ["Islam Khodja Minaret & Madrassah"],
       afterItems1: [
-        "The tallest minaret in Khiva (56.6 meters).",
-        "You can climb to the top for panoramic views.",
+        "The Islam Khodja Minaret and Madrassah form the tallest architectural complex in Khiva. ",
+        "Constructed in the early 20th century, the minaret reaches a height of 56.6 meters. ",
+        "The complex reflects a blend of traditional Khorezm architecture and modern influences of its time. It remains one of the most recognizable symbols of Khiva.",
       ],
       afterImages1: [islamKhodja1, islamKhodja2, islamMinaret],
 
       afterParagraphs2: ["Kalta Minor Minaret"],
       afterItems2: [
-        "One of the most iconic symbols of Khiva.",
-        "Famous for its turquoise tiles and unfinished height.",
+        "Kalta Minor Minaret is a striking yet unfinished monument located in Itchan Kala. ",
+        "Construction began in the mid-19th century but stopped after the death of the ruling khan. ",
+        "The minaret is distinguished by its wide cylindrical shape and colorful glazed tiles. Despite being incomplete, it is one of Khiva’s most photographed landmarks.",
       ],
       afterImages2: [
         kaltaMinor5,
@@ -129,22 +137,23 @@ export default function KhivaPage() {
 
       afterParagraphs3: ["Juma Mosque (Friday Mosque)"],
       afterItems3: [
-        "Unique for its 213 carved wooden columns.",
-        "The interior feels mystical with filtered sunlight.",
+        "Juma Mosque is one of the oldest and most unique mosques in Khiva. Its interior is supported by more than 200 carved wooden columns, some dating back to the 10th century.",
+        "The mosque lacks traditional domes, creating a distinctive open and airy atmosphere. It continues to serve both religious and historical functions.",
       ],
       afterImages3: [juma1, juma2],
 
       afterParagraphs4: ["Tash-Khauli Palace (Stone Palace)"],
       afterItems4: [
-        "Built in the 19th century for Allakuli Khan.",
-        "Known for its tilework and courtyards.",
+        "Tash-Khauli Palace was built in the 19th century as the main royal residence of the Khiva khans. ",
+        "The palace complex includes courtyards for official ceremonies, private living areas, and a harem. It is renowned for its rich tilework, carved wood, and ornamental details. ",
+        "Tash-Khauli reflects the luxury and power of Khiva’s ruling elite.",
       ],
       afterImages4: [tashkhauli1, tashkhauli2, pexels500],
 
       afterParagraphs5: ["Allakuli Khan Caravanserai and Tim"],
       afterItems5: [
-        "Ancient trading complex where merchants stayed.",
-        "Now filled with local handicrafts and souvenirs.",
+        "The Allakuli Khan Caravanserai and Tim were constructed in the 19th century to support international trade. They provided accommodation, storage, and trading spaces for merchants and caravans. ",
+        "The complex played a key role in Khiva’s economic life during the Silk Road period. Today, it houses museums and artisan shops, preserving its commercial heritage.",
       ],
       afterImages5: [],
     },
@@ -206,6 +215,9 @@ export default function KhivaPage() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Khiva, Uzbekistan</h1>
+        </div>
         <img src={Khiva} loading="lazy" className={styles.heroImage} />
 
         <div className={styles.tableNav}>

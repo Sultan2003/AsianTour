@@ -145,7 +145,7 @@ export default function TashkentPage() {
       ],
       afterImages4: [landmark13],
 
-      afterParagraphs5: ["Khazrati Ali Mosque"],
+      afterParagraphs5: ["Khazrati Ali Mosque (Hazrat Imam Complex)"],
       afterItems5: [
         "Near the Hazrat Imam Complex; a less-crowded alternative with a peaceful atmosphere.",
         "Offers insight into Islamic architecture and local traditions",
@@ -246,14 +246,12 @@ export default function TashkentPage() {
 
       images: [transport1],
 
-      
       afterItems: [
         "It’s clean, safe, cheap (around $0.10 per ride), and beautifully decorated — every station has unique architecture and mosaics.",
         "There are 4 main lines connecting almost all city districts and tourist spots.",
         "Best stations to see: Kosmonavtlar, Alisher Navoi, Pakhtakor, Mustaqillik Maydoni, Yunus Rajabiy Subway Station.",
       ],
 
-     
       afterImages: [transport2, transport3, transport4, transport5, transport6], // Carousel group
     },
   ];
@@ -305,6 +303,9 @@ export default function TashkentPage() {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
+        <div className={styles.h1text}>
+          <h1>Tashkent - capital of Uzbekiston</h1>
+        </div>
         <img src={Tashkent} loading="lazy" className={styles.heroImage} />
 
         {/* NEW TABLE NAVIGATION */}

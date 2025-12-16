@@ -1146,27 +1146,32 @@
         color: #555;
       }
     }
-
+    .hotelType {
+      font-weight: 700;
+      color: #1a2950;
+      margin-right: 15px;
+    }
     .hotelList {
       display: flex;
+      flex-direction: column;
       flex-wrap: wrap;
       line-height: 1.9;
       gap: 8px;
 
       .hotelItem {
-        background: #eef2ff;
-        color: #0b1670;
-        padding: 6px 10px;
-        border-radius: 8px;
+        background: transparent;
+        color: #1a2950;
+        padding: 0;
+        border-radius: 0;
         font-size: 14px;
-        font-weight: 600;
-        transition: all 0.25s ease;
+       
+        transition: none;
 
         &:hover {
-          background: #0b1670;
-          color: #fff;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 10px rgba(11, 22, 112, 0.2);
+          background: transparent;
+          color: #1a2950;
+          transform: none;
+          box-shadow: none;
         }
       }
     }
@@ -2176,7 +2181,6 @@
   margin-bottom: 8px;
 }
 
-/* ✅ MOBILE STACK */
 @media (max-width: 768px) {
   .priceIncludeWrapper {
     grid-template-columns: 1fr;

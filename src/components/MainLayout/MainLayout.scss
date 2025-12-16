@@ -1,13 +1,11 @@
 .main-layout {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;   // 🚀 prevent horizontal overflow
   display: flex;
   flex-direction: column;
-  min-height: 100vh;    // ensures footer sticks at bottom if little content
-
+  min-height: 100vh; // ensures footer sticks at bottom if little content
 
   main {
-    flex: 1;            // pushes footer to bottom
+    flex: 1; // pushes footer to bottom
   }
 }
