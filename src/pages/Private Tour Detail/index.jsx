@@ -105,8 +105,8 @@ export default function PrivateTourIdPage() {
   ];
 
   const STYLED_WORDS = [
-    { word: "Important", className: styles.importantWord },
-    { word: "Luxury", className: styles.luxuryWord },
+    { word: "", className: styles.importantWord },
+    { word: "", className: styles.luxuryWord },
   ];
 
   const t =
@@ -335,6 +335,9 @@ export default function PrivateTourIdPage() {
     }
   };
 
+  const days = calculateDays(tour?.startDate, tour?.endDate);
+  const isOneDayTour = days === 1;
+
   const formatDate = (iso) =>
     new Date(iso).toLocaleDateString("en-GB", {
       day: "2-digit",
@@ -482,6 +485,15 @@ export default function PrivateTourIdPage() {
       : Number(years[years.length - 1]) || currentYear
   );
 
+  const oneDayPrices = useMemo(() => {
+    if (!isOneDayTour) return [];
+
+    return parsedArray.map((row) => ({
+      persons: row.persons,
+      price: row.Standard ?? row.Economy ?? row.Deluxe,
+    }));
+  }, [parsedArray, isOneDayTour]);
+
   if (!tour) {
     return (
       <div className={styles.tourPage}>
@@ -490,7 +502,6 @@ export default function PrivateTourIdPage() {
     );
   }
 
-  const days = calculateDays(tour.startDate, tour.endDate);
   const tourImages = images.filter((img) => img.alternativeText === tour.title);
 
   const tourVideo = images.find(
@@ -503,13 +514,23 @@ export default function PrivateTourIdPage() {
   const processTextBeforeRender = (rawText) => {
     if (!rawText) return null;
 
-    // 1️⃣ First split by new lines
     const lines = rawText.split("\n");
 
     return lines.map((line, lineIndex) => {
+      const trimmedLine = line.trim();
+
+      // ✅ SPECIAL STYLE ONLY FOR "Tour itinerary:"
+      if (trimmedLine.toLowerCase() === "tour itinerary:") {
+        return (
+          <h3 key={lineIndex} className={styles.itineraryLine}>
+            {trimmedLine}
+          </h3>
+        );
+      }
+
       let parts = [line];
 
-      // 2️⃣ Apply LINKS
+      // 🔗 Apply LINKS
       LINK_WORDS.forEach(({ word, url }) => {
         parts = parts.flatMap((part, i) => {
           if (typeof part !== "string") return part;
@@ -533,7 +554,7 @@ export default function PrivateTourIdPage() {
         });
       });
 
-      // 3️⃣ Apply STYLED WORDS
+      // ✨ Apply STYLED WORDS
       STYLED_WORDS.forEach(({ word, className }) => {
         parts = parts.flatMap((part, i) => {
           if (typeof part !== "string") return part;
@@ -560,6 +581,23 @@ export default function PrivateTourIdPage() {
       );
     });
   };
+
+  const hasValidItinerary = (() => {
+    if (!tour?.daysdescription) return false;
+
+    const text = tour.daysdescription.trim();
+
+    // split by any whitespace
+    const words = text.split(/\s+/);
+
+    // ❌ hide ONLY if exactly one word and it's "empty"
+    if (words.length === 1 && words[0].toLowerCase() === "empty") {
+      return false;
+    }
+
+    // ✅ show in all other cases
+    return true;
+  })();
 
   return (
     <div className={styles.tourPage}>
@@ -647,33 +685,38 @@ export default function PrivateTourIdPage() {
           </section>
 
           {/* Itinerary */}
-          <section ref={itineraryRef} className={styles.tabContent}>
-            <h2>{t.itinerary}</h2>
-            <div className={styles.accordion}>
-              {parsedDays.map((d, idx) => (
-                <div key={idx} className={styles.accItem}>
-                  <button
-                    className={`${styles.accHead} ${
-                      open[idx] ? styles.open : ""
-                    }`}
-                    onClick={() => toggle(idx)}
-                  >
-                    <span className={styles.dayTitle}>{d.title}</span>
-                    <span className={styles.chev} />
-                  </button>
-                  <div
-                    className={`${styles.accPanel} ${
-                      open[idx] ? styles.show : ""
-                    }`}
-                  >
-                    <div className={styles.itineraryText}>
-                      {processTextBeforeRender(d.body)}
+          {hasValidItinerary && (
+            <section ref={itineraryRef} className={styles.tabContent}>
+              <h2>{t.itinerary}</h2>
+
+              <div className={styles.accordion}>
+                {parsedDays.map((d, idx) => (
+                  <div key={idx} className={styles.accItem}>
+                    <button
+                      className={`${styles.accHead} ${
+                        open[idx] ? styles.open : ""
+                      }`}
+                      onClick={() => toggle(idx)}
+                    >
+                      <span className={styles.dayTitle}>{d.title}</span>
+                      <span className={styles.chev} />
+                    </button>
+
+                    <div
+                      className={`${styles.accPanel} ${
+                        open[idx] ? styles.show : ""
+                      }`}
+                    >
+                      <div className={styles.itineraryText}>
+                        {processTextBeforeRender(d.body)}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
+                ))}
+              </div>
+            </section>
+          )}
+
           {/* ACCOMMODATION */}
           {Array.isArray(tour.description) &&
             (() => {
@@ -813,7 +856,36 @@ export default function PrivateTourIdPage() {
           <section ref={pricesRef} className={styles.tabContent}>
             <h2>Prices, per person</h2>
 
-            {parsedArray.length > 0 && (
+            {/* ✅ 1-DAY TOUR */}
+            {isOneDayTour && (
+              <div className={styles.oneDayPriceList}>
+                {oneDayPrices.map((item, i) => (
+                  <div className={styles.oneDayRow}>
+                    <div className={styles.personprice}>
+                      <span>{item.persons}</span>
+                      <strong>US$ {item.price}</strong>
+                    </div>
+                    <div className={styles.oneDayPrice}>
+                      <button
+                        className={styles.oneDayRequest}
+                        onClick={() => {
+                          setSelectedBooking({
+                            persons: item.persons,
+                            standard: item.price,
+                          });
+                          setShowBookingModal(true);
+                        }}
+                      >
+                        Request
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* ✅ MULTI-DAY TOUR (existing table) */}
+            {!isOneDayTour && parsedArray.length > 0 && (
               <div className={styles.datesTableSection}>
                 <div className={styles.datesTableWrapper}>
                   <table className={styles.datesTable}>
@@ -826,25 +898,14 @@ export default function PrivateTourIdPage() {
                         <th>Request</th>
                       </tr>
                     </thead>
-
                     <tbody>
                       {parsedArray.map((row, index) => (
                         <tr key={index}>
-                          <td data-label="Persons">{row.persons}</td>
-
-                          <td data-label="Economy">
-                            US$ {row.Economy.toLocaleString()}
-                          </td>
-
-                          <td data-label="Standard">
-                            US$ {row.Standard.toLocaleString()}
-                          </td>
-
-                          <td data-label="Deluxe">
-                            US$ {row.Deluxe.toLocaleString()}
-                          </td>
-
-                          <td data-label="Request">
+                          <td>{row.persons}</td>
+                          <td>US$ {row.Economy}</td>
+                          <td>US$ {row.Standard}</td>
+                          <td>US$ {row.Deluxe}</td>
+                          <td>
                             <button
                               className={styles.bookBtn}
                               onClick={() => {
@@ -854,6 +915,7 @@ export default function PrivateTourIdPage() {
                                   standard: row.Standard,
                                   deluxe: row.Deluxe,
                                 });
+                                setSelectedPriceType("Standard"); // reset default
                                 setShowBookingModal(true);
                               }}
                             >
@@ -1219,99 +1281,42 @@ export default function PrivateTourIdPage() {
 
             {/* SHORT PRICE TABLE */}
             {/* SHORT PRICE TABLE – CLEANED + ALIGNED */}
-            <table className={styles.shortPrice}>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Economy</th>
-                  <th>Standard</th>
-                  <th>Deluxe</th>
-                </tr>
-              </thead>
-              <tbody>
-                {parsedArray.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.persons}</td>
-
-                    <td>
-                      <span
-                        className={styles.shortPriceValue}
-                        onClick={scrollToRequest}
-                      >
-                        {row.Economy.toLocaleString()}
-                      </span>
-                    </td>
-
-                    <td>
-                      <span
-                        className={styles.shortPriceValue}
-                        onClick={scrollToRequest}
-                      >
-                        {row.Standard.toLocaleString()}
-                      </span>
-                    </td>
-
-                    <td>
-                      <span
-                        className={styles.shortPriceValue}
-                        onClick={scrollToRequest}
-                      >
-                        {row.Deluxe.toLocaleString()}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* === RELATED TOURS SIDEBAR (matching Uzbekistan page behaviour) === */}
-          <aside className={styles.sidebar} style={{ marginTop: 18 }}>
-            <h3>{tour.location} Private Tours</h3>
-
-            {Object.keys(relatedCategories).map((cat) => {
-              const items = relatedCategories[cat] || [];
-              const isOpen = !!openCats[cat];
-              return (
-                <div
-                  key={cat}
-                  className={`${styles.catBlock} ${isOpen ? styles.open : ""}`}
-                  style={{ marginBottom: 12 }}
-                >
-                  <div
-                    className={styles.catTitle}
-                    onClick={() => toggleCategory(cat)}
-                  >
-                    <span>{cat} Tours</span>
-                    <div className={styles.catMeta}>
-                      <span className={styles.count}>({items.length})</span>
-                      <span>{isOpen ? "▾" : "▸"}</span>
-                    </div>
+            {/* ✅ 1-DAY TOUR — SIMPLE LIST */}
+            {isOneDayTour && (
+              <div className={styles.shortOneDay}>
+                {oneDayPrices.map((item, i) => (
+                  <div key={i} className={styles.shortOneDayRow}>
+                    <span>{item.persons}</span>
+                    <strong>US$ {item.price}</strong>
                   </div>
+                ))}
+              </div>
+            )}
 
-                  <ul className={styles.catList}>
-                    {items.length === 0 && (
-                      <li className={styles.catEmpty}>No tours</li>
-                    )}
-                    {items.slice(0, 8).map((tItem) => (
-                      <li
-                        key={tItem.id}
-                        className={styles.catItem}
-                        onClick={() => {
-                          navigate(`/Private-tour/${tItem.documentId}`);
-                          window.scrollTo({ top: 0, behavior: "smooth" });
-                          setTimeout(() => window.location.reload(), 80);
-                        }}
-                        style={{ cursor: "pointer" }}
-                      >
-                        {tItem.title}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </aside>
+            {/* ✅ MULTI-DAY TOUR — EXISTING TABLE */}
+            {!isOneDayTour && (
+              <table className={styles.shortPrice}>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Economy</th>
+                    <th>Standard</th>
+                    <th>Deluxe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {parsedArray.map((row, index) => (
+                    <tr key={index}>
+                      <td>{row.persons}</td>
+                      <td>{row.Economy}</td>
+                      <td>{row.Standard}</td>
+                      <td>{row.Deluxe}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
 
           {tourVideo && (
             <div className={styles.videoContainer}>
@@ -1353,6 +1358,53 @@ export default function PrivateTourIdPage() {
               </div>
             </div>
           )}
+
+          {/* === RELATED TOURS SIDEBAR (matching Uzbekistan page behaviour) === */}
+          <aside className={styles.sidebar} style={{ marginTop: 18 }}>
+            <h3>{tour.location} Private Tours</h3>
+
+            {Object.keys(relatedCategories).map((cat) => {
+              const items = relatedCategories[cat] || [];
+              const isOpen = !!openCats[cat];
+              return (
+                <div
+                  key={cat}
+                  className={`${styles.catBlock} ${isOpen ? styles.open : ""}`}
+                  style={{ marginBottom: 12 }}
+                >
+                  <div
+                    className={styles.catTitle}
+                    onClick={() => toggleCategory(cat)}
+                  >
+                    <span>{cat} Tours</span>
+                    <div className={styles.catMeta}>
+                      <span className={styles.count}>({items.length})</span>
+                      <span>{isOpen ? "▾" : "▸"}</span>
+                    </div>
+                  </div>
+
+                  <ul className={styles.catList}>
+                    {items.length === 0 && (
+                      <li className={styles.catEmpty}>No tours</li>
+                    )}
+                    {items.slice(0, 8).map((tItem) => (
+                      <li
+                        key={tItem.id}
+                        className={styles.catItem}
+                        onClick={() => {
+                          const slug = makeSlug(tItem.title);
+                          navigate(`/Private-tour/${slug}`);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {tItem.title}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </aside>
         </div>
       </div>
       {showVideoModal && (

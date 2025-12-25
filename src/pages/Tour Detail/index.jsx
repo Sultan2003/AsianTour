@@ -1333,6 +1333,8 @@ export default function TourIdPage() {
           </section>
         </div>
 
+        
+
         {/* Right card */}
         <div>
           <div className={styles.detailsCard}>
@@ -1370,6 +1372,47 @@ export default function TourIdPage() {
               {t.bookNow}
             </button>
           </div>
+
+          {tourVideo && (
+            <div className={styles.videoContainer}>
+              <h3>{t.videoTitle || "Travel Route Map"}</h3>
+
+              <div
+                className={styles.videoPreview}
+                onClick={() => setShowVideoModal(true)}
+              >
+                <video
+                  controls={false}
+                  preload="none"
+                  poster={
+                    tourImages?.length
+                      ? tourImages[0].url
+                      : "/placeholder-video-thumbnail.jpg"
+                  }
+                  width="100%"
+                  style={{
+                    borderRadius: "10px",
+                    marginTop: "10px",
+                    maxHeight: "250px",
+                    objectFit: "cover",
+                    backgroundColor: "#000",
+                    cursor: "pointer",
+                  }}
+                >
+                  <source
+                    src={
+                      tourVideo.url.startsWith("http")
+                        ? tourVideo.url
+                        : `${STRAPI_BASE}${tourVideo.url}`
+                    }
+                    type="video/mp4"
+                  />
+                </video>
+
+                <div className={styles.playOverlay}>▶</div>
+              </div>
+            </div>
+          )}
 
           {/* === RELATED TOURS SIDEBAR (matching Uzbekistan page behaviour) === */}
           <aside className={styles.sidebar} style={{ marginTop: 18 }}>
@@ -1420,46 +1463,6 @@ export default function TourIdPage() {
             })}
           </aside>
 
-          {tourVideo && (
-            <div className={styles.videoContainer}>
-              <h3>{t.videoTitle || "Travel Route Map"}</h3>
-
-              <div
-                className={styles.videoPreview}
-                onClick={() => setShowVideoModal(true)}
-              >
-                <video
-                  controls={false}
-                  preload="none"
-                  poster={
-                    tourImages?.length
-                      ? tourImages[0].url
-                      : "/placeholder-video-thumbnail.jpg"
-                  }
-                  width="100%"
-                  style={{
-                    borderRadius: "10px",
-                    marginTop: "10px",
-                    maxHeight: "250px",
-                    objectFit: "cover",
-                    backgroundColor: "#000",
-                    cursor: "pointer",
-                  }}
-                >
-                  <source
-                    src={
-                      tourVideo.url.startsWith("http")
-                        ? tourVideo.url
-                        : `${STRAPI_BASE}${tourVideo.url}`
-                    }
-                    type="video/mp4"
-                  />
-                </video>
-
-                <div className={styles.playOverlay}>▶</div>
-              </div>
-            </div>
-          )}
 
           {showVideoModal && (
             <div

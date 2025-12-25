@@ -358,7 +358,7 @@
   border-radius: 18px;
   padding: 22px 20px;
   box-shadow: 0 10px 28px rgba(10, 26, 68, 0.08);
-  max-width: 300px;
+  max-width: 340px;
   margin-left: 10px;
   margin-top: 20px;
 }
@@ -1164,7 +1164,7 @@
         padding: 0;
         border-radius: 0;
         font-size: 14px;
-       
+
         transition: none;
 
         &:hover {
@@ -1685,13 +1685,13 @@
   }
 }
 .videoContainer {
-  background: #f8f9fb;
+  background: #ffffff;
   border-radius: 12px;
   padding: 10px;
   margin-top: 16px;
   margin-left: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  width: 75%;
+  width: 85%;
   h3 {
     margin-bottom: 8px;
     font-size: 1.1rem;
@@ -2185,4 +2185,79 @@
   .priceIncludeWrapper {
     grid-template-columns: 1fr;
   }
+}
+.tabContent .itineraryLine {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0a1a44;
+  margin-bottom: 18px;
+}
+.oneDayPriceList {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.oneDayRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.personprice{
+  display: flex;
+  gap: 100px;
+}
+
+.oneDayRow:last-child {
+  border-bottom: none;
+}
+
+.oneDayRow span {
+  font-size: 15px;
+  color: #0a1a44;
+}
+
+.oneDayPrice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.oneDayPrice strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0a1a44;
+}
+
+.oneDayRequest {
+  font-size: 14px;
+  padding: 4px 10px;
+  border: 1px solid #9aa3b2;
+  background: #2eac3f;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.oneDayRequest:hover {
+  background: #f5f7fb;
+}
+
+.shortOneDay {
+  margin-top: 8px;
+}
+
+.shortOneDayRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 4px;
+  font-size: 14px;
+  color: #0a1a44;
+}
+
+.shortOneDayRow strong {
+  font-weight: 700;
 }
