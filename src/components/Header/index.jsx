@@ -4,6 +4,7 @@ import logo from "../../assets/background/Logo 2.png";
 import { useState, useContext } from "react";
 import { LanguageContext } from "../../context/LanguageContext";
 import headerTranslations from "../../translations/header";
+import TranslateWidget from "../TranslateWidget/TranslateWidget";
 
 export default function Header() {
   const [openFilter, setOpenFilter] = useState(false);
@@ -55,6 +56,7 @@ export default function Header() {
           <span className={styles.subtitle}>{t.groupTour}</span>
           <span className={styles.price}>{t.fromPrice}</span>
         </a>
+        <TranslateWidget />
       </div>
 
       {/* Nav bar */}

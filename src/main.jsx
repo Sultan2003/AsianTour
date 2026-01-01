@@ -8,7 +8,6 @@ import TranslateWidget from "./components/TranslateWidget/TranslateWidget";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <LanguageProvider>
-      <TranslateWidget />
       <Router />
     </LanguageProvider>
   </BrowserRouter>

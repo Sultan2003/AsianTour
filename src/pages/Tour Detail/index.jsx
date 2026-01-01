@@ -496,7 +496,27 @@ export default function TourIdPage() {
   if (!tour) {
     return (
       <div className={styles.tourPage}>
-        <p className={styles.loading}>Loading tour details…</p>
+        <Helmet>
+          <title>Uzbekistan Tour | Gotocentralasia</title>
+          <meta
+            name="description"
+            content="Explore unforgettable tours in Uzbekistan and Central Asia."
+          />
+          <link
+            rel="canonical"
+            href={`https://www.gotocentralasia.com/tour/${slug}`}
+          />
+        </Helmet>
+
+        <div className={styles.heroContainer}>
+          <div className={styles.hero}>
+            <div className={styles.overlay} />
+            <div className={styles.heroContent}>
+              <h1>Uzbekistan Tour</h1>
+              <p>Loading tour details…</p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -595,7 +615,16 @@ export default function TourIdPage() {
           property="og:description"
           content={`${tour.title} — ${tour.location}. ${days} days.`}
         />
-        <meta property="og:image" content={tourImages[0]?.url} />
+        <meta
+          property="og:image"
+          content={
+            tourImages[0]?.url
+              ? tourImages[0].url.startsWith("http")
+                ? tourImages[0].url
+                : `${STRAPI_BASE}${tourImages[0].url}`
+              : "https://www.gotocentralasia.com/preview.jpg"
+          }
+        />
 
         {/* Twitter Card */}
         <meta name="twitter:title" content={tour.title} />
@@ -605,7 +634,6 @@ export default function TourIdPage() {
         />
         <meta name="twitter:image" content={tourImages[0]?.url} />
       </Helmet>
-      ;
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
@@ -627,7 +655,7 @@ export default function TourIdPage() {
               "@type": "ListItem",
               position: 3,
               name: tour.title,
-              item: `https://www.gotocentralasia.com/tour/${tour.documentId}`,
+              item: `https://www.gotocentralasia.com/tour/${slug}`,
             },
           ],
         })}
@@ -637,23 +665,23 @@ export default function TourIdPage() {
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "TouristTrip",
-          name: tour?.title,
-          description: tour?.description,
+          name: tour.title,
+          description: tour.plainDescription || "",
           image: tourImages.map((i) => i.url),
           offers: {
             "@type": "Offer",
-            price: tour?.price,
+            price: tour.price,
             priceCurrency: "USD",
-            availability: tour?.availableSeats > 0 ? "InStock" : "SoldOut",
+            availability: tour.availableSeats > 0 ? "InStock" : "SoldOut",
           },
           itinerary: parsedDays.map((d) => ({
             "@type": "TouristAttraction",
             name: d.title,
             description: d.body,
           })),
-          startDate: tour?.startDate,
-          endDate: tour?.endDate,
-          areaServed: tour?.location,
+          startDate: tour.startDate,
+          endDate: tour.endDate,
+          areaServed: tour.location,
         })}
       </script>
       {/* HERO */}
@@ -670,7 +698,8 @@ export default function TourIdPage() {
         >
           <div className={styles.overlay} />
           <div className={styles.heroContent}>
-            <h1>{tour.title}</h1>
+            <h1>{tour?.title || "Uzbekistan Tour"}</h1>
+
             <p>
               {days} {t.days} • {tour.location}
             </p>
@@ -1333,8 +1362,6 @@ export default function TourIdPage() {
           </section>
         </div>
 
-        
-
         {/* Right card */}
         <div>
           <div className={styles.detailsCard}>
@@ -1462,7 +1489,6 @@ export default function TourIdPage() {
               );
             })}
           </aside>
-
 
           {showVideoModal && (
             <div
