@@ -305,7 +305,7 @@ export default function PlacestoVisit() {
                 restored to maintain its historical character. Today, it is a
                 popular place for cultural events and evening strolls.
                 Lyabi-Hauz remains a symbol of the city’s traditional atmosphere
-                and architectural charm. `)}
+                and architectural charm `)}
               </p>
             </section>
 
