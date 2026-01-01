@@ -138,6 +138,14 @@ const Footer = () => {
           <FaArrowUp />
         </button>
       )}
+
+      <script
+        id="messenger-widget-b"
+        src="https://cdn.botpenguin.com/website-bot.js"
+        defer
+      >
+        6956f433df050cbcf2543bf2,6956f139959c8904caf438ff,agent
+      </script>
     </footer>
   );
 };
