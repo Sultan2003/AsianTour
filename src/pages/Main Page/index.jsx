@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./MainPage.module.scss";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import culturalImg from "../../assets/images/front-img/cultural.jfif";
@@ -21,7 +21,7 @@ export default function MainPage() {
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const [imageIndexes, setImageIndexes] = useState({});
-  const navigate = useNavigate();
+
   const makeSlug = (title) =>
     title
       .toLowerCase()
@@ -191,10 +191,10 @@ export default function MainPage() {
             const currentIndex = imageIndexes[tour.id] || 0;
 
             return (
-              <div
+              <Link
                 key={tour.id}
                 className={styles.tourCard}
-                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
+                to={`/tour/${makeSlug(tour.title)}`}
               >
                 <div className={styles.image}>
                   {tourImages.length > 0 ? (
@@ -240,7 +240,7 @@ export default function MainPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
       </div>
@@ -278,10 +278,10 @@ export default function MainPage() {
             const day = date.getDate();
 
             return (
-              <div
+              <Link
                 key={tour.id}
                 className={styles.upcomingCard}
-                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
+                to={`/tour/${makeSlug(tour.title)}`}
               >
                 <div className={styles.dateBox}>
                   <span className={styles.month}>{month}</span>
@@ -301,7 +301,7 @@ export default function MainPage() {
                 <div className={styles.uDays}>{availableSeats}</div>
 
                 <div className={styles.uPrice}>US$ {tour.price}</div>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -347,6 +347,13 @@ export default function MainPage() {
             />
           ))}
         </div>
+        <footer style={{ display: "none" }}>
+          {tours.map((tour) => (
+            <a key={tour.id} href={`/tour/${makeSlug(tour.title)}`}>
+              {tour.title}
+            </a>
+          ))}
+        </footer>
       </div>
     </div>
   );

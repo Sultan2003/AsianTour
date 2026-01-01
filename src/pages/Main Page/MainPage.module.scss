@@ -160,6 +160,7 @@
   .tourCard {
     background: #fff;
     border: 1px solid #e8ecf5;
+    text-decoration: none;
     border-radius: 16px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -284,6 +285,7 @@
       align-items: center;
       padding: 14px 16px;
       border: 1px solid #e8ecf5;
+      text-decoration: none;
       border-radius: 12px;
       gap: 10px;
       background: #fff;
