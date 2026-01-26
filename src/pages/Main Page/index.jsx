@@ -166,8 +166,7 @@ export default function MainPage() {
       {/* HERO */}
       <div className={styles.hero}>
         <div className={styles.heroText}>
-          <h1>{t.heroTitle}</h1>
-          <p>{t.heroSubtitle}</p>
+         
         </div>
       </div>
 

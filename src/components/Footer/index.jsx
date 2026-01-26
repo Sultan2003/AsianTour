@@ -120,7 +120,11 @@ const Footer = () => {
               <FacebookIcon /> <br></br>
               <p style={{ fontSize: "14px" }}>Instagram</p>
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.instagram.com/gotocentralasia/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <InstagramIcon /> <br></br>
               <p style={{ fontSize: "14px" }}>Instagram</p>
             </a>
