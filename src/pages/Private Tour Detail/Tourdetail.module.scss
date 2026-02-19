@@ -4,8 +4,15 @@
 
 /* Page base */
 .tourPage {
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   color: #0a1a44;
   background: #f6f8fb;
   padding-top: 20px;
@@ -338,7 +345,10 @@
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease;
     box-shadow: 0 10px 22px rgba(11, 22, 112, 0.18);
 
     &:hover {
@@ -523,7 +533,9 @@
     font-weight: 700;
     font-size: 14px;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition:
+      background 0.2s ease,
+      transform 0.15s ease;
 
     &:hover:not(:disabled) {
       background: #0d1e8a;
@@ -556,7 +568,9 @@
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.2s ease, transform 0.15s ease;
+      transition:
+        background 0.2s ease,
+        transform 0.15s ease;
 
       &:hover {
         background: #0d1e8a;
@@ -777,7 +791,9 @@
   border-radius: 12px;
   padding: 14px 16px;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
   span {
     font-size: 14px;
@@ -875,7 +891,9 @@
       outline: none;
       background: #f9fbff;
       color: #0a1a44;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 
       &:focus {
         border-color: #0b1670;
@@ -898,7 +916,9 @@
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.25s ease, transform 0.15s ease;
+      transition:
+        background 0.25s ease,
+        transform 0.15s ease;
       box-shadow: 0 8px 20px rgba(11, 22, 112, 0.18);
 
       &:hover {
@@ -1602,7 +1622,10 @@
   overflow: hidden;
   cursor: pointer;
   border: 2px solid transparent;
-  transition: border 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    border 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
   img {
     width: 100%;
@@ -1665,7 +1688,10 @@
     overflow: hidden;
     cursor: pointer;
     border: 2px solid transparent;
-    transition: border 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    transition:
+      border 0.25s ease,
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
 
     img {
       width: 100%;
@@ -2206,7 +2232,7 @@
   border-bottom: 1px solid #e6e6e6;
 }
 
-.personprice{
+.personprice {
   display: flex;
   gap: 100px;
 }

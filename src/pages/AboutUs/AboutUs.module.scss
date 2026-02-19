@@ -1,9 +1,40 @@
 .aboutContainer {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
   text-align: left;
 }
+
+/* ================= TABS ================= */
+
+.tabs {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.tabs button {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(11, 22, 112, 0.18);
+  background: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0b1670;
+  transition: 0.2s ease;
+}
+
+.tabs button:hover {
+  background: rgba(11, 22, 112, 0.06);
+}
+
+.activeTab {
+  background: rgba(11, 22, 112, 0.1) !important;
+  border: 1px solid rgba(11, 22, 112, 0.35) !important;
+}
+
+/* ================= ABOUT ================= */
 
 .title {
   font-size: 32px;
@@ -17,4 +48,134 @@
   line-height: 1.7;
   color: #4a4a4a;
   margin-bottom: 20px;
+}
+
+/* ================= OUR TEAM SECTION ================= */
+
+.teamSection {
+  margin-top: 10px;
+}
+
+.teamTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0b1670;
+  margin-bottom: 28px;
+}
+
+.teamList {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
+.member {
+  width: 100%;
+}
+
+.memberHeader {
+  margin-bottom: 18px;
+
+  h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #10163a;
+    margin-bottom: 6px;
+  }
+
+  span {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0b1670;
+  }
+}
+
+.memberBody {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.photo {
+  width: 260px;
+  height: 260px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #e9ebf4;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.memberText {
+  flex: 1;
+
+  p {
+    font-size: 16.5px;
+    line-height: 1.85;
+    color: #2f2f2f;
+    margin-bottom: 16px;
+  }
+}
+
+.divider {
+  margin-top: 36px;
+  height: 1px;
+  width: 100%;
+  background: rgba(11, 22, 112, 0.12);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+  .memberBody {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .photo {
+    width: 100%;
+    height: 340px;
+  }
+}
+
+@media (max-width: 768px) {
+  .photo {
+    height: 300px;
+  }
+
+  .memberText p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .aboutContainer {
+    padding: 32px 16px;
+  }
+
+  .tabs {
+    flex-direction: column;
+  }
+
+  .tabs button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .photo {
+    height: 260px;
+  }
+
+  .memberHeader h3 {
+    font-size: 20px;
+  }
+
+  .memberHeader span {
+    font-size: 15px;
+  }
 }
