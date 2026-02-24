@@ -12,7 +12,7 @@ export default function GeorgiaToursDestination() {
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 
-  const countries = [{ slug: "georgia", name: "Georgia" }];
+
 
   useEffect(() => {
     fetch(
@@ -209,18 +209,7 @@ export default function GeorgiaToursDestination() {
               </section>
             ))}
 
-            {/* ✅ Weather Section */}
-            <div className={styles.weatherSection}>
-              {countries.map((c) => (
-                <Link
-                  key={c.slug}
-                  to={`/weather/${c.slug}`}
-                  className={styles.weatherLink}
-                >
-                  {c.name} Weather
-                </Link>
-              ))}
-            </div>
+           
           </div>
 
           {/* ✅ Sidebar with Destinations */}

@@ -10,18 +10,18 @@ export default function KazakhstanTours() {
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 
-  const countries = [{ slug: "kazakhstan", name: "Kazakhstan" }];
+  
 
   useEffect(() => {
     fetch(
-      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=Kazakhstan`
+      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=Kazakhstan`,
     )
       .then((res) => res.json())
       .then((data) => setTours(data.data || []))
       .catch((err) => console.error(err));
   }, [strapiLocale]);
 
-  const destinations = ["Astana","Almaty"];
+  const destinations = ["Astana", "Almaty"];
 
   const notes = [
     "Travel safety matters",
@@ -155,7 +155,7 @@ export default function KazakhstanTours() {
                   <div>
                     {Math.ceil(
                       (new Date(tour.endDate) - new Date(tour.startDate)) /
-                        (1000 * 60 * 60 * 24)
+                        (1000 * 60 * 60 * 24),
                     )}{" "}
                     days
                   </div>
@@ -196,19 +196,6 @@ export default function KazakhstanTours() {
                 </a>
               </section>
             ))}
-
-            {/* ✅ Weather Section */}
-            <div className={styles.weatherSection}>
-              {countries.map((c) => (
-                <Link
-                  key={c.slug}
-                  to={`/weather/${c.slug}`}
-                  className={styles.weatherLink}
-                >
-                  {c.name} Weather
-                </Link>
-              ))}
-            </div>
           </div>
 
           {/* ✅ Sidebar with Destinations */}

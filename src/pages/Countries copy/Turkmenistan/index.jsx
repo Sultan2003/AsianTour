@@ -9,7 +9,7 @@ export default function TurkmenistanTours() {
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 
-  const countries = [{ slug: "turkmenistan", name: "Turkmenistan" }];
+ 
 
   useEffect(() => {
     fetch(
@@ -195,18 +195,7 @@ export default function TurkmenistanTours() {
               </section>
             ))}
 
-            {/* ✅ Weather Section */}
-            <div className={styles.weatherSection}>
-              {countries.map((c) => (
-                <Link
-                  key={c.slug}
-                  to={`/weather/${c.slug}`}
-                  className={styles.weatherLink}
-                >
-                  {c.name} Weather
-                </Link>
-              ))}
-            </div>
+            
           </div>
 
           {/* ✅ Sidebar */}

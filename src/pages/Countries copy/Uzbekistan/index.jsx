@@ -19,7 +19,7 @@ export default function UzbekistanTours() {
 
   useEffect(() => {
     fetch(
-      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=Uzbekistan`
+      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=Uzbekistan`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -27,7 +27,7 @@ export default function UzbekistanTours() {
         const filteredTours = (data.data || []).filter(
           (tour) =>
             tour.tour_type?.includes("Group") &&
-            !tour.tour_type?.includes("City Tour")
+            !tour.tour_type?.includes("City Tour"),
         );
         // Limit to max 3 tours
         setTours(filteredTours.slice(0, 3));
@@ -211,7 +211,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                   <div>
                     {Math.ceil(
                       (new Date(tour.endDate) - new Date(tour.startDate)) /
-                        (1000 * 60 * 60 * 24)
+                        (1000 * 60 * 60 * 24),
                     )}{" "}
                     days
                   </div>

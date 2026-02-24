@@ -9,7 +9,7 @@ export default function SilkRoadToursDestinations() {
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 
-  const countries = [{ slug: "silkroad", name: "Silk Road" }];
+
 
   useEffect(() => {
     fetch(
@@ -203,18 +203,7 @@ export default function SilkRoadToursDestinations() {
               </section>
             ))}
 
-            {/* ✅ Weather Section */}
-            <div className={styles.weatherSection}>
-              {countries.map((c) => (
-                <Link
-                  key={c.slug}
-                  to={`/weather/${c.slug}`}
-                  className={styles.weatherLink}
-                >
-                  {c.name} Weather
-                </Link>
-              ))}
-            </div>
+            
           </div>
 
           {/* ✅ Sidebar with Destinations */}

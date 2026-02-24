@@ -10,7 +10,6 @@ export default function KyrgyzstanTours() {
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 
-  const countries = [{ slug: "kyrgyzstan", name: "Kyrgyzstan" }];
 
   useEffect(() => {
     fetch(
@@ -196,18 +195,7 @@ export default function KyrgyzstanTours() {
               </section>
             ))}
 
-            {/* ✅ Weather Section */}
-            <div className={styles.weatherSection}>
-              {countries.map((c) => (
-                <Link
-                  key={c.slug}
-                  to={`/weather/${c.slug}`}
-                  className={styles.weatherLink}
-                >
-                  {c.name} Weather
-                </Link>
-              ))}
-            </div>
+          
           </div>
 
           {/* ✅ Sidebar with Destinations */}
