@@ -8,6 +8,7 @@ import dinara from "../../assets/stuff/4.png";
 import sultanbek from "../../assets/stuff/sultanbek.PNG";
 import abdurashid from "../../assets/stuff/abdurashid.jpg";
 import sardorbek from "../../assets/stuff/sardorbek.jpg";
+import { Helmet } from "react-helmet-async";
 
 export default function AboutUs() {
   const [activeSection, setActiveSection] = useState("about");
@@ -95,90 +96,109 @@ export default function AboutUs() {
   ];
 
   return (
-    <div className={styles.aboutContainer}>
-      {/* ===== Tabs ===== */}
-      <div className={styles.tabs}>
-        <button
-          className={activeSection === "about" ? styles.activeTab : ""}
-          onClick={() => setActiveSection("about")}
-        >
-          About Us
-        </button>
+    <>
+      <Helmet>
+        <title>About Go To Central Asia | Tour Operator Team & Company</title>
 
-        <button
-          className={activeSection === "team" ? styles.activeTab : ""}
-          onClick={() => setActiveSection("team")}
-        >
-          Our Team
-        </button>
-      </div>
+        <meta
+          name="description"
+          content="Learn about Go To Central Asia and Miramax Travel Management team. Meet travel experts, consultants and software specialists behind Central Asia tours."
+        />
 
-      {/* ===== About Section ===== */}
-      {activeSection === "about" && (
-        <>
-          <h1 className={styles.title}>About Us</h1>
+        <link rel="canonical" href="https://www.gotocentralasia.com/about" />
+      </Helmet>
+      <div className={styles.aboutContainer}>
+        {/* ===== Tabs ===== */}
+        <div className={styles.tabs}>
+          <button
+            className={activeSection === "about" ? styles.activeTab : ""}
+            onClick={() => setActiveSection("about")}
+          >
+            About Us
+          </button>
 
-          <p className={styles.text}>
-            Gotocentralasia.com is a project by Miramax Travel Management, a
-            distinct and well-known travel agency in Uzbekistan. Since 2003, it
-            has been successfully offering travelers various services under
-            inbound and outbound tourism.
-          </p>
-
-          <p className={styles.text}>
-            The main goal of the project is to offer and share cultural
-            experiences of the local people of Central Asia and the Caucasus
-            with the world.
-          </p>
-
-          <p className={styles.text}>
-            For generations, Central Asia and the Caucasus remained untouched by
-            mainstream travelers. Once-famous cities and people who played major
-            roles in world history were unknown to the public and undeservedly
-            forgotten.
-          </p>
-
-          <p className={styles.text}>
-            We would love to share our ancient history, unique culture, and old
-            traditions with you. We invite you to be part of this journey
-            through centuries and experience it for yourself.
-          </p>
-        </>
-      )}
-
-      {/* ===== Team Section ===== */}
-      {activeSection === "team" && (
-        <div className={styles.teamSection}>
-          <h2 className={styles.teamTitle}>Our Team</h2>
-
-          <div className={styles.teamList}>
-            {team.map((member) => (
-              <div key={member.id} className={styles.member}>
-                <div className={styles.memberHeader}>
-                  <h3>{member.name}</h3>
-                  <span>{member.position}</span>
-                </div>
-
-                <div className={styles.memberBody}>
-                  <div className={styles.photo}>
-                    <img src={member.image} alt={member.name} />
-                  </div>
-
-                  <div className={styles.memberText}>
-                    {member.paragraphs.map((p, index) => (
-                      <p key={index}>{p}</p>
-                    ))}
-                  </div>
-                </div>
-
-                {member.id !== team.length && (
-                  <div className={styles.divider} />
-                )}
-              </div>
-            ))}
-          </div>
+          <button
+            className={activeSection === "team" ? styles.activeTab : ""}
+            onClick={() => setActiveSection("team")}
+          >
+            Our Team
+          </button>
         </div>
-      )}
-    </div>
+
+        {/* ===== About Section ===== */}
+        {activeSection === "about" && (
+          <>
+            <h1 className={styles.title}>About Us</h1>
+
+            <p className={styles.text}>
+              Gotocentralasia.com is a project by Miramax Travel Management, a
+              distinct and well-known travel agency in Uzbekistan. Since 2003,
+              it has been successfully offering travelers various services under
+              inbound and outbound tourism.
+            </p>
+
+            <p className={styles.text}>
+              The main goal of the project is to offer and share cultural
+              experiences of the local people of Central Asia and the Caucasus
+              with the world.
+            </p>
+
+            <p className={styles.text}>
+              For generations, Central Asia and the Caucasus remained untouched
+              by mainstream travelers. Once-famous cities and people who played
+              major roles in world history were unknown to the public and
+              undeservedly forgotten.
+            </p>
+
+            <p className={styles.text}>
+              We would love to share our ancient history, unique culture, and
+              old traditions with you. We invite you to be part of this journey
+              through centuries and experience it for yourself.
+            </p>
+          </>
+        )}
+
+        {/* ===== Team Section ===== */}
+        {activeSection === "team" && (
+          <div className={styles.teamSection}>
+            <h2 className={styles.teamTitle}>Our Team</h2>
+
+            <div className={styles.teamList}>
+              {team.map((member) => (
+                <div key={member.id} className={styles.member}>
+                  <div className={styles.memberHeader}>
+                    <h3>{member.name}</h3>
+                    <span>{member.position}</span>
+                  </div>
+
+                  <div className={styles.memberBody}>
+                    <div className={styles.photo}>
+                      <img
+                        src={member.image}
+                        alt={
+                          member.name === "Sultanbek Erkinbaev"
+                            ? "Sultanbek Erkinbaev software specialist Go To Central Asia travel website developer"
+                            : member.name
+                        }
+                      />
+                    </div>
+
+                    <div className={styles.memberText}>
+                      {member.paragraphs.map((p, index) => (
+                        <p key={index}>{p}</p>
+                      ))}
+                    </div>
+                  </div>
+
+                  {member.id !== team.length && (
+                    <div className={styles.divider} />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }

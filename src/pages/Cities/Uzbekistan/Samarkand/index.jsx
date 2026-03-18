@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Samarkand.module.scss";
 import Samarkand from "../../../../assets/Cities/Samarkand/Registan Square Samarkand.jpg";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 /* Cultural Landmarks — sample paths */
 import registan1 from "../../../../assets/Cities/Samarkand/Registan Square 2.jpg";
@@ -55,7 +56,7 @@ export default function SamarkandPage() {
     setToursError(null);
 
     fetch(
-      "https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?filters[location][$eq]=Uzbekistan"
+      "https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?filters[location][$eq]=Uzbekistan",
     )
       .then((r) => {
         if (!r.ok) throw new Error("Tours request failed");
@@ -104,7 +105,7 @@ export default function SamarkandPage() {
 
   /* Filter tours for Samarkand (same logic as Tashkent page used 'tashkent') */
   const samarkandTours = (tours || []).filter((t) =>
-    (t.tour_type || "").toLowerCase().includes("samarkand")
+    (t.tour_type || "").toLowerCase().includes("samarkand"),
   );
 
   /* CONTENT SECTIONS */
@@ -242,224 +243,242 @@ export default function SamarkandPage() {
   }
 
   return (
-    <div className={styles.container}>
-      {/* LEFT — main content */}
-      <div className={styles.left}>
-        <div className={styles.h1text}>
-          <h1>Samarkand, Uzbekistan</h1>
-        </div>
-        <img
-          src={Samarkand}
-          className={styles.heroImage}
-          alt="Samarkand"
-          loading="lazy"
+    <>
+      <Helmet>
+        <title>Samarkand Tours & Travel Guide | Go To Central Asia</title>
+
+        <meta
+          name="description"
+          content="Explore Samarkand tours, Registan Square, Shah-i-Zinda, Gur Emir and travel packages in Uzbekistan."
         />
 
-        {/* TABLE NAVIGATION */}
-        <div className={styles.tableNav}>
-          <div
-            onClick={() =>
-              document
-                .getElementById("history")
-                .scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            History
+        <link
+          rel="canonical"
+          href="https://www.gotocentralasia.com/Uzbekistan-Samarkand"
+        />
+      </Helmet>
+
+      <div className={styles.container}>
+        {/* LEFT — main content */}
+        <div className={styles.left}>
+          <div className={styles.h1text}>
+            <h1>Samarkand, Uzbekistan</h1>
           </div>
-          <div
-            onClick={() =>
-              document
-                .getElementById("landmarks")
-                .scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            Cultural Landmarks
+          <img
+            src={Samarkand}
+            className={styles.heroImage}
+            alt="Samarkand"
+            loading="lazy"
+          />
+
+          {/* TABLE NAVIGATION */}
+          <div className={styles.tableNav}>
+            <div
+              onClick={() =>
+                document
+                  .getElementById("history")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              History
+            </div>
+            <div
+              onClick={() =>
+                document
+                  .getElementById("landmarks")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              Cultural Landmarks
+            </div>
+
+            <div
+              onClick={() =>
+                document
+                  .getElementById("shopping")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              Shopping & Leisure
+            </div>
+            <div
+              onClick={() =>
+                document
+                  .getElementById("transport")
+                  .scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              City Transport
+            </div>
           </div>
 
-          <div
-            onClick={() =>
-              document
-                .getElementById("shopping")
-                .scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            Shopping & Leisure
-          </div>
-          <div
-            onClick={() =>
-              document
-                .getElementById("transport")
-                .scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            City Transport
-          </div>
+          {/* CONTENT SECTIONS */}
+          {sections.map((sec) => (
+            <section key={sec.key} id={sec.key} className={styles.section}>
+              <h3>{sec.title}</h3>
+
+              {sec.paragraphs?.map((p, i) => (
+                <p
+                  key={i}
+                  dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                />
+              ))}
+
+              {sec.items && (
+                <ul className={styles.bulletList}>
+                  {sec.items.map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
+                </ul>
+              )}
+
+              {sec.images?.length > 1 && <ThreeDCarousel imgs={sec.images} />}
+              {sec.images?.length === 1 && (
+                <img
+                  src={sec.images[0]}
+                  className={styles.singleImage}
+                  loading="lazy"
+                />
+              )}
+
+              {sec.afterParagraphs?.map((p, i) => (
+                <p
+                  key={`afterP${i}`}
+                  dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                />
+              ))}
+
+              {sec.afterItems && (
+                <ul className={styles.bulletList}>
+                  {sec.afterItems.map((item, i) => (
+                    <li key={`afterItem${i}`}>{item}</li>
+                  ))}
+                </ul>
+              )}
+
+              {sec.afterImages &&
+                (sec.afterImages.length > 1 ? (
+                  <ThreeDCarousel imgs={sec.afterImages} />
+                ) : (
+                  sec.afterImages.map((src, i) => (
+                    <img
+                      key={`afterImg${i}`}
+                      src={src}
+                      className={styles.singleImage}
+                      alt=""
+                      loading="lazy"
+                    />
+                  ))
+                ))}
+
+              {sec.afterParagraphs1?.map((p, i) => (
+                <p
+                  key={`afterParagraphs1${i}`}
+                  dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                />
+              ))}
+
+              {sec.afterItems1 && (
+                <ul className={styles.bulletList}>
+                  {sec.afterItems1.map((item, i) => (
+                    <li key={`afterItem1${i}`}>{item}</li>
+                  ))}
+                </ul>
+              )}
+
+              {sec.afterImages1 &&
+                (sec.afterImages1.length > 1 ? (
+                  <ThreeDCarousel imgs={sec.afterImages1} />
+                ) : (
+                  sec.afterImages1.map((src, i) => (
+                    <img
+                      key={`afterImg1${i}`}
+                      src={src}
+                      className={styles.singleImage}
+                      alt=""
+                      loading="lazy"
+                    />
+                  ))
+                ))}
+
+              {sec.afterParagraphs2?.map((p, i) => (
+                <p
+                  key={`afterParagraphs2${i}`}
+                  dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                />
+              ))}
+
+              {sec.afterItems2 && (
+                <ul className={styles.bulletList}>
+                  {sec.afterItems2.map((item, i) => (
+                    <li key={`afterItem2${i}`}>{item}</li>
+                  ))}
+                </ul>
+              )}
+
+              {sec.afterImages2 &&
+                (sec.afterImages2.length > 1 ? (
+                  <ThreeDCarousel imgs={sec.afterImages2} />
+                ) : (
+                  sec.afterImages2.map((src, i) => (
+                    <img
+                      key={`afterImg2${i}`}
+                      src={src}
+                      className={styles.singleImage}
+                      alt=""
+                      loading="lazy"
+                    />
+                  ))
+                ))}
+            </section>
+          ))}
         </div>
 
-        {/* CONTENT SECTIONS */}
-        {sections.map((sec) => (
-          <section key={sec.key} id={sec.key} className={styles.section}>
-            <h3>{sec.title}</h3>
-
-            {sec.paragraphs?.map((p, i) => (
-              <p
-                key={i}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
-              />
-            ))}
-
-            {sec.items && (
-              <ul className={styles.bulletList}>
-                {sec.items.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-            )}
-
-            {sec.images?.length > 1 && <ThreeDCarousel imgs={sec.images} />}
-            {sec.images?.length === 1 && (
-              <img
-                src={sec.images[0]}
-                className={styles.singleImage}
-                loading="lazy"
-              />
-            )}
-
-            {sec.afterParagraphs?.map((p, i) => (
-              <p
-                key={`afterP${i}`}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
-              />
-            ))}
-
-            {sec.afterItems && (
-              <ul className={styles.bulletList}>
-                {sec.afterItems.map((item, i) => (
-                  <li key={`afterItem${i}`}>{item}</li>
-                ))}
-              </ul>
-            )}
-
-            {sec.afterImages &&
-              (sec.afterImages.length > 1 ? (
-                <ThreeDCarousel imgs={sec.afterImages} />
-              ) : (
-                sec.afterImages.map((src, i) => (
-                  <img
-                    key={`afterImg${i}`}
-                    src={src}
-                    className={styles.singleImage}
-                    alt=""
-                    loading="lazy"
-                  />
-                ))
-              ))}
-
-            {sec.afterParagraphs1?.map((p, i) => (
-              <p
-                key={`afterParagraphs1${i}`}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
-              />
-            ))}
-
-            {sec.afterItems1 && (
-              <ul className={styles.bulletList}>
-                {sec.afterItems1.map((item, i) => (
-                  <li key={`afterItem1${i}`}>{item}</li>
-                ))}
-              </ul>
-            )}
-
-            {sec.afterImages1 &&
-              (sec.afterImages1.length > 1 ? (
-                <ThreeDCarousel imgs={sec.afterImages1} />
-              ) : (
-                sec.afterImages1.map((src, i) => (
-                  <img
-                    key={`afterImg1${i}`}
-                    src={src}
-                    className={styles.singleImage}
-                    alt=""
-                    loading="lazy"
-                  />
-                ))
-              ))}
-
-            {sec.afterParagraphs2?.map((p, i) => (
-              <p
-                key={`afterParagraphs2${i}`}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
-              />
-            ))}
-
-            {sec.afterItems2 && (
-              <ul className={styles.bulletList}>
-                {sec.afterItems2.map((item, i) => (
-                  <li key={`afterItem2${i}`}>{item}</li>
-                ))}
-              </ul>
-            )}
-
-            {sec.afterImages2 &&
-              (sec.afterImages2.length > 1 ? (
-                <ThreeDCarousel imgs={sec.afterImages2} />
-              ) : (
-                sec.afterImages2.map((src, i) => (
-                  <img
-                    key={`afterImg2${i}`}
-                    src={src}
-                    className={styles.singleImage}
-                    alt=""
-                    loading="lazy"
-                  />
-                ))
-              ))}
-          </section>
-        ))}
-      </div>
-
-      {/* RIGHT — tours (UNTOUCHED logic but Samarkand filter) */}
-      <div className={styles.right}>
-        {/* Loading / error states */}
-        {toursLoading ? (
-          <div className={styles.toursLoading}>Loading tours...</div>
-        ) : toursError ? (
-          <div className={styles.toursError}>
-            Error loading tours: {toursError}
-          </div>
-        ) : samarkandTours.length === 0 ? (
-          <div className={styles.noTours}>No Samarkand tours found.</div>
-        ) : (
-          samarkandTours.map((tour) => (
-            <div
-              key={tour.id}
-              className={styles.tourCard}
-              onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
-            >
-              <img
-                src={getTourImage(tour)}
-                className={styles.tourImage}
-                alt={tour.title}
-              />
-              <div className={styles.tourInfo}>
-                <h3>{tour.title}</h3>
-                <p>
-                  {tour.startDate &&
-                    new Date(tour.startDate).toLocaleDateString()}
-                </p>
-                <p className={styles.price}>from ${tour.price || "N/A"}</p>
-              </div>
+        {/* RIGHT — tours (UNTOUCHED logic but Samarkand filter) */}
+        <div className={styles.right}>
+          {/* Loading / error states */}
+          {toursLoading ? (
+            <div className={styles.toursLoading}>Loading tours...</div>
+          ) : toursError ? (
+            <div className={styles.toursError}>
+              Error loading tours: {toursError}
             </div>
-          ))
-        )}
+          ) : samarkandTours.length === 0 ? (
+            <div className={styles.noTours}>No Samarkand tours found.</div>
+          ) : (
+            samarkandTours.map((tour) => (
+              <div
+                key={tour.id}
+                className={styles.tourCard}
+                onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
+              >
+                <img
+                  src={getTourImage(tour)}
+                  className={styles.tourImage}
+                  alt={tour.title}
+                />
+                <div className={styles.tourInfo}>
+                  <h3>{tour.title}</h3>
+                  <p>
+                    {tour.startDate &&
+                      new Date(tour.startDate).toLocaleDateString()}
+                  </p>
+                  <p className={styles.price}>from ${tour.price || "N/A"}</p>
+                </div>
+              </div>
+            ))
+          )}
 
-        {/* Optionally show images API status (helpful for debugging) */}
-        {imagesLoading ? (
-          <div className={styles.imagesLoading}>Loading images...</div>
-        ) : imagesError ? (
-          <div className={styles.imagesError}>Images error: {imagesError}</div>
-        ) : null}
+          {/* Optionally show images API status (helpful for debugging) */}
+          {imagesLoading ? (
+            <div className={styles.imagesLoading}>Loading images...</div>
+          ) : imagesError ? (
+            <div className={styles.imagesError}>
+              Images error: {imagesError}
+            </div>
+          ) : null}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
