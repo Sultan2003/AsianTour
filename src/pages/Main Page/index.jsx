@@ -11,6 +11,9 @@ import businessImg from "../../assets/images/front-img/business.jfif";
 import { LanguageContext } from "../../context/LanguageContext";
 import translations from "../../translations/mainpage";
 import React, { lazy, Suspense } from "react";
+import slide1 from "../../assets/Slider/Registan_Square.jpg";
+import slide2 from "../../assets/Slider/Itchan_Kala.jpg";
+import slide3 from "../../assets/Slider/Ark_Fortress.jpg";
 
 const HistoricalTimeline = lazy(() => import("../../components/timeline"));
 
@@ -22,6 +25,44 @@ export default function MainPage() {
   const [images, setImages] = useState([]);
   const [imageIndexes, setImageIndexes] = useState({});
 
+  const heroImages = [slide1, slide2, slide3];
+
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [heroReady, setHeroReady] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const preload = async () => {
+      const promises = heroImages.map((src) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
+      });
+
+      await Promise.all(promises);
+
+      if (mounted) setHeroReady(true);
+    };
+
+    preload();
+
+    return () => (mounted = false);
+  }, []);
+
+  useEffect(() => {
+    if (!heroReady) return;
+
+    const interval = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [heroReady]);
+
   const makeSlug = (title) =>
     title
       .toLowerCase()
@@ -31,7 +72,7 @@ export default function MainPage() {
   // Fetch tours and images
   useEffect(() => {
     fetch(
-      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}`
+      `https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?locale=${strapiLocale}`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -59,7 +100,7 @@ export default function MainPage() {
         tours.forEach((tour) => {
           const tourImages = images.filter(
             (img) =>
-              img.alternativeText?.toLowerCase() === tour.title?.toLowerCase()
+              img.alternativeText?.toLowerCase() === tour.title?.toLowerCase(),
           );
           if (tourImages.length > 0) {
             newIndexes[tour.id] =
@@ -165,8 +206,15 @@ export default function MainPage() {
     <div className={styles.mainPage}>
       {/* HERO */}
       <div className={styles.hero}>
+        <div
+          className={styles.heroBg}
+          style={{ backgroundImage: `url(${heroImages[heroIndex]})` }}
+        />
+
+        <div className={styles.overlay}></div>
+
         <div className={styles.heroText}>
-         
+          <h1>Discover Central Asia for yourself with us</h1>
         </div>
       </div>
 
@@ -185,7 +233,8 @@ export default function MainPage() {
             const days = calculateDays(tour.startDate, tour.endDate);
             const tourImages = images.filter(
               (img) =>
-                img.alternativeText?.toLowerCase() === tour.title?.toLowerCase()
+                img.alternativeText?.toLowerCase() ===
+                tour.title?.toLowerCase(),
             );
             const currentIndex = imageIndexes[tour.id] || 0;
 
@@ -272,7 +321,7 @@ export default function MainPage() {
               lang === "ru" ? "ru-RU" : "en-US",
               {
                 month: "short",
-              }
+              },
             );
             const day = date.getDate();
 

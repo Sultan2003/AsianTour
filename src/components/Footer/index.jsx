@@ -118,7 +118,7 @@ const Footer = () => {
           <div className={styles.socials}>
             <a href="https://facebook.com" target="_blank" rel="noreferrer">
               <FacebookIcon /> <br></br>
-              <p style={{ fontSize: "14px" }}>Instagram</p>
+              <p style={{ fontSize: "14px" }}>Facebook</p>
             </a>
             <a
               href="https://www.instagram.com/gotocentralasia/"
