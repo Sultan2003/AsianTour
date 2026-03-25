@@ -214,7 +214,9 @@ export default function MainPage() {
         <div className={styles.overlay}></div>
 
         <div className={styles.heroText}>
-          <h1>Discover Central Asia for yourself with us</h1>
+          <h1 className={styles.heroTitle}>Discover Central Asia</h1>
+
+          <div className={styles.heroSubtitle}>for yourself with us</div>
         </div>
       </div>
 
