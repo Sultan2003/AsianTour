@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import styles from "./MainPage.module.scss";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -14,6 +14,7 @@ import React, { lazy, Suspense } from "react";
 import slide1 from "../../assets/Slider/Registan_Square.jpg";
 import slide2 from "../../assets/Slider/Itchan_Kala.jpg";
 import slide3 from "../../assets/Slider/Ark_Fortress.jpg";
+import destinations from "../../data/destinations";
 
 const HistoricalTimeline = lazy(() => import("../../components/timeline"));
 
@@ -29,6 +30,40 @@ export default function MainPage() {
 
   const [heroIndex, setHeroIndex] = useState(0);
   const [heroReady, setHeroReady] = useState(false);
+  const sliderRef = useRef(null);
+  const isDown = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const visibleDestinations = destinations;
+
+  // DRAG
+  const handleMouseDown = (e) => {
+    isDown.current = true;
+    startX.current = e.pageX - sliderRef.current.offsetLeft;
+    scrollLeft.current = sliderRef.current.scrollLeft;
+  };
+
+  const handleMouseUp = () => {
+    isDown.current = false;
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDown.current) return;
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    const interval = setInterval(() => {
+      slider.scrollBy({ left: 300, behavior: "smooth" });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -355,6 +390,79 @@ export default function MainPage() {
             );
           })}
         </div>
+      </div>
+
+      {/* PREMIUM DESTINATIONS SLIDER */}
+      {/* 🔥 3D DESTINATIONS SLIDER */}
+      <div className={styles.destinationsSection}>
+        <h2 className={styles.title}>Popular Destination</h2>
+
+        {/* STATE */}
+        {(() => {
+          const [activeIndex, setActiveIndex] = useState(2);
+
+          const next = () => {
+            setActiveIndex((prev) => (prev + 1) % visibleDestinations.length);
+          };
+
+          const prev = () => {
+            setActiveIndex(
+              (prev) =>
+                (prev - 1 + visibleDestinations.length) %
+                visibleDestinations.length,
+            );
+          };
+
+          return (
+            <>
+              <div className={styles.sliderWrapper}>
+                <button
+                  className={`${styles.navBtn} ${styles.left}`}
+                  onClick={prev}
+                >
+                  ‹
+                </button>
+
+                <div className={styles.slider}>
+                  {visibleDestinations.map((item, index) => {
+                    let position = index - activeIndex;
+
+                    if (position < -2) position += visibleDestinations.length;
+                    if (position > 2) position -= visibleDestinations.length;
+
+                    return (
+                      <Link
+                        to={item.path}
+                        key={index}
+                        className={`${styles.card} ${styles[`pos${position}`]}`}
+                      >
+                        <div
+                          className={styles.image}
+                          style={{
+                            backgroundImage: `url(${
+                              item.image || "https://picsum.photos/500/700"
+                            })`,
+                          }}
+                        />
+
+                        <div className={styles.overlay}>
+                          <h3>{item.title}</h3>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+
+                <button
+                  className={`${styles.navBtn} ${styles.right}`}
+                  onClick={next}
+                >
+                  ›
+                </button>
+              </div>
+            </>
+          );
+        })()}
       </div>
 
       {/* PROMO SLIDER */}
