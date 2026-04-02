@@ -572,13 +572,12 @@
 
   .destinationsSection {
     max-width: 1200px;
-    margin: 80px auto;
+    margin: 20px auto;
     text-align: center;
 
     .title {
       font-size: 32px;
       font-weight: 700;
-      margin-bottom: 40px;
     }
 
     .slider {
@@ -592,8 +591,8 @@
 
     .card {
       position: absolute;
-      width: 260px;
-      height: 360px;
+      width: 300px;
+      height: 200px;
       border-radius: 20px;
       overflow: hidden;
       transition: all 0.6s ease;
@@ -603,8 +602,8 @@
     .image {
       width: 100%;
       height: 100%;
-      background-size: cover;
-      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
 
     .overlay {
@@ -706,99 +705,108 @@
 
   /* ✅ Promo Slider */
   .promoSlider {
-    position: relative;
-    width: 100%;
-    height: 680px;
-    margin: 40px auto;
-    border-radius: 12px;
-    overflow: hidden;
     max-width: 1200px;
+    margin: 60px auto;
+    text-align: center;
+  }
 
-    .backgroundImage {
+  .promoTitle {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+
+  /* CAROUSEL */
+  .carousel {
+    position: relative;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1300px;
+  }
+
+  /* CARD */
+  .carouselCard {
+    position: absolute;
+    width: 200px;
+    text-align: center;
+    transition: all 0.5s ease;
+    cursor: pointer;
+
+    .cardImage {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.45);
-    }
-    .sliderContent {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: #fff;
-      z-index: 2;
-      max-width: 700px;
-      h2 {
-        font-size: 42px;
-        font-weight: 800;
-        margin-bottom: 15px;
-      }
-      p {
-        font-size: 18px;
-        margin-bottom: 25px;
-      }
-      .readMoreBtn {
-        background: #0b1670;
-        color: #fff;
-        border: none;
-        padding: 12px 28px;
-        border-radius: 30px;
-        font-size: 16px;
-        cursor: pointer;
-        text-decoration: none;
-        font-weight: 600;
-        transition: background 0.3s ease;
-        &:hover {
-          background: #0056b3;
-        }
+      height: 200px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 10px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #fff;
-      border: none;
-      width: 44px;
-      height: 44px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    span {
+      font-size: 12px;
+      color: #888;
+    }
+  }
+
+  /* POSITIONS */
+
+  /* CENTER */
+  .pos0 {
+    transform: translateX(0) scale(1.1);
+    z-index: 5;
+  }
+
+  /* LEFT / RIGHT */
+  .pos-1 {
+    transform: translateX(-220px) translateY(10px) rotate(-6deg) scale(0.95);
+    opacity: 0.8;
+    z-index: 4;
+  }
+
+  .pos1 {
+    transform: translateX(220px) translateY(10px) rotate(6deg) scale(0.95);
+    opacity: 0.8;
+    z-index: 4;
+  }
+
+  /* FAR */
+  .pos-2 {
+    transform: translateX(-400px) translateY(25px) rotate(-10deg) scale(0.85);
+    opacity: 0.5;
+  }
+
+  .pos2 {
+    transform: translateX(400px) translateY(25px) rotate(10deg) scale(0.85);
+    opacity: 0.5;
+  }
+
+  /* DOTS */
+  .promoDots {
+    margin-top: 20px;
+
+    .dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #ccc;
+      display: inline-block;
+      margin: 0 5px;
       cursor: pointer;
-      z-index: 3;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-      &.left {
-        left: 20px;
-      }
-      &.right {
-        right: 20px;
-      }
-    }
-    .dots {
-      position: absolute;
-      bottom: 15px;
-      width: 100%;
-      text-align: center;
-      z-index: 3;
-      .dot {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        margin: 0 5px;
-        background: rgba(255, 255, 255, 0.6);
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background 0.3s ease;
-        &.active {
-          background: #fff;
-        }
+
+      &.activeDot {
+        background: #0b1670;
+        transform: scale(1.3);
       }
     }
   }
@@ -1093,4 +1101,194 @@
     white-space: normal; /* allow text to wrap */
     line-height: 1.3;
   }
+}
+.featureSection {
+  width: 100%;
+  padding: 10px 300px;
+  background: transparent;
+
+  .featureContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .featureContent {
+    flex: 1;
+
+    .featureSubtitle {
+      color: #6c3cff;
+      font-size: 14px;
+      font-weight: 500;
+      font-style: italic;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .featureTitle {
+      font-size: 38px; /* bigger like screenshot */
+      font-weight: 800;
+      line-height: 1.15; /* tighter */
+      color: #0b1a33; /* deep navy */
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+    }
+
+    .featureDescription {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #6b7280;
+      margin-bottom: 35px;
+      max-width: 460px;
+    }
+
+    .featureList {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 25px;
+
+      .featureItem {
+        display: flex;
+        gap: 15px;
+
+        .featureIcon {
+          width: 45px;
+          height: 45px;
+          border-radius: 12px;
+        }
+
+        h4 {
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        p {
+          font-size: 13px;
+          color: #777;
+        }
+      }
+    }
+
+    .featureBtn {
+      background: linear-gradient(135deg, #0b1670, #5b2be0);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(108, 60, 255, 0.3);
+      }
+    }
+  }
+
+  .featureImages {
+    flex: 1;
+    position: relative;
+    height: 420px;
+
+    .featureImgLarge {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 260px;
+      height: 340px;
+      border-radius: 20px;
+      background-size: cover;
+      background-position: center;
+      transform: rotate(6deg);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .featureImgSmall {
+      position: absolute;
+      left: 40px;
+      bottom: 0;
+      width: 200px;
+      height: 260px;
+      border-radius: 20px;
+      background-size: cover;
+      background-position: center;
+      transform: rotate(-8deg);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .featureBadge {
+      position: absolute;
+      top: 40px;
+      left: 80px;
+      width: 140px;
+      height: 140px;
+      filter: grayscale(100%);
+
+      background: none; /* important */
+      box-shadow: none; /* optional */
+    }
+  }
+}
+.featureIcon {
+  width: 66px;
+  height: 66px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featureIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.featureBadge {
+  position: absolute;
+  top: 110px;
+  right: 220px;
+
+  width: 100px;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 2; /* between images */
+}
+
+.featureBadge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  opacity: 0.7; /* like screenshot faded style */
+}
+.featureImgLarge,
+.featureImgSmall {
+  position: absolute;
+  overflow: hidden; /* 🔥 VERY IMPORTANT */
+  border-radius: 20px;
+}
+
+/* IMAGE INSIDE */
+.featureImgLarge img,
+.featureImgSmall img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 🔥 makes it behave like background-size: cover */
+  display: block;
 }

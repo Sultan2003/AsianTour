@@ -464,55 +464,122 @@ export default function MainPage() {
           );
         })()}
       </div>
+      <div className={styles.featureSection}>
+        <div className={styles.featureContainer}>
+          {/* LEFT SIDE */}
+          <div className={styles.featureContent}>
+            <span className={styles.featureSubtitle}>Explore Central Asia</span>
+
+            <h2 className={styles.featureTitle}>
+              Your Gateway to Central Asia
+            </h2>
+
+            <p className={styles.featureDescription}>
+              Experience the rich history, vibrant culture, and breathtaking
+              landscapes of Central Asia. From ancient Silk Road cities to
+              untouched природные wonders, we create journeys tailored to your
+              travel style.
+            </p>
+
+            <div className={styles.featureList}>
+              <div className={styles.featureItem}>
+                <div className={styles.featureIcon}>
+                  <img
+                    src="/src/assets/icons/mainpage/icon1.png"
+                    alt="Expert Travel Planning"
+                  />
+                </div>
+                <div>
+                  <h4>Expert Local Knowledge</h4>
+                  <p>
+                    Carefully designed маршруты with deep regional expertise to
+                    give you an authentic experience.
+                  </p>
+                </div>
+              </div>
+
+              <div className={styles.featureItem}>
+                <div className={styles.featureIcon}>
+                  <img
+                    src="/src/assets/icons/mainpage/icon2.png"
+                    alt="Reliable Travel Service"
+                  />
+                </div>
+                <div>
+                  <h4>Reliable & Comfortable Travel</h4>
+                  <p>
+                    We ensure a smooth, safe, and комфортное journey from
+                    arrival to departure.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button className={styles.featureBtn}>PLAN YOUR JOURNEY →</button>
+          </div>
+
+          {/* RIGHT SIDE */}
+          <div className={styles.featureImages}>
+            <div className={styles.featureImgLarge}>
+              <img src="/src/assets/Cities/Samarkand/Bibi Khanym Mosque.jpg" />
+            </div>
+            <div className={styles.featureImgSmall}>
+              <img src="/src/assets/Cities/Khiva/Kalta Minor Minaret 7.jpg" />
+            </div>
+            <div className={styles.featureBadge}>
+              <img src="/src/assets/icons/mainpage/icon3.png" alt="badge" />
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* PROMO SLIDER */}
       <div className={styles.promoSlider}>
-        <img
-          src={slides[current].image}
-          alt={slides[current].title}
-          className={styles.backgroundImage}
-        />
-        <div className={styles.overlay}></div>
-        <div className={styles.sliderContent}>
-          <h2>{slides[current].title.toUpperCase()}</h2>
-          <p>{slides[current].description}</p>
-          {slides[current].link && (
-            <Link to={slides[current].link} className={styles.readMoreBtn}>
-              Read more about {slides[current].title}
-            </Link>
-          )}
+        <h2 className={styles.promoTitle}>Tour Categories</h2>
+
+        <div className={styles.carousel}>
+          {slides.map((slide, index) => {
+            let position = index - current;
+
+            if (position < -2) position += slides.length;
+            if (position > 2) position -= slides.length;
+
+            return (
+              <div
+                key={index}
+                className={`${styles.carouselCard} ${styles[`pos${position}`]}`}
+                onClick={() => setCurrent(index)}
+              >
+                <div className={styles.cardImage}>
+                  <img src={slide.image} alt={slide.title} />
+                </div>
+
+                <h3>{slide.title}</h3>
+              </div>
+            );
+          })}
         </div>
-        <button
-          className={`${styles.arrow} ${styles.left}`}
-          onClick={prevSlide}
-        >
-          <ChevronLeft />
-        </button>
-        <button
-          className={`${styles.arrow} ${styles.right}`}
-          onClick={nextSlide}
-        >
-          <ChevronRight />
-        </button>
-        <div className={styles.dots}>
+
+        {/* DOTS */}
+        <div className={styles.promoDots}>
           {slides.map((_, idx) => (
             <span
               key={idx}
               className={`${styles.dot} ${
-                idx === current ? styles.active : ""
+                idx === current ? styles.activeDot : ""
               }`}
               onClick={() => setCurrent(idx)}
             />
           ))}
         </div>
-        <footer style={{ display: "none" }}>
-          {tours.map((tour) => (
-            <a key={tour.id} href={`/tour/${makeSlug(tour.title)}`}>
-              {tour.title}
-            </a>
-          ))}
-        </footer>
       </div>
+      <footer style={{ display: "none" }}>
+        {tours.map((tour) => (
+          <a key={tour.id} href={`/tour/${makeSlug(tour.title)}`}>
+            {tour.title}
+          </a>
+        ))}
+      </footer>
     </div>
   );
 }
