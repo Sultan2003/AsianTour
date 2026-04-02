@@ -15,6 +15,11 @@ import slide1 from "../../assets/Slider/Registan_Square.jpg";
 import slide2 from "../../assets/Slider/Itchan_Kala.jpg";
 import slide3 from "../../assets/Slider/Ark_Fortress.jpg";
 import destinations from "../../data/destinations";
+import icon1 from "../../assets/icons/mainpage/icon1.png";
+import icon2 from "../../assets/icons/mainpage/icon2.png";
+import icon3 from "../../assets/icons/mainpage/icon3.png";
+import icon4 from "/src/assets/Cities/Samarkand/Bibi Khanym Mosque.jpg";
+import icon5 from "/src/assets/Cities/Khiva/Kalta Minor Minaret 7.jpg";
 
 const HistoricalTimeline = lazy(() => import("../../components/timeline"));
 
@@ -484,10 +489,7 @@ export default function MainPage() {
             <div className={styles.featureList}>
               <div className={styles.featureItem}>
                 <div className={styles.featureIcon}>
-                  <img
-                    src="/src/assets/icons/mainpage/icon1.png"
-                    alt="Expert Travel Planning"
-                  />
+                  <img src={icon1} alt="Expert Travel Planning" />
                 </div>
                 <div>
                   <h4>Expert Local Knowledge</h4>
@@ -500,10 +502,7 @@ export default function MainPage() {
 
               <div className={styles.featureItem}>
                 <div className={styles.featureIcon}>
-                  <img
-                    src="/src/assets/icons/mainpage/icon2.png"
-                    alt="Reliable Travel Service"
-                  />
+                  <img src={icon2} alt="Reliable Travel Service" />
                 </div>
                 <div>
                   <h4>Reliable & Comfortable Travel</h4>
@@ -521,13 +520,13 @@ export default function MainPage() {
           {/* RIGHT SIDE */}
           <div className={styles.featureImages}>
             <div className={styles.featureImgLarge}>
-              <img src="/src/assets/Cities/Samarkand/Bibi Khanym Mosque.jpg" />
+              <img src={icon4} />
             </div>
             <div className={styles.featureImgSmall}>
-              <img src="/src/assets/Cities/Khiva/Kalta Minor Minaret 7.jpg" />
+              <img src={icon5} />
             </div>
             <div className={styles.featureBadge}>
-              <img src="/src/assets/icons/mainpage/icon3.png" alt="badge" />
+              <img src={icon3} />
             </div>
           </div>
         </div>
