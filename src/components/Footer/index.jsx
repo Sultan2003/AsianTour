@@ -18,18 +18,6 @@ const Footer = () => {
   const { lang } = useContext(LanguageContext);
   const t = footerTranslations[lang] || footerTranslations.en;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScroll(window.scrollY > 300);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -137,11 +125,6 @@ const Footer = () => {
       </div>
 
       {/* Scroll to Top Button */}
-      {showScroll && (
-        <button className={styles.scrollTop} onClick={scrollToTop}>
-          <FaArrowUp />
-        </button>
-      )}
     </footer>
   );
 };

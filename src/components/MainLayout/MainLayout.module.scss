@@ -1,0 +1,42 @@
+.mainLayout {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  /* 🔥 THIS is your real fix */
+  padding-top: 130px;
+}
+
+.mainLayout main {
+  flex: 1;
+}
+
+/* Scroll button */
+.scrollTop {
+  position: fixed;
+  bottom: 90px;
+  right: 27px;
+
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.35));
+
+  backdrop-filter: blur(8px);
+
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+
+  cursor: pointer;
+  font-size: 1.2rem;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.25s ease;
+  z-index: 9999;
+}
+
+.scrollTop:hover {
+  background: #0b1670;
+  transform: translateY(-3px);
+}

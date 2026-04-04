@@ -109,28 +109,7 @@
     }
   }
 
-  .scrollTop {
-    position: fixed;
-    bottom: 90px;
-    right: 27px;
-    background: #9bc8a4;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition:
-      background 0.3s,
-      transform 0.3s;
-    z-index: 9999;
-
-    &:hover {
-      background: linear-gradient(135deg, #4f46e5, #0b1670);
-      transform: translateY(-3px);
-    }
-  }
+  
 
   /* ---------- Responsive ---------- */
 

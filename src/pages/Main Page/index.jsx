@@ -569,14 +569,14 @@ export default function MainPage() {
             />
           ))}
         </div>
+        <footer style={{ display: "none" }}>
+          {tours.map((tour) => (
+            <a key={tour.id} href={`/tour/${makeSlug(tour.title)}`}>
+              {tour.title}
+            </a>
+          ))}
+        </footer>
       </div>
-      <footer style={{ display: "none" }}>
-        {tours.map((tour) => (
-          <a key={tour.id} href={`/tour/${makeSlug(tour.title)}`}>
-            {tour.title}
-          </a>
-        ))}
-      </footer>
     </div>
   );
 }

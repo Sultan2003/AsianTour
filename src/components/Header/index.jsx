@@ -1,8 +1,9 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./Header.module.scss";
 import logo from "../../assets/background/Logo 2.png";
 import AnimatedLogo from "../../../public/assets/animatedlogo/logo";
+import { PhoneIcon } from "../../assets/icons/icons";
 
 export default function Header2({ onLoginClick }) {
   const navigate = useNavigate();
@@ -14,6 +15,20 @@ export default function Header2({ onLoginClick }) {
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [tourType, setTourType] = useState("");
+  const searchRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setOpenFilter(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleSearch = () => {
     const query = new URLSearchParams({
@@ -45,15 +60,34 @@ export default function Header2({ onLoginClick }) {
           </div>
 
           {/* ✅ NEW SEARCH (FROM HEADER1 LOGIC) */}
-          <div className={styles.searchWrapper}>
-            <div
-              className={styles.searchBox}
-              onClick={() => setOpenFilter(!openFilter)}
-            >
-              <input type="text" placeholder="Search tours..." readOnly />
-              <button className={styles.searchBtn}>▼</button>
-            </div>
+          <div className={styles.searchWrapper} ref={searchRef}>
+            <form className={styles.form}>
+              <label>
+                {/* INPUT */}
+                <input
+                  className={styles.input}
+                  type="text"
+                  placeholder="Search tours..."
+                  required
+                  onClick={() => setOpenFilter(!openFilter)}
+                />
 
+                {/* SEARCH ICON */}
+                <svg className={styles.search} viewBox="0 0 24 24">
+                  <path d="M21 21l-4.35-4.35m1.6-5.4a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+
+                {/* CLEAR BUTTON */}
+                <button type="reset" className={styles.closeBtn}>
+                  ✕
+                </button>
+
+                {/* BACKGROUND */}
+                <div className={styles.fancyBg}></div>
+              </label>
+            </form>
+
+            {/* 🔽 DROPDOWN (UNCHANGED LOGIC) */}
             {openFilter && (
               <div className={styles.searchDropdown}>
                 {/* DESTINATIONS */}
@@ -120,6 +154,7 @@ export default function Header2({ onLoginClick }) {
                 {/* TOUR TYPE */}
                 <div className={styles.searchItem}>
                   <strong>Tour Type</strong>
+
                   <label>
                     <input
                       type="radio"
@@ -128,6 +163,7 @@ export default function Header2({ onLoginClick }) {
                     />
                     Group
                   </label>
+
                   <label>
                     <input
                       type="radio"
@@ -138,6 +174,7 @@ export default function Header2({ onLoginClick }) {
                   </label>
                 </div>
 
+                {/* SEARCH BUTTON */}
                 <button className={styles.searchBtn} onClick={handleSearch}>
                   Search
                 </button>
@@ -149,7 +186,6 @@ export default function Header2({ onLoginClick }) {
         {/* RIGHT SIDE */}
         <div>
           <div className={styles.actions}>
-            {/* ❌ LANGUAGE SWITCH REMOVED */}
             <NavLink className={styles.navlink} to="/about">
               About Us
             </NavLink>
@@ -157,6 +193,18 @@ export default function Header2({ onLoginClick }) {
             <NavLink className={styles.navlink} to="/contact">
               Contact
             </NavLink>
+
+            {/* ✅ NEW PHONE BLOCK */}
+            <div className={styles.callUs}>
+              <div className={styles.phoneIcon}>
+                <PhoneIcon />
+              </div>
+
+              <div className={styles.phoneText}>
+                <span>Call Us:</span>
+                <strong>+998-93-200-44-50</strong>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -186,17 +234,17 @@ export default function Header2({ onLoginClick }) {
           <span>Group Tours ▾</span>
           <div className={styles.dropdown}>
             <div className={styles.dropdownGrid}>
-              <Link to="/Silk-Road-Tours">Silk Road</Link>
-              <Link to="/Central-Asia-Tours">Central Asia</Link>
-              <Link to="/Uzbek-Tours">Uzbekistan</Link>
-              <Link to="/Kazakh-Tours">Kazakhstan</Link>
-              <Link to="/Kyrgyz-Tours">Kyrgyzstan</Link>
-              <Link to="/Tajik-Tours">Tajikistan</Link>
-              <Link to="/Turkmen-Tours">Turkmenistan</Link>
-              <Link to="/Caucas-Tours">Caucasus</Link>
-              <Link to="/Armenia-Tours">Armenia</Link>
-              <Link to="/Azerbaijan-Tours">Azerbaijan</Link>
-              <Link to="/Georgia-Tours">Georgia</Link>
+              <Link to="/Silk-Road-Tours">Silk Road Group Tours</Link>
+              <Link to="/Central-Asia-Tours">Central Asia Group Tours</Link>
+              <Link to="/Uzbek-Tours">Uzbekistan Group Tours</Link>
+              <Link to="/Kazakh-Tours">Kazakhstan Group Tours</Link>
+              <Link to="/Kyrgyz-Tours">Kyrgyzstan Group Tours</Link>
+              <Link to="/Tajik-Tours">Tajikistan Group Tours</Link>
+              <Link to="/Turkmen-Tours">Turkmenistan Group Tours</Link>
+              <Link to="/Caucas-Tours">Caucasus Group Tours</Link>
+              <Link to="/Armenia-Tours">Armenia Group Tours</Link>
+              <Link to="/Azerbaijan-Tours">Azerbaijan Group Tours </Link>
+              <Link to="/Georgia-Tours">Georgia Group Tours</Link>
             </div>
           </div>
         </div>
@@ -205,18 +253,32 @@ export default function Header2({ onLoginClick }) {
           <span>Private Tours ▾</span>
           <div className={styles.dropdown}>
             <div className={styles.dropdownGrid}>
-              <Link to="/Silk-Road-Private-Tours">Silk Road</Link>
-              <Link to="/Central-Asia-Private-Tours">Central Asia</Link>
-              <Link to="/Uzbekistan-Private-Tours">Uzbekistan</Link>
-              <Link to="/Kazakhstan-Private-Tours">Kazakhstan</Link>
-              <Link to="/Kyrgyzstan-Private-Tours">Kyrgyzstan</Link>
-              <Link to="/Tajikistan-Private-Tours">Tajikistan</Link>
-              <Link to="/Turkmenistan-Private-Tours">Turkmenistan</Link>
-              <Link to="/Caucasus-Private-Tours">Caucasus</Link>
-              <Link to="/Armenia-Private-Tours">Armenia</Link>
-              <Link to="/Azerbaijan-Private-Tours">Azerbaijan</Link>
-              <Link to="/Georgia-Private-Tours">Georgia</Link>
-              <Link to="/Tailor-Private-Tours">Tailor Made</Link>
+              <Link to="/Silk-Road-Private-Tours">Silk Road Private Tours</Link>
+              <Link to="/Central-Asia-Private-Tours">
+                Central Asia Private Tours
+              </Link>
+              <Link to="/Uzbekistan-Private-Tours">
+                Uzbekistan Private Tours
+              </Link>
+              <Link to="/Kazakhstan-Private-Tours">
+                Kazakhstan Private Tours
+              </Link>
+              <Link to="/Kyrgyzstan-Private-Tours">
+                Kyrgyzstan Private Tours
+              </Link>
+              <Link to="/Tajikistan-Private-Tours">
+                Tajikistan Private Tours
+              </Link>
+              <Link to="/Turkmenistan-Private-Tours">
+                Turkmenistan Private Tours
+              </Link>
+              <Link to="/Caucasus-Private-Tours">Caucasus Private Tours</Link>
+              <Link to="/Armenia-Private-Tours">Armenia Private Tours</Link>
+              <Link to="/Azerbaijan-Private-Tours">
+                Azerbaijan Private Tours
+              </Link>
+              <Link to="/Georgia-Private-Tours">Georgia Private Tours</Link>
+              <Link to="/Tailor-Private-Tours">Tailor Made Private Tours</Link>
             </div>
           </div>
         </div>
