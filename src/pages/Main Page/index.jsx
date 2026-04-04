@@ -513,8 +513,6 @@ export default function MainPage() {
                 </div>
               </div>
             </div>
-
-            <button className={styles.featureBtn}>PLAN YOUR JOURNEY →</button>
           </div>
 
           {/* RIGHT SIDE */}

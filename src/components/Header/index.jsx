@@ -1,17 +1,16 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import styles from "./Header.module.scss";
 import logo from "../../assets/background/Logo 2.png";
-import { useState, useContext } from "react";
-import { LanguageContext } from "../../context/LanguageContext";
-import headerTranslations from "../../translations/header";
-import TranslateWidget from "../TranslateWidget/TranslateWidget";
+import AnimatedLogo from "../../../public/assets/animatedlogo/logo";
 
-export default function Header() {
-  const [openFilter, setOpenFilter] = useState(false);
+export default function Header2({ onLoginClick }) {
   const navigate = useNavigate();
-  const { lang } = useContext(LanguageContext);
-  const t = headerTranslations[lang];
 
+  const [compact, setCompact] = useState(false);
+
+  // ✅ SEARCH LOGIC FROM HEADER1
+  const [openFilter, setOpenFilter] = useState(false);
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [tourType, setTourType] = useState("");
@@ -26,193 +25,40 @@ export default function Header() {
     navigate(`/search?${query}`);
   };
 
+  useEffect(() => {
+    const onScroll = () => {
+      setCompact(window.scrollY > 100);
+    };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className={styles.header}>
-      {/* Top bar */}
-      <div className={styles.topBar}>
-        <div className={styles.topLinks}>
-          <Link to="/about">{t.about}</Link>
-          <Link to="/contact">{t.contact}</Link>
-        </div>
-      </div>
-
-      {/* Logo + banner */}
-      <div className={styles.logoBanner}>
-        <Link to="/">
-          <img
-            src={logo}
-            alt="Go To Central Asia Logo"
-            className={styles.logo}
-          />
-        </Link>
-        <a
-          href="https://www.gotocentralasia.com/tour/8-day-classic-uzbekistan-group-tour-2026-2027"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.banner}
-        >
-          <span className={styles.badge}>{t.bestSeller}</span>
-          <span className={styles.title}>{t.bestSeller2}</span>
-          <span className={styles.subtitle}>{t.groupTour}</span>
-          <span className={styles.price}>{t.fromPrice}</span>
-        </a>
-        <TranslateWidget />
-      </div>
-
-      {/* Nav bar */}
-      <nav className={styles.navBar}>
-        <ul className={styles.navLinks}>
-          {/* Destinations */}
-          <li className={styles.dropdown}>
-            {t.destinations} <span className={styles.arrow}>▼</span>
-            <ul className={styles.dropdownMenu}>
-              <li>
-                <Link to="/Silk-Road">{t.silkRoadd}</Link>
-              </li>
-              <li>
-                <Link to="/Central-Asia">{t.centralAsiad}</Link>
-              </li>
-              <li>
-                <Link to="/Uzbekistan">{t.uzbekistand}</Link>
-              </li>
-              <li>
-                <Link to="/Kazakhstan">{t.kazakhstand}</Link>
-              </li>
-              <li>
-                <Link to="/Kyrgyzstan">{t.kyrgyzstand}</Link>
-              </li>
-              <li>
-                <Link to="/Tajikistan">{t.tajikistand}</Link>
-              </li>
-              <li>
-                <Link to="/Turkmenistan">{t.turkmenistand}</Link>
-              </li>
-              <li>
-                <Link to="/Caucasus">{t.caucasusd}</Link>
-              </li>
-              <li>
-                <Link to="/Armenia">{t.armeniad}</Link>
-              </li>
-              <li>
-                <Link to="/Azerbaijan">{t.azerbaijand}</Link>
-              </li>
-              <li>
-                <Link to="/Georgia">{t.georgiad}</Link>
-              </li>
-            </ul>
-          </li>
-
-          {/* Group Packages */}
-          <li className={styles.dropdown}>
-            {t.groupPackages} <span className={styles.arrow}>▼</span>
-            <ul className={styles.dropdownMenu}>
-              <li>
-                <Link to="/Silk-Road-Tours">{t.silkRoad}</Link>
-              </li>
-              <li>
-                <Link to="/Central-Asia-Tours">{t.centralAsia}</Link>
-              </li>
-              <li>
-                <Link to="/Uzbek-Tours">{t.uzbekistan}</Link>
-              </li>
-              <li>
-                <Link to="/Kazakh-Tours">{t.kazakhstan}</Link>
-              </li>
-              <li>
-                <Link to="/Kyrgyz-Tours">{t.kyrgyzstan}</Link>
-              </li>
-              <li>
-                <Link to="/Tajik-Tours">{t.tajikistan}</Link>
-              </li>
-              <li>
-                <Link to="/Turkmen-Tours">{t.turkmenistan}</Link>
-              </li>
-              <li>
-                <Link to="/Caucas-Tours">{t.caucasus}</Link>
-              </li>
-              <li>
-                <Link to="/Armenia-Tours">{t.armenia}</Link>
-              </li>
-              <li>
-                <Link to="/Azerbaijan-Tours">{t.azerbaijan}</Link>
-              </li>
-              <li>
-                <Link to="/Georgia-Tours">{t.georgia}</Link>
-              </li>
-            </ul>
-          </li>
-
-          {/* Private Tours */}
-          <li className={styles.dropdown}>
-            {t.privateTours} <span className={styles.arrow}>▼</span>
-            <ul className={styles.dropdownMenu}>
-              <li>
-                <Link to="/Silk-Road-Private-Tours">{t.silkRoad}</Link>
-              </li>
-              <li>
-                <Link to="/Central-Asia-Private-Tours">{t.centralAsia}</Link>
-              </li>
-              <li>
-                <Link to="/Uzbekistan-Private-Tours">{t.uzbekistan}</Link>
-              </li>
-              <li>
-                <Link to="/Kazakhstan-Private-Tours">{t.kazakhstan}</Link>
-              </li>
-              <li>
-                <Link to="/Kyrgyzstan-Private-Tours">{t.kyrgyzstan}</Link>
-              </li>
-              <li>
-                <Link to="/Tajikistan-Private-Tours">{t.tajikistan}</Link>
-              </li>
-              <li>
-                <Link to="/Turkmenistan-Private-Tours">{t.turkmenistan}</Link>
-              </li>
-              <li>
-                <Link to="/Caucasus-Private-Tours">{t.caucasus}</Link>
-              </li>
-              <li>
-                <Link to="/Armenia-Private-Tours">{t.armenia}</Link>
-              </li>
-              <li>
-                <Link to="/Azerbaijan-Private-Tours">{t.azerbaijan}</Link>
-              </li>
-              <li>
-                <Link to="/Georgia-Private-Tours">{t.georgia}</Link>
-              </li>
-              <li>
-                <Link to="/Tailor-Private-Tours">{t.tailor}</Link>
-              </li>
-            </ul>
-          </li>
-
-          {/* Services */}
-          <li className={`${styles.dropdown} ${styles.service}`}>
-            {t.services} <span className={styles.arrow}>▼</span>
-            <ul className={styles.dropdownMenu}>
-              <li>
-                <Link to="/Asian-Tour-Transfer">{t.transfer}</Link>
-              </li>
-              <li>{t.hotelbooking}</li>
-              <li>{t.guideservice}</li>
-            </ul>
-          </li>
-        </ul>
-
-        {/* Search box */}
-        <div className={styles.searchBox}>
-          <div
-            className={styles.searchInput}
-            onClick={() => setOpenFilter(!openFilter)}
-          >
-            <input type="text" placeholder={t.searchPlaceholder} readOnly />
-            <button>▼</button>
+    <header className={`${styles.header} ${compact ? styles.compact : ""}`}>
+      {/* TOP ROW */}
+      <div className={`${styles.topRow} ${compact ? styles.topHidden : ""}`}>
+        <div>
+          {/* LOGO */}
+          <div className={styles.logo} onClick={() => navigate("/")}>
+            <AnimatedLogo />
           </div>
 
-          {openFilter && (
-            <div className={styles.filterPanel}>
-              <div className={styles.filterSection}>
-                <h4>{t.destinationsFilter}</h4>
-                <div className={styles.grid}>
+          {/* ✅ NEW SEARCH (FROM HEADER1 LOGIC) */}
+          <div className={styles.searchWrapper}>
+            <div
+              className={styles.searchBox}
+              onClick={() => setOpenFilter(!openFilter)}
+            >
+              <input type="text" placeholder="Search tours..." readOnly />
+              <button className={styles.searchBtn}>▼</button>
+            </div>
+
+            {openFilter && (
+              <div className={styles.searchDropdown}>
+                {/* DESTINATIONS */}
+                <div className={styles.searchItem}>
+                  <strong>Destinations</strong>
                   {[
                     "Kazakhstan",
                     "Kyrgyzstan",
@@ -232,73 +78,158 @@ export default function Header() {
                             ]);
                           } else {
                             setSelectedDestinations(
-                              selectedDestinations.filter((item) => item !== d)
+                              selectedDestinations.filter((item) => item !== d),
                             );
                           }
                         }}
-                      />{" "}
+                      />
                       {d}
                     </label>
                   ))}
                 </div>
-              </div>
 
-              <div className={styles.filterSection}>
-                <h4>{t.departure}</h4>
-                <select
-                  className={styles.selectBox}
-                  value={selectedMonth}
-                  onChange={(e) => setSelectedMonth(e.target.value)}
-                >
-                  <option value="">Any Month</option>
-                  {[
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec",
-                  ].map((m) => (
-                    <option key={m} value={m}>
-                      {m}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                {/* MONTH */}
+                <div className={styles.searchItem}>
+                  <strong>Departure</strong>
+                  <select
+                    value={selectedMonth}
+                    onChange={(e) => setSelectedMonth(e.target.value)}
+                  >
+                    <option value="">Any Month</option>
+                    {[
+                      "Jan",
+                      "Feb",
+                      "Mar",
+                      "Apr",
+                      "May",
+                      "Jun",
+                      "Jul",
+                      "Aug",
+                      "Sep",
+                      "Oct",
+                      "Nov",
+                      "Dec",
+                    ].map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              <div className={styles.filterSection}>
-                <h4>{t.tourType}</h4>
-                <label>
-                  <input
-                    type="radio"
-                    name="tourType"
-                    value="Group"
-                    onChange={() => setTourType("Group")}
-                  />{" "}
-                  {t.group}
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="tourType"
-                    value="Private"
-                    onChange={() => setTourType("Private")}
-                  />{" "}
-                  {t.private}
-                </label>
-              </div>
+                {/* TOUR TYPE */}
+                <div className={styles.searchItem}>
+                  <strong>Tour Type</strong>
+                  <label>
+                    <input
+                      type="radio"
+                      name="tourType"
+                      onChange={() => setTourType("Group")}
+                    />
+                    Group
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="tourType"
+                      onChange={() => setTourType("Private")}
+                    />
+                    Private
+                  </label>
+                </div>
 
-              <button className={styles.searchBtn} onClick={handleSearch}>
-                {t.searchBtn}
-              </button>
+                <button className={styles.searchBtn} onClick={handleSearch}>
+                  Search
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div>
+          <div className={styles.actions}>
+            {/* ❌ LANGUAGE SWITCH REMOVED */}
+            <NavLink className={styles.navlink} to="/about">
+              About Us
+            </NavLink>
+
+            <NavLink className={styles.navlink} to="/contact">
+              Contact
+            </NavLink>
+          </div>
+        </div>
+      </div>
+
+      {/* ✅ NAVIGATION FROM HEADER1 */}
+      <nav className={styles.bottomRow}>
+        <div className={styles.menuItem}>
+          <span>Destinations ▾</span>
+          <div className={styles.dropdown}>
+            <div className={styles.dropdownGrid}>
+              <Link to="/Silk-Road">Silk Road</Link>
+              <Link to="/Central-Asia">Central Asia</Link>
+              <Link to="/Uzbekistan">Uzbekistan</Link>
+              <Link to="/Kazakhstan">Kazakhstan</Link>
+              <Link to="/Kyrgyzstan">Kyrgyzstan</Link>
+              <Link to="/Tajikistan">Tajikistan</Link>
+              <Link to="/Turkmenistan">Turkmenistan</Link>
+              <Link to="/Caucasus">Caucasus</Link>
+              <Link to="/Armenia">Armenia</Link>
+              <Link to="/Azerbaijan">Azerbaijan</Link>
+              <Link to="/Georgia">Georgia</Link>
             </div>
-          )}
+          </div>
+        </div>
+
+        <div className={styles.menuItem}>
+          <span>Group Tours ▾</span>
+          <div className={styles.dropdown}>
+            <div className={styles.dropdownGrid}>
+              <Link to="/Silk-Road-Tours">Silk Road</Link>
+              <Link to="/Central-Asia-Tours">Central Asia</Link>
+              <Link to="/Uzbek-Tours">Uzbekistan</Link>
+              <Link to="/Kazakh-Tours">Kazakhstan</Link>
+              <Link to="/Kyrgyz-Tours">Kyrgyzstan</Link>
+              <Link to="/Tajik-Tours">Tajikistan</Link>
+              <Link to="/Turkmen-Tours">Turkmenistan</Link>
+              <Link to="/Caucas-Tours">Caucasus</Link>
+              <Link to="/Armenia-Tours">Armenia</Link>
+              <Link to="/Azerbaijan-Tours">Azerbaijan</Link>
+              <Link to="/Georgia-Tours">Georgia</Link>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.menuItem}>
+          <span>Private Tours ▾</span>
+          <div className={styles.dropdown}>
+            <div className={styles.dropdownGrid}>
+              <Link to="/Silk-Road-Private-Tours">Silk Road</Link>
+              <Link to="/Central-Asia-Private-Tours">Central Asia</Link>
+              <Link to="/Uzbekistan-Private-Tours">Uzbekistan</Link>
+              <Link to="/Kazakhstan-Private-Tours">Kazakhstan</Link>
+              <Link to="/Kyrgyzstan-Private-Tours">Kyrgyzstan</Link>
+              <Link to="/Tajikistan-Private-Tours">Tajikistan</Link>
+              <Link to="/Turkmenistan-Private-Tours">Turkmenistan</Link>
+              <Link to="/Caucasus-Private-Tours">Caucasus</Link>
+              <Link to="/Armenia-Private-Tours">Armenia</Link>
+              <Link to="/Azerbaijan-Private-Tours">Azerbaijan</Link>
+              <Link to="/Georgia-Private-Tours">Georgia</Link>
+              <Link to="/Tailor-Private-Tours">Tailor Made</Link>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.menuItem}>
+          <span>Services ▾</span>
+          <div className={styles.dropdown}>
+            <div className={styles.dropdownGrid}>
+              <Link to="/Asian-Tour-Transfer">Transfer</Link>
+              <span>Hotel Booking</span>
+              <span>Guide Service</span>
+            </div>
+          </div>
         </div>
       </nav>
     </header>

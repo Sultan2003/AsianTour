@@ -1,0 +1,66 @@
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: white;
+}
+
+/* ICON (bird + mountains) */
+.icon img {
+  width: 140px;
+  height: 80px;
+
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+
+  animation: logoFade 0.8s ease forwards;
+}
+
+/* TEXT */
+.text {
+  margin-top: 8px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+
+  opacity: 0;
+  transform: translateY(10px);
+
+  animation: textReveal 0.6s ease forwards;
+  animation-delay: 0.6s;
+}
+
+/* 🔥 ANIMATIONS */
+
+/* main logo reveal */
+@keyframes logoFade {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* text slide */
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🕊️ subtle floating effect (bird feel) */
+.icon {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
