@@ -228,7 +228,7 @@
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-  
+
   opacity: 0;
   visibility: hidden;
   transform: translateY(6px);
@@ -252,7 +252,6 @@
   display: grid;
   grid-template-columns: repeat(2, 150px);
   gap: 14px;
-  
 }
 
 .dropdownGrid a {
@@ -838,6 +837,8 @@
     flex-direction: row; /* 🔥 back to row */
     align-items: center;
     justify-content: space-between;
+    height: 120px;
+    margin-top: -30px;
   }
 
   /* LOGO LEFT */
@@ -886,6 +887,11 @@
     padding: 8px 10px;
   }
 
+  .bottomRow.menuOpen {
+    overflow: visible;
+    white-space: normal;
+  }
+
   .bottomRow::-webkit-scrollbar {
     display: none;
   }
@@ -922,11 +928,16 @@
 
   /* tighter spacing */
   .actions {
-    gap: 8px;
+    gap: 12px;
   }
 
   .navlink {
-    font-size: 13px;
+    font-size: 14px;
+  }
+
+  .topRow {
+    padding: 0px 10px;
+    min-height: 52px;
   }
 }
 
@@ -941,19 +952,24 @@ body {
 @media (max-width: 768px) {
   /* remove extra vertical space */
   .topRow {
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding: 0 12px;
+    min-height: 56px;
   }
 
-  /* remove forced height */
+  /* keep top row compact and aligned */
   .topRow > div {
-    height: 110px;
+    height: auto;
+    width: auto;
   }
 
-  /* align logo nicely */
-  .logoWrapper {
-    align-items: flex-start;
-    margin: 0;
+  .topRow > div:first-child {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .actions {
+    justify-content: flex-end;
+    gap: 14px;
   }
 }
 

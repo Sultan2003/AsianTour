@@ -5,7 +5,7 @@ import logo from "../../assets/background/Logo 2.png";
 import AnimatedLogo from "../../../public/assets/animatedlogo/logo";
 import { PhoneIcon } from "../../assets/icons/icons";
 
-export default function Header2({ onLoginClick }) {
+export default function Header({ onLoginClick }) {
   const navigate = useNavigate();
 
   const [compact, setCompact] = useState(false);
@@ -240,7 +240,10 @@ export default function Header2({ onLoginClick }) {
       </div>
 
       {/* ✅ NAVIGATION FROM HEADER1 */}
-      <nav className={styles.bottomRow} ref={navRef}>
+      <nav
+        className={`${styles.bottomRow} ${openMobileMenu ? styles.menuOpen : ""}`}
+        ref={navRef}
+      >
         <div className={styles.menuItem}>
           <span
             onClick={() => handleMenuToggle("destinations")}

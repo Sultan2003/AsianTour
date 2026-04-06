@@ -551,7 +551,7 @@ export default function MainPage() {
                   <img src={slide.image} alt={slide.title} />
                 </div>
 
-                <h3>{slide.title}</h3>
+                <h3 className={styles.cardTitle}>{slide.title}</h3>
               </div>
             );
           })}
