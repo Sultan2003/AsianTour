@@ -707,6 +707,7 @@
     max-width: 1200px;
     margin: 60px auto;
     text-align: center;
+    padding-inline: 16px;
   }
 
   .promoTitle {
@@ -718,11 +719,12 @@
   /* CAROUSEL */
   .carousel {
     position: relative;
-    height: 260px;
+    height: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
     perspective: 1300px;
+    overflow: hidden;
   }
 
   /* CARD */
@@ -732,6 +734,7 @@
     text-align: center;
     transition: all 0.5s ease;
     cursor: pointer;
+    transform-origin: center center;
 
     .cardImage {
       width: 100%;
@@ -747,9 +750,13 @@
       }
     }
 
-    h3 {
+    .cardTitle {
       font-size: 16px;
       font-weight: 600;
+      margin: 0;
+      min-height: 44px;
+      line-height: 1.25;
+      color: #223158;
     }
 
     span {
@@ -808,6 +815,10 @@
         transform: scale(1.3);
       }
     }
+  }
+
+  .mobileActiveTitle {
+    display: none;
   }
 
   /* ✅ Contact Section */
@@ -896,17 +907,49 @@
     }
 
     .promoSlider {
-      height: 480px;
-      .sliderContent h2 {
-        font-size: 28px;
-      }
-      .sliderContent p {
-        font-size: 15px;
-      }
-      .readMoreBtn {
-        font-size: 14px;
-        padding: 10px 22px;
-      }
+      margin-top: 32px;
+      margin-bottom: 28px;
+    }
+
+    .carousel {
+      height: 300px;
+    }
+
+    .carouselCard {
+      width: 170px;
+    }
+
+    .pos-1 {
+      transform: translateX(-130px) translateY(14px) rotate(-6deg) scale(0.88);
+      opacity: 0.88;
+    }
+
+    .pos1 {
+      transform: translateX(130px) translateY(14px) rotate(6deg) scale(0.88);
+      opacity: 0.88;
+    }
+
+    .pos-2,
+    .pos2 {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(0) scale(0.78);
+    }
+
+    .carouselCard .cardTitle {
+      display: none;
+    }
+
+    .mobileActiveTitle {
+      display: block;
+      margin-top: 8px;
+      min-height: 30px;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #0b1670;
+      padding-inline: 10px;
+      word-break: break-word;
     }
   }
 
@@ -927,8 +970,28 @@
       font-size: 16px;
     }
     .promoSlider {
-      height: 380px;
       margin: 20px auto;
+    }
+
+    .carousel {
+      height: 270px;
+    }
+
+    .carouselCard {
+      width: 155px;
+    }
+
+    .pos-1 {
+      transform: translateX(-105px) translateY(16px) rotate(-5deg) scale(0.84);
+    }
+
+    .pos1 {
+      transform: translateX(105px) translateY(16px) rotate(5deg) scale(0.84);
+    }
+
+    .mobileActiveTitle {
+      font-size: 24px;
+      min-height: 28px;
     }
     .contactSection p {
       font-size: 15px;
@@ -965,7 +1028,6 @@
 @media (max-width: 992px) {
   .promoSlider {
     max-width: 95%;
-    height: 520px;
     margin: 30px auto;
     border-radius: 10px;
 
@@ -983,7 +1045,6 @@
 @media (max-width: 768px) {
   .promoSlider {
     max-width: 92%;
-    height: 450px;
     margin: 20px auto;
 
     .sliderContent {
@@ -1005,7 +1066,6 @@
 @media (max-width: 576px) {
   .promoSlider {
     width: 90%;
-    height: 360px;
     margin: 20px auto;
     border-radius: 8px;
 
@@ -1024,8 +1084,7 @@
 @media (max-width: 420px) {
   .promoSlider {
     width: 80%;
-    height: 320px;
-    margin: 10px 0;
+    margin: 10px auto;
 
     .sliderContent {
       h2 {

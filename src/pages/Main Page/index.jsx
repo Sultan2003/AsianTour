@@ -551,11 +551,12 @@ export default function MainPage() {
                   <img src={slide.image} alt={slide.title} />
                 </div>
 
-                <h3>{slide.title}</h3>
+                <h3 className={styles.cardTitle}>{slide.title}</h3>
               </div>
             );
           })}
         </div>
+        <h3 className={styles.mobileActiveTitle}>{slides[current]?.title}</h3>
 
         {/* DOTS */}
         <div className={styles.promoDots}>
