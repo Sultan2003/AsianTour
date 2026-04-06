@@ -240,7 +240,10 @@ export default function Header2({ onLoginClick }) {
       </div>
 
       {/* ✅ NAVIGATION FROM HEADER1 */}
-      <nav className={styles.bottomRow} ref={navRef}>
+      <nav
+        className={`${styles.bottomRow} ${openMobileMenu ? styles.menuOpen : ""}`}
+        ref={navRef}
+      >
         <div className={styles.menuItem}>
           <span
             onClick={() => handleMenuToggle("destinations")}
