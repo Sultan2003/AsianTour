@@ -64,3 +64,28 @@
     transform: translateY(-6px);
   }
 }
+@media (max-width: 768px) {
+  .logoWrapper {
+    align-items: flex-start; /* 🔥 important for header alignment */
+  }
+
+  .icon img {
+    width: 90px; /* 🔽 smaller */
+    height: auto;
+  }
+
+  .text {
+    font-size: 14px; /* 🔽 smaller text */
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .icon img {
+    width: 75px;
+  }
+
+  .text {
+    font-size: 12px;
+  }
+}

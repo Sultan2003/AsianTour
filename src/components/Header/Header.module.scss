@@ -798,3 +798,154 @@
   opacity: 1;
   visibility: visible;
 }
+/* =========================================
+   📱 MOBILE FIXES (DO NOT TOUCH DESKTOP)
+========================================= */
+@media (max-width: 768px) {
+  /* ✅ FIX WIDTH */
+  .topRow,
+  .bottomRow {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .bottomRow {
+    left: 0;
+  }
+
+  /* ❌ HIDE SEARCH */
+  .searchWrapper,
+  .searchBox,
+  .form {
+    display: none !important;
+  }
+
+  /* =========================
+     🔥 HEADER ROW (FIXED)
+  ========================= */
+
+  .topRow {
+    display: flex;
+    flex-direction: row; /* 🔥 back to row */
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* LOGO LEFT */
+  .topRow > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* ACTIONS RIGHT */
+  .topRow > div:last-child {
+    display: flex;
+    align-items: center;
+  }
+
+  /* SMALLER LOGO */
+  .logo img {
+    height: 32px;
+  }
+
+  /* CLEAN LINKS */
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .navlink {
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  /* =========================
+     NAVIGATION (SCROLL)
+  ========================= */
+
+  .bottomRow {
+    margin-top: 6px;
+
+    display: flex;
+    align-items: center;
+
+    overflow-x: auto;
+    white-space: nowrap;
+
+    gap: 14px;
+    padding: 8px 10px;
+  }
+
+  .bottomRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .menuItem {
+    flex-shrink: 0;
+    font-size: 13px;
+  }
+
+  /* ❌ disable dropdown */
+  .dropdown {
+    display: none !important;
+  }
+}
+
+/* =========================================
+   📱 SMALL MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+  .header {
+    height: auto;
+  }
+
+  /* 🔽 EVEN SMALLER LOGO */
+  .logo img {
+    height: 32px;
+  }
+
+  /* ❌ HIDE CALL BLOCK */
+  .callUs {
+    display: none;
+  }
+
+  /* tighter spacing */
+  .actions {
+    gap: 8px;
+  }
+
+  .navlink {
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   🔥 GLOBAL SAFETY
+========================================= */
+
+html,
+body {
+  overflow-x: hidden;
+}
+@media (max-width: 768px) {
+  /* remove extra vertical space */
+  .topRow {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  /* remove forced height */
+  .topRow > div {
+    height: 110px;
+  }
+
+  /* align logo nicely */
+  .logoWrapper {
+    align-items: flex-start;
+    margin: 0;
+  }
+}
