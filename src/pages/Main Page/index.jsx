@@ -556,7 +556,6 @@ export default function MainPage() {
             );
           })}
         </div>
-        <h3 className={styles.mobileActiveTitle}>{slides[current]?.title}</h3>
 
         {/* DOTS */}
         <div className={styles.promoDots}>

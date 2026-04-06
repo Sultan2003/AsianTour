@@ -817,10 +817,6 @@
     }
   }
 
-  .mobileActiveTitle {
-    display: none;
-  }
-
   /* ✅ Contact Section */
   .contactSection {
     background: linear-gradient(90deg, #0b1670, #4f46e5);
@@ -916,16 +912,16 @@
     }
 
     .carouselCard {
-      width: 170px;
+      width: 135px;
     }
 
     .pos-1 {
-      transform: translateX(-130px) translateY(14px) rotate(-6deg) scale(0.88);
+      transform: translateX(-165px) translateY(14px) rotate(-6deg) scale(0.88);
       opacity: 0.88;
     }
 
     .pos1 {
-      transform: translateX(130px) translateY(14px) rotate(6deg) scale(0.88);
+      transform: translateX(165px) translateY(14px) rotate(6deg) scale(0.88);
       opacity: 0.88;
     }
 
@@ -937,19 +933,9 @@
     }
 
     .carouselCard .cardTitle {
-      display: none;
-    }
-
-    .mobileActiveTitle {
-      display: block;
-      margin-top: 8px;
-      min-height: 30px;
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 13px;
+      min-height: 34px;
       line-height: 1.2;
-      color: #0b1670;
-      padding-inline: 10px;
-      word-break: break-word;
     }
   }
 
@@ -978,20 +964,20 @@
     }
 
     .carouselCard {
-      width: 155px;
+      width: 120px;
     }
 
     .pos-1 {
-      transform: translateX(-105px) translateY(16px) rotate(-5deg) scale(0.84);
+      transform: translateX(-135px) translateY(16px) rotate(-5deg) scale(0.84);
     }
 
     .pos1 {
-      transform: translateX(105px) translateY(16px) rotate(5deg) scale(0.84);
+      transform: translateX(135px) translateY(16px) rotate(5deg) scale(0.84);
     }
 
-    .mobileActiveTitle {
-      font-size: 24px;
-      min-height: 28px;
+    .carouselCard .cardTitle {
+      font-size: 12px;
+      min-height: 30px;
     }
     .contactSection p {
       font-size: 15px;
