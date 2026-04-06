@@ -544,7 +544,7 @@ export default function MainPage() {
             return (
               <div
                 key={index}
-                className={`${styles.carouselCard} ${styles[`pos${position}`]}`}
+                className={`${styles.carouselCard} ${styles[`promoPos${position}`]}`}
                 onClick={() => setCurrent(index)}
               >
                 <div className={styles.cardImage}>
