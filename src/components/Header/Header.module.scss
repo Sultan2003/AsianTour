@@ -886,6 +886,11 @@
     padding: 8px 10px;
   }
 
+  .bottomRow.menuOpen {
+    overflow: visible;
+    white-space: normal;
+  }
+
   .bottomRow::-webkit-scrollbar {
     display: none;
   }
@@ -922,11 +927,16 @@
 
   /* tighter spacing */
   .actions {
-    gap: 8px;
+    gap: 12px;
   }
 
   .navlink {
-    font-size: 13px;
+    font-size: 14px;
+  }
+
+  .topRow {
+    padding: 6px 10px;
+    min-height: 52px;
   }
 }
 
@@ -941,19 +951,24 @@ body {
 @media (max-width: 768px) {
   /* remove extra vertical space */
   .topRow {
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding: 8px 12px;
+    min-height: 56px;
   }
 
-  /* remove forced height */
+  /* keep top row compact and aligned */
   .topRow > div {
-    height: 110px;
+    height: auto;
+    width: auto;
   }
 
-  /* align logo nicely */
-  .logoWrapper {
-    align-items: flex-start;
-    margin: 0;
+  .topRow > div:first-child {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .actions {
+    justify-content: flex-end;
+    gap: 14px;
   }
 }
 
