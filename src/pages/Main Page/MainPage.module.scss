@@ -707,6 +707,7 @@
     max-width: 1200px;
     margin: 60px auto;
     text-align: center;
+    padding-inline: 16px;
   }
 
   .promoTitle {
@@ -718,11 +719,12 @@
   /* CAROUSEL */
   .carousel {
     position: relative;
-    height: 260px;
+    height: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
     perspective: 1300px;
+    overflow: hidden;
   }
 
   /* CARD */
@@ -732,6 +734,7 @@
     text-align: center;
     transition: all 0.5s ease;
     cursor: pointer;
+    transform-origin: center center;
 
     .cardImage {
       width: 100%;
@@ -747,9 +750,13 @@
       }
     }
 
-    h3 {
+    .cardTitle {
       font-size: 16px;
       font-weight: 600;
+      margin: 0;
+      min-height: 44px;
+      line-height: 1.25;
+      color: #223158;
     }
 
     span {
@@ -896,17 +903,39 @@
     }
 
     .promoSlider {
-      height: 480px;
-      .sliderContent h2 {
-        font-size: 28px;
-      }
-      .sliderContent p {
-        font-size: 15px;
-      }
-      .readMoreBtn {
-        font-size: 14px;
-        padding: 10px 22px;
-      }
+      margin-top: 32px;
+      margin-bottom: 28px;
+    }
+
+    .carousel {
+      height: 300px;
+    }
+
+    .carouselCard {
+      width: 135px;
+    }
+
+    .pos-1 {
+      transform: translateX(-165px) translateY(14px) rotate(-6deg) scale(0.88);
+      opacity: 0.88;
+    }
+
+    .pos1 {
+      transform: translateX(165px) translateY(14px) rotate(6deg) scale(0.88);
+      opacity: 0.88;
+    }
+
+    .pos-2,
+    .pos2 {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(0) scale(0.78);
+    }
+
+    .carouselCard .cardTitle {
+      font-size: 13px;
+      min-height: 34px;
+      line-height: 1.2;
     }
   }
 
@@ -927,8 +956,28 @@
       font-size: 16px;
     }
     .promoSlider {
-      height: 380px;
       margin: 20px auto;
+    }
+
+    .carousel {
+      height: 270px;
+    }
+
+    .carouselCard {
+      width: 120px;
+    }
+
+    .pos-1 {
+      transform: translateX(-135px) translateY(16px) rotate(-5deg) scale(0.84);
+    }
+
+    .pos1 {
+      transform: translateX(135px) translateY(16px) rotate(5deg) scale(0.84);
+    }
+
+    .carouselCard .cardTitle {
+      font-size: 12px;
+      min-height: 30px;
     }
     .contactSection p {
       font-size: 15px;
@@ -959,13 +1008,33 @@
       padding: 10px 20px;
       font-size: 14px;
     }
+
+    .carousel {
+      height: 248px;
+    }
+
+    .carouselCard {
+      width: 108px;
+    }
+
+    .pos-1 {
+      transform: translateX(-122px) translateY(16px) rotate(-4deg) scale(0.8);
+    }
+
+    .pos1 {
+      transform: translateX(122px) translateY(16px) rotate(4deg) scale(0.8);
+    }
+
+    .carouselCard .cardTitle {
+      font-size: 11px;
+      min-height: 28px;
+    }
   }
 }
 /* ✅ Responsive adjustments for Promo Slider */
 @media (max-width: 992px) {
   .promoSlider {
     max-width: 95%;
-    height: 520px;
     margin: 30px auto;
     border-radius: 10px;
 
@@ -983,7 +1052,6 @@
 @media (max-width: 768px) {
   .promoSlider {
     max-width: 92%;
-    height: 450px;
     margin: 20px auto;
 
     .sliderContent {
@@ -1005,7 +1073,6 @@
 @media (max-width: 576px) {
   .promoSlider {
     width: 90%;
-    height: 360px;
     margin: 20px auto;
     border-radius: 8px;
 
@@ -1024,8 +1091,7 @@
 @media (max-width: 420px) {
   .promoSlider {
     width: 80%;
-    height: 320px;
-    margin: 10px 0;
+    margin: 10px auto;
 
     .sliderContent {
       h2 {
@@ -1316,36 +1382,69 @@
   display: block;
 }
 @media (max-width: 768px) {
-  .destinationsSection {
-    .slider {
-      height: auto;
+  .mainPage {
+    .tourList {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 0 12px;
     }
 
-    .card {
-      position: relative;
-      width: 90%;
-      height: 200px;
-      transform: none !important;
-      opacity: 1 !important;
-      margin: 10px auto;
+    .upcomingSection,
+    .destinationsSection,
+    .promoSlider,
+    .timelineSection,
+    .featureSection {
+      width: 100%;
+      padding-left: 12px;
+      padding-right: 12px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .navBtn {
-      display: none;
+    .contactSection {
+      width: calc(100% - 24px);
+      margin: 20px auto;
     }
-  }
-}
-@media (max-width: 768px) {
-  .carousel {
-    height: auto;
-    flex-direction: column;
-  }
 
-  .carouselCard {
-    position: relative;
-    transform: none !important;
-    width: 90%;
-    margin: 10px auto;
+    .destinationsSection {
+      .slider {
+        height: 290px;
+        overflow: hidden;
+      }
+
+      .card {
+        width: 210px;
+        height: 150px;
+      }
+
+      .pos-1 {
+        transform: translateX(-150px) rotateY(30deg) scale(0.86);
+      }
+
+      .pos1 {
+        transform: translateX(150px) rotateY(-30deg) scale(0.86);
+      }
+
+      .pos-2,
+      .pos2 {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(0) scale(0.72);
+      }
+
+      .navBtn {
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
+      }
+
+      .left {
+        left: 0;
+      }
+      .right {
+        right: 0;
+      }
+    }
   }
 }
 * {
