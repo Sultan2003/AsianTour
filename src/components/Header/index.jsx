@@ -15,7 +15,9 @@ export default function Header2({ onLoginClick }) {
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [tourType, setTourType] = useState("");
+  const [openMobileMenu, setOpenMobileMenu] = useState(null);
   const searchRef = useRef(null);
+  const navRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -47,6 +49,34 @@ export default function Header2({ onLoginClick }) {
 
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+
+  const isMobileView = () => window.innerWidth <= 768;
+
+  const handleMenuToggle = (menuKey) => {
+    if (!isMobileView()) return;
+
+    setOpenMobileMenu((prev) => (prev === menuKey ? null : menuKey));
+  };
+
+  const handleMenuLinkClick = () => {
+    if (!isMobileView()) return;
+    setOpenMobileMenu(null);
+  };
+
+  useEffect(() => {
+    const handleOutsideMenuClick = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setOpenMobileMenu(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideMenuClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideMenuClick);
+    };
   }, []);
 
   return (
@@ -210,84 +240,112 @@ export default function Header2({ onLoginClick }) {
       </div>
 
       {/* ✅ NAVIGATION FROM HEADER1 */}
-      <nav className={styles.bottomRow}>
+      <nav className={styles.bottomRow} ref={navRef}>
         <div className={styles.menuItem}>
-          <span>Destinations ▾</span>
-          <div className={styles.dropdown}>
+          <span
+            onClick={() => handleMenuToggle("destinations")}
+            className={styles.menuTrigger}
+          >
+            Destinations ▾
+          </span>
+          <div
+            className={`${styles.dropdown} ${openMobileMenu === "destinations" ? styles.show : ""}`}
+          >
             <div className={styles.dropdownGrid}>
-              <Link to="/Silk-Road">Silk Road</Link>
-              <Link to="/Central-Asia">Central Asia</Link>
-              <Link to="/Uzbekistan">Uzbekistan</Link>
-              <Link to="/Kazakhstan">Kazakhstan</Link>
-              <Link to="/Kyrgyzstan">Kyrgyzstan</Link>
-              <Link to="/Tajikistan">Tajikistan</Link>
-              <Link to="/Turkmenistan">Turkmenistan</Link>
-              <Link to="/Caucasus">Caucasus</Link>
-              <Link to="/Armenia">Armenia</Link>
-              <Link to="/Azerbaijan">Azerbaijan</Link>
-              <Link to="/Georgia">Georgia</Link>
+              <Link to="/Silk-Road" onClick={handleMenuLinkClick}>Silk Road</Link>
+              <Link to="/Central-Asia" onClick={handleMenuLinkClick}>Central Asia</Link>
+              <Link to="/Uzbekistan" onClick={handleMenuLinkClick}>Uzbekistan</Link>
+              <Link to="/Kazakhstan" onClick={handleMenuLinkClick}>Kazakhstan</Link>
+              <Link to="/Kyrgyzstan" onClick={handleMenuLinkClick}>Kyrgyzstan</Link>
+              <Link to="/Tajikistan" onClick={handleMenuLinkClick}>Tajikistan</Link>
+              <Link to="/Turkmenistan" onClick={handleMenuLinkClick}>Turkmenistan</Link>
+              <Link to="/Caucasus" onClick={handleMenuLinkClick}>Caucasus</Link>
+              <Link to="/Armenia" onClick={handleMenuLinkClick}>Armenia</Link>
+              <Link to="/Azerbaijan" onClick={handleMenuLinkClick}>Azerbaijan</Link>
+              <Link to="/Georgia" onClick={handleMenuLinkClick}>Georgia</Link>
             </div>
           </div>
         </div>
 
         <div className={styles.menuItem}>
-          <span>Group Tours ▾</span>
-          <div className={styles.dropdown}>
+          <span
+            onClick={() => handleMenuToggle("groupTours")}
+            className={styles.menuTrigger}
+          >
+            Group Tours ▾
+          </span>
+          <div
+            className={`${styles.dropdown} ${openMobileMenu === "groupTours" ? styles.show : ""}`}
+          >
             <div className={styles.dropdownGrid}>
-              <Link to="/Silk-Road-Tours">Silk Road Group Tours</Link>
-              <Link to="/Central-Asia-Tours">Central Asia Group Tours</Link>
-              <Link to="/Uzbek-Tours">Uzbekistan Group Tours</Link>
-              <Link to="/Kazakh-Tours">Kazakhstan Group Tours</Link>
-              <Link to="/Kyrgyz-Tours">Kyrgyzstan Group Tours</Link>
-              <Link to="/Tajik-Tours">Tajikistan Group Tours</Link>
-              <Link to="/Turkmen-Tours">Turkmenistan Group Tours</Link>
-              <Link to="/Caucas-Tours">Caucasus Group Tours</Link>
-              <Link to="/Armenia-Tours">Armenia Group Tours</Link>
-              <Link to="/Azerbaijan-Tours">Azerbaijan Group Tours </Link>
-              <Link to="/Georgia-Tours">Georgia Group Tours</Link>
+              <Link to="/Silk-Road-Tours" onClick={handleMenuLinkClick}>Silk Road Group Tours</Link>
+              <Link to="/Central-Asia-Tours" onClick={handleMenuLinkClick}>Central Asia Group Tours</Link>
+              <Link to="/Uzbek-Tours" onClick={handleMenuLinkClick}>Uzbekistan Group Tours</Link>
+              <Link to="/Kazakh-Tours" onClick={handleMenuLinkClick}>Kazakhstan Group Tours</Link>
+              <Link to="/Kyrgyz-Tours" onClick={handleMenuLinkClick}>Kyrgyzstan Group Tours</Link>
+              <Link to="/Tajik-Tours" onClick={handleMenuLinkClick}>Tajikistan Group Tours</Link>
+              <Link to="/Turkmen-Tours" onClick={handleMenuLinkClick}>Turkmenistan Group Tours</Link>
+              <Link to="/Caucas-Tours" onClick={handleMenuLinkClick}>Caucasus Group Tours</Link>
+              <Link to="/Armenia-Tours" onClick={handleMenuLinkClick}>Armenia Group Tours</Link>
+              <Link to="/Azerbaijan-Tours" onClick={handleMenuLinkClick}>Azerbaijan Group Tours </Link>
+              <Link to="/Georgia-Tours" onClick={handleMenuLinkClick}>Georgia Group Tours</Link>
             </div>
           </div>
         </div>
 
         <div className={styles.menuItem}>
-          <span>Private Tours ▾</span>
-          <div className={styles.dropdown}>
+          <span
+            onClick={() => handleMenuToggle("privateTours")}
+            className={styles.menuTrigger}
+          >
+            Private Tours ▾
+          </span>
+          <div
+            className={`${styles.dropdown} ${openMobileMenu === "privateTours" ? styles.show : ""}`}
+          >
             <div className={styles.dropdownGrid}>
-              <Link to="/Silk-Road-Private-Tours">Silk Road Private Tours</Link>
-              <Link to="/Central-Asia-Private-Tours">
+              <Link to="/Silk-Road-Private-Tours" onClick={handleMenuLinkClick}>Silk Road Private Tours</Link>
+              <Link to="/Central-Asia-Private-Tours" onClick={handleMenuLinkClick}>
                 Central Asia Private Tours
               </Link>
-              <Link to="/Uzbekistan-Private-Tours">
+              <Link to="/Uzbekistan-Private-Tours" onClick={handleMenuLinkClick}>
                 Uzbekistan Private Tours
               </Link>
-              <Link to="/Kazakhstan-Private-Tours">
+              <Link to="/Kazakhstan-Private-Tours" onClick={handleMenuLinkClick}>
                 Kazakhstan Private Tours
               </Link>
-              <Link to="/Kyrgyzstan-Private-Tours">
+              <Link to="/Kyrgyzstan-Private-Tours" onClick={handleMenuLinkClick}>
                 Kyrgyzstan Private Tours
               </Link>
-              <Link to="/Tajikistan-Private-Tours">
+              <Link to="/Tajikistan-Private-Tours" onClick={handleMenuLinkClick}>
                 Tajikistan Private Tours
               </Link>
-              <Link to="/Turkmenistan-Private-Tours">
+              <Link to="/Turkmenistan-Private-Tours" onClick={handleMenuLinkClick}>
                 Turkmenistan Private Tours
               </Link>
-              <Link to="/Caucasus-Private-Tours">Caucasus Private Tours</Link>
-              <Link to="/Armenia-Private-Tours">Armenia Private Tours</Link>
-              <Link to="/Azerbaijan-Private-Tours">
+              <Link to="/Caucasus-Private-Tours" onClick={handleMenuLinkClick}>Caucasus Private Tours</Link>
+              <Link to="/Armenia-Private-Tours" onClick={handleMenuLinkClick}>Armenia Private Tours</Link>
+              <Link to="/Azerbaijan-Private-Tours" onClick={handleMenuLinkClick}>
                 Azerbaijan Private Tours
               </Link>
-              <Link to="/Georgia-Private-Tours">Georgia Private Tours</Link>
-              <Link to="/Tailor-Private-Tours">Tailor Made Private Tours</Link>
+              <Link to="/Georgia-Private-Tours" onClick={handleMenuLinkClick}>Georgia Private Tours</Link>
+              <Link to="/Tailor-Private-Tours" onClick={handleMenuLinkClick}>Tailor Made Private Tours</Link>
             </div>
           </div>
         </div>
 
         <div className={styles.menuItem}>
-          <span>Services ▾</span>
-          <div className={styles.dropdown}>
+          <span
+            onClick={() => handleMenuToggle("services")}
+            className={styles.menuTrigger}
+          >
+            Services ▾
+          </span>
+          <div
+            className={`${styles.dropdown} ${openMobileMenu === "services" ? styles.show : ""}`}
+          >
             <div className={styles.dropdownGrid}>
-              <Link to="/Asian-Tour-Transfer">Transfer</Link>
+              <Link to="/Asian-Tour-Transfer" onClick={handleMenuLinkClick}>Transfer</Link>
               <span>Hotel Booking</span>
               <span>Guide Service</span>
             </div>
