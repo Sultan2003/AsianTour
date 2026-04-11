@@ -10,6 +10,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <HelmetProvider>
     <BrowserRouter>
       <LanguageProvider>
+      
         <Router />
       </LanguageProvider>
     </BrowserRouter>

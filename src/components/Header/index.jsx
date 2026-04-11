@@ -4,6 +4,7 @@ import styles from "./Header.module.scss";
 import logo from "../../assets/background/Logo 2.png";
 import AnimatedLogo from "../../../public/assets/animatedlogo/logo";
 import { PhoneIcon } from "../../assets/icons/icons";
+import TranslateWidget from "../TranslateWidget/TranslateWidget";
 
 export default function Header({ onLoginClick }) {
   const navigate = useNavigate();
@@ -223,6 +224,7 @@ export default function Header({ onLoginClick }) {
             <NavLink className={styles.navlink} to="/contact">
               Contact
             </NavLink>
+            <TranslateWidget />
 
             {/* ✅ NEW PHONE BLOCK */}
             <div className={styles.callUs}>

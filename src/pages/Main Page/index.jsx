@@ -542,17 +542,18 @@ export default function MainPage() {
             if (position > 2) position -= slides.length;
 
             return (
-              <div
+              <Link
+                to={slide.link}
                 key={index}
-                className={`${styles.carouselCard} ${styles[`pos${position}`]}`}
-                onClick={() => setCurrent(index)}
+                className={`${styles.carouselCard} ${styles[`promoPos${position}`]}`}
+                 style={{ textDecoration: "none" }}
               >
                 <div className={styles.cardImage}>
                   <img src={slide.image} alt={slide.title} />
                 </div>
 
                 <h3 className={styles.cardTitle}>{slide.title}</h3>
-              </div>
+              </Link>
             );
           })}
         </div>

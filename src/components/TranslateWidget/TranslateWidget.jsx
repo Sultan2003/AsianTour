@@ -4,6 +4,17 @@ export default function TranslateWidget() {
   const [visible, setVisible] = useState(true);
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     // Scroll visibility logic
     const handleScroll = () => {
@@ -57,7 +68,7 @@ export default function TranslateWidget() {
   window.googleTranslateElementInit = function () {
     new window.google.translate.TranslateElement(
       { pageLanguage: "en" },
-      "google_translate_element"
+      "google_translate_element",
     );
 
     const observer = new MutationObserver(() => {
@@ -99,25 +110,20 @@ export default function TranslateWidget() {
         id="translateButton"
         onClick={handleTranslateClick}
         style={{
-          position: "fixed",
-          top: "3px",
-          right: "5px",
-          background: "#9bc8a4",
-          color: "#fff",
+          background: "transparent",
           border: "none",
-          borderRadius: "10px",
-          padding: "3px 12px",
-          fontSize: "14px",
-          fontWeight: "500",
           cursor: "pointer",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.15)",
-          transition: "opacity 0.3s ease",
-          zIndex: 1000,
-          opacity: visible ? 1 : 0,
-          pointerEvents: visible ? "auto" : "none",
+
+          color: "white",
+          textDecoration: "none",
+          flexShrink: 0,
+          fontSize: isMobile ? "13.5px" : "18px", // ✅ smaller on mobile
+          fontWeight: "600",
+
+          padding: 0,
         }}
       >
-        🌐 Translate
+        Translate
       </button>
 
       <div
