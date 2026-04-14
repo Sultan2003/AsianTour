@@ -2,9 +2,9 @@ const mainPageTranslations = {
   en: {
     heroTitle: "Discover the Silk Road",
     heroSubtitle: "with expertly crafted tours by a local operator",
-    aboutTitle: "Our Curated Asian Journeys",
+    aboutTitle: "Our unique Central Asian trips",
     aboutText:
-      "Take a change to discover Central Asia’s unique culture and traditions. Historical towns and villages hold ancient atmosphere offering authentic experiences to visitors. As a tour company with years of experience we offer memorable trips which will recall long after the journey and be remembered with felt warmth and kindness of local hospitality. Our group and private tours are offering you these experiences with best available comfort and rate along with constant supervision of our team member.",
+      "Take a chance to discover Central Asia’s unique culture and traditions. Historical towns and villages hold ancient atmosphere offering authentic experiences to visitors. As a tour company with years of experience we offer memorable trips which will recall long after the journey and be remembered with felt warmth and kindness of local hospitality. Our group and private tours are offering you these experiences with best available comfort and rate along with constant supervision of our team member.",
     upcomingTitle: "Recent tours to join",
     upcomingHeader: {
       date: "Date",

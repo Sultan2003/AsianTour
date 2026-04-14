@@ -36,29 +36,9 @@ export default function MainPage() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [heroReady, setHeroReady] = useState(false);
   const sliderRef = useRef(null);
-  const isDown = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
+
   const visibleDestinations = destinations;
 
-  // DRAG
-  const handleMouseDown = (e) => {
-    isDown.current = true;
-    startX.current = e.pageX - sliderRef.current.offsetLeft;
-    scrollLeft.current = sliderRef.current.scrollLeft;
-  };
-
-  const handleMouseUp = () => {
-    isDown.current = false;
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDown.current) return;
-    e.preventDefault();
-    const x = e.pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5;
-    sliderRef.current.scrollLeft = scrollLeft.current - walk;
-  };
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider) return;
@@ -238,9 +218,6 @@ export default function MainPage() {
   ];
 
   const [current, setCurrent] = useState(0);
-  const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
-  const prevSlide = () =>
-    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
     <div className={styles.mainPage}>
@@ -546,7 +523,7 @@ export default function MainPage() {
                 to={slide.link}
                 key={index}
                 className={`${styles.carouselCard} ${styles[`promoPos${position}`]}`}
-                 style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none" }}
               >
                 <div className={styles.cardImage}>
                   <img src={slide.image} alt={slide.title} />

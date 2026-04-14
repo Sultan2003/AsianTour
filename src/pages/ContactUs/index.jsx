@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import styles from './ContactUs.module.scss';
-
+import React, { useState } from "react";
+import styles from "./ContactUs.module.scss";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
-    title: 'Mr.',
-    firstName: '',
-    lastName: '',
-    email: '',
-    comments: '',
+    title: "Mr.",
+    firstName: "",
+    lastName: "",
+    email: "",
+    comments: "",
   });
 
   const handleChange = (e) => {
@@ -38,16 +37,16 @@ const ContactUs = () => {
             text: message,
             parse_mode: "Markdown",
           }),
-        }
+        },
       );
 
       alert("✅ Your message has been sent successfully!");
       setFormData({
-        title: 'Mr.',
-        firstName: '',
-        lastName: '',
-        email: '',
-        comments: '',
+        title: "Mr.",
+        firstName: "",
+        lastName: "",
+        email: "",
+        comments: "",
       });
     } catch (err) {
       console.error(err);
@@ -58,11 +57,12 @@ const ContactUs = () => {
   return (
     <div className={styles.container}>
       <nav className={styles.breadcrumb}>
-        <a href="/">Home</a> / <span>Contact AsianTour</span>
+        <a href="/">Home</a> / <span>Contact GoToCentralAsia</span>
       </nav>
-      <h1 className={styles.heading}>Contact AsianTour</h1>
+      <h1 className={styles.heading}>Contact GoToCentralAsia</h1>
       <p className={styles.subheading}>
-        We are glad to answer and assist, please send us your questions or queries.
+        We are glad to answer and assist, please send us your questions or
+        queries.
       </p>
 
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -126,15 +126,13 @@ const ContactUs = () => {
         <h2>Walk-in Guests</h2>
         <p>
           As our tour operators are busy working on ongoing tours and existing
-          customer requests, it might be difficult for us to accommodate
-          walk-in travelers on the spot. For a timely response that responds to
-          your specific requests, we highly recommend that you email us. We aim
-          to provide an initial response to all email queries within 2 working
+          customer requests, it might be difficult for us to accommodate walk-in
+          travelers on the spot. For a timely response that responds to your
+          specific requests, we highly recommend that you email us. We aim to
+          provide an initial response to all email queries within 2 working
           days.
         </p>
       </section>
-
-    
     </div>
   );
 };
