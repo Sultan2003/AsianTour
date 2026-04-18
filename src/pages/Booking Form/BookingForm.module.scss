@@ -1,0 +1,193 @@
+.page {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 1rem 0.875rem 2.25rem;
+  color: #13313f;
+}
+
+.hero {
+  background: linear-gradient(140deg, #0f6ea8, #0b88b6);
+  border-radius: 16px;
+  color: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  h1 {
+    margin: 0;
+    font-size: clamp(1.35rem, 4vw, 2rem);
+    line-height: 1.25;
+  }
+
+  p {
+    margin: 0.65rem 0 0;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    opacity: 0.96;
+  }
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  border-radius: 14px;
+  border: 1px solid #dde5ea;
+  background: #fff;
+  box-shadow: 0 2px 14px rgba(18, 35, 52, 0.06);
+  padding: 1rem;
+
+  h2 {
+    margin: 0 0 0.85rem;
+    color: #0f5c8f;
+    font-size: 1.1rem;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: #1c4256;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.64rem 0.72rem;
+    border-radius: 10px;
+    border: 1px solid #c9d5de;
+    font: inherit;
+    background: #fdfefe;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #0b88b6;
+    box-shadow: 0 0 0 3px rgba(11, 136, 182, 0.15);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.inlineFieldset {
+  margin: 1rem 0 0;
+  border: 1px solid #d9e2e8;
+  border-radius: 10px;
+  padding: 0.75rem;
+
+  legend {
+    font-weight: 600;
+    color: #0f5c8f;
+    padding: 0 0.3rem;
+    font-size: 0.9rem;
+  }
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    margin-right: 1rem;
+    margin-bottom: 0.42rem;
+    font-size: 0.9rem;
+    color: #294b5c;
+  }
+}
+
+.sectionHint {
+  margin: 0 0 0.8rem;
+  color: #386074;
+  font-size: 0.89rem;
+}
+
+.stopCard {
+  border: 1px dashed #c3d5df;
+  border-radius: 12px;
+  padding: 0.8rem;
+  margin-bottom: 0.72rem;
+
+  h3 {
+    margin: 0 0 0.6rem;
+    color: #0d5c8e;
+    font-size: 1rem;
+  }
+}
+
+.totalGuests {
+  margin: 0.8rem 0 0;
+  color: #0f5c8f;
+  font-weight: 700;
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0.9rem 0;
+  color: #254a5e;
+  font-size: 0.9rem;
+
+  input {
+    margin-top: 0.16rem;
+  }
+}
+
+.submitButton {
+  border: none;
+  border-radius: 11px;
+  background: linear-gradient(120deg, #0f6ea8, #1593be);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  width: 100%;
+  padding: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+@media (min-width: 720px) {
+  .page {
+    padding: 1.3rem 1rem 3rem;
+  }
+
+  .card {
+    padding: 1.2rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .submitButton {
+    width: auto;
+    min-width: 230px;
+  }
+}

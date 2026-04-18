@@ -63,6 +63,7 @@ import ErevanPage from "../pages/Cities/Erevan";
 import AshgabatPage from "../pages/Cities/Ashgabat";
 import BakuPage from "../pages/Cities/Baku";
 import PlacestoVisit from "../pages/10BestPlaces";
+import BookingForm from "../pages/Booking Form";
 
 const Router = () => {
   return (
@@ -581,6 +582,22 @@ const Router = () => {
           element={
             <MainLayout>
               <AboutUs />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/forma"
+          element={
+            <MainLayout>
+              <BookingForm />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/booking-form"
+          element={
+            <MainLayout>
+              <BookingForm />
             </MainLayout>
           }
         />
