@@ -4,197 +4,188 @@ import styles from "./BookingForm.module.scss";
 const TELEGRAM_BOT_TOKEN = "7509089585:AAFlUQJVRK3qtgLN4FVWHwEPeahjfv2oFpY";
 const TELEGRAM_CHAT_ID = "-1003082651864";
 
-const CITY_OPTIONS = [
-  "Tashkent",
-  "Samarkand",
-  "Bukhara",
-  "Khiva",
-  "Nukus",
-  "Shakhrisabz",
-  "Zaamin",
-  "Almaty",
-  "Bishkek",
-  "Dushanbe",
-  "Baku",
-  "Tbilisi",
-  "Yerevan",
-  "Other",
+const CITY_CARDS = [
+  { id: "tashkent", label: "Tashkent", image: null },
+  { id: "samarkand", label: "Samarkand", image: null },
+  { id: "bukhara", label: "Bukhara", image: null },
+  { id: "khiva", label: "Khiva", image: null },
 ];
 
-const ARRIVAL_TIME_OPTIONS = [
-  "Night (00:00 – 06:00)",
-  "Morning (06:00 – 12:00)",
-  "Day (12:00 – 18:00)",
-  "Evening (18:00 – 24:00)",
+const TIME_OPTIONS = [
+  "Night (00:00 - 06:00)",
+  "Morning (06:00 - 12:00)",
+  "Day (12:00 - 18:00)",
+  "Evening (18:00 - 24:00)",
   "I don't know yet",
 ];
 
-const CONTACT_OPTIONS = ["WhatsApp", "Telegram", "Phone Call", "Email"];
-
-const createInitialStop = () => ({ city: "", nights: "", mustSee: "", image: null });
+const CONTACT_OPTIONS = ["Telegram", "WhatsApp", "Phone", "Email"];
+const TOTAL_STEPS = 10;
 
 const BookingForm = () => {
+  const [currentStep, setCurrentStep] = useState(1);
   const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState({
+    arrivalCity: "",
+    arrivalTime: "",
+    dayOneExcursion: "",
+    guests: "",
+    totalNights: "",
+    firstCityNights: "",
+    firstCityMustSee: "",
+    secondCity: "",
+    secondCityNights: "",
+    secondCityMustSee: "",
+    thirdCity: "",
+    thirdCityNights: "",
+    thirdCityMustSee: "",
+    departureCity: "",
+    extraWishes: "",
     fullName: "",
     phone: "",
     email: "",
-    country: "",
-    preferredContact: CONTACT_OPTIONS[0],
-    adults: 2,
-    children: 0,
-    infants: 0,
-    rooms: 1,
-    travelStartDate: "",
-    travelEndDate: "",
-    arrivalCity: "",
-    arrivalTime: ARRIVAL_TIME_OPTIONS[4],
-    firstDayExcursion: "not_sure",
-    departureCity: "",
-    budgetPerPerson: "",
-    hotelCategory: "4-star",
-    transportPreference: "Private car + train",
-    dietaryRequirements: "",
-    specialOccasion: "",
-    additionalNotes: "",
-    agreePolicy: false,
-    itineraryStops: [createInitialStop(), createInitialStop(), createInitialStop()],
+    preferredContact: "Telegram",
+    agree: false,
   });
 
-  const totalGuests = useMemo(
-    () => Number(formData.adults) + Number(formData.children) + Number(formData.infants),
-    [formData.adults, formData.children, formData.infants],
+  const progressPercent = useMemo(
+    () => Math.round((currentStep / TOTAL_STEPS) * 100),
+    [currentStep],
   );
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  const updateField = (name, value) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleStopChange = (index, field, value) => {
-    setFormData((prev) => {
-      const updatedStops = [...prev.itineraryStops];
-      updatedStops[index] = { ...updatedStops[index], [field]: value };
-      return { ...prev, itineraryStops: updatedStops };
-    });
+  const isStepValid = () => {
+    switch (currentStep) {
+      case 1:
+        return Boolean(formData.arrivalCity);
+      case 2:
+        return Boolean(formData.arrivalTime);
+      case 3:
+        return Boolean(formData.dayOneExcursion);
+      case 4:
+        return Boolean(formData.guests && formData.totalNights && formData.firstCityNights);
+      case 5:
+        return Boolean(formData.secondCity);
+      case 6:
+        return Boolean(formData.secondCityNights);
+      case 7:
+        return Boolean(formData.thirdCity);
+      case 8:
+        return Boolean(formData.thirdCityNights);
+      case 9:
+        return Boolean(formData.departureCity);
+      case 10:
+        return Boolean(formData.fullName && formData.phone && formData.agree);
+      default:
+        return true;
+    }
   };
 
-  const buildTelegramMessage = () => {
-    const stopsSummary = formData.itineraryStops
-      .map((stop, index) => {
-        const hasValue = stop.city || stop.nights || stop.mustSee;
-        if (!hasValue) return null;
+  const nextStep = () => {
+    if (!isStepValid()) {
+      alert("Please complete required fields on this step.");
+      return;
+    }
+    setCurrentStep((prev) => Math.min(TOTAL_STEPS, prev + 1));
+  };
 
-        return `
-📍 *Stop ${index + 1}*
-City: ${stop.city || "-"}
-Nights: ${stop.nights || "-"}
-Must-see: ${stop.mustSee || "-"}
-Image: ${stop.image === null ? "null" : stop.image}`;
-      })
-      .filter(Boolean)
-      .join("\n");
+  const prevStep = () => {
+    setCurrentStep((prev) => Math.max(1, prev - 1));
+  };
 
-    return `
-🧭 *New Tour Booking Form Submission*
+  const cityCard = (title, value, fieldName) => (
+    <button
+      type="button"
+      className={`${styles.cityCard} ${value === formData[fieldName] ? styles.selected : ""}`}
+      onClick={() => updateField(fieldName, value)}
+    >
+      <div className={styles.cityImage}>image: null</div>
+      <div className={styles.cityLabel}>{title}</div>
+    </button>
+  );
 
-👤 *Contact Info*
-Name: ${formData.fullName}
-Phone: ${formData.phone}
-Email: ${formData.email || "-"}
-Country: ${formData.country || "-"}
-Preferred contact: ${formData.preferredContact}
+  const sendToTelegram = async () => {
+    const message = `
+🧭 *New Booking Form Request*
 
-✈️ *Travel Plan*
-Arrival city: ${formData.arrivalCity}
-Arrival time: ${formData.arrivalTime}
-Ready for excursion on day 1: ${formData.firstDayExcursion}
-Departure city: ${formData.departureCity}
-Start date: ${formData.travelStartDate || "-"}
-End date: ${formData.travelEndDate || "-"}
+1) Arrival city: ${formData.arrivalCity}
+2) Arrival time: ${formData.arrivalTime}
+3) Ready for day-1 excursion: ${formData.dayOneExcursion}
+4) Guests: ${formData.guests}
+5) Total nights: ${formData.totalNights}
+6) First city nights: ${formData.firstCityNights}
+7) First city must-see: ${formData.firstCityMustSee || "-"}
+8) Second city: ${formData.secondCity} (image: null)
+9) Second city nights: ${formData.secondCityNights}
+10) Second city must-see: ${formData.secondCityMustSee || "-"}
+11) Third city: ${formData.thirdCity} (image: null)
+12) Third city nights: ${formData.thirdCityNights}
+13) Third city must-see: ${formData.thirdCityMustSee || "-"}
+14) Departure city: ${formData.departureCity}
+15) Extra wishes: ${formData.extraWishes || "-"}
 
-👥 *Guests & Stay*
-Adults: ${formData.adults}
-Children: ${formData.children}
-Infants: ${formData.infants}
-Total guests: ${totalGuests}
-Rooms: ${formData.rooms}
-Hotel category: ${formData.hotelCategory}
-Budget (USD/person): ${formData.budgetPerPerson || "-"}
-Transport preference: ${formData.transportPreference}
-
-🏙️ *Itinerary Preferences*
-${stopsSummary || "No route details yet"}
-
-🍽️ Dietary requirements: ${formData.dietaryRequirements || "-"}
-🎉 Special occasion: ${formData.specialOccasion || "-"}
-📝 Additional notes: ${formData.additionalNotes || "-"}
+👤 Name: ${formData.fullName}
+📞 Phone: ${formData.phone}
+📧 Email: ${formData.email || "-"}
+💬 Preferred contact: ${formData.preferredContact}
 `.trim();
+
+    const response = await fetch(
+      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: "Markdown",
+        }),
+      },
+    );
+
+    if (!response.ok) throw new Error("Telegram send failed");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!formData.agreePolicy) {
-      alert("Please accept the privacy policy to continue.");
+    if (!isStepValid()) {
+      alert("Please fill required fields.");
       return;
     }
 
     setIsSending(true);
-
     try {
-      const text = buildTelegramMessage();
-
-      const response = await fetch(
-        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text,
-            parse_mode: "Markdown",
-          }),
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error("Telegram request failed");
-      }
-
-      alert("✅ Thank you! Your request was sent successfully.");
-      setFormData((prev) => ({
-        ...prev,
+      await sendToTelegram();
+      alert("✅ Request sent successfully.");
+      setCurrentStep(1);
+      setFormData({
+        arrivalCity: "",
+        arrivalTime: "",
+        dayOneExcursion: "",
+        guests: "",
+        totalNights: "",
+        firstCityNights: "",
+        firstCityMustSee: "",
+        secondCity: "",
+        secondCityNights: "",
+        secondCityMustSee: "",
+        thirdCity: "",
+        thirdCityNights: "",
+        thirdCityMustSee: "",
+        departureCity: "",
+        extraWishes: "",
         fullName: "",
         phone: "",
         email: "",
-        country: "",
-        adults: 2,
-        children: 0,
-        infants: 0,
-        rooms: 1,
-        travelStartDate: "",
-        travelEndDate: "",
-        arrivalCity: "",
-        arrivalTime: ARRIVAL_TIME_OPTIONS[4],
-        firstDayExcursion: "not_sure",
-        departureCity: "",
-        budgetPerPerson: "",
-        dietaryRequirements: "",
-        specialOccasion: "",
-        additionalNotes: "",
-        agreePolicy: false,
-        itineraryStops: [createInitialStop(), createInitialStop(), createInitialStop()],
-      }));
+        preferredContact: "Telegram",
+        agree: false,
+      });
     } catch (error) {
       console.error(error);
-      alert("❌ Could not send form. Please try again.");
+      alert("❌ Failed to send. Please try again.");
     } finally {
       setIsSending(false);
     }
@@ -202,375 +193,265 @@ ${stopsSummary || "No route details yet"}
 
   return (
     <main className={styles.page}>
-      <section className={styles.hero}>
-        <h1>Custom Tour Booking Form</h1>
-        <p>
-          Share your plans in 3 minutes. We will build a professional itinerary
-          with best route, hotels, transport, and local experiences.
-        </p>
-      </section>
+      <form className={styles.wizard} onSubmit={handleSubmit}>
+        <div className={styles.progressBar}>
+          <span style={{ width: `${progressPercent}%` }} />
+        </div>
 
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <section className={styles.card}>
-          <h2>1) Contact details</h2>
-          <div className={styles.grid}>
-            <label>
-              Full name *
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                required
-              />
-            </label>
-            <label>
-              Phone / WhatsApp *
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-            </label>
-            <label>
-              Email
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Country
-              <input
-                type="text"
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Preferred contact method
-              <select
-                name="preferredContact"
-                value={formData.preferredContact}
-                onChange={handleChange}
-              >
-                {CONTACT_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </section>
+        <div className={styles.grid}>
+          <section className={styles.leftPane}>
+            <h1 className={styles.questionTitle}>
+              {currentStep === 1 && "Which city are you flying to?"}
+              {currentStep === 2 && "What time are you arriving?"}
+              {currentStep === 3 && "Can you start excursion on the first day?"}
+              {currentStep === 4 && "Tell us about group size and nights"}
+              {currentStep === 5 && "Which city do you plan to visit next?"}
+              {currentStep === 6 && "How many nights in this city?"}
+              {currentStep === 7 && "Which city do you plan to visit after that?"}
+              {currentStep === 8 && "How many nights in the third city?"}
+              {currentStep === 9 && "Departure city and extra wishes"}
+              {currentStep === 10 && "Final step: your contact details"}
+            </h1>
 
-        <section className={styles.card}>
-          <h2>2) Flight and travel window</h2>
-          <div className={styles.grid}>
-            <label>
-              Arrival city *
-              <select
-                name="arrivalCity"
-                value={formData.arrivalCity}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Choose city</option>
-                {CITY_OPTIONS.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Arrival time
-              <select
-                name="arrivalTime"
-                value={formData.arrivalTime}
-                onChange={handleChange}
-              >
-                {ARRIVAL_TIME_OPTIONS.map((time) => (
-                  <option key={time} value={time}>
-                    {time}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Start date
-              <input
-                type="date"
-                name="travelStartDate"
-                value={formData.travelStartDate}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              End date
-              <input
-                type="date"
-                name="travelEndDate"
-                value={formData.travelEndDate}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Departure city *
-              <select
-                name="departureCity"
-                value={formData.departureCity}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Choose city</option>
-                {CITY_OPTIONS.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+            <div className={styles.managerCard}>
+              <div className={styles.avatar}>image: null</div>
+              <div>
+                <strong>Julia · Manager</strong>
+                <p>
+                  Please complete each step. If you are not sure, choose the
+                  closest option and add notes.
+                </p>
+              </div>
+            </div>
 
-          <fieldset className={styles.inlineFieldset}>
-            <legend>Can you start excursion on arrival day?</legend>
-            <label>
-              <input
-                type="radio"
-                name="firstDayExcursion"
-                value="yes"
-                checked={formData.firstDayExcursion === "yes"}
-                onChange={handleChange}
-              />
-              Yes
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="firstDayExcursion"
-                value="no"
-                checked={formData.firstDayExcursion === "no"}
-                onChange={handleChange}
-              />
-              No, need rest
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="firstDayExcursion"
-                value="not_sure"
-                checked={formData.firstDayExcursion === "not_sure"}
-                onChange={handleChange}
-              />
-              Not sure
-            </label>
-          </fieldset>
-        </section>
+            <p className={styles.stepLabel}>Step: {currentStep}/{TOTAL_STEPS}</p>
+          </section>
 
-        <section className={styles.card}>
-          <h2>3) Group and accommodation</h2>
-          <div className={styles.grid}>
-            <label>
-              Adults
-              <input
-                type="number"
-                min="1"
-                max="30"
-                name="adults"
-                value={formData.adults}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Children (2-11)
-              <input
-                type="number"
-                min="0"
-                max="20"
-                name="children"
-                value={formData.children}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Infants (0-2)
-              <input
-                type="number"
-                min="0"
-                max="10"
-                name="infants"
-                value={formData.infants}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Rooms needed
-              <input
-                type="number"
-                min="1"
-                max="20"
-                name="rooms"
-                value={formData.rooms}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Hotel category
-              <select
-                name="hotelCategory"
-                value={formData.hotelCategory}
-                onChange={handleChange}
-              >
-                <option value="3-star">3-star</option>
-                <option value="4-star">4-star</option>
-                <option value="5-star">5-star</option>
-                <option value="Boutique / authentic hotels">
-                  Boutique / authentic hotels
-                </option>
-                <option value="Mixed options">Mixed options</option>
-              </select>
-            </label>
-            <label>
-              Approx. budget per person (USD)
-              <input
-                type="number"
-                min="0"
-                step="10"
-                name="budgetPerPerson"
-                value={formData.budgetPerPerson}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Transport preference
-              <select
-                name="transportPreference"
-                value={formData.transportPreference}
-                onChange={handleChange}
-              >
-                <option>Private car + train</option>
-                <option>Mostly private car</option>
-                <option>Flights where needed</option>
-                <option>Best value mix</option>
-                <option>No preference</option>
-              </select>
-            </label>
-          </div>
-          <p className={styles.totalGuests}>Total guests: {totalGuests}</p>
-        </section>
+          <section className={styles.rightPane}>
+            {currentStep === 1 && (
+              <div className={styles.cardsGrid}>
+                {CITY_CARDS.map((city) => cityCard(city.label, city.label, "arrivalCity"))}
+              </div>
+            )}
 
-        <section className={styles.card}>
-          <h2>4) Route and must-see places</h2>
-          <p className={styles.sectionHint}>
-            Add up to 3 destination stops. Image fields are intentionally set to
-            null for now.
-          </p>
-
-          {formData.itineraryStops.map((stop, index) => (
-            <div className={styles.stopCard} key={`stop-${index + 1}`}>
-              <h3>Stop {index + 1}</h3>
-              <div className={styles.grid}>
-                <label>
-                  City / destination
-                  <select
-                    value={stop.city}
-                    onChange={(e) =>
-                      handleStopChange(index, "city", e.target.value)
-                    }
+            {currentStep === 2 && (
+              <div className={styles.optionColumn}>
+                {TIME_OPTIONS.map((time) => (
+                  <button
+                    type="button"
+                    key={time}
+                    className={`${styles.optionButton} ${formData.arrivalTime === time ? styles.selected : ""}`}
+                    onClick={() => updateField("arrivalTime", time)}
                   >
-                    <option value="">Choose city</option>
-                    {CITY_OPTIONS.map((city) => (
-                      <option key={city} value={city}>
-                        {city}
-                      </option>
-                    ))}
-                  </select>
+                    {time}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {currentStep === 3 && (
+              <div className={styles.optionColumn}>
+                {["Yes", "No, need rest", "Not sure"].map((option) => (
+                  <button
+                    type="button"
+                    key={option}
+                    className={`${styles.optionButton} ${formData.dayOneExcursion === option ? styles.selected : ""}`}
+                    onClick={() => updateField("dayOneExcursion", option)}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {currentStep === 4 && (
+              <div className={styles.optionColumn}>
+                <label>
+                  Guests count *
+                  <input
+                    type="number"
+                    min="1"
+                    max="20"
+                    value={formData.guests}
+                    onChange={(e) => updateField("guests", e.target.value)}
+                  />
                 </label>
                 <label>
-                  Nights in this stop
+                  Total nights for whole tour *
+                  <input
+                    type="number"
+                    min="1"
+                    max="30"
+                    value={formData.totalNights}
+                    onChange={(e) => updateField("totalNights", e.target.value)}
+                  />
+                </label>
+                <label>
+                  Nights in first city *
                   <input
                     type="number"
                     min="0"
                     max="20"
-                    value={stop.nights}
-                    onChange={(e) =>
-                      handleStopChange(index, "nights", e.target.value)
-                    }
+                    value={formData.firstCityNights}
+                    onChange={(e) => updateField("firstCityNights", e.target.value)}
                   />
                 </label>
-                <label className={styles.fullWidth}>
-                  Main things to see here
+                <label>
+                  Main things to see in first city
                   <textarea
-                    rows="3"
-                    value={stop.mustSee}
-                    onChange={(e) =>
-                      handleStopChange(index, "mustSee", e.target.value)
-                    }
-                    placeholder="Historical sites, food, markets, nature, activities..."
+                    rows="4"
+                    value={formData.firstCityMustSee}
+                    onChange={(e) => updateField("firstCityMustSee", e.target.value)}
                   />
                 </label>
               </div>
+            )}
+
+            {currentStep === 5 && (
+              <div className={styles.cardsGrid}>
+                {CITY_CARDS.map((city) => cityCard(city.label, city.label, "secondCity"))}
+              </div>
+            )}
+
+            {currentStep === 6 && (
+              <div className={styles.optionColumn}>
+                <label>
+                  Nights in second city *
+                  <input
+                    type="number"
+                    min="0"
+                    max="20"
+                    value={formData.secondCityNights}
+                    onChange={(e) => updateField("secondCityNights", e.target.value)}
+                  />
+                </label>
+                <label>
+                  Main things to see in second city
+                  <textarea
+                    rows="5"
+                    value={formData.secondCityMustSee}
+                    onChange={(e) => updateField("secondCityMustSee", e.target.value)}
+                  />
+                </label>
+              </div>
+            )}
+
+            {currentStep === 7 && (
+              <div className={styles.cardsGrid}>
+                {CITY_CARDS.map((city) => cityCard(city.label, city.label, "thirdCity"))}
+              </div>
+            )}
+
+            {currentStep === 8 && (
+              <div className={styles.optionColumn}>
+                <label>
+                  Nights in third city *
+                  <input
+                    type="number"
+                    min="0"
+                    max="20"
+                    value={formData.thirdCityNights}
+                    onChange={(e) => updateField("thirdCityNights", e.target.value)}
+                  />
+                </label>
+                <label>
+                  Main things to see in third city
+                  <textarea
+                    rows="5"
+                    value={formData.thirdCityMustSee}
+                    onChange={(e) => updateField("thirdCityMustSee", e.target.value)}
+                  />
+                </label>
+              </div>
+            )}
+
+            {currentStep === 9 && (
+              <div className={styles.optionColumn}>
+                <label>
+                  From which city do you fly home? *
+                  <input
+                    type="text"
+                    value={formData.departureCity}
+                    onChange={(e) => updateField("departureCity", e.target.value)}
+                    placeholder="Example: Tashkent"
+                  />
+                </label>
+                <label>
+                  Extra wishes / cities / important notes
+                  <textarea
+                    rows="8"
+                    value={formData.extraWishes}
+                    onChange={(e) => updateField("extraWishes", e.target.value)}
+                  />
+                </label>
+              </div>
+            )}
+
+            {currentStep === 10 && (
+              <div className={styles.optionColumn}>
+                <label>
+                  Name *
+                  <input
+                    type="text"
+                    value={formData.fullName}
+                    onChange={(e) => updateField("fullName", e.target.value)}
+                  />
+                </label>
+                <label>
+                  Phone *
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => updateField("phone", e.target.value)}
+                  />
+                </label>
+                <label>
+                  Email
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => updateField("email", e.target.value)}
+                  />
+                </label>
+                <label>
+                  Best contact channel
+                  <select
+                    value={formData.preferredContact}
+                    onChange={(e) => updateField("preferredContact", e.target.value)}
+                  >
+                    {CONTACT_OPTIONS.map((option) => (
+                      <option key={option}>{option}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className={styles.checkbox}>
+                  <input
+                    type="checkbox"
+                    checked={formData.agree}
+                    onChange={(e) => updateField("agree", e.target.checked)}
+                  />
+                  I agree with personal data processing policy.
+                </label>
+              </div>
+            )}
+
+            <div className={styles.navButtons}>
+              <button type="button" className={styles.backBtn} onClick={prevStep} disabled={currentStep === 1}>
+                ← Back
+              </button>
+
+              {currentStep < TOTAL_STEPS ? (
+                <button type="button" className={styles.nextBtn} onClick={nextStep}>
+                  Next →
+                </button>
+              ) : (
+                <button type="submit" className={styles.nextBtn} disabled={isSending}>
+                  {isSending ? "Sending..." : "Send booking request"}
+                </button>
+              )}
             </div>
-          ))}
-        </section>
-
-        <section className={styles.card}>
-          <h2>5) Additional preferences</h2>
-          <div className={styles.grid}>
-            <label className={styles.fullWidth}>
-              Dietary requirements
-              <input
-                type="text"
-                name="dietaryRequirements"
-                value={formData.dietaryRequirements}
-                onChange={handleChange}
-                placeholder="Vegetarian, halal, allergies, etc."
-              />
-            </label>
-            <label className={styles.fullWidth}>
-              Special occasion
-              <input
-                type="text"
-                name="specialOccasion"
-                value={formData.specialOccasion}
-                onChange={handleChange}
-                placeholder="Birthday, honeymoon, anniversary, business trip..."
-              />
-            </label>
-            <label className={styles.fullWidth}>
-              Extra notes
-              <textarea
-                rows="4"
-                name="additionalNotes"
-                value={formData.additionalNotes}
-                onChange={handleChange}
-                placeholder="Any requests about hotels, guides, pace, shopping, children comfort, etc."
-              />
-            </label>
-          </div>
-
-          <label className={styles.checkbox}>
-            <input
-              type="checkbox"
-              name="agreePolicy"
-              checked={formData.agreePolicy}
-              onChange={handleChange}
-              required
-            />
-            I agree to data processing and allow the team to contact me about
-            this booking request.
-          </label>
-
-          <button className={styles.submitButton} type="submit" disabled={isSending}>
-            {isSending ? "Sending..." : "Send booking request"}
-          </button>
-        </section>
+          </section>
+        </div>
       </form>
     </main>
   );
