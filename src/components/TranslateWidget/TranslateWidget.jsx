@@ -117,7 +117,7 @@ export default function TranslateWidget() {
           color: "white",
           textDecoration: "none",
           flexShrink: 0,
-          fontSize: isMobile ? "13.5px" : "18px", // ✅ smaller on mobile
+          fontSize: isMobile ? "19px" : "18px", // ✅ smaller on mobile
           fontWeight: "600",
 
           padding: 0,
