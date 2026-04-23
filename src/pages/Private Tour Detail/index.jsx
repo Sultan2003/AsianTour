@@ -901,11 +901,11 @@ export default function PrivateTourIdPage() {
                     <tbody>
                       {parsedArray.map((row, index) => (
                         <tr key={index}>
-                          <td>{row.persons}</td>
-                          <td>US$ {row.Economy}</td>
-                          <td>US$ {row.Standard}</td>
-                          <td>US$ {row.Deluxe}</td>
-                          <td>
+                          <td data-label="Persons">{row.persons}</td>
+                          <td data-label="Economy">US$ {row.Economy}</td>
+                          <td data-label="Standard">US$ {row.Standard}</td>
+                          <td data-label="Deluxe">US$ {row.Deluxe}</td>
+                          <td data-label="Request">
                             <button
                               className={styles.bookBtn}
                               onClick={() => {

@@ -625,14 +625,9 @@
     }
   }
 
-  .datesTable .bookBtn {
-    max-width: 80px;
-    width: 100%;
-    font-size: 12px;
-    padding: 6px 8px;
-  }
   /* Dates table converts to cards */
   .datesTableWrapper {
+    margin-top: 10px;
     overflow-x: visible;
     padding: 0;
     background: none;
@@ -667,11 +662,13 @@
     td {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 10px 0;
       border: none;
       font-size: 14px;
       color: #3b4461;
+      line-height: 1.45;
 
       &:not(:last-child) {
         border-bottom: 1px solid #f0f2fa;
@@ -681,6 +678,11 @@
         content: attr(data-label);
         font-weight: 700;
         color: #0a1a44;
+        flex: 0 0 108px;
+      }
+
+      > *:last-child {
+        text-align: right;
       }
     }
 
@@ -702,8 +704,10 @@
 
     .bookBtn {
       width: 100%;
+      max-width: 170px;
       padding: 10px;
       font-size: 14px;
+      margin-left: auto;
     }
   }
 }
@@ -716,7 +720,8 @@
   }
 
   .datesTable td {
-    font-size: 15px;
+    font-size: 13px;
+    gap: 12px;
   }
 
   .datesTable td .statusLabel {
@@ -735,10 +740,10 @@
 
   /* ✅ Book button fix */
   .datesTable .bookBtn {
-    max-width: 80px;
+    max-width: 140px;
     width: 100%;
     font-size: 13px;
-    padding: 6px 8px;
+    padding: 8px 10px;
   }
 }
 
