@@ -1,4 +1,6 @@
 import { Route, Routes } from "react-router-dom";
+import SeoHelmet from "../components/SEO/SeoHelmet";
+import SeoRuntime from "../components/SEO/SeoRuntime";
 import MainPage from "../pages/Main Page";
 import TourIdPage from "../pages/Tour Detail";
 import ContactUs from "../pages/ContactUs";
@@ -69,12 +71,16 @@ const Router = () => {
   return (
     <>
       <ScrollToTop />
+      <SeoHelmet />
+      <SeoRuntime />
       <Routes>
         <Route
           path="/"
           element={
             <MainLayout>
-              <MainPage />
+              <main id="main-content" role="main">
+                <MainPage />
+              </main>
             </MainLayout>
           }
         />
@@ -82,7 +88,9 @@ const Router = () => {
           path="/tour/:slug"
           element={
             <MainLayout>
-              <TourIdPage />
+              <main id="main-content" role="main">
+                <TourIdPage />
+              </main>
             </MainLayout>
           }
         />
@@ -91,7 +99,9 @@ const Router = () => {
           path="/Private-tour/:slug"
           element={
             <MainLayout>
-              <PrivateTourIdPage />
+              <main id="main-content" role="main">
+                <PrivateTourIdPage />
+              </main>
             </MainLayout>
           }
         />
@@ -99,7 +109,9 @@ const Router = () => {
           path="/contact"
           element={
             <MainLayout>
-              <ContactUs />
+              <main id="main-content" role="main">
+                <ContactUs />
+              </main>
             </MainLayout>
           }
         />
@@ -107,7 +119,9 @@ const Router = () => {
           path="/Uzbek-Tours"
           element={
             <MainLayout>
-              <UzbekistanTours />
+              <main id="main-content" role="main">
+                <UzbekistanTours />
+              </main>
             </MainLayout>
           }
         />
@@ -115,7 +129,9 @@ const Router = () => {
           path="/Kazakh-Tours"
           element={
             <MainLayout>
-              <KazakhstanTours />
+              <main id="main-content" role="main">
+                <KazakhstanTours />
+              </main>
             </MainLayout>
           }
         />
@@ -123,7 +139,9 @@ const Router = () => {
           path="/Kyrgyz-Tours"
           element={
             <MainLayout>
-              <KyrgyzstanTours />
+              <main id="main-content" role="main">
+                <KyrgyzstanTours />
+              </main>
             </MainLayout>
           }
         />
@@ -131,7 +149,9 @@ const Router = () => {
           path="/Tajik-Tours"
           element={
             <MainLayout>
-              <TajikistanTours />
+              <main id="main-content" role="main">
+                <TajikistanTours />
+              </main>
             </MainLayout>
           }
         />
@@ -139,7 +159,9 @@ const Router = () => {
           path="/Turkmen-Tours"
           element={
             <MainLayout>
-              <TurkmenistanTours />
+              <main id="main-content" role="main">
+                <TurkmenistanTours />
+              </main>
             </MainLayout>
           }
         />
@@ -147,7 +169,9 @@ const Router = () => {
           path="/Central-Asia-Tours"
           element={
             <MainLayout>
-              <CentralAsiaTours />
+              <main id="main-content" role="main">
+                <CentralAsiaTours />
+              </main>
             </MainLayout>
           }
         />
@@ -155,7 +179,9 @@ const Router = () => {
           path="/Silk-Road-Tours"
           element={
             <MainLayout>
-              <SilkRoadTours />
+              <main id="main-content" role="main">
+                <SilkRoadTours />
+              </main>
             </MainLayout>
           }
         />
@@ -163,7 +189,9 @@ const Router = () => {
           path="/Caucas-Tours"
           element={
             <MainLayout>
-              <CaucasusTours />
+              <main id="main-content" role="main">
+                <CaucasusTours />
+              </main>
             </MainLayout>
           }
         />
@@ -171,7 +199,9 @@ const Router = () => {
           path="/Armenia-Tours"
           element={
             <MainLayout>
-              <ArmeniaTours />
+              <main id="main-content" role="main">
+                <ArmeniaTours />
+              </main>
             </MainLayout>
           }
         />
@@ -179,7 +209,9 @@ const Router = () => {
           path="/Azerbaijan-Tours"
           element={
             <MainLayout>
-              <AzerbaijanTours />
+              <main id="main-content" role="main">
+                <AzerbaijanTours />
+              </main>
             </MainLayout>
           }
         />
@@ -187,7 +219,9 @@ const Router = () => {
           path="/Georgia-Tours"
           element={
             <MainLayout>
-              <GeorgiaTours />
+              <main id="main-content" role="main">
+                <GeorgiaTours />
+              </main>
             </MainLayout>
           }
         />
@@ -195,7 +229,9 @@ const Router = () => {
           path="/Uzbekistan"
           element={
             <MainLayout>
-              <UzbekistanToursDestinations />
+              <main id="main-content" role="main">
+                <UzbekistanToursDestinations />
+              </main>
             </MainLayout>
           }
         />
@@ -203,7 +239,9 @@ const Router = () => {
           path="/Armenia"
           element={
             <MainLayout>
-              <ArmeniaToursDestination />
+              <main id="main-content" role="main">
+                <ArmeniaToursDestination />
+              </main>
             </MainLayout>
           }
         />
@@ -211,7 +249,9 @@ const Router = () => {
           path="/Azerbaijan"
           element={
             <MainLayout>
-              <AzerbaijanToursDestination />
+              <main id="main-content" role="main">
+                <AzerbaijanToursDestination />
+              </main>
             </MainLayout>
           }
         />
@@ -219,7 +259,9 @@ const Router = () => {
           path="/Georgia"
           element={
             <MainLayout>
-              <GeorgiaToursDestination />
+              <main id="main-content" role="main">
+                <GeorgiaToursDestination />
+              </main>
             </MainLayout>
           }
         />
@@ -227,7 +269,9 @@ const Router = () => {
           path="/Kazakhstan"
           element={
             <MainLayout>
-              <KazakhstanToursDestinations />
+              <main id="main-content" role="main">
+                <KazakhstanToursDestinations />
+              </main>
             </MainLayout>
           }
         />
@@ -235,7 +279,9 @@ const Router = () => {
           path="/Kyrgyzstan"
           element={
             <MainLayout>
-              <KyrgyzstanToursDestinations />
+              <main id="main-content" role="main">
+                <KyrgyzstanToursDestinations />
+              </main>
             </MainLayout>
           }
         />
@@ -243,7 +289,9 @@ const Router = () => {
           path="/Tajikistan"
           element={
             <MainLayout>
-              <TajikistanToursDestinations />
+              <main id="main-content" role="main">
+                <TajikistanToursDestinations />
+              </main>
             </MainLayout>
           }
         />
@@ -251,7 +299,9 @@ const Router = () => {
           path="/Turkmenistan"
           element={
             <MainLayout>
-              <TurkmenistanToursDestinations />
+              <main id="main-content" role="main">
+                <TurkmenistanToursDestinations />
+              </main>
             </MainLayout>
           }
         />
@@ -259,7 +309,9 @@ const Router = () => {
           path="/Central-Asia"
           element={
             <MainLayout>
-              <CentralAsiaToursDestinations />
+              <main id="main-content" role="main">
+                <CentralAsiaToursDestinations />
+              </main>
             </MainLayout>
           }
         />
@@ -267,7 +319,9 @@ const Router = () => {
           path="/Silk-Road"
           element={
             <MainLayout>
-              <SilkRoadToursDestinations />
+              <main id="main-content" role="main">
+                <SilkRoadToursDestinations />
+              </main>
             </MainLayout>
           }
         />
@@ -275,7 +329,9 @@ const Router = () => {
           path="/Caucasus"
           element={
             <MainLayout>
-              <CaucasusToursDestinations />
+              <main id="main-content" role="main">
+                <CaucasusToursDestinations />
+              </main>
             </MainLayout>
           }
         />
@@ -283,7 +339,9 @@ const Router = () => {
           path="/City-Tours"
           element={
             <MainLayout>
-              <CityTours />
+              <main id="main-content" role="main">
+                <CityTours />
+              </main>
             </MainLayout>
           }
         />
@@ -291,7 +349,9 @@ const Router = () => {
           path="/Cultural-Tours"
           element={
             <MainLayout>
-              <CulturalTours />
+              <main id="main-content" role="main">
+                <CulturalTours />
+              </main>
             </MainLayout>
           }
         />
@@ -299,7 +359,9 @@ const Router = () => {
           path="/Gastronomy-Tours"
           element={
             <MainLayout>
-              <GastronomyTours />
+              <main id="main-content" role="main">
+                <GastronomyTours />
+              </main>
             </MainLayout>
           }
         />
@@ -307,7 +369,9 @@ const Router = () => {
           path="/Religious-Tours"
           element={
             <MainLayout>
-              <ReligiousTours />
+              <main id="main-content" role="main">
+                <ReligiousTours />
+              </main>
             </MainLayout>
           }
         />
@@ -315,7 +379,9 @@ const Router = () => {
           path="/Eco-Tours"
           element={
             <MainLayout>
-              <EcoTours />
+              <main id="main-content" role="main">
+                <EcoTours />
+              </main>
             </MainLayout>
           }
         />
@@ -323,7 +389,9 @@ const Router = () => {
           path="/Business-Mice-Tours"
           element={
             <MainLayout>
-              <BusinessTours />
+              <main id="main-content" role="main">
+                <BusinessTours />
+              </main>
             </MainLayout>
           }
         />
@@ -331,7 +399,9 @@ const Router = () => {
           path="/Asian-Tour-Transfer"
           element={
             <MainLayout>
-              <Transfers />
+              <main id="main-content" role="main">
+                <Transfers />
+              </main>
             </MainLayout>
           }
         />
@@ -339,7 +409,9 @@ const Router = () => {
           path="/weather/:countrySlug"
           element={
             <MainLayout>
-              <WeatherPage />
+              <main id="main-content" role="main">
+                <WeatherPage />
+              </main>
             </MainLayout>
           }
         />
@@ -347,7 +419,9 @@ const Router = () => {
           path="/Uzbekistan-Tashkent"
           element={
             <MainLayout>
-              <TashkentPage />
+              <main id="main-content" role="main">
+                <TashkentPage />
+              </main>
             </MainLayout>
           }
         />
@@ -355,7 +429,9 @@ const Router = () => {
           path="/Uzbekistan-Samarkand"
           element={
             <MainLayout>
-              <SamarkandPage />
+              <main id="main-content" role="main">
+                <SamarkandPage />
+              </main>
             </MainLayout>
           }
         />
@@ -363,7 +439,9 @@ const Router = () => {
           path="/Uzbekistan-Khiva"
           element={
             <MainLayout>
-              <KhivaPage />
+              <main id="main-content" role="main">
+                <KhivaPage />
+              </main>
             </MainLayout>
           }
         />
@@ -371,7 +449,9 @@ const Router = () => {
           path="/Uzbekistan-Bukhara"
           element={
             <MainLayout>
-              <BukharaPage />
+              <main id="main-content" role="main">
+                <BukharaPage />
+              </main>
             </MainLayout>
           }
         />
@@ -379,7 +459,9 @@ const Router = () => {
           path="/Kazakhstan-Astana"
           element={
             <MainLayout>
-              <AstanaPage />
+              <main id="main-content" role="main">
+                <AstanaPage />
+              </main>
             </MainLayout>
           }
         />
@@ -387,7 +469,9 @@ const Router = () => {
           path="/Kazakhstan-Almaty"
           element={
             <MainLayout>
-              <AlmatyPage />
+              <main id="main-content" role="main">
+                <AlmatyPage />
+              </main>
             </MainLayout>
           }
         />
@@ -395,7 +479,9 @@ const Router = () => {
           path="/Kyrgyzstan-Bishkek"
           element={
             <MainLayout>
-              <BishkekPage />
+              <main id="main-content" role="main">
+                <BishkekPage />
+              </main>
             </MainLayout>
           }
         />
@@ -403,7 +489,9 @@ const Router = () => {
           path="/Kyrgyzstan-Osh"
           element={
             <MainLayout>
-              <OshPage />
+              <main id="main-content" role="main">
+                <OshPage />
+              </main>
             </MainLayout>
           }
         />
@@ -411,7 +499,9 @@ const Router = () => {
           path="/Tajikistan-Dushanbe"
           element={
             <MainLayout>
-              <DushanbePage />
+              <main id="main-content" role="main">
+                <DushanbePage />
+              </main>
             </MainLayout>
           }
         />
@@ -419,7 +509,9 @@ const Router = () => {
           path="/Turkmenistan-Ashgabat"
           element={
             <MainLayout>
-              <AshgabatPage />
+              <main id="main-content" role="main">
+                <AshgabatPage />
+              </main>
             </MainLayout>
           }
         />
@@ -427,7 +519,9 @@ const Router = () => {
           path="/Azerbaijan-Baku"
           element={
             <MainLayout>
-              <BakuPage />
+              <main id="main-content" role="main">
+                <BakuPage />
+              </main>
             </MainLayout>
           }
         />
@@ -435,7 +529,9 @@ const Router = () => {
           path="/Caucasus-Baku"
           element={
             <MainLayout>
-              <BakuPage />
+              <main id="main-content" role="main">
+                <BakuPage />
+              </main>
             </MainLayout>
           }
         />
@@ -443,7 +539,9 @@ const Router = () => {
           path="/Armenia-Yerevan"
           element={
             <MainLayout>
-              <ErevanPage />
+              <main id="main-content" role="main">
+                <ErevanPage />
+              </main>
             </MainLayout>
           }
         />
@@ -451,7 +549,9 @@ const Router = () => {
           path="/Caucasus-Yerevan"
           element={
             <MainLayout>
-              <ErevanPage />
+              <main id="main-content" role="main">
+                <ErevanPage />
+              </main>
             </MainLayout>
           }
         />
@@ -459,7 +559,9 @@ const Router = () => {
           path="/Georgia-Tbilisi"
           element={
             <MainLayout>
-              <TbilisiPage />
+              <main id="main-content" role="main">
+                <TbilisiPage />
+              </main>
             </MainLayout>
           }
         />
@@ -467,7 +569,9 @@ const Router = () => {
           path="/Caucasus-Tbilisi"
           element={
             <MainLayout>
-              <TbilisiPage />
+              <main id="main-content" role="main">
+                <TbilisiPage />
+              </main>
             </MainLayout>
           }
         />
@@ -475,7 +579,9 @@ const Router = () => {
           path="/Uzbekistan-Private-Tours"
           element={
             <MainLayout>
-              <UzbekistanPrivateTours />
+              <main id="main-content" role="main">
+                <UzbekistanPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -483,7 +589,9 @@ const Router = () => {
           path="/Kazakhstan-Private-Tours"
           element={
             <MainLayout>
-              <KazakhstanPrivateTours />
+              <main id="main-content" role="main">
+                <KazakhstanPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -491,7 +599,9 @@ const Router = () => {
           path="/Silk-Road-Private-Tours"
           element={
             <MainLayout>
-              <SilkRoadPrivateTours />
+              <main id="main-content" role="main">
+                <SilkRoadPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -500,7 +610,9 @@ const Router = () => {
           path="/Central-Asia-Private-Tours"
           element={
             <MainLayout>
-              <CentralAsiaPrivateTours />
+              <main id="main-content" role="main">
+                <CentralAsiaPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -508,7 +620,9 @@ const Router = () => {
           path="/Kyrgyzstan-Private-Tours"
           element={
             <MainLayout>
-              <KyrgyzstanPrivateTours />
+              <main id="main-content" role="main">
+                <KyrgyzstanPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -516,7 +630,9 @@ const Router = () => {
           path="/Tajikistan-Private-Tours"
           element={
             <MainLayout>
-              <TajikistanPrivateTours />
+              <main id="main-content" role="main">
+                <TajikistanPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -524,7 +640,9 @@ const Router = () => {
           path="/Turkmenistan-Private-Tours"
           element={
             <MainLayout>
-              <TurkmenistanPrivateTours />
+              <main id="main-content" role="main">
+                <TurkmenistanPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -532,7 +650,9 @@ const Router = () => {
           path="/Armenia-Private-Tours"
           element={
             <MainLayout>
-              <ArmeniaPrivateTours />
+              <main id="main-content" role="main">
+                <ArmeniaPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -540,7 +660,9 @@ const Router = () => {
           path="/Azerbaijan-Private-Tours"
           element={
             <MainLayout>
-              <AzerbaijanPrivateTours />
+              <main id="main-content" role="main">
+                <AzerbaijanPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -548,7 +670,9 @@ const Router = () => {
           path="/Georgia-Private-Tours"
           element={
             <MainLayout>
-              <GeorgiaPrivateTours />
+              <main id="main-content" role="main">
+                <GeorgiaPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -556,7 +680,9 @@ const Router = () => {
           path="/Caucasus-Private-Tours"
           element={
             <MainLayout>
-              <CaucasusPrivateTours />
+              <main id="main-content" role="main">
+                <CaucasusPrivateTours />
+              </main>
             </MainLayout>
           }
         />
@@ -564,7 +690,9 @@ const Router = () => {
           path="/search"
           element={
             <MainLayout>
-              <SearchPage />
+              <main id="main-content" role="main">
+                <SearchPage />
+              </main>
             </MainLayout>
           }
         />
@@ -573,7 +701,9 @@ const Router = () => {
           path="/visa-policy"
           element={
             <MainLayout>
-              <VisaPolicy />
+              <main id="main-content" role="main">
+                <VisaPolicy />
+              </main>
             </MainLayout>
           }
         />
@@ -581,7 +711,9 @@ const Router = () => {
           path="/about"
           element={
             <MainLayout>
-              <AboutUs />
+              <main id="main-content" role="main">
+                <AboutUs />
+              </main>
             </MainLayout>
           }
         />
@@ -589,7 +721,9 @@ const Router = () => {
           path="/booking-form"
           element={
             <MainLayout>
-              <BookingForm />
+              <main id="main-content" role="main">
+                <BookingForm />
+              </main>
             </MainLayout>
           }
         />
@@ -597,7 +731,9 @@ const Router = () => {
           path="/10-Best-Places-to-visit-in-Uzbekistan"
           element={
             <MainLayout>
-              <PlacestoVisit />
+              <main id="main-content" role="main">
+                <PlacestoVisit />
+              </main>
             </MainLayout>
           }
         />
