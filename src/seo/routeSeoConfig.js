@@ -34,6 +34,13 @@ const routeSeoMap = {
       "Submit your booking request for private, cultural, and multi-country Central Asia travel programs.",
     keywords: "book tour, private tour booking, Central Asia holidays",
   },
+  "/search": {
+    title: "Search Tours | Go To Central Asia",
+    description:
+      "Find tours and destinations across Central Asia and the Caucasus.",
+    keywords: "tour search, Central Asia tours",
+    robots: "noindex,follow",
+  },
   "/10-Best-Places-to-visit-in-Uzbekistan": {
     title: "10 Best Places to Visit in Uzbekistan | Travel Guide",
     description:
@@ -155,6 +162,7 @@ export const getSeoData = (pathname) => {
     canonical,
     image: page.image || DEFAULT_IMAGE,
     type: page.type || "website",
+    robots: page.robots || "index,follow,max-image-preview:large",
     schemas: [organizationSchema, websiteSchema, breadcrumbSchema].filter(Boolean),
   };
 };
