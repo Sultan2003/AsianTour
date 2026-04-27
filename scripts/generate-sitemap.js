@@ -8,7 +8,6 @@ const SITE_URL = "https://www.gotocentralasia.com";
 const staticPages = [
   "/",
   "/contact",
-  "/search",
   "/visa-policy",
   "/about",
   "/booking-form",

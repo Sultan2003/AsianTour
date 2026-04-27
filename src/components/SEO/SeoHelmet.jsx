@@ -12,7 +12,7 @@ const SeoHelmet = () => {
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       <meta name="keywords" content={seo.keywords} />
-      <meta name="robots" content="index,follow,max-image-preview:large" />
+      <meta name="robots" content={seo.robots} />
       <link rel="canonical" href={seo.canonical} />
 
       <meta property="og:site_name" content={seo.siteName} />
