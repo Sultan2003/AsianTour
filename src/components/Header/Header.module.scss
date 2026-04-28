@@ -701,6 +701,9 @@
   color: white;
 }
 
+.phoneText a {
+  text-decoration: none;
+}
 .phoneText strong {
   font-size: 16px;
   font-weight: 700;
@@ -1051,5 +1054,52 @@ body {
     .menuItem {
       font-size: 18px !important;
     }
+  }
+}
+@media (max-width: 768px) {
+  .menuItem:nth-child(4) {
+    display: none;
+  }
+}
+/* =========================================
+   🔥 EXTRA SMALL PHONES FIX (≤ 400px)
+========================================= */
+@media (max-width: 400px) {
+  /* TOP LINKS (About, Contact, Translate) */
+  .navlink {
+    font-size: 12px !important;
+  }
+
+  /* MENU (Destinations, Group, Private) */
+  .menuItem {
+    font-size: 11px !important;
+  }
+
+  /* LOGO smaller */
+  .logo img {
+    height: 36px !important;
+    width: auto !important;
+  }
+
+  /* HEADER HEIGHT tighter */
+  .header {
+    max-height: 100px !important;
+  }
+
+  .topRow {
+    min-height: 60px !important;
+    padding: px 10px !important;
+  }
+
+  /* MENU ROW */
+  .bottomRow {
+    height: 40px !important;
+    gap: 10px !important;
+    padding: 4px -10px !important;
+  }
+
+  /* reduce spacing */
+  .actions {
+    gap: 8px !important;
   }
 }

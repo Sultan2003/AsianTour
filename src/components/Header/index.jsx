@@ -234,7 +234,9 @@ export default function Header({ onLoginClick }) {
 
               <div className={styles.phoneText}>
                 <span>Call Us:</span>
-                <strong>+998-93-200-44-50</strong>
+                <a href="tel:+998933988531" className={styles.phoneNumber}>
+                  <strong>+998-93-398-85-31</strong>
+                </a>
               </div>
             </div>
           </div>
