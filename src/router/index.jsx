@@ -66,6 +66,8 @@ import AshgabatPage from "../pages/Cities/Ashgabat";
 import BakuPage from "../pages/Cities/Baku";
 import PlacestoVisit from "../pages/10BestPlaces";
 import BookingForm from "../pages/BookingForm";
+import Hotels from "../components/HotelDetails";
+import HotelsList from "../components/HotelsList";
 
 const Router = () => {
   return (
@@ -396,11 +398,31 @@ const Router = () => {
           }
         />
         <Route
-          path="/Asian-Tour-Transfer"
+          path="/Transfer"
           element={
             <MainLayout>
               <main id="main-content" role="main">
                 <Transfers />
+              </main>
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/hotels/:slug"
+          element={
+            <MainLayout>
+              <main id="main-content" role="main">
+                <Hotels />
+              </main>
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/hotels"
+          element={
+            <MainLayout>
+              <main id="main-content" role="main">
+                <HotelsList />
               </main>
             </MainLayout>
           }

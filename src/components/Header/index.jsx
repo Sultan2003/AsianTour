@@ -427,10 +427,12 @@ export default function Header({ onLoginClick }) {
             className={`${styles.dropdown} ${openMobileMenu === "services" ? styles.show : ""}`}
           >
             <div className={styles.dropdownGrid}>
-              <Link to="/Asian-Tour-Transfer" onClick={handleMenuLinkClick}>
+              <Link to="/Transfer" onClick={handleMenuLinkClick}>
                 Transfer
               </Link>
-              <span>Hotel Booking</span>
+              <Link to="/hotels" onClick={handleMenuLinkClick}>
+                Hotel Booking
+              </Link>
               <span>Guide Service</span>
             </div>
           </div>
