@@ -44,7 +44,7 @@ export default function PrivateTourIdPage() {
     { word: "Contact", url: "/contact" },
     { word: "Search", url: "/search" },
     { word: "Visa Policy", url: "/visa-policy" },
-    { word: "Transfers", url: "/Asian-Tour-Transfer" },
+    { word: "Transfers", url: "/Transfer" },
 
     // ✅ Country tours
     { word: "Uzbekistan Tours", url: "/Uzbek-Tours" },
