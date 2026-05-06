@@ -34,6 +34,20 @@ const routeSeoMap = {
       "Submit your booking request for private, cultural, and multi-country Central Asia travel programs.",
     keywords: "book tour, private tour booking, Central Asia holidays",
   },
+  "/Transfer": {
+    title: "Central Asia Transfers | Airport & Intercity Transport",
+    description:
+      "Book airport pickups, city transfers, and private intercity transportation across Central Asia with Go To Central Asia.",
+    keywords:
+      "Central Asia transfers, airport transfer Uzbekistan, private transport, intercity transfer",
+  },
+  "/hotels": {
+    title: "Central Asia Hotels | Hotel Booking Service",
+    description:
+      "Browse hotels and accommodation options for Central Asia trips, including room details, prices, and booking support.",
+    keywords:
+      "Central Asia hotels, hotel booking, Uzbekistan hotels, travel accommodation",
+  },
   "/search": {
     title: "Search Tours | Go To Central Asia",
     description:
@@ -80,6 +94,18 @@ const buildFallbackSeo = (pathname) => {
     };
   }
 
+  if (pathname.startsWith("/hotels/")) {
+    const hotelSlug = pathname.replace("/hotels/", "");
+    const hotelName = formatSegment(hotelSlug);
+
+    return {
+      title: `${hotelName} Hotel | ${SITE_NAME}`,
+      description: `View rooms, terms of stay, contact details, and booking information for ${hotelName}.`,
+      keywords: `${hotelName}, hotel booking, Central Asia hotels, accommodation`,
+      type: "article",
+    };
+  }
+
   if (pathname.startsWith("/weather/")) {
     const countrySlug = pathname.replace("/weather/", "");
     const destination = formatSegment(countrySlug);
@@ -118,10 +144,25 @@ const getBreadcrumbs = (pathname) => {
   });
 };
 
+const canonicalAliases = {
+  "/Asian-Tour-Transfer": "/Transfer",
+};
+
+const normalizePathname = (pathname) => {
+  const withoutTrailingSlash =
+    pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+
+  return canonicalAliases[withoutTrailingSlash] || withoutTrailingSlash;
+};
+
 export const getSeoData = (pathname) => {
-  const page = routeSeoMap[pathname] || buildFallbackSeo(pathname);
-  const canonical = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
-  const breadcrumbs = getBreadcrumbs(pathname);
+  const normalizedPathname = normalizePathname(pathname);
+  const page =
+    routeSeoMap[normalizedPathname] || buildFallbackSeo(normalizedPathname);
+  const canonical = `${SITE_URL}${
+    normalizedPathname === "/" ? "" : normalizedPathname
+  }`;
+  const breadcrumbs = getBreadcrumbs(normalizedPathname);
 
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -163,6 +204,8 @@ export const getSeoData = (pathname) => {
     image: page.image || DEFAULT_IMAGE,
     type: page.type || "website",
     robots: page.robots || "index,follow,max-image-preview:large",
-    schemas: [organizationSchema, websiteSchema, breadcrumbSchema].filter(Boolean),
+    schemas: [organizationSchema, websiteSchema, breadcrumbSchema].filter(
+      Boolean,
+    ),
   };
 };

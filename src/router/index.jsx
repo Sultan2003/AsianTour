@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import SeoHelmet from "../components/SEO/SeoHelmet";
 import SeoRuntime from "../components/SEO/SeoRuntime";
 import MainPage from "../pages/Main Page";
@@ -396,6 +396,10 @@ const Router = () => {
               </main>
             </MainLayout>
           }
+        />
+        <Route
+          path="/Asian-Tour-Transfer"
+          element={<Navigate to="/Transfer" replace />}
         />
         <Route
           path="/Transfer"

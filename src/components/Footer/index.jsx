@@ -60,7 +60,7 @@ const Footer = () => {
           <h3 className={styles.heading}>{t.services}</h3>
           <ul>
             <li>
-              <Link to="/Asian-Tour-Transfer">Transfer</Link>
+              <Link to="/Transfer">Transfer</Link>
             </li>
             <li>
               <a

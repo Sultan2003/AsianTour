@@ -1,9 +1,10 @@
 import { SitemapStream, streamToPromise } from "sitemap";
-import { createWriteStream } from "fs";
+import { writeFile } from "fs/promises";
 import fetch from "node-fetch";
 
 const STRAPI = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 const SITE_URL = "https://www.gotocentralasia.com";
+const PAGE_SIZE = 100;
 
 const staticPages = [
   "/",
@@ -43,6 +44,8 @@ const staticRoutes = [
   "/Religious-Tours",
   "/Eco-Tours",
   "/Business-Mice-Tours",
+  "/Transfer",
+  "/hotels",
   "/Uzbekistan-Tashkent",
   "/Uzbekistan-Samarkand",
   "/Uzbekistan-Bukhara",
@@ -70,7 +73,6 @@ const staticRoutes = [
   "/Azerbaijan-Private-Tours",
   "/Georgia-Private-Tours",
   "/Caucasus-Private-Tours",
-  "/Asian-Tour-Transfer",
 ];
 
 const toSlug = (value = "") =>
@@ -79,35 +81,90 @@ const toSlug = (value = "") =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-async function getDynamicTourRoutes() {
-  try {
-    const res = await fetch(`${STRAPI}/api/asian-tours?pagination[limit]=500`, {
-      timeout: 15000,
-    });
+const getRecordValue = (record, key) =>
+  record?.[key] || record?.attributes?.[key];
+
+const cleanPathSegment = (value = "") =>
+  String(value).trim().replace(/^\/+|\/+$/g, "");
+
+async function fetchCollection(collection, query = "") {
+  const records = [];
+  let page = 1;
+  let pageCount = 1;
+
+  do {
+    const separator = query ? "&" : "?";
+    const url = `${STRAPI}/api/${collection}${query}${separator}pagination[page]=${page}&pagination[pageSize]=${PAGE_SIZE}`;
+    const res = await fetch(url);
 
     if (!res.ok) {
-      throw new Error(`Strapi request failed with status ${res.status}`);
+      throw new Error(`${collection} request failed with status ${res.status}`);
     }
 
     const data = await res.json();
-    const tours = data.data || [];
+    records.push(...(data.data || []));
+
+    pageCount = data.meta?.pagination?.pageCount || 1;
+    page += 1;
+  } while (page <= pageCount);
+
+  return records;
+}
+
+async function getDynamicTourRoutes() {
+  try {
+    const tours = await fetchCollection("asian-tours");
 
     return tours
-      .map((tour) => tour.title || tour.attributes?.title || tour.attributes?.Name)
+      .map(
+        (tour) =>
+          getRecordValue(tour, "slug") ||
+          getRecordValue(tour, "title") ||
+          getRecordValue(tour, "Name"),
+      )
       .filter(Boolean)
-      .map((title) => `/tour/${toSlug(title)}`);
+      .map((value) => `/tour/${toSlug(value)}`);
   } catch (error) {
     console.warn("⚠️ Skipping dynamic tour URLs in sitemap:", error.message);
     return [];
   }
 }
 
+async function getDynamicHotelRoutes() {
+  try {
+    const hotels = await fetchCollection("hotelss", "?populate=*");
+
+    return hotels
+      .map((hotel) => {
+        const slug = getRecordValue(hotel, "slug");
+        const title = getRecordValue(hotel, "title");
+
+        return slug ? cleanPathSegment(slug) : toSlug(title);
+      })
+      .filter(Boolean)
+      .map((value) => `/hotels/${value}`);
+  } catch (error) {
+    console.warn("⚠️ Skipping dynamic hotel URLs in sitemap:", error.message);
+    return [];
+  }
+}
+
 async function generate() {
   const sitemap = new SitemapStream({ hostname: SITE_URL });
-  const dynamicRoutes = await getDynamicTourRoutes();
+  const [dynamicTourRoutes, dynamicHotelRoutes] = await Promise.all([
+    getDynamicTourRoutes(),
+    getDynamicHotelRoutes(),
+  ]);
+
+  const seenUrls = new Set();
+  const writeUrl = (entry) => {
+    if (seenUrls.has(entry.url)) return;
+    seenUrls.add(entry.url);
+    sitemap.write(entry);
+  };
 
   staticPages.forEach((url) => {
-    sitemap.write({
+    writeUrl({
       url,
       priority: 0.8,
       changefreq: "weekly",
@@ -116,7 +173,7 @@ async function generate() {
   });
 
   staticRoutes.forEach((url) => {
-    sitemap.write({
+    writeUrl({
       url,
       changefreq: "monthly",
       priority: 0.7,
@@ -124,8 +181,8 @@ async function generate() {
     });
   });
 
-  dynamicRoutes.forEach((url) => {
-    sitemap.write({
+  dynamicTourRoutes.forEach((url) => {
+    writeUrl({
       url,
       changefreq: "weekly",
       priority: 0.9,
@@ -133,15 +190,26 @@ async function generate() {
     });
   });
 
+  dynamicHotelRoutes.forEach((url) => {
+    writeUrl({
+      url,
+      changefreq: "weekly",
+      priority: 0.8,
+      lastmodISO: new Date().toISOString(),
+    });
+  });
+
   sitemap.end();
 
   const xml = await streamToPromise(sitemap);
-  createWriteStream("./public/sitemap.xml").write(xml);
+  await writeFile("./public/sitemap.xml", xml);
 
   console.log("✅ Sitemap generated successfully");
   console.log(`→ static pages: ${staticPages.length}`);
   console.log(`→ static routes: ${staticRoutes.length}`);
-  console.log(`→ dynamic routes: ${dynamicRoutes.length}`);
+  console.log(`→ dynamic tour routes: ${dynamicTourRoutes.length}`);
+  console.log(`→ dynamic hotel routes: ${dynamicHotelRoutes.length}`);
+  console.log(`→ total URLs: ${seenUrls.size}`);
 }
 
 generate();

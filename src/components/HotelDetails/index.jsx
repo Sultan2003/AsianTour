@@ -13,7 +13,7 @@ const Hotels = () => {
   useEffect(() => {
     const fetchHotel = async () => {
       const res = await fetch(
-        `${BASE_URL}/hotelss?filters[slug][$eq]=${slug}&populate=*`,
+        `${BASE_URL}/hotelss?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`,
       );
 
       const data = await res.json();
