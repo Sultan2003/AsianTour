@@ -34,7 +34,7 @@ const routeSeoMap = {
       "Submit your booking request for private, cultural, and multi-country Central Asia travel programs.",
     keywords: "book tour, private tour booking, Central Asia holidays",
   },
-  "/Transfer": {
+  "/transfer": {
     title: "Central Asia Transfers | Airport & Intercity Transport",
     description:
       "Book airport pickups, city transfers, and private intercity transportation across Central Asia with Go To Central Asia.",
@@ -55,7 +55,7 @@ const routeSeoMap = {
     keywords: "tour search, Central Asia tours",
     robots: "noindex,follow",
   },
-  "/10-Best-Places-to-visit-in-Uzbekistan": {
+  "/10-best-places-to-visit-in-uzbekistan": {
     title: "10 Best Places to Visit in Uzbekistan | Travel Guide",
     description:
       "Discover the top places to visit in Uzbekistan, including Samarkand, Bukhara, Khiva, and Tashkent for your next journey.",
@@ -82,8 +82,8 @@ const buildFallbackSeo = (pathname) => {
     };
   }
 
-  if (pathname.startsWith("/Private-tour/")) {
-    const slug = pathname.replace("/Private-tour/", "");
+  if (pathname.startsWith("/private-tour/")) {
+    const slug = pathname.replace("/private-tour/", "");
     const tourName = formatSegment(slug);
 
     return {
@@ -145,14 +145,16 @@ const getBreadcrumbs = (pathname) => {
 };
 
 const canonicalAliases = {
-  "/Asian-Tour-Transfer": "/Transfer",
+  "/asian-tour-transfer": "/transfer",
+  "/caucas-tours": "/caucasus-tours",
 };
 
 const normalizePathname = (pathname) => {
   const withoutTrailingSlash =
     pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  const lowercasePathname = withoutTrailingSlash.toLowerCase();
 
-  return canonicalAliases[withoutTrailingSlash] || withoutTrailingSlash;
+  return canonicalAliases[lowercasePathname] || lowercasePathname;
 };
 
 export const getSeoData = (pathname) => {

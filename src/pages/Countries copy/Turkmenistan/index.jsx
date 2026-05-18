@@ -205,7 +205,7 @@ export default function TurkmenistanTours() {
               {destinations.map((d, i) => (
                 <li key={i}>
                   <Link
-                    to={`/Turkmenistan-${d}`}
+                    to={`/turkmenistan-${d}`}
                     className={styles.sidebarLink}
                   >
                     {d}

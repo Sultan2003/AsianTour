@@ -218,7 +218,7 @@ export default function GeorgiaToursDestination() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <Link to={`/Georgia-${d}`} className={styles.sidebarLink}>
+                  <Link to={`/georgia-${d}`} className={styles.sidebarLink}>
                     {d}
                   </Link>
                 </li>

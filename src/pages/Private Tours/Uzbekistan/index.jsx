@@ -208,7 +208,7 @@ export default function UzbekistanPrivateTours() {
                 key={tour.id}
                 className={styles.tourCard}
                 onClick={() =>
-                  navigate(`/Private-tour/${makeSlug(tour.title)}`)
+                  navigate(`/private-tour/${makeSlug(tour.title)}`)
                 }
               >
                 <div className={styles.dateBox}>
@@ -244,7 +244,7 @@ export default function UzbekistanPrivateTours() {
                   key={tour.id}
                   className={styles.bigTourCard}
                   onClick={() =>
-                    navigate(`/Private-tour/${makeSlug(tour.title)}`)
+                    navigate(`/private-tour/${makeSlug(tour.title)}`)
                   }
                 >
                   <div className={styles.bigImg}>
@@ -315,7 +315,7 @@ export default function UzbekistanPrivateTours() {
                         key={t.id}
                         className={styles.catItem}
                         onClick={() =>
-                          navigate(`/Private-tour/${makeSlug(t.title)}`)
+                          navigate(`/private-tour/${makeSlug(t.title)}`)
                         }
                       >
                         {t.title}

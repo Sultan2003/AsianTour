@@ -98,7 +98,7 @@ const Router = () => {
         />
 
         <Route
-          path="/Private-tour/:slug"
+          path="/private-tour/:slug"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -118,7 +118,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Uzbek-Tours"
+          path="/uzbek-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -128,7 +128,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kazakh-Tours"
+          path="/kazakh-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -138,7 +138,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kyrgyz-Tours"
+          path="/kyrgyz-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -148,7 +148,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Tajik-Tours"
+          path="/tajik-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -158,7 +158,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Turkmen-Tours"
+          path="/turkmen-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -168,7 +168,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Central-Asia-Tours"
+          path="/central-asia-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -178,7 +178,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Silk-Road-Tours"
+          path="/silk-road-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -188,7 +188,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Caucas-Tours"
+          path="/caucasus-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -198,7 +198,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Armenia-Tours"
+          path="/armenia-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -208,7 +208,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Azerbaijan-Tours"
+          path="/azerbaijan-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -218,7 +218,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Georgia-Tours"
+          path="/georgia-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -228,7 +228,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Uzbekistan"
+          path="/uzbekistan"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -238,7 +238,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Armenia"
+          path="/armenia"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -248,7 +248,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Azerbaijan"
+          path="/azerbaijan"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -258,7 +258,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Georgia"
+          path="/georgia"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -268,7 +268,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kazakhstan"
+          path="/kazakhstan"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -278,7 +278,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kyrgyzstan"
+          path="/kyrgyzstan"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -288,7 +288,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Tajikistan"
+          path="/tajikistan"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -298,7 +298,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Turkmenistan"
+          path="/turkmenistan"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -308,7 +308,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Central-Asia"
+          path="/central-asia"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -318,7 +318,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Silk-Road"
+          path="/silk-road"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -328,7 +328,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Caucasus"
+          path="/caucasus"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -338,7 +338,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/City-Tours"
+          path="/city-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -348,7 +348,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Cultural-Tours"
+          path="/cultural-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -358,7 +358,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Gastronomy-Tours"
+          path="/gastronomy-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -368,7 +368,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Religious-Tours"
+          path="/religious-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -378,7 +378,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Eco-Tours"
+          path="/eco-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -388,7 +388,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Business-Mice-Tours"
+          path="/business-mice-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -398,11 +398,11 @@ const Router = () => {
           }
         />
         <Route
-          path="/Asian-Tour-Transfer"
-          element={<Navigate to="/Transfer" replace />}
+          path="/asian-tour-transfer"
+          element={<Navigate to="/transfer" replace />}
         />
         <Route
-          path="/Transfer"
+          path="/transfer"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -442,7 +442,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Uzbekistan-Tashkent"
+          path="/uzbekistan-tashkent"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -452,7 +452,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Uzbekistan-Samarkand"
+          path="/uzbekistan-samarkand"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -462,7 +462,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Uzbekistan-Khiva"
+          path="/uzbekistan-khiva"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -472,7 +472,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Uzbekistan-Bukhara"
+          path="/uzbekistan-bukhara"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -482,7 +482,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kazakhstan-Astana"
+          path="/kazakhstan-astana"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -492,7 +492,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kazakhstan-Almaty"
+          path="/kazakhstan-almaty"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -502,7 +502,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kyrgyzstan-Bishkek"
+          path="/kyrgyzstan-bishkek"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -512,7 +512,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kyrgyzstan-Osh"
+          path="/kyrgyzstan-osh"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -522,7 +522,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Tajikistan-Dushanbe"
+          path="/tajikistan-dushanbe"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -532,7 +532,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Turkmenistan-Ashgabat"
+          path="/turkmenistan-ashgabat"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -542,7 +542,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Azerbaijan-Baku"
+          path="/azerbaijan-baku"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -552,7 +552,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Caucasus-Baku"
+          path="/caucasus-baku"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -562,7 +562,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Armenia-Yerevan"
+          path="/armenia-yerevan"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -572,7 +572,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Caucasus-Yerevan"
+          path="/caucasus-yerevan"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -582,7 +582,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Georgia-Tbilisi"
+          path="/georgia-tbilisi"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -592,7 +592,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Caucasus-Tbilisi"
+          path="/caucasus-tbilisi"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -602,7 +602,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Uzbekistan-Private-Tours"
+          path="/uzbekistan-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -612,7 +612,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kazakhstan-Private-Tours"
+          path="/kazakhstan-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -622,7 +622,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Silk-Road-Private-Tours"
+          path="/silk-road-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -633,7 +633,7 @@ const Router = () => {
         />
 
         <Route
-          path="/Central-Asia-Private-Tours"
+          path="/central-asia-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -643,7 +643,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Kyrgyzstan-Private-Tours"
+          path="/kyrgyzstan-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -653,7 +653,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Tajikistan-Private-Tours"
+          path="/tajikistan-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -663,7 +663,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Turkmenistan-Private-Tours"
+          path="/turkmenistan-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -673,7 +673,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Armenia-Private-Tours"
+          path="/armenia-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -683,7 +683,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Azerbaijan-Private-Tours"
+          path="/azerbaijan-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -693,7 +693,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Georgia-Private-Tours"
+          path="/georgia-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -703,7 +703,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/Caucasus-Private-Tours"
+          path="/caucasus-private-tours"
           element={
             <MainLayout>
               <main id="main-content" role="main">
@@ -754,7 +754,7 @@ const Router = () => {
           }
         />
         <Route
-          path="/10-Best-Places-to-visit-in-Uzbekistan"
+          path="/10-best-places-to-visit-in-uzbekistan"
           element={
             <MainLayout>
               <main id="main-content" role="main">
