@@ -267,7 +267,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
             </div>
             <div className={styles.weatherSection}>
               <Link
-                to={`/10-Best-Places-to-visit-in-Uzbekistan`}
+                to={`/10-best-places-to-visit-in-uzbekistan`}
                 className={styles.weatherLink}
               >
                 10 Best Places to visit in Uzbekistan
@@ -281,7 +281,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <Link to={`/Uzbekistan-${d}`} className={styles.sidebarLink}>
+                  <Link to={`/uzbekistan-${d}`} className={styles.sidebarLink}>
                     {d}
                   </Link>
                 </li>

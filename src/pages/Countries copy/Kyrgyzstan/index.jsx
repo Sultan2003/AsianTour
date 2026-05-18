@@ -204,7 +204,7 @@ export default function KyrgyzstanTours() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <Link to={`/Kyrgyzstan-${d}`} className={styles.sidebarLink}>
+                  <Link to={`/kyrgyzstan-${d}`} className={styles.sidebarLink}>
                     {d}
                   </Link>
                 </li>

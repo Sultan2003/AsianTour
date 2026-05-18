@@ -254,7 +254,7 @@ export default function SamarkandPage() {
 
         <link
           rel="canonical"
-          href="https://www.gotocentralasia.com/Uzbekistan-Samarkand"
+          href="https://www.gotocentralasia.com/uzbekistan-samarkand"
         />
       </Helmet>
 

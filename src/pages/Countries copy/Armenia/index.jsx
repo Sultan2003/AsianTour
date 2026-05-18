@@ -234,7 +234,7 @@ export default function ArmeniaToursDestination() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <Link to={`/Armenia-${d}`} className={styles.sidebarLink}>
+                  <Link to={`/armenia-${d}`} className={styles.sidebarLink}>
                     {d}
                   </Link>
                 </li>

@@ -213,7 +213,7 @@ export default function CaucasusTours() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <Link to={`/Caucasus-${d}`} className={styles.sidebarLink}>
+                  <Link to={`/caucasus-${d}`} className={styles.sidebarLink}>
                     {d}
                   </Link>
                 </li>

@@ -259,37 +259,37 @@ export default function Header({ onLoginClick }) {
             className={`${styles.dropdown} ${openMobileMenu === "destinations" ? styles.show : ""}`}
           >
             <div className={styles.dropdownGrid}>
-              <Link to="/Silk-Road" onClick={handleMenuLinkClick}>
+              <Link to="/silk-road" onClick={handleMenuLinkClick}>
                 Silk Road
               </Link>
-              <Link to="/Central-Asia" onClick={handleMenuLinkClick}>
+              <Link to="/central-asia" onClick={handleMenuLinkClick}>
                 Central Asia
               </Link>
-              <Link to="/Uzbekistan" onClick={handleMenuLinkClick}>
+              <Link to="/uzbekistan" onClick={handleMenuLinkClick}>
                 Uzbekistan
               </Link>
-              <Link to="/Kazakhstan" onClick={handleMenuLinkClick}>
+              <Link to="/kazakhstan" onClick={handleMenuLinkClick}>
                 Kazakhstan
               </Link>
-              <Link to="/Kyrgyzstan" onClick={handleMenuLinkClick}>
+              <Link to="/kyrgyzstan" onClick={handleMenuLinkClick}>
                 Kyrgyzstan
               </Link>
-              <Link to="/Tajikistan" onClick={handleMenuLinkClick}>
+              <Link to="/tajikistan" onClick={handleMenuLinkClick}>
                 Tajikistan
               </Link>
-              <Link to="/Turkmenistan" onClick={handleMenuLinkClick}>
+              <Link to="/turkmenistan" onClick={handleMenuLinkClick}>
                 Turkmenistan
               </Link>
-              <Link to="/Caucasus" onClick={handleMenuLinkClick}>
+              <Link to="/caucasus" onClick={handleMenuLinkClick}>
                 Caucasus
               </Link>
-              <Link to="/Armenia" onClick={handleMenuLinkClick}>
+              <Link to="/armenia" onClick={handleMenuLinkClick}>
                 Armenia
               </Link>
-              <Link to="/Azerbaijan" onClick={handleMenuLinkClick}>
+              <Link to="/azerbaijan" onClick={handleMenuLinkClick}>
                 Azerbaijan
               </Link>
-              <Link to="/Georgia" onClick={handleMenuLinkClick}>
+              <Link to="/georgia" onClick={handleMenuLinkClick}>
                 Georgia
               </Link>
             </div>
@@ -307,37 +307,37 @@ export default function Header({ onLoginClick }) {
             className={`${styles.dropdown} ${openMobileMenu === "groupTours" ? styles.show : ""}`}
           >
             <div className={styles.dropdownGrid}>
-              <Link to="/Silk-Road-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/silk-road-tours" onClick={handleMenuLinkClick}>
                 Silk Road Group Tours
               </Link>
-              <Link to="/Central-Asia-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/central-asia-tours" onClick={handleMenuLinkClick}>
                 Central Asia Group Tours
               </Link>
-              <Link to="/Uzbek-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/uzbek-tours" onClick={handleMenuLinkClick}>
                 Uzbekistan Group Tours
               </Link>
-              <Link to="/Kazakh-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/kazakh-tours" onClick={handleMenuLinkClick}>
                 Kazakhstan Group Tours
               </Link>
-              <Link to="/Kyrgyz-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/kyrgyz-tours" onClick={handleMenuLinkClick}>
                 Kyrgyzstan Group Tours
               </Link>
-              <Link to="/Tajik-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/tajik-tours" onClick={handleMenuLinkClick}>
                 Tajikistan Group Tours
               </Link>
-              <Link to="/Turkmen-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/turkmen-tours" onClick={handleMenuLinkClick}>
                 Turkmenistan Group Tours
               </Link>
-              <Link to="/Caucas-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/caucasus-tours" onClick={handleMenuLinkClick}>
                 Caucasus Group Tours
               </Link>
-              <Link to="/Armenia-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/armenia-tours" onClick={handleMenuLinkClick}>
                 Armenia Group Tours
               </Link>
-              <Link to="/Azerbaijan-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/azerbaijan-tours" onClick={handleMenuLinkClick}>
                 Azerbaijan Group Tours{" "}
               </Link>
-              <Link to="/Georgia-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/georgia-tours" onClick={handleMenuLinkClick}>
                 Georgia Group Tours
               </Link>
             </div>
@@ -355,61 +355,61 @@ export default function Header({ onLoginClick }) {
             className={`${styles.dropdown} ${openMobileMenu === "privateTours" ? styles.show : ""}`}
           >
             <div className={styles.dropdownGrid}>
-              <Link to="/Silk-Road-Private-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/silk-road-private-tours" onClick={handleMenuLinkClick}>
                 Silk Road Private Tours
               </Link>
               <Link
-                to="/Central-Asia-Private-Tours"
+                to="/central-asia-private-tours"
                 onClick={handleMenuLinkClick}
               >
                 Central Asia Private Tours
               </Link>
               <Link
-                to="/Uzbekistan-Private-Tours"
+                to="/uzbekistan-private-tours"
                 onClick={handleMenuLinkClick}
               >
                 Uzbekistan Private Tours
               </Link>
               <Link
-                to="/Kazakhstan-Private-Tours"
+                to="/kazakhstan-private-tours"
                 onClick={handleMenuLinkClick}
               >
                 Kazakhstan Private Tours
               </Link>
               <Link
-                to="/Kyrgyzstan-Private-Tours"
+                to="/kyrgyzstan-private-tours"
                 onClick={handleMenuLinkClick}
               >
                 Kyrgyzstan Private Tours
               </Link>
               <Link
-                to="/Tajikistan-Private-Tours"
+                to="/tajikistan-private-tours"
                 onClick={handleMenuLinkClick}
               >
                 Tajikistan Private Tours
               </Link>
               <Link
-                to="/Turkmenistan-Private-Tours"
+                to="/turkmenistan-private-tours"
                 onClick={handleMenuLinkClick}
               >
                 Turkmenistan Private Tours
               </Link>
-              <Link to="/Caucasus-Private-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/caucasus-private-tours" onClick={handleMenuLinkClick}>
                 Caucasus Private Tours
               </Link>
-              <Link to="/Armenia-Private-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/armenia-private-tours" onClick={handleMenuLinkClick}>
                 Armenia Private Tours
               </Link>
               <Link
-                to="/Azerbaijan-Private-Tours"
+                to="/azerbaijan-private-tours"
                 onClick={handleMenuLinkClick}
               >
                 Azerbaijan Private Tours
               </Link>
-              <Link to="/Georgia-Private-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/georgia-private-tours" onClick={handleMenuLinkClick}>
                 Georgia Private Tours
               </Link>
-              <Link to="/Tailor-Private-Tours" onClick={handleMenuLinkClick}>
+              <Link to="/tailor-private-tours" onClick={handleMenuLinkClick}>
                 Tailor Made Private Tours
               </Link>
             </div>
@@ -427,7 +427,7 @@ export default function Header({ onLoginClick }) {
             className={`${styles.dropdown} ${openMobileMenu === "services" ? styles.show : ""}`}
           >
             <div className={styles.dropdownGrid}>
-              <Link to="/Transfer" onClick={handleMenuLinkClick}>
+              <Link to="/transfer" onClick={handleMenuLinkClick}>
                 Transfer
               </Link>
               <Link to="/hotels" onClick={handleMenuLinkClick}>

@@ -230,7 +230,7 @@ export default function AzerbaijanToursDestination() {
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
-                  <Link to={`/Azerbaijan-${d}`} className={styles.sidebarLink}>
+                  <Link to={`/azerbaijan-${d}`} className={styles.sidebarLink}>
                     {d}
                   </Link>
                 </li>

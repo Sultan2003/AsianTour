@@ -13,23 +13,23 @@ import bakuimg from "../assets/Cities/Baku/Flame Towers 3.jpg";
 import yerevanimg from "../assets/Cities/Erevan/Garni Temple 1.jpg";
 
 const destinations = [
-  { title: "Tashkent", path: "/Uzbekistan-Tashkent", image: tashkentImg },
-  { title: "Samarkand", path: "/Uzbekistan-Samarkand", image: samarkandImg },
-  { title: "Bukhara", path: "/Uzbekistan-Bukhara", image: bukharaimg },
-  { title: "Khiva", path: "/Uzbekistan-Khiva", image: khivaimg },
+  { title: "Tashkent", path: "/uzbekistan-tashkent", image: tashkentImg },
+  { title: "Samarkand", path: "/uzbekistan-samarkand", image: samarkandImg },
+  { title: "Bukhara", path: "/uzbekistan-bukhara", image: bukharaimg },
+  { title: "Khiva", path: "/uzbekistan-khiva", image: khivaimg },
 
-  { title: "Astana", path: "/Kazakhstan-Astana", image: astanaimg },
-  { title: "Almaty", path: "/Kazakhstan-Almaty", image: almatyimg },
+  { title: "Astana", path: "/kazakhstan-astana", image: astanaimg },
+  { title: "Almaty", path: "/kazakhstan-almaty", image: almatyimg },
 
-  { title: "Bishkek", path: "/Kyrgyzstan-Bishkek", image: bishkekaimg },
-  { title: "Osh", path: "/Kyrgyzstan-Osh", image: oshaimg },
+  { title: "Bishkek", path: "/kyrgyzstan-bishkek", image: bishkekaimg },
+  { title: "Osh", path: "/kyrgyzstan-osh", image: oshaimg },
 
-  { title: "Dushanbe", path: "/Tajikistan-Dushanbe", image: dushanbeimg },
-  { title: "Ashgabat", path: "/Turkmenistan-Ashgabat", image: ashgabatimg },
+  { title: "Dushanbe", path: "/tajikistan-dushanbe", image: dushanbeimg },
+  { title: "Ashgabat", path: "/turkmenistan-ashgabat", image: ashgabatimg },
 
-  { title: "Tbilisi", path: "/Georgia-Tbilisi", image: tbilisiimg },
-  { title: "Baku", path: "/Azerbaijan-Baku", image: bakuimg },
-  { title: "Yerevan", path: "/Armenia-Yerevan", image: yerevanimg },
+  { title: "Tbilisi", path: "/georgia-tbilisi", image: tbilisiimg },
+  { title: "Baku", path: "/azerbaijan-baku", image: bakuimg },
+  { title: "Yerevan", path: "/armenia-yerevan", image: yerevanimg },
 ];
 
 export default destinations;
