@@ -12,7 +12,7 @@ const headerTranslations = {
     groupPackages: "GROUP TOURS",
     services: "SERVICES",
     transfer: "Transfer",
-    hotelbooking: "Hotel Booking",
+    hotelbooking: "Hotels",
     guideservice: "Guide Service",
     cityTours: "City Tours",
     culturalTours: "Cultural Tours",

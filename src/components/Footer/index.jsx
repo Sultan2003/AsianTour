@@ -68,7 +68,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Hotel Booking
+                Hotels
               </a>
             </li>
             <li>

@@ -431,7 +431,7 @@ export default function Header({ onLoginClick }) {
                 Transfer
               </Link>
               <Link to="/hotels" onClick={handleMenuLinkClick}>
-                Hotel Booking
+                Hotels
               </Link>
               <span>Guide Service</span>
             </div>

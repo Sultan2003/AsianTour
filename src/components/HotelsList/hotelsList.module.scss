@@ -1,51 +1,310 @@
 .page {
-  max-width: 1200px;
-  margin: 60px auto;
-  padding: 0 24px;
+  max-width: 1400px;
+  margin: 50px auto;
+  padding: 0 20px;
 }
 
 h1 {
-  font-size: 36px;
-  margin-bottom: 30px;
+  font-size: 48px;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.section {
+  margin-bottom: 60px;
+}
+
+.section h2 {
+  font-size: 26px;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+
+.filterBanner {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  border-radius: 28px;
+  overflow: hidden;
+  margin-bottom: 60px;
+}
+
+.filterBanner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.filterBox {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  background: #fff;
+  border-radius: 22px;
+  padding: 20px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.selectWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.selectWrapper label {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.selectWrapper select {
+  width: 100%;
+  height: 54px;
+  border-radius: 14px;
+  border: 1px solid #dbe1ea;
+  padding: 0 16px;
+  font-size: 15px;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 28px;
 }
 
 .card {
   cursor: pointer;
   background: #fff;
-  border-radius: 12px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
   transition: 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
 }
 
 .card img {
   width: 100%;
-  height: 200px;
+  height: 230px;
   object-fit: cover;
 }
 
+.cardContent {
+  padding: 18px;
+}
+
 .card h3 {
-  padding: 16px;
-  font-size: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .card p {
-  padding: 0 16px;
   color: #64748b;
+  font-size: 16px;
+  margin-bottom: 16px;
 }
 
 .card span {
-  padding: 16px;
-  display: block;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* 1200px */
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filterBanner {
+    height: 320px;
+  }
+}
+
+/* 992px */
+
+@media (max-width: 992px) {
+  .page {
+    padding: 0 18px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  .section h2 {
+    font-size: 24px;
+  }
+
+  .filterBanner {
+    height: 460px;
+  }
+
+  .filterBox {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .card img {
+    height: 220px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+  }
+
+  .card p {
+    font-size: 15px;
+  }
+
+  .card span {
+    font-size: 17px;
+  }
+}
+
+/* 768px */
+
+@media (max-width: 768px) {
+  .page {
+    margin: 40px auto;
+    padding: 0 16px;
+  }
+
+  h1 {
+    font-size: 34px;
+    margin-bottom: 30px;
+  }
+
+  .section {
+    margin-bottom: 50px;
+  }
+
+  .section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .filterBanner {
+    height: 520px;
+    border-radius: 22px;
+    margin-bottom: 40px;
+  }
+
+  .filterBox {
+    width: calc(100% - 24px);
+    padding: 16px;
+    border-radius: 18px;
+    bottom: 12px;
+  }
+
+  .selectWrapper select {
+    height: 52px;
+    font-size: 14px;
+  }
+
+  .card img {
+    height: 210px;
+  }
+
+  .cardContent {
+    padding: 16px;
+  }
+
+  .card h3 {
+    font-size: 19px;
+  }
+
+  .card p {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+
+  .card span {
+    font-size: 16px;
+  }
+}
+
+/* 576px */
+
+@media (max-width: 576px) {
+  .page {
+    padding: 0 14px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .section h2 {
+    font-size: 20px;
+  }
+
+  .filterBanner {
+    height: 560px;
+    border-radius: 18px;
+  }
+
+  .filterBox {
+    width: calc(100% - 16px);
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .selectWrapper label {
+    font-size: 12px;
+  }
+
+  .selectWrapper select {
+    height: 48px;
+    padding: 0 14px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+
+  .card {
+    border-radius: 16px;
+  }
+
+  .card img {
+    height: 190px;
+  }
+
+  .card h3 {
+    font-size: 18px;
+  }
+
+  .card p {
+    font-size: 14px;
+  }
+
+  .card span {
+    font-size: 15px;
+  }
 }

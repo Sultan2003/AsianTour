@@ -1,19 +1,77 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+
 import styles from "./hotels.module.scss";
 
 const BASE_URL = "https://brilliant-passion-7d3870e44b.strapiapp.com/api";
 
+const RoomCard = ({ room, styles }) => {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  const handleMouseMove = (e) => {
+    if (!room.images?.length) return;
+
+    const { left, width } = e.currentTarget.getBoundingClientRect();
+
+    const x = e.clientX - left;
+
+    const sectionWidth = width / room.images.length;
+
+    const index = Math.min(
+      room.images.length - 1,
+      Math.floor(x / sectionWidth),
+    );
+
+    setCurrentImage(index);
+  };
+
+  return (
+    <div className={styles.card}>
+      {room.images?.length > 0 && (
+        <div className={styles.roomSlider} onMouseMove={handleMouseMove}>
+          <img src={room.images[currentImage]} alt={room.title} />
+
+          {room.images.length > 1 && (
+            <div className={styles.lines}>
+              {room.images.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={idx === currentImage ? styles.activeLine : ""}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className={styles.cardContent}>
+        <h3>{room.title}</h3>
+
+        <p>{room.description}</p>
+
+        <span>{room.price}</span>
+      </div>
+    </div>
+  );
+};
+
 const Hotels = () => {
   const [hotel, setHotel] = useState(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+
+  const [openGallery, setOpenGallery] = useState(false);
+
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   const { slug } = useParams();
 
   useEffect(() => {
     const fetchHotel = async () => {
       const res = await fetch(
-        `${BASE_URL}/hotelss?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`,
+        `${BASE_URL}/hotelss?filters[slug][$eq]=${encodeURIComponent(
+          slug,
+        )}&populate=*`,
       );
 
       const data = await res.json();
@@ -26,55 +84,68 @@ const Hotels = () => {
     fetchHotel();
   }, [slug]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => prev + 1);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   if (!hotel) return <div>Loading...</div>;
 
   const attributes = hotel;
+
   const gallery = attributes.gallery || [];
 
-  /* ---------- HELPERS ---------- */
   const getText = (children) =>
     children?.map((c) => c.text || c.url || "").join("");
 
   const getBlocksText = (blocks) =>
     blocks?.map((b) => getText(b.children)).join("\n") || "";
 
-  /* ---------- DESCRIPTION ---------- */
   const descriptionText = getBlocksText(attributes.description);
 
-  /* ---------- ROOMS ---------- */
   const parseRooms = (blocks) => {
     if (!blocks) return [];
 
     const text = getBlocksText(blocks);
+
     const raw = text.split("#ROOM").filter(Boolean);
 
     return raw.map((section) => {
       const lines = section
         .split("\n")
         .map((l) => l.trim())
-        .filter(Boolean);
+        .filter((l) => l && l !== "Drag" && l !== "#" && l !== "undefined");
 
-      let room = { title: "", description: "", price: "", image: "" };
-      let mode = "title";
+      let room = {
+        title: "",
+        description: "",
+        price: "",
+        images: [],
+      };
+
+      let mode = "description";
 
       lines.forEach((line) => {
-        if (line === "#PRICE") return (mode = "price");
-        if (line === "#IMAGE") return (mode = "image");
+        if (line === "#PRICE") {
+          mode = "price";
+          return;
+        }
 
-        if (!room.title) return (room.title = line);
+        if (line === "#IMAGE") {
+          mode = "image";
+          return;
+        }
 
-        if (mode === "price") room.price = line;
-        else if (mode === "image" && line.startsWith("http")) room.image = line;
-        else room.description += line + " ";
+        if (!room.title) {
+          room.title = line;
+          return;
+        }
+
+        if (mode === "price") {
+          room.price = line;
+        } else if (mode === "image" && line.startsWith("http")) {
+          room.images.push(line);
+        } else {
+          room.description += `${line} `;
+        }
       });
+
+      room.description = room.description.trim();
 
       return room;
     });
@@ -82,26 +153,40 @@ const Hotels = () => {
 
   const rooms = parseRooms(attributes.rooms);
 
-  /* ---------- CONTACTS ---------- */
   const parseContacts = (blocks) => {
-    if (!blocks) return { address: "", phones: [], email: "" };
+    if (!blocks)
+      return {
+        address: "",
+        phones: [],
+        email: "",
+      };
 
     const text = getBlocksText(blocks);
+
     const lines = text
       .split("\n")
       .map((l) => l.trim())
       .filter(Boolean);
 
-    const res = { address: "", phones: [], email: "" };
+    const res = {
+      address: "",
+      phones: [],
+      email: "",
+    };
+
     let mode = "";
 
     lines.forEach((line) => {
       if (line === "#ADDRESS") return (mode = "address");
+
       if (line === "#PHONE") return (mode = "phone");
+
       if (line === "#EMAIL") return (mode = "email");
 
       if (mode === "address") res.address = line;
+
       if (mode === "phone") res.phones.push(line);
+
       if (mode === "email") res.email = line;
     });
 
@@ -110,11 +195,11 @@ const Hotels = () => {
 
   const contacts = parseContacts(attributes.contacts);
 
-  /* ---------- TERMS ---------- */
   const parseTerms = (blocks) => {
     if (!blocks) return [];
 
     const text = getBlocksText(blocks);
+
     return text
       .split("#TERM")
       .map((t) => t.trim())
@@ -123,28 +208,59 @@ const Hotels = () => {
 
   const terms = parseTerms(attributes.termsOfStay);
 
-  /* ---------- UI ---------- */
   return (
     <div className={styles.page}>
-      {/* ---------- CAROUSEL ---------- */}
-      <div className={styles.carousel}>
-        {gallery.map((img, i) => (
+      <div className={styles.galleryContainer}>
+        <div className={styles.galleryWrapper}>
           <div
-            key={i}
-            className={`${styles.slide} ${
-              i === activeIndex % gallery.length ? styles.active : ""
-            }`}
-            style={{ backgroundImage: `url(${img.url})` }}
-          />
-        ))}
+            className={styles.mainImage}
+            onClick={() => {
+              setGalleryIndex(0);
+              setOpenGallery(true);
+            }}
+          >
+            {gallery[0] && <img src={gallery[0].url} alt="" />}
+          </div>
+
+          <div className={styles.sideImages}>
+            {gallery.slice(1, 5).map((img, i) => (
+              <div
+                key={i}
+                className={styles.smallImage}
+                onClick={() => {
+                  setGalleryIndex(i + 1);
+                  setOpenGallery(true);
+                }}
+              >
+                <img src={img.url} alt="" />
+
+                {i === 3 && gallery.length > 5 && (
+                  <div className={styles.moreOverlay}>
+                    +{gallery.length - 5}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* ---------- ABOUT / DESCRIPTION ---------- */}
+      <Lightbox
+        open={openGallery}
+        close={() => setOpenGallery(false)}
+        index={galleryIndex}
+        slides={gallery.map((img) => ({
+          src: img.url,
+        }))}
+      />
+
       <section className={styles.section}>
         <h1>{attributes.title}</h1>
 
         <div className={styles.about}>
-          {attributes.mainImage && <img src={attributes.mainImage.url} />}
+          {attributes.mainImage && (
+            <img src={attributes.mainImage.url} alt="" />
+          )}
 
           <div>
             <p>{descriptionText}</p>
@@ -152,7 +268,6 @@ const Hotels = () => {
         </div>
       </section>
 
-      {/* ---------- TERMS ---------- */}
       <section className={styles.section}>
         <h2>Terms of Stay</h2>
 
@@ -167,26 +282,16 @@ const Hotels = () => {
         </table>
       </section>
 
-      {/* ---------- ROOMS ---------- */}
       <section className={styles.section}>
         <h2>Rooms</h2>
 
         <div className={styles.rooms}>
           {rooms.map((room, i) => (
-            <div key={i} className={styles.card}>
-              {room.image && <img src={room.image} />}
-
-              <h3>{room.title}</h3>
-              <p>{room.description}</p>
-              <span>{room.price}</span>
-
-              <button>Book Now</button>
-            </div>
+            <RoomCard key={i} room={room} styles={styles} />
           ))}
         </div>
       </section>
 
-      {/* ---------- CONTACTS ---------- */}
       <section className={styles.section}>
         <h2>Contact Details</h2>
 
