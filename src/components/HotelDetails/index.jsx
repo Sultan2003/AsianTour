@@ -49,9 +49,15 @@ const RoomCard = ({ room, styles }) => {
       <div className={styles.cardContent}>
         <h3>{room.title}</h3>
 
-        <p>{room.description}</p>
-
-        <span>{room.price}</span>
+        {room.description && (
+          <p>
+            {room.description
+              .split(/(?=Size:)/)
+              .filter(Boolean)[0]
+              .trim()}
+          </p>
+        )}
+        {room.price && <span>{room.price}</span>}
       </div>
     </div>
   );
@@ -101,12 +107,17 @@ const Hotels = () => {
   const parseRooms = (blocks) => {
     if (!blocks) return [];
 
-    const text = getBlocksText(blocks);
+    const text = getBlocksText(blocks)
+      .replace(/\s+#ROOM/g, "\n#ROOM")
+      .replace(/\s+#IMAGE/g, "\n#IMAGE")
+      .replace(/\s+#PRICE/g, "\n#PRICE");
 
     const raw = text.split("#ROOM").filter(Boolean);
 
     return raw.map((section) => {
       const lines = section
+        .replace(/#IMAGE/g, "\n#IMAGE\n")
+        .replace(/#PRICE/g, "\n#PRICE\n")
         .split("\n")
         .map((l) => l.trim())
         .filter((l) => l && l !== "Drag" && l !== "#" && l !== "undefined");
@@ -136,10 +147,18 @@ const Hotels = () => {
           return;
         }
 
+        const urls = line.match(/https?:\/\/[^\s]+/g) || [];
+
+        if (urls.length > 0) {
+          room.images.push(...urls);
+
+          line = line.replace(/https?:\/\/[^\s]+/g, "").trim();
+        }
+
+        if (!line) return;
+
         if (mode === "price") {
           room.price = line;
-        } else if (mode === "image" && line.startsWith("http")) {
-          room.images.push(line);
         } else {
           room.description += `${line} `;
         }
