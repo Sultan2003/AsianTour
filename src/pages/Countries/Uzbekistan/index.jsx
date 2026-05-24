@@ -13,6 +13,7 @@ export default function UzbekistanTours() {
 
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
+  const [attractions, setAttractions] = useState([]);
   const [openCats, setOpenCats] = useState({}); // accordion state
   const makeSlug = (title) =>
     title
@@ -133,6 +134,24 @@ export default function UzbekistanTours() {
         console.error("Failed to load images:", err);
         setImages([]);
       });
+  }, []);
+
+  useEffect(() => {
+    const url = `${STRAPI_BASE}/api/attractions?filters[country][$eqi]=Uzbekistan&fields[0]=title&fields[1]=slug&sort=title:asc&pagination[pageSize]=50`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        const items = (data?.data || []).map((item) => {
+          const raw = item?.attributes || item;
+          return {
+            id: item?.id || raw?.id || Math.random().toString(36).slice(2),
+            title: raw?.title || "",
+            slug: raw?.slug || "",
+          };
+        });
+        setAttractions(items.filter((item) => item.slug));
+      })
+      .catch(() => setAttractions([]));
   }, []);
 
   // find image by alternativeText === tour.title (case-insensitive)
@@ -408,6 +427,29 @@ export default function UzbekistanTours() {
                 </div>
               );
             })}
+
+            <div className={`${styles.catBlock} ${styles.open}`}>
+              <div className={styles.catTitle}>
+                <span>Travel Destinations</span>
+                <div className={styles.catMeta}>
+                  <span className={styles.count}>({attractions.length})</span>
+                </div>
+              </div>
+              <ul className={styles.catList}>
+                {attractions.length === 0 && (
+                  <li className={styles.catEmpty}>No attractions</li>
+                )}
+                {attractions.map((item) => (
+                  <li
+                    key={item.id}
+                    className={styles.catItem}
+                    onClick={() => navigate(`/attractions/${item.slug}`)}
+                  >
+                    {item.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </aside>
         </div>
       </div>
