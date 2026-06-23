@@ -1,73 +1,60 @@
 const SITE_NAME = "Go To Central Asia";
 const SITE_URL = "https://www.gotocentralasia.com";
 const DEFAULT_IMAGE = `${SITE_URL}/logo.png`;
+const TWITTER_SITE = "@gotocentralasia";
 
 const routeSeoMap = {
   "/": {
-    title: "Central Asia & Silk Road Tours | Go To Central Asia",
+    title: "Silk Road & Central Asia Tours | Go To Central Asia",
     description:
-      "Plan private and group tours across Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan, Turkmenistan, and the Caucasus with local travel experts.",
-    keywords:
-      "Central Asia tours, Silk Road tours, Uzbekistan travel, Caucasus tours, private tours",
+      "Official tour operator for Central Asia. Group & private tours in Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan & Turkmenistan. Guaranteed departures. Book now.",
   },
   "/contact": {
     title: "Contact Go To Central Asia | Tailor-Made Tour Support",
     description:
       "Contact our travel specialists to plan your custom Central Asia itinerary, visa support, transportation, and local experiences.",
-    keywords: "contact travel agency, Central Asia trip planning, tour support",
   },
   "/about": {
     title: "About Go To Central Asia | Regional Tour Experts",
     description:
       "Learn about our local team, destination expertise, and mission to deliver authentic and reliable travel experiences across Asia.",
-    keywords: "about travel company, Central Asia experts, local guides",
   },
   "/visa-policy": {
     title: "Central Asia Visa Policy Guide | Go To Central Asia",
     description:
       "Review visa requirements and practical entry information for Central Asia and Caucasus destinations before your trip.",
-    keywords: "visa policy Central Asia, travel visa requirements, entry rules",
   },
   "/booking-form": {
     title: "Book Your Tour | Go To Central Asia",
     description:
       "Submit your booking request for private, cultural, and multi-country Central Asia travel programs.",
-    keywords: "book tour, private tour booking, Central Asia holidays",
   },
   "/transfer": {
     title: "Central Asia Transfers | Airport & Intercity Transport",
     description:
       "Book airport pickups, city transfers, and private intercity transportation across Central Asia with Go To Central Asia.",
-    keywords:
-      "Central Asia transfers, airport transfer Uzbekistan, private transport, intercity transfer",
   },
   "/hotels": {
     title: "Central Asia Hotels | Hotel Booking Service",
     description:
       "Browse hotels and accommodation options for Central Asia trips, including room details, prices, and booking support.",
-    keywords:
-      "Central Asia hotels, hotel booking, Uzbekistan hotels, travel accommodation",
   },
   "/search": {
     title: "Search Tours | Go To Central Asia",
     description:
       "Find tours and destinations across Central Asia and the Caucasus.",
-    keywords: "tour search, Central Asia tours",
     robots: "noindex,follow",
   },
   "/10-best-places-to-visit-in-uzbekistan": {
     title: "10 Best Places to Visit in Uzbekistan | Travel Guide",
     description:
       "Discover the top places to visit in Uzbekistan, including Samarkand, Bukhara, Khiva, and Tashkent for your next journey.",
-    keywords: "best places in Uzbekistan, Uzbekistan travel guide, Samarkand, Bukhara, Khiva",
     type: "article",
   },
 };
 
 const formatSegment = (segment) =>
-  segment
-    .replace(/-/g, " ")
-    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+  segment.replace(/-/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
 const buildFallbackSeo = (pathname) => {
   if (pathname.startsWith("/tour/")) {
@@ -77,7 +64,6 @@ const buildFallbackSeo = (pathname) => {
     return {
       title: `${tourName} | ${SITE_NAME}`,
       description: `Explore itinerary details, inclusions, and booking options for ${tourName} with ${SITE_NAME}.`,
-      keywords: `${tourName}, Central Asia itinerary, guided tour, travel package`,
       type: "article",
     };
   }
@@ -89,7 +75,6 @@ const buildFallbackSeo = (pathname) => {
     return {
       title: `${tourName} Private Tour | ${SITE_NAME}`,
       description: `View the full program and customization options for ${tourName} private tour package.`,
-      keywords: `${tourName}, private tours, tailor-made travel, Central Asia`,
       type: "article",
     };
   }
@@ -101,7 +86,6 @@ const buildFallbackSeo = (pathname) => {
     return {
       title: `${hotelName} Hotel | ${SITE_NAME}`,
       description: `View rooms, terms of stay, contact details, and booking information for ${hotelName}.`,
-      keywords: `${hotelName}, hotel booking, Central Asia hotels, accommodation`,
       type: "article",
     };
   }
@@ -113,7 +97,6 @@ const buildFallbackSeo = (pathname) => {
     return {
       title: `${destination} Weather Forecast | ${SITE_NAME}`,
       description: `Check current and upcoming weather trends for ${destination} to better plan your travel dates.`,
-      keywords: `${destination} weather, climate, best season to travel`,
     };
   }
 
@@ -127,7 +110,6 @@ const buildFallbackSeo = (pathname) => {
     title: readable ? `${readable} | ${SITE_NAME}` : `${SITE_NAME}`,
     description:
       "Explore destinations, tour styles, travel tips, and booking options for Central Asia and nearby regions.",
-    keywords: "travel, tours, Central Asia, itinerary",
   };
 };
 
@@ -174,6 +156,25 @@ export const getSeoData = (pathname) => {
     logo: DEFAULT_IMAGE,
   };
 
+  const travelAgencySchema = {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: DEFAULT_IMAGE,
+    description: "Tour operator for Silk Road & Central Asia tours",
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "UZ",
+      addressLocality: "Tashkent",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      availableLanguage: ["English", "Russian"],
+    },
+  };
+
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -206,8 +207,12 @@ export const getSeoData = (pathname) => {
     image: page.image || DEFAULT_IMAGE,
     type: page.type || "website",
     robots: page.robots || "index,follow,max-image-preview:large",
-    schemas: [organizationSchema, websiteSchema, breadcrumbSchema].filter(
-      Boolean,
-    ),
+    twitterSite: TWITTER_SITE,
+    schemas: [
+      organizationSchema,
+      websiteSchema,
+      normalizedPathname === "/" ? travelAgencySchema : null,
+      breadcrumbSchema,
+    ].filter(Boolean),
   };
 };
