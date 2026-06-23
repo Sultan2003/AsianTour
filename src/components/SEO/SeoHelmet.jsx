@@ -11,10 +11,10 @@ const SeoHelmet = () => {
       <html lang="en" />
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
-      <meta name="keywords" content={seo.keywords} />
       <meta name="robots" content={seo.robots} />
       <link rel="canonical" href={seo.canonical} />
 
+      <meta property="og:locale" content="en_US" />
       <meta property="og:site_name" content={seo.siteName} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
@@ -23,6 +23,7 @@ const SeoHelmet = () => {
       <meta property="og:url" content={seo.canonical} />
 
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={seo.twitterSite} />
       <meta name="twitter:title" content={seo.title} />
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />

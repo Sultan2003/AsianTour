@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, useContext } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { LanguageContext } from "../../context/LanguageContext";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
@@ -111,8 +111,8 @@ export default function TourIdPage() {
       strapiLocale.startsWith("ru")
         ? "ru"
         : strapiLocale.startsWith("uz")
-        ? "uz"
-        : "en"
+          ? "uz"
+          : "en"
     ];
 
   const makeSlug = (title) =>
@@ -128,7 +128,9 @@ export default function TourIdPage() {
     if (Array.isArray(desc)) {
       return desc
         .map((block) =>
-          block.children ? block.children.map((c) => c.text || "").join("") : ""
+          block.children
+            ? block.children.map((c) => c.text || "").join("")
+            : "",
         )
         .join(" ");
     }
@@ -367,7 +369,7 @@ export default function TourIdPage() {
     if (!tourImgs.length) return;
     const int = setInterval(
       () => setCurrentIndex((p) => (p + 1) % tourImgs.length),
-      4000
+      4000,
     );
     return () => clearInterval(int);
   }, [tour, images]);
@@ -411,7 +413,7 @@ export default function TourIdPage() {
 
     const re = new RegExp(
       `(?:^|\\n)(${dayWord}\\s*\\d+:[^\\n]*)\\n([\\s\\S]*?)(?=\\n${dayWord}\\s*\\d+:|$)`,
-      "g"
+      "g",
     );
 
     let m;
@@ -462,7 +464,7 @@ export default function TourIdPage() {
       .then((data) => {
         const all = data?.data || [];
         const matched = all.filter(
-          (r) => r.Title?.trim() === tour.title?.trim()
+          (r) => r.Title?.trim() === tour.title?.trim(),
         );
         setReviews(matched);
       })
@@ -490,7 +492,7 @@ export default function TourIdPage() {
   const [activeYear, setActiveYear] = useState(
     years.includes(String(currentYear))
       ? currentYear
-      : Number(years[years.length - 1]) || currentYear
+      : Number(years[years.length - 1]) || currentYear,
   );
 
   if (!tour) {
@@ -528,7 +530,7 @@ export default function TourIdPage() {
     (file) =>
       file.mime.startsWith("video/") &&
       file.caption &&
-      file.caption.trim().toLowerCase() === tour.title.trim().toLowerCase()
+      file.caption.trim().toLowerCase() === tour.title.trim().toLowerCase(),
   );
 
   const processTextBeforeRender = (rawText) => {
@@ -559,7 +561,7 @@ export default function TourIdPage() {
               </a>
             ) : (
               chunk
-            )
+            ),
           );
         });
       });
@@ -579,7 +581,7 @@ export default function TourIdPage() {
               </span>
             ) : (
               chunk
-            )
+            ),
           );
         });
       });
@@ -599,10 +601,6 @@ export default function TourIdPage() {
         <meta
           name="description"
           content={`${tour.title} — explore ${tour.location}. Tour lasts ${days} days. Price: $${tour.price}. Full itinerary, dates, prices & booking.`}
-        />
-        <meta
-          name="keywords"
-          content={`tour, ${tour.location} tour, ${tour.title}, Central Asia tours`}
         />
         <link
           rel="canonical"
@@ -754,18 +752,18 @@ export default function TourIdPage() {
 
               let fullText = tour.description
                 .map(
-                  (node) => node?.children?.map((c) => c.text).join("") ?? ""
+                  (node) => node?.children?.map((c) => c.text).join("") ?? "",
                 )
                 .join("\n");
 
               fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "");
               fullText = fullText.replace(
                 /Accomodation\s*=\s*\[[\s\S]*?\];?/g,
-                ""
+                "",
               );
               fullText = fullText.replace(
                 /Priceinclude\s*=\s*\[[\s\S]*?\];?/gi,
-                ""
+                "",
               );
 
               return processTextBeforeRender(fullText);
@@ -806,12 +804,12 @@ export default function TourIdPage() {
             (() => {
               const descText = tour.description
                 .map(
-                  (node) => node?.children?.map?.((c) => c.text).join("") ?? ""
+                  (node) => node?.children?.map?.((c) => c.text).join("") ?? "",
                 )
                 .join("\n");
 
               const match = descText.match(
-                /Accomodation\s*=\s*\[([\s\S]*?)\];/i
+                /Accomodation\s*=\s*\[([\s\S]*?)\];/i,
               );
               if (!match) return null;
 
@@ -833,7 +831,7 @@ export default function TourIdPage() {
                 // Get Hotels — capture up to the Days token (if present)
                 // Use non-greedy match and lookahead for Days or end of block
                 const hotelsMatch = block.match(
-                  /Hotels\s*:\s*([\s\S]*?)(?=(\s*Days\s*:)|$)/i
+                  /Hotels\s*:\s*([\s\S]*?)(?=(\s*Days\s*:)|$)/i,
                 );
                 let hotelsRaw = hotelsMatch ? hotelsMatch[1].trim() : "";
 
@@ -1062,10 +1060,10 @@ export default function TourIdPage() {
                         text: message,
                         parse_mode: "Markdown",
                       }),
-                    }
+                    },
                   );
                   alert(
-                    "✅ Request sent successfully! We will contact you soon."
+                    "✅ Request sent successfully! We will contact you soon.",
                   );
                   form.reset();
                 } catch (err) {
@@ -1159,7 +1157,7 @@ export default function TourIdPage() {
                           text: message,
                           parse_mode: "Markdown",
                         }),
-                      }
+                      },
                     );
 
                     // send files from files state
@@ -1180,7 +1178,7 @@ export default function TourIdPage() {
                           {
                             method: "POST",
                             body: fd,
-                          }
+                          },
                         );
                       } else {
                         fd.append("photo", file);
@@ -1189,7 +1187,7 @@ export default function TourIdPage() {
                           {
                             method: "POST",
                             body: fd,
-                          }
+                          },
                         );
                       }
                     }
@@ -1200,7 +1198,7 @@ export default function TourIdPage() {
                   } catch (err) {
                     console.error("Failed to send review:", err);
                     alert(
-                      "❌ Failed to send review. Check console for details."
+                      "❌ Failed to send review. Check console for details.",
                     );
                   }
                 }}
@@ -1320,7 +1318,7 @@ export default function TourIdPage() {
               reviews.map((rev) => {
                 const text =
                   rev.ReviewText?.map((p) =>
-                    p.children?.map((c) => c.text).join("")
+                    p.children?.map((c) => c.text).join(""),
                   ).join(" ") || "";
 
                 const date = new Date(rev.VisitedDate).toLocaleDateString(
@@ -1328,7 +1326,7 @@ export default function TourIdPage() {
                   {
                     month: "long",
                     year: "numeric",
-                  }
+                  },
                 );
 
                 const imgs = rev.ReviewMedias || [];
@@ -1577,7 +1575,7 @@ Guest Email: ${email}
                   });
 
                   alert(
-                    "Your request has been sent to reservation@gotocentralasia.com. We will contact you soon."
+                    "Your request has been sent to reservation@gotocentralasia.com. We will contact you soon.",
                   );
                   setShowBookingModal(false);
                 } catch (error) {
@@ -1598,7 +1596,7 @@ Guest Email: ${email}
               <input
                 value={`${formatDate(selectedDate.start)} → ${formatDate(
                   selectedDate.end,
-                  true
+                  true,
                 )}`}
                 readOnly
               />
