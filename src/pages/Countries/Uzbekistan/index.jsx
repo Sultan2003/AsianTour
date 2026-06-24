@@ -28,7 +28,9 @@ export default function UzbekistanTours() {
     if (Array.isArray(desc)) {
       return desc
         .map((block) =>
-          block.children ? block.children.map((c) => c.text || "").join("") : ""
+          block.children
+            ? block.children.map((c) => c.text || "").join("")
+            : "",
         )
         .join(" ");
     }
@@ -102,8 +104,8 @@ export default function UzbekistanTours() {
           normalized.filter(
             (t) =>
               (t.location || "").toLowerCase().includes("uzbekistan") &&
-              (t.tour_type || "").toString().toLowerCase().includes("group")
-          )
+              (t.tour_type || "").toString().toLowerCase().includes("group"),
+          ),
         );
       })
       .catch((err) => {
@@ -160,7 +162,7 @@ export default function UzbekistanTours() {
     const t = title.trim().toLowerCase();
     const found =
       images.find(
-        (img) => (img.alternativeText || "").trim().toLowerCase() === t
+        (img) => (img.alternativeText || "").trim().toLowerCase() === t,
       ) ||
       images.find((img) => (img.name || "").trim().toLowerCase().includes(t));
     return found ? found.fullUrl : null;
@@ -169,7 +171,7 @@ export default function UzbekistanTours() {
   const imageOrPlaceholder = (title) =>
     getImageForTitle(title) ||
     `https://via.placeholder.com/400x400?text=${encodeURIComponent(
-      (title || "No Image").slice(0, 24)
+      (title || "No Image").slice(0, 24),
     )}`;
 
   const calcDays = (start, end) => {
@@ -189,7 +191,7 @@ export default function UzbekistanTours() {
 
   // remove city tours for left-side lists
   const toursWithoutCity = tours.filter(
-    (t) => !(t.tour_type || "").toString().toLowerCase().includes("city")
+    (t) => !(t.tour_type || "").toString().toLowerCase().includes("city"),
   );
 
   // UPCOMING: closest 3 tours by startDate
@@ -202,7 +204,7 @@ export default function UzbekistanTours() {
     .sort(
       (a, b) =>
         Math.abs(new Date(a.startDate) - now) -
-        Math.abs(new Date(b.startDate) - now)
+        Math.abs(new Date(b.startDate) - now),
     );
   const upcomingTours = futureSorted.concat(pastSorted).slice(0, 3);
 
@@ -427,29 +429,6 @@ export default function UzbekistanTours() {
                 </div>
               );
             })}
-
-            <div className={`${styles.catBlock} ${styles.open}`}>
-              <div className={styles.catTitle}>
-                <span>Travel Destinations</span>
-                <div className={styles.catMeta}>
-                  <span className={styles.count}>({attractions.length})</span>
-                </div>
-              </div>
-              <ul className={styles.catList}>
-                {attractions.length === 0 && (
-                  <li className={styles.catEmpty}>No attractions</li>
-                )}
-                {attractions.map((item) => (
-                  <li
-                    key={item.id}
-                    className={styles.catItem}
-                    onClick={() => navigate(`/attractions/${item.slug}`)}
-                  >
-                    {item.title}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </aside>
         </div>
       </div>

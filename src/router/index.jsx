@@ -68,7 +68,8 @@ import PlacestoVisit from "../pages/10BestPlaces";
 import BookingForm from "../pages/BookingForm";
 import Hotels from "../components/HotelDetails";
 import HotelsList from "../components/HotelsList";
-import AttractionDetailsPage from "../pages/AttractionDetailsPage";
+
+import AttractionDetails from "../components/AttractionDetails";
 
 const Router = () => {
   return (
@@ -102,7 +103,7 @@ const Router = () => {
           element={
             <MainLayout>
               <main id="main-content" role="main">
-                <AttractionDetailsPage />
+                <AttractionDetails />
               </main>
             </MainLayout>
           }

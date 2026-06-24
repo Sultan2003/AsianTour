@@ -338,3 +338,50 @@ body {
     grid-template-columns: 1fr;
   }
 }
+.moreAttractions {
+  margin-top: 60px;
+  padding: 32px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid #e8ecf5;
+  box-shadow: 0 8px 24px rgba(10, 26, 68, 0.06);
+
+  h2 {
+    font-size: 34px;
+    color: #0b1670;
+    margin-bottom: 28px;
+    font-weight: 700;
+  }
+}
+
+.attractionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 40px;
+
+  a {
+    color: #0077cc;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.25s ease;
+
+    &:hover {
+      color: #0b1670;
+      transform: translateX(4px);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .attractionsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .moreAttractions {
+    padding: 24px;
+
+    h2 {
+      font-size: 28px;
+    }
+  }
+}
