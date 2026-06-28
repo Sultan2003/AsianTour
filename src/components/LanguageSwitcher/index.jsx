@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./LanguageSwitcher.module.scss";
 import TranslateWidget from "../TranslateWidget/TranslateWidget";
 
@@ -10,6 +11,8 @@ const LANGUAGES = [
 
 export default function LanguageSwitcher() {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const currentCode = (i18n.resolvedLanguage || i18n.language || "en").split("-")[0];
@@ -27,8 +30,17 @@ export default function LanguageSwitcher() {
   }, []);
 
   const changeLanguage = (code) => {
+    const unprefixedPath = location.pathname === "/rus"
+      ? "/"
+      : location.pathname.replace(/^\/rus(?=\/)/, "") || "/";
+    const nextPath = code === "ru"
+      ? `/rus${unprefixedPath === "/" ? "" : unprefixedPath}`
+      : unprefixedPath;
+
     i18n.changeLanguage(code);
     localStorage.setItem("lang", code);
+    setOpen(false);
+    navigate(`${nextPath}${location.search}${location.hash}`);
   };
 
   return (

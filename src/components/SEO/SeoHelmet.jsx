@@ -8,13 +8,16 @@ const SeoHelmet = () => {
 
   return (
     <Helmet prioritizeSeoTags>
-      <html lang="en" />
+      <html lang={seo.htmlLang} />
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
       <meta name="robots" content={seo.robots} />
       <link rel="canonical" href={seo.canonical} />
+      <link rel="alternate" hrefLang="en" href={seo.alternates.en} />
+      <link rel="alternate" hrefLang="ru" href={seo.alternates.ru} />
+      <link rel="alternate" hrefLang="x-default" href={seo.alternates.xDefault} />
 
-      <meta property="og:locale" content="en_US" />
+      <meta property="og:locale" content={seo.locale} />
       <meta property="og:site_name" content={seo.siteName} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />

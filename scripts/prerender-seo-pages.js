@@ -1,5 +1,6 @@
 import { readFile, writeFile, mkdir } from "fs/promises";
 import { seoBlogPosts, seoCountryPages, seoTourPages } from "../src/seo/staticSeoPages.js";
+import { getAlternateUrls, getCanonicalUrl, splitLocalePathname, withRussianPrefix } from "../src/seo/canonical.js";
 
 const SITE_URL = "https://www.gotocentralasia.com";
 const template = await readFile("dist/index.html", "utf8");
@@ -77,16 +78,26 @@ function buildContent(page) {
   return `<section id="seo-prerendered-content"><h1>${escapeHtml(page.h1)}</h1>${renderParagraphs(page.body)}</section>`;
 }
 
-function inject(page) {
-  const { path, title, description, schema } = page;
-  const canonical = `${SITE_URL}${path === "/" ? "" : path}`;
+function inject(page, outputPath = page.path) {
+  const { title, description, schema } = page;
+  const canonical = getCanonicalUrl(outputPath);
+  const alternates = getAlternateUrls(outputPath);
+  const { isRussian } = splitLocalePathname(outputPath);
   const content = buildContent(page);
   let html = template
     .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
     .replace(/<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${escapeHtml(description)}" />`)
-    .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/, `<link rel="canonical" href="${canonical}" />`);
+    .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/, `<link rel="canonical" href="${canonical}" />`)
+    .replace(/<html([^>]*)lang="[^"]*"/, `<html$1lang="${isRussian ? "ru" : "en"}"`);
   html = html.replace('<div id="root"></div>', `<div id="root">${content}</div>`);
-  html = html.replace("</head>", `<script type="application/ld+json">${JSON.stringify(schema)}</script></head>`);
+  html = html.replace(/<meta property="og:locale" content="[^"]*"\s*\/?>/, `<meta property="og:locale" content="${isRussian ? "ru_RU" : "en_US"}" />`);
+  html = html.replace(
+    "</head>",
+    `<link rel="alternate" hreflang="en" href="${alternates.en}" />
+<link rel="alternate" hreflang="ru" href="${alternates.ru}" />
+<link rel="alternate" hreflang="x-default" href="${alternates.xDefault}" />
+<script type="application/ld+json">${JSON.stringify(schema)}</script></head>`,
+  );
   return html;
 }
 
@@ -152,5 +163,10 @@ for (const post of seoBlogPosts) {
   });
 }
 
-await Promise.all(pages.map((page) => writeRoute(page.path, inject(page))));
-console.log(`✅ Prerendered SEO HTML for ${pages.length} routes`);
+await Promise.all(
+  pages.flatMap((page) => [
+    writeRoute(page.path, inject(page)),
+    writeRoute(withRussianPrefix(page.path), inject(page, withRussianPrefix(page.path))),
+  ]),
+);
+console.log(`✅ Prerendered SEO HTML for ${pages.length * 2} routes`);
