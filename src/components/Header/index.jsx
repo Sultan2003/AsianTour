@@ -4,10 +4,12 @@ import styles from "./Header.module.scss";
 import logo from "../../assets/background/Logo 2.png";
 import AnimatedLogo from "../../../public/assets/animatedlogo/logo";
 import { PhoneIcon } from "../../assets/icons/icons";
-import TranslateWidget from "../TranslateWidget/TranslateWidget";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../LanguageSwitcher";
 
 export default function Header({ onLoginClick }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [compact, setCompact] = useState(false);
 
@@ -98,7 +100,7 @@ export default function Header({ onLoginClick }) {
                 <input
                   className={styles.input}
                   type="text"
-                  placeholder="Search tours..."
+                  placeholder={t("search.placeholder")}
                   required
                   onClick={() => setOpenFilter(!openFilter)}
                 />
@@ -123,60 +125,60 @@ export default function Header({ onLoginClick }) {
               <div className={styles.searchDropdown}>
                 {/* DESTINATIONS */}
                 <div className={styles.searchItem}>
-                  <strong>Destinations</strong>
+                  <strong>{t("search.destinations")}</strong>
                   {[
-                    "Kazakhstan",
-                    "Kyrgyzstan",
-                    "Tajikistan",
-                    "Turkmenistan",
-                    "Uzbekistan",
+                    { value: "Kazakhstan", label: t("nav.kazakhstan") },
+                    { value: "Kyrgyzstan", label: t("nav.kyrgyzstan") },
+                    { value: "Tajikistan", label: t("nav.tajikistan") },
+                    { value: "Turkmenistan", label: t("nav.turkmenistan") },
+                    { value: "Uzbekistan", label: t("nav.uzbekistan") },
                   ].map((d) => (
-                    <label key={d}>
+                    <label key={d.value}>
                       <input
                         type="checkbox"
-                        value={d}
+                        value={d.value}
                         onChange={(e) => {
                           if (e.target.checked) {
                             setSelectedDestinations([
                               ...selectedDestinations,
-                              d,
+                              d.value,
                             ]);
                           } else {
                             setSelectedDestinations(
-                              selectedDestinations.filter((item) => item !== d),
+                              selectedDestinations.filter((item) => item !== d.value),
                             );
                           }
                         }}
                       />
-                      {d}
+                      {d.label}
                     </label>
                   ))}
                 </div>
 
                 {/* MONTH */}
                 <div className={styles.searchItem}>
-                  <strong>Departure</strong>
+                  <strong>{t("search.departure")}</strong>
                   <select
                     value={selectedMonth}
                     onChange={(e) => setSelectedMonth(e.target.value)}
                   >
-                    <option value="">Any Month</option>
+                    <option value="">{t("search.anyMonth")}</option>
                     {[
-                      "Jan",
-                      "Feb",
-                      "Mar",
-                      "Apr",
-                      "May",
-                      "Jun",
-                      "Jul",
-                      "Aug",
-                      "Sep",
-                      "Oct",
-                      "Nov",
-                      "Dec",
-                    ].map((m) => (
-                      <option key={m} value={m}>
-                        {m}
+                      ["Jan", t("search.months.jan")],
+                      ["Feb", t("search.months.feb")],
+                      ["Mar", t("search.months.mar")],
+                      ["Apr", t("search.months.apr")],
+                      ["May", t("search.months.may")],
+                      ["Jun", t("search.months.jun")],
+                      ["Jul", t("search.months.jul")],
+                      ["Aug", t("search.months.aug")],
+                      ["Sep", t("search.months.sep")],
+                      ["Oct", t("search.months.oct")],
+                      ["Nov", t("search.months.nov")],
+                      ["Dec", t("search.months.dec")],
+                    ].map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
                       </option>
                     ))}
                   </select>
@@ -184,7 +186,7 @@ export default function Header({ onLoginClick }) {
 
                 {/* TOUR TYPE */}
                 <div className={styles.searchItem}>
-                  <strong>Tour Type</strong>
+                  <strong>{t("search.tourType")}</strong>
 
                   <label>
                     <input
@@ -192,7 +194,7 @@ export default function Header({ onLoginClick }) {
                       name="tourType"
                       onChange={() => setTourType("Group")}
                     />
-                    Group
+                    {t("search.group")}
                   </label>
 
                   <label>
@@ -201,13 +203,13 @@ export default function Header({ onLoginClick }) {
                       name="tourType"
                       onChange={() => setTourType("Private")}
                     />
-                    Private
+                    {t("search.private")}
                   </label>
                 </div>
 
                 {/* SEARCH BUTTON */}
                 <button className={styles.searchBtn} onClick={handleSearch}>
-                  Search
+                  {t("search.search")}
                 </button>
               </div>
             )}
@@ -218,13 +220,13 @@ export default function Header({ onLoginClick }) {
         <div>
           <div className={styles.actions}>
             <NavLink className={styles.navlink} to="/about">
-              About Us
+              {t("nav.aboutUs")}
             </NavLink>
 
             <NavLink className={styles.navlink} to="/contact">
-              Contact
+              {t("nav.contact")}
             </NavLink>
-            <TranslateWidget />
+            <LanguageSwitcher />
 
             {/* ✅ NEW PHONE BLOCK */}
             <div className={styles.callUs}>
@@ -233,7 +235,7 @@ export default function Header({ onLoginClick }) {
               </div>
 
               <div className={styles.phoneText}>
-                <span>Call Us:</span>
+                <span>{t("contact.callUs")}</span>
                 <a href="tel:+998933988531" className={styles.phoneNumber}>
                   <strong>+998-93-398-85-31</strong>
                 </a>
@@ -253,44 +255,44 @@ export default function Header({ onLoginClick }) {
             onClick={() => handleMenuToggle("destinations")}
             className={styles.menuTrigger}
           >
-            Destinations ▾
+            {t("nav.destinations")} ▾
           </span>
           <div
             className={`${styles.dropdown} ${openMobileMenu === "destinations" ? styles.show : ""}`}
           >
             <div className={styles.dropdownGrid}>
               <Link to="/silk-road" onClick={handleMenuLinkClick}>
-                Silk Road
+                {t("nav.silkRoad")}
               </Link>
               <Link to="/central-asia" onClick={handleMenuLinkClick}>
-                Central Asia
+                {t("nav.centralAsia")}
               </Link>
               <Link to="/uzbekistan" onClick={handleMenuLinkClick}>
-                Uzbekistan
+                {t("nav.uzbekistan")}
               </Link>
               <Link to="/kazakhstan" onClick={handleMenuLinkClick}>
-                Kazakhstan
+                {t("nav.kazakhstan")}
               </Link>
               <Link to="/kyrgyzstan" onClick={handleMenuLinkClick}>
-                Kyrgyzstan
+                {t("nav.kyrgyzstan")}
               </Link>
               <Link to="/tajikistan" onClick={handleMenuLinkClick}>
-                Tajikistan
+                {t("nav.tajikistan")}
               </Link>
               <Link to="/turkmenistan" onClick={handleMenuLinkClick}>
-                Turkmenistan
+                {t("nav.turkmenistan")}
               </Link>
               <Link to="/caucasus" onClick={handleMenuLinkClick}>
-                Caucasus
+                {t("nav.caucasus")}
               </Link>
               <Link to="/armenia" onClick={handleMenuLinkClick}>
-                Armenia
+                {t("nav.armenia")}
               </Link>
               <Link to="/azerbaijan" onClick={handleMenuLinkClick}>
-                Azerbaijan
+                {t("nav.azerbaijan")}
               </Link>
               <Link to="/georgia" onClick={handleMenuLinkClick}>
-                Georgia
+                {t("nav.georgia")}
               </Link>
             </div>
           </div>
@@ -301,44 +303,44 @@ export default function Header({ onLoginClick }) {
             onClick={() => handleMenuToggle("groupTours")}
             className={styles.menuTrigger}
           >
-            Group Tours ▾
+            {t("nav.groupTours")} ▾
           </span>
           <div
             className={`${styles.dropdown} ${openMobileMenu === "groupTours" ? styles.show : ""}`}
           >
             <div className={styles.dropdownGrid}>
               <Link to="/silk-road-tours" onClick={handleMenuLinkClick}>
-                Silk Road Group Tours
+                {t("nav.silkRoadGroupTours")}
               </Link>
               <Link to="/central-asia-tours" onClick={handleMenuLinkClick}>
-                Central Asia Group Tours
+                {t("nav.centralAsiaGroupTours")}
               </Link>
               <Link to="/uzbek-tours" onClick={handleMenuLinkClick}>
-                Uzbekistan Group Tours
+                {t("nav.uzbekistanGroupTours")}
               </Link>
               <Link to="/kazakh-tours" onClick={handleMenuLinkClick}>
-                Kazakhstan Group Tours
+                {t("nav.kazakhstanGroupTours")}
               </Link>
               <Link to="/kyrgyz-tours" onClick={handleMenuLinkClick}>
-                Kyrgyzstan Group Tours
+                {t("nav.kyrgyzstanGroupTours")}
               </Link>
               <Link to="/tajik-tours" onClick={handleMenuLinkClick}>
-                Tajikistan Group Tours
+                {t("nav.tajikistanGroupTours")}
               </Link>
               <Link to="/turkmen-tours" onClick={handleMenuLinkClick}>
-                Turkmenistan Group Tours
+                {t("nav.turkmenistanGroupTours")}
               </Link>
               <Link to="/caucasus-tours" onClick={handleMenuLinkClick}>
-                Caucasus Group Tours
+                {t("nav.caucasusGroupTours")}
               </Link>
               <Link to="/armenia-tours" onClick={handleMenuLinkClick}>
-                Armenia Group Tours
+                {t("nav.armeniaGroupTours")}
               </Link>
               <Link to="/azerbaijan-tours" onClick={handleMenuLinkClick}>
-                Azerbaijan Group Tours{" "}
+                {t("nav.azerbaijanGroupTours")}{" "}
               </Link>
               <Link to="/georgia-tours" onClick={handleMenuLinkClick}>
-                Georgia Group Tours
+                {t("nav.georgiaGroupTours")}
               </Link>
             </div>
           </div>
@@ -349,68 +351,68 @@ export default function Header({ onLoginClick }) {
             onClick={() => handleMenuToggle("privateTours")}
             className={styles.menuTrigger}
           >
-            Private Tours ▾
+            {t("nav.privateTours")} ▾
           </span>
           <div
             className={`${styles.dropdown} ${openMobileMenu === "privateTours" ? styles.show : ""}`}
           >
             <div className={styles.dropdownGrid}>
               <Link to="/silk-road-private-tours" onClick={handleMenuLinkClick}>
-                Silk Road Private Tours
+                {t("nav.silkRoadPrivateTours")}
               </Link>
               <Link
                 to="/central-asia-private-tours"
                 onClick={handleMenuLinkClick}
               >
-                Central Asia Private Tours
+                {t("nav.centralAsiaPrivateTours")}
               </Link>
               <Link
                 to="/uzbekistan-private-tours"
                 onClick={handleMenuLinkClick}
               >
-                Uzbekistan Private Tours
+                {t("nav.uzbekistanPrivateTours")}
               </Link>
               <Link
                 to="/kazakhstan-private-tours"
                 onClick={handleMenuLinkClick}
               >
-                Kazakhstan Private Tours
+                {t("nav.kazakhstanPrivateTours")}
               </Link>
               <Link
                 to="/kyrgyzstan-private-tours"
                 onClick={handleMenuLinkClick}
               >
-                Kyrgyzstan Private Tours
+                {t("nav.kyrgyzstanPrivateTours")}
               </Link>
               <Link
                 to="/tajikistan-private-tours"
                 onClick={handleMenuLinkClick}
               >
-                Tajikistan Private Tours
+                {t("nav.tajikistanPrivateTours")}
               </Link>
               <Link
                 to="/turkmenistan-private-tours"
                 onClick={handleMenuLinkClick}
               >
-                Turkmenistan Private Tours
+                {t("nav.turkmenistanPrivateTours")}
               </Link>
               <Link to="/caucasus-private-tours" onClick={handleMenuLinkClick}>
-                Caucasus Private Tours
+                {t("nav.caucasusPrivateTours")}
               </Link>
               <Link to="/armenia-private-tours" onClick={handleMenuLinkClick}>
-                Armenia Private Tours
+                {t("nav.armeniaPrivateTours")}
               </Link>
               <Link
                 to="/azerbaijan-private-tours"
                 onClick={handleMenuLinkClick}
               >
-                Azerbaijan Private Tours
+                {t("nav.azerbaijanPrivateTours")}
               </Link>
               <Link to="/georgia-private-tours" onClick={handleMenuLinkClick}>
-                Georgia Private Tours
+                {t("nav.georgiaPrivateTours")}
               </Link>
               <Link to="/tailor-private-tours" onClick={handleMenuLinkClick}>
-                Tailor Made Private Tours
+                {t("nav.tailorMadePrivateTours")}
               </Link>
             </div>
           </div>
@@ -421,19 +423,19 @@ export default function Header({ onLoginClick }) {
             onClick={() => handleMenuToggle("services")}
             className={styles.menuTrigger}
           >
-            Services ▾
+            {t("nav.services")} ▾
           </span>
           <div
             className={`${styles.dropdown} ${openMobileMenu === "services" ? styles.show : ""}`}
           >
             <div className={styles.dropdownGrid}>
               <Link to="/transfer" onClick={handleMenuLinkClick}>
-                Transfer
+                {t("nav.transfer")}
               </Link>
               <Link to="/hotels" onClick={handleMenuLinkClick}>
-                Hotels
+                {t("nav.hotels")}
               </Link>
-              <span>Guide Service</span>
+              <span>{t("nav.guideService")}</span>
             </div>
           </div>
         </div>
