@@ -6,7 +6,7 @@ import styles from "./centralasia.module.scss";
 import mainImg from "../../../assets/Cities/Bukhara/Kalyan Minaret and Mosque 1.jpg";
 
 export default function CentralAsiaToursDestinations() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

@@ -6,7 +6,7 @@ import styles from "./Tajikistan.module.scss";
 import mainImg from "../../../assets/Countries/tajikistan.jpg";
 
 export default function TajikistanTours() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

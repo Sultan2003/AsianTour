@@ -6,7 +6,7 @@ import styles from "./Uzbekistan.module.scss";
 import mainImg from "../../../assets/Countries/uzb.jpg";
 
 export default function UzbekistanTours() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
   const makeSlug = (title) =>

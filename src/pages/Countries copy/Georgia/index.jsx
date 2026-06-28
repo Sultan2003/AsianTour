@@ -8,7 +8,7 @@ import styles from "./Georgia.module.scss";
 import mainImg from "../../../assets/Countries/georgia.jpg";
 
 export default function GeorgiaToursDestination() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

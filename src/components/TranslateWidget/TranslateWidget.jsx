@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
-export default function TranslateWidget() {
-  const [visible, setVisible] = useState(true);
+export default function TranslateWidget({
+  buttonClassName,
+  buttonContent = "Translate",
+  buttonStyle,
+  onOpen,
+}) {
   const [scriptLoaded, setScriptLoaded] = useState(false);
-
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -16,17 +19,6 @@ export default function TranslateWidget() {
   }, []);
 
   useEffect(() => {
-    // Scroll visibility logic
-    const handleScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      setVisible(scrollTop >= 0 && scrollTop <= 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    // Hide Google banner and other elements constantly
     const hideBar = () => {
       const selectors = [
         ".goog-te-banner-frame",
@@ -49,11 +41,15 @@ export default function TranslateWidget() {
 
   const handleTranslateClick = () => {
     const translateDiv = document.getElementById("google_translate_element");
+    if (!translateDiv) return;
+
     if (translateDiv.style.display === "block") {
       translateDiv.style.display = "none";
       return;
     }
+
     translateDiv.style.display = "block";
+    onOpen?.();
 
     if (!scriptLoaded) {
       const script = document.createElement("script");
@@ -64,31 +60,33 @@ export default function TranslateWidget() {
     }
   };
 
-  // Initialize Google Translate widget
-  window.googleTranslateElementInit = function () {
-    new window.google.translate.TranslateElement(
-      { pageLanguage: "en" },
-      "google_translate_element",
-    );
+  useEffect(() => {
+    window.googleTranslateElementInit = function () {
+      new window.google.translate.TranslateElement(
+        { pageLanguage: "en" },
+        "google_translate_element",
+      );
 
-    const observer = new MutationObserver(() => {
-      const langSelect = document.querySelector(".goog-te-combo");
-      if (langSelect && !langSelect.dataset.listenerAdded) {
-        langSelect.dataset.listenerAdded = "true";
-        langSelect.addEventListener("change", () => {
-          const selectedLang = langSelect.value;
-          localStorage.setItem("selectedLang", selectedLang);
-          setTimeout(() => {
-            document.getElementById("google_translate_element").style.display =
-              "none";
-          }, 800);
-        });
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-  };
+      const observer = new MutationObserver(() => {
+        const langSelect = document.querySelector(".goog-te-combo");
+        if (langSelect && !langSelect.dataset.listenerAdded) {
+          langSelect.dataset.listenerAdded = "true";
+          langSelect.addEventListener("change", () => {
+            const selectedLang = langSelect.value;
+            localStorage.setItem("selectedLang", selectedLang);
+            setTimeout(() => {
+              const translateDiv = document.getElementById(
+                "google_translate_element",
+              );
+              if (translateDiv) translateDiv.style.display = "none";
+            }, 800);
+          });
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    };
+  }, []);
 
-  // Restore previously saved language
   useEffect(() => {
     const savedLang = localStorage.getItem("selectedLang");
     if (savedLang && savedLang !== "en") {
@@ -108,22 +106,27 @@ export default function TranslateWidget() {
     <>
       <button
         id="translateButton"
+        type="button"
+        className={buttonClassName}
         onClick={handleTranslateClick}
-        style={{
-          background: "transparent",
-          border: "none",
-          cursor: "pointer",
-
-          color: "white",
-          textDecoration: "none",
-          flexShrink: 0,
-          fontSize: isMobile ? "19px" : "18px", // ✅ smaller on mobile
-          fontWeight: "600",
-
-          padding: 0,
-        }}
+        style={
+          buttonStyle ??
+          (buttonClassName
+            ? undefined
+            : {
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                color: "white",
+                textDecoration: "none",
+                flexShrink: 0,
+                fontSize: isMobile ? "19px" : "18px",
+                fontWeight: "600",
+                padding: 0,
+              })
+        }
       >
-        Translate
+        {buttonContent}
       </button>
 
       <div

@@ -6,7 +6,7 @@ import styles from "./Caucasus.module.scss";
 import mainImg from "../../../assets/Countries/Caucasus.jpg";
 
 export default function CaucasusTours() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

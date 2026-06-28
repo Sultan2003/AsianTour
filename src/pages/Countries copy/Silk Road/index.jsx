@@ -5,7 +5,7 @@ import styles from "./SilkRoad.module.scss";
 import mainImg from "../../../assets/Countries/Silkroad.png";
 
 export default function SilkRoadToursDestinations() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

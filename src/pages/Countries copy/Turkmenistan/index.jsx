@@ -5,7 +5,7 @@ import styles from "./Turkmenistan.module.scss";
 import mainImg from "../../../assets/Countries/Turkmenistan.jpg";
 
 export default function TurkmenistanTours() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

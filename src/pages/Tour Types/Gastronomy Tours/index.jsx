@@ -6,7 +6,7 @@ import styles from "./GastronomyTours.module.scss";
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
 export default function GastronomyTours() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
