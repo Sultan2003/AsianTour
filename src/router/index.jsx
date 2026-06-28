@@ -69,6 +69,7 @@ import PlacestoVisit from "../pages/10BestPlaces";
 import BookingForm from "../pages/BookingForm";
 import Hotels from "../components/HotelDetails";
 import HotelsList from "../components/HotelsList";
+import BlogArticle from "../pages/BlogArticle";
 
 import AttractionDetails from "../components/AttractionDetails";
 
@@ -127,6 +128,16 @@ const Router = () => {
             <MainLayout>
               <main id="main-content" role="main">
                 <ContactUs />
+              </main>
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/blog/:slug"
+          element={
+            <MainLayout>
+              <main id="main-content" role="main">
+                <BlogArticle />
               </main>
             </MainLayout>
           }

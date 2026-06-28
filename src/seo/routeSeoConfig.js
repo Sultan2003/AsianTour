@@ -1,4 +1,5 @@
 import { SITE_URL, getCanonicalUrl, normalizePathname } from "./canonical";
+import { getSeoBlogPost, seoTourPages } from "./staticSeoPages";
 
 const SITE_NAME = "Go To Central Asia";
 const DEFAULT_IMAGE = `${SITE_URL}/logo.png`;
@@ -60,13 +61,30 @@ const formatSegment = (segment) =>
 const buildFallbackSeo = (pathname) => {
   if (pathname.startsWith("/tour/")) {
     const slug = pathname.replace("/tour/", "");
-    const tourName = formatSegment(slug);
+    const tour = seoTourPages.find((item) => item.slug === slug);
+    const tourName = tour?.h1 || formatSegment(slug);
 
     return {
-      title: `${tourName} | ${SITE_NAME}`,
-      description: `Explore itinerary details, inclusions, and booking options for ${tourName} with ${SITE_NAME}.`,
+      title: tour?.title || `${tourName} | ${SITE_NAME}`,
+      description:
+        tour?.description ||
+        `Explore itinerary details, inclusions, and booking options for ${tourName} with ${SITE_NAME}.`,
       type: "article",
+      tour,
     };
+  }
+
+  if (pathname.startsWith("/blog/")) {
+    const slug = pathname.replace("/blog/", "");
+    const post = getSeoBlogPost(slug);
+
+    if (post) {
+      return {
+        title: post.title,
+        description: post.description,
+        type: "article",
+      };
+    }
   }
 
   if (pathname.startsWith("/private-tour/")) {
@@ -162,6 +180,36 @@ export const getSeoData = (pathname) => {
     },
   };
 
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: SITE_NAME,
+    url: SITE_URL,
+    image: DEFAULT_IMAGE,
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "UZ",
+      addressLocality: "Tashkent",
+    },
+  };
+
+  const touristTripSchema = page.tour
+    ? {
+        "@context": "https://schema.org",
+        "@type": "TouristTrip",
+        name: page.tour.h1,
+        description: page.tour.description,
+        touristType: ["Cultural travelers", "Silk Road travelers"],
+        offers: {
+          "@type": "Offer",
+          price: page.tour.price,
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock",
+        },
+        provider: travelAgencySchema,
+      }
+    : null;
+
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -199,6 +247,8 @@ export const getSeoData = (pathname) => {
       organizationSchema,
       websiteSchema,
       normalizedPathname === "/" ? travelAgencySchema : null,
+      normalizedPathname === "/" ? localBusinessSchema : null,
+      touristTripSchema,
       breadcrumbSchema,
     ].filter(Boolean),
   };

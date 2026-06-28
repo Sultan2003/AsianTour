@@ -3,6 +3,7 @@ import { readFile, writeFile, stat } from "fs/promises";
 import { execFile } from "child_process";
 import { promisify } from "util";
 import fetch from "node-fetch";
+import { seoBlogPosts, seoTourPages } from "../src/seo/staticSeoPages.js";
 
 const execFileAsync = promisify(execFile);
 
@@ -420,6 +421,12 @@ const staticEntries = [
     changefreq: "weekly",
     source: "src/pages/Private Tours/Caucasus Private/index.jsx",
   },
+  ...seoBlogPosts.map((post) => ({
+    url: `/blog/${post.slug}`,
+    priority: 0.65,
+    changefreq: "monthly",
+    source: "src/seo/staticSeoPages.js",
+  })),
 ];
 
 const toSlug = (value = "") =>
@@ -630,6 +637,15 @@ async function generate() {
     getDynamicTourEntries(),
     getDynamicHotelEntries(),
   ]);
+
+  seoTourPages.forEach((tour) => {
+    dynamicTourRoutes.push({
+      url: `/tour/${tour.slug}`,
+      changefreq: "weekly",
+      priority: 0.9,
+      lastmodISO: DEFAULT_LASTMOD,
+    });
+  });
 
   const seenUrls = new Set();
   const writeUrl = (entry) => {
