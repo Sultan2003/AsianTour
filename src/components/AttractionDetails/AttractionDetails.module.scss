@@ -70,19 +70,19 @@ $mist: #f0ebe1;
 
 /* ─── Body text ──────────────────────────────────────────── */
 .shortDescription {
-  font-size: 17px;
-  line-height: 1.85;
+  font-size: 21px;
+  line-height: 1.95;
   color: $ink;
-  margin-bottom: 56px;
-  max-width: 740px;
+  margin-bottom: 72px;
+  max-width: 820px;
 
   p {
-    margin-bottom: 18px;
+    margin-bottom: 24px;
   }
 
   strong {
     color: $navy;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   a {
@@ -90,18 +90,17 @@ $mist: #f0ebe1;
     text-decoration: underline;
   }
 }
-
 /* ─── Content sections ───────────────────────────────────── */
 .section {
-  margin-bottom: 64px;
+  margin-bottom: 80px;
 
   h3 {
     font-family: "Georgia", "Times New Roman", serif;
-    font-size: 26px;
+    font-size: 34px;
     font-weight: 700;
     color: $navy;
     line-height: 1.25;
-    margin: 0 0 20px;
+    margin: 0 0 28px;
     padding-bottom: 14px;
     border-bottom: 2px solid $mist;
   }
