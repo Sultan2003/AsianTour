@@ -1,7 +1,51 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { LanguageContext } from "../../context/LanguageContext";
 import styles from "./ContactUs.module.scss";
 
+const translations = {
+  en: {
+    breadcrumbHome: "Home",
+    title: "Contact GoToCentralAsia",
+    intro: "We are glad to answer and assist, please send us your questions or queries.",
+    placeholders: {
+      firstName: "First Name",
+      lastName: "Last Name",
+      email: "Email",
+      comments: "Your comments",
+    },
+    submit: "Contact us",
+    walkInTitle: "Walk-in Guests",
+    walkInText:
+      "As our tour operators are busy working on ongoing tours and existing customer requests, it might be difficult for us to accommodate walk-in travelers on the spot. For a timely response that responds to your specific requests, we highly recommend that you email us. We aim to provide an initial response to all email queries within 2 working days.",
+    success: "✅ Your message has been sent successfully!",
+    failure: "❌ Failed to send message. Please try again.",
+    emptyComments: "None",
+  },
+  ru: {
+    breadcrumbHome: "Главная",
+    title: "Связаться с GoToCentralAsia",
+    intro: "Мы с радостью ответим на ваши вопросы и поможем с запросами.",
+    placeholders: {
+      firstName: "Имя",
+      lastName: "Фамилия",
+      email: "Электронная почта",
+      comments: "Ваш комментарий",
+    },
+    submit: "Связаться с нами",
+    walkInTitle: "Гости без предварительной записи",
+    walkInText:
+      "Наши туроператоры часто заняты текущими турами и заявками клиентов, поэтому нам может быть сложно сразу принять гостей без предварительной записи. Для своевременного ответа на ваш конкретный запрос рекомендуем написать нам по электронной почте. Мы стараемся отвечать на все письма в течение 2 рабочих дней.",
+    success: "✅ Ваше сообщение успешно отправлено!",
+    failure: "❌ Не удалось отправить сообщение. Пожалуйста, попробуйте ещё раз.",
+    emptyComments: "Нет",
+  },
+};
+
+const titles = ["Mr.", "Ms.", "Mrs.", "Dr."];
+
 const ContactUs = () => {
+  const { lang } = useContext(LanguageContext);
+  const t = translations[lang] || translations.en;
   const [formData, setFormData] = useState({
     title: "Mr.",
     firstName: "",
@@ -23,7 +67,7 @@ const ContactUs = () => {
 🏷️ Title: ${formData.title}
 👤 Name: ${formData.firstName} ${formData.lastName}
 📧 Email: ${formData.email}
-💬 Comments: ${formData.comments || "None"}
+💬 Comments: ${formData.comments || t.emptyComments}
 `;
 
     try {
@@ -33,14 +77,14 @@ const ContactUs = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            chat_id: "-1003082651864", // same chat id
+            chat_id: "-1003082651864",
             text: message,
             parse_mode: "Markdown",
           }),
         },
       );
 
-      alert("✅ Your message has been sent successfully!");
+      alert(t.success);
       setFormData({
         title: "Mr.",
         firstName: "",
@@ -50,20 +94,17 @@ const ContactUs = () => {
       });
     } catch (err) {
       console.error(err);
-      alert("❌ Failed to send message. Please try again.");
+      alert(t.failure);
     }
   };
 
   return (
     <div className={styles.container}>
       <nav className={styles.breadcrumb}>
-        <a href="/">Home</a> / <span>Contact GoToCentralAsia</span>
+        <a href="/">{t.breadcrumbHome}</a> / <span>{t.title}</span>
       </nav>
-      <h1 className={styles.heading}>Contact GoToCentralAsia</h1>
-      <p className={styles.subheading}>
-        We are glad to answer and assist, please send us your questions or
-        queries.
-      </p>
+      <h1 className={styles.heading}>{t.title}</h1>
+      <p className={styles.subheading}>{t.intro}</p>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.row}>
@@ -73,15 +114,14 @@ const ContactUs = () => {
             onChange={handleChange}
             className={styles.select}
           >
-            <option>Mr.</option>
-            <option>Ms.</option>
-            <option>Mrs.</option>
-            <option>Dr.</option>
+            {titles.map((title) => (
+              <option key={title}>{title}</option>
+            ))}
           </select>
           <input
             name="firstName"
             type="text"
-            placeholder="First Name"
+            placeholder={t.placeholders.firstName}
             value={formData.firstName}
             onChange={handleChange}
             className={styles.input}
@@ -92,7 +132,7 @@ const ContactUs = () => {
         <input
           name="lastName"
           type="text"
-          placeholder="Last Name"
+          placeholder={t.placeholders.lastName}
           value={formData.lastName}
           onChange={handleChange}
           className={styles.input}
@@ -102,7 +142,7 @@ const ContactUs = () => {
         <input
           name="email"
           type="email"
-          placeholder="Email"
+          placeholder={t.placeholders.email}
           value={formData.email}
           onChange={handleChange}
           className={styles.input}
@@ -111,27 +151,20 @@ const ContactUs = () => {
 
         <textarea
           name="comments"
-          placeholder="Your comments"
+          placeholder={t.placeholders.comments}
           value={formData.comments}
           onChange={handleChange}
           className={styles.textarea}
         />
 
         <button type="submit" className={styles.button}>
-          Contact us
+          {t.submit}
         </button>
       </form>
 
       <section className={styles.walkInSection}>
-        <h2>Walk-in Guests</h2>
-        <p>
-          As our tour operators are busy working on ongoing tours and existing
-          customer requests, it might be difficult for us to accommodate walk-in
-          travelers on the spot. For a timely response that responds to your
-          specific requests, we highly recommend that you email us. We aim to
-          provide an initial response to all email queries within 2 working
-          days.
-        </p>
+        <h2>{t.walkInTitle}</h2>
+        <p>{t.walkInText}</p>
       </section>
     </div>
   );
