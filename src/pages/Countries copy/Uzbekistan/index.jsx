@@ -6,7 +6,7 @@ import styles from "./Uzbekistan.module.scss";
 import mainImg from "../../../assets/Countries/uzb.jpg";
 
 export default function UzbekistanTours() {
-  const { strapiLocale } = useContext(LanguageContext);
+  const { lang, strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
   const makeSlug = (title) =>
@@ -138,6 +138,58 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
     },
   ];
 
+  const ruDestination = {
+    countryName: "Узбекистан",
+    visitTitle: "Посетите Узбекистан",
+    visitIntro: "Узбекистан — обязательное направление для путешествия по Шёлковому пути и странам Центральной Азии. Древние города, самобытная культура, гостеприимные местные жители и неповторимая атмосфера делают поездку незабываемой. Находясь в сердце Шёлкового пути, местные жители веками развивали торговлю, принимали разные мировые религии и создали богатую культуру и традиции. Gotocentralasia.com помогает путешественникам со всего мира погрузиться в атмосферу древних приключений, узбекского гостеприимства и живых традиций.",
+    upcomingTitle: "Ближайшие групповые туры",
+    headers: { date: "Дата", status: "Статус", days: "Дни", price: "Цена" },
+    available: "Доступно",
+    unavailable: "Недоступно",
+    seatsAvailable: "мест доступно",
+    days: "дней",
+    notesTitle: "Заметки об Узбекистане",
+    backToNotes: "↑ Вернуться к заметкам",
+    weatherLabel: "Погода",
+    bestPlaces: "10 лучших мест для посещения в Узбекистане",
+    travelDestinations: "Направления путешествий",
+    cityNames: { Tashkent: "Ташкент", Samarkand: "Самарканд", Bukhara: "Бухара", Khiva: "Хива" },
+    notes: [
+      "Безопасность путешествия",
+      "Виза и регистрация",
+      "Лучшее время для поездки",
+      "Язык",
+      "Кухня",
+      "Одежда и погода",
+      "Таможенные правила",
+      "Оплата",
+      "Мобильная связь и интернет",
+      "Как передвигаться (местный транспорт)",
+    ],
+    noteTexts: [
+      "По данным международного рейтинга Numbeo, Узбекистан из года в год улучшает показатели общественной безопасности и считается одной из самых безопасных стран региона. В исторических местах часто дежурит туристическая полиция, которая помогает иностранным гостям. Местные жители доброжелательны, открыты и готовы помочь, поэтому путешественники обычно чувствуют спокойствие и безопасность.",
+      "Узбекистан имеет безвизовый режим для граждан многих стран. Для въезда нужен действующий паспорт сроком более 6 месяцев. Граждане ряда стран СНГ могут находиться без визы без ограничения срока, а граждане ЕС, Канады, Израиля, Великобритании, Японии, Австралии и многих других стран — до 30 дней. Граждане почти 60 стран могут оформить электронную визу. Иностранные гости должны зарегистрироваться по месту проживания в течение 3 дней после прибытия; большинство отелей оформляют регистрацию при заселении.",
+      "Лучшее время для поездки в Узбекистан — весна и осень, когда температура комфортная для экскурсий и прогулок. Летом может быть очень жарко, а зимой возможны снег, холодный ветер и переменчивая погода. Тем не менее туристы приезжают круглый год, корректируя программу под сезон.",
+      "Государственный язык Узбекистана — узбекский, но русский язык широко используется для общения. В Самарканде и Бухаре также можно услышать таджикский. В туристической сфере всё чаще используется английский язык.",
+      "Узбекская кухня — важная часть культуры страны. Самое известное блюдо — плов, популярный далеко за пределами региона. В ресторанах можно найти как национальные блюда, так и европейскую, азиатскую, ближневосточную и современную кухню. Также распространена уличная еда.",
+      "Для поездки рекомендуется удобная повседневная одежда и комфортная обувь, так как во время экскурсий предстоит много ходить. Летом нужны головной убор и солнцезащитные очки. При посещении религиозных объектов важно соблюдать правила: закрывать плечи и ноги, а женщинам иногда нужен платок.",
+      "Таможенные правила достаточно простые. Если путешественник не ввозит лекарства, подлежащие декларированию, и имеет менее 10 000 USD наличными или эквивалент, можно пройти через зелёный коридор. Рецептурные лекарства и крупные суммы наличных необходимо декларировать.",
+      "Карты Visa и MasterCard широко используются в крупных городах, особенно в отелях, супермаркетах и магазинах. Для сувенирных лавок, кафе и мелких покупок лучше иметь наличные. Валюту можно обменять в отделениях банков.",
+      "Самый удобный способ получить мобильную связь и интернет — купить SIM-карту в аэропорту или в официальных офисах мобильных операторов. Отели предоставляют Wi‑Fi, а некоторые кафе, рестораны и общественные места также предлагают бесплатный интернет.",
+      "В крупных городах хорошо развит общественный транспорт. Между Ташкентом, Самаркандом и Бухарой удобно путешествовать на скоростных поездах. Внутренние авиарейсы также являются удобной альтернативой для перемещения между регионами.",
+    ],
+  };
+
+  const localizedDestination = lang === "ru" ? ruDestination : null;
+  const displayedNotes = localizedDestination?.notes || notes;
+  const displayedNoteTexts = localizedDestination
+    ? localizedDestination.noteTexts.map((text, index) => ({
+        id: `note${index + 1}`,
+        title: localizedDestination.notes[index],
+        text,
+      }))
+    : noteTexts;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -145,43 +197,29 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
           <div className={styles.tours}>
             {/* ✅ Main Image */}
             <div className={styles.mainImage}>
-              <img src={mainImg} alt="Uzbekistan" />
+              <img src={mainImg} alt={localizedDestination?.countryName || "Uzbekistan"} />
             </div>
 
             {/* ✅ Visit Uzbekistan Intro */}
             <section className={styles.visitSection}>
-              <h2>Visit Uzbekistan</h2>
-              <p>
-                Uzbekistan is a must-see destination on The Silk Road or among
-                Central Asia countries. As it was in the past throw out its long
-                history, so it is now, Uzbekistan represents a core traditions
-                and culture of nationalities who have been settling in this part
-                of the world. Centuries old cities, unique culture, kind local
-                people and unseen atmosphere will make your trip unforgettable.
-                For thousands of years, by being on the heart of The Silk Road
-                and making trade, hosting and welcoming main world religions in
-                their lives, local people have developed their own captivating
-                culture and traditions. All these you are able to see on the
-                built architectures, feel in the mosques and palaces and
-                evaluate in technologies and scientistic discoveries of ancient
-                times. Gotocentralasia.com provides the opportunity for
-                travelers from all around the world to immerse in the atmosphere
-                of ancient adventure, uzbek hospitality and traditions.
-              </p>
+              <h2>{localizedDestination?.visitTitle || "Visit Uzbekistan"}</h2>
+              <p>{localizedDestination?.visitIntro || `Uzbekistan is a must-see destination on The Silk Road or among Central Asia countries. As it was in the past throw out its long history, so it is now, Uzbekistan represents a core traditions and culture of nationalities who have been settling in this part of the world. Centuries old cities, unique culture, kind local people and unseen atmosphere will make your trip unforgettable. For thousands of years, by being on the heart of The Silk Road and making trade, hosting and welcoming main world religions in their lives, local people have developed their own captivating culture and traditions. All these you are able to see on the built architectures, feel in the mosques and palaces and evaluate in technologies and scientistic discoveries of ancient times. Gotocentralasia.com provides the opportunity for travelers from all around the world to immerse in the atmosphere of ancient adventure, uzbek hospitality and traditions.`}</p>
             </section>
 
             {/* ✅ Tours Section with Cards */}
-            <h2>Upcoming Group Departures</h2>
+            <h2>{localizedDestination?.upcomingTitle || "Upcoming Group Departures"}</h2>
             <div className={styles.cardsHeader}>
-              <div>Date</div>
+              <div>{localizedDestination?.headers.date || "Date"}</div>
               <div></div>
-              <div>Status</div>
-              <div>Days</div>
-              <div>Price</div>
+              <div>{localizedDestination?.headers.status || "Status"}</div>
+              <div>{localizedDestination?.headers.days || "Days"}</div>
+              <div>{localizedDestination?.headers.price || "Price"}</div>
             </div>
 
             {tours.map((tour) => {
-              const statusText = tour.status1 ? "Available" : "Unavailable";
+              const statusText = tour.status1
+                ? localizedDestination?.available || "Available"
+                : localizedDestination?.unavailable || "Unavailable";
               return (
                 <Link
                   key={tour.id}
@@ -198,7 +236,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                     </a>
                     <p className={styles.cities}>{tour.location}</p>
                     <a href="#" className={styles.departures}>
-                      {tour.availableSeats} seats available
+                      {tour.availableSeats} {localizedDestination?.seatsAvailable || "seats available"}
                     </a>
                   </div>
                   <div
@@ -213,7 +251,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                       (new Date(tour.endDate) - new Date(tour.startDate)) /
                         (1000 * 60 * 60 * 24),
                     )}{" "}
-                    days
+                    {localizedDestination?.days || "days"}
                   </div>
                   <div>${tour.price}</div>
                 </Link>
@@ -222,19 +260,19 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
 
             {/* ✅ Notes Section */}
             <section id="notes" className={styles.notesSection}>
-              <h3>Notes about Uzbekistan</h3>
+              <h3>{localizedDestination?.notesTitle || "Notes about Uzbekistan"}</h3>
               <table>
                 <tbody>
                   {[0, 1, 2, 3, 4].map((row) => (
                     <tr key={row}>
                       <td>
                         <a href={`#note${row + 1}`}>
-                          {row + 1}. {notes[row]}
+                          {row + 1}. {displayedNotes[row]}
                         </a>
                       </td>
                       <td>
                         <a href={`#note${row + 6}`}>
-                          {row + 6}. {notes[row + 5]}
+                          {row + 6}. {displayedNotes[row + 5]}
                         </a>
                       </td>
                     </tr>
@@ -243,12 +281,12 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
               </table>
             </section>
 
-            {noteTexts.map((note) => (
+            {displayedNoteTexts.map((note) => (
               <section key={note.id} id={note.id} className={styles.noteDetail}>
                 <h4>{note.title}</h4>
                 <p>{note.text}</p>
                 <a href="#notes" className={styles.backToNotes}>
-                  ↑ Back to Notes
+                  {localizedDestination?.backToNotes || "↑ Back to Notes"}
                 </a>
               </section>
             ))}
@@ -261,7 +299,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                   to={`/weather/${c.slug}`}
                   className={styles.weatherLink}
                 >
-                  {c.name} Weather
+                  {localizedDestination ? `${localizedDestination.countryName} ${localizedDestination.weatherLabel}` : `${c.name} Weather`}
                 </Link>
               ))}
             </div>
@@ -270,19 +308,19 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                 to={`/10-best-places-to-visit-in-uzbekistan`}
                 className={styles.weatherLink}
               >
-                10 Best Places to visit in Uzbekistan
+                {localizedDestination?.bestPlaces || "10 Best Places to visit in Uzbekistan"}
               </Link>
             </div>
           </div>
 
           {/* ✅ Sidebar with Destinations */}
           <div className={styles.sidebar}>
-            <h3>Travel Destinations</h3>
+            <h3>{localizedDestination?.travelDestinations || "Travel Destinations"}</h3>
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
                   <Link to={`/uzbekistan-${d}`} className={styles.sidebarLink}>
-                    {d}
+                    {localizedDestination?.cityNames?.[d] || d}
                   </Link>
                 </li>
               ))}
