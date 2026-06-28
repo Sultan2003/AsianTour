@@ -100,7 +100,9 @@ export default function MainPage() {
         // Filter: Only Group tours, exclude City tours
         const filtered = data.data.filter((tour) => {
           const type = (tour.tour_type || "").toLowerCase();
-          return type.includes("group") && !type.includes("city");
+          const isGroup = type.includes("group") || type.includes("груп");
+          const isCity = type.includes("city") || type.includes("город");
+          return isGroup && !isCity;
         });
         setTours(filtered);
       })

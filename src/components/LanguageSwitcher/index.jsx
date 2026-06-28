@@ -74,7 +74,6 @@ export default function LanguageSwitcher() {
                 </>
               }
               buttonStyle={null}
-              onOpen={() => setOpen(false)}
             />
           </div>
           <button type="button" className={styles.translate} onClick={() => setOpen(false)}>
