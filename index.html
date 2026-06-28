@@ -7,6 +7,31 @@
 
     <link rel="icon" type="image/png" href="/logo.png" />
 
+    <script>
+      (function () {
+        var siteUrl = "https://www.gotocentralasia.com";
+        var aliases = {
+          "/asian-tour-transfer": "/transfer",
+          "/caucas-tours": "/caucasus-tours"
+        };
+        var path = window.location.pathname || "/";
+        var normalizedPath = path.length > 1 ? path.replace(/\/+$/, "") : path;
+        normalizedPath = normalizedPath.toLowerCase() || "/";
+        normalizedPath = aliases[normalizedPath] || normalizedPath;
+        var canonicalUrl = siteUrl + (normalizedPath === "/" ? "" : normalizedPath);
+
+        window.__GOTOCA_CANONICAL_URL__ = canonicalUrl;
+
+        document.addEventListener("DOMContentLoaded", function () {
+          var canonical = document.querySelector('link[rel="canonical"]');
+          if (canonical) canonical.setAttribute("href", canonicalUrl);
+
+          var ogUrl = document.querySelector('meta[property="og:url"]');
+          if (ogUrl) ogUrl.setAttribute("content", canonicalUrl);
+        });
+      })();
+    </script>
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

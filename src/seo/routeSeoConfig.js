@@ -1,5 +1,6 @@
+import { SITE_URL, getCanonicalUrl, normalizePathname } from "./canonical";
+
 const SITE_NAME = "Go To Central Asia";
-const SITE_URL = "https://www.gotocentralasia.com";
 const DEFAULT_IMAGE = `${SITE_URL}/logo.png`;
 const TWITTER_SITE = "@gotocentralasia";
 
@@ -126,26 +127,12 @@ const getBreadcrumbs = (pathname) => {
   });
 };
 
-const canonicalAliases = {
-  "/asian-tour-transfer": "/transfer",
-  "/caucas-tours": "/caucasus-tours",
-};
-
-const normalizePathname = (pathname) => {
-  const withoutTrailingSlash =
-    pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
-  const lowercasePathname = withoutTrailingSlash.toLowerCase();
-
-  return canonicalAliases[lowercasePathname] || lowercasePathname;
-};
 
 export const getSeoData = (pathname) => {
   const normalizedPathname = normalizePathname(pathname);
   const page =
     routeSeoMap[normalizedPathname] || buildFallbackSeo(normalizedPathname);
-  const canonical = `${SITE_URL}${
-    normalizedPathname === "/" ? "" : normalizedPathname
-  }`;
+  const canonical = getCanonicalUrl(normalizedPathname);
   const breadcrumbs = getBreadcrumbs(normalizedPathname);
 
   const organizationSchema = {

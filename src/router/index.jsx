@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import SeoHelmet from "../components/SEO/SeoHelmet";
 import SeoRuntime from "../components/SEO/SeoRuntime";
+import CanonicalRedirect from "../components/SEO/CanonicalRedirect";
 import MainPage from "../pages/Main Page";
 import TourIdPage from "../pages/Tour Detail";
 import ContactUs from "../pages/ContactUs";
@@ -74,6 +75,7 @@ import AttractionDetails from "../components/AttractionDetails";
 const Router = () => {
   return (
     <>
+      <CanonicalRedirect />
       <ScrollToTop />
       <SeoHelmet />
       <SeoRuntime />
@@ -765,6 +767,7 @@ const Router = () => {
             </MainLayout>
           }
         />
+        <Route path="*" element={<Navigate to="/" replace />} />
         <Route
           path="/10-best-places-to-visit-in-uzbekistan"
           element={
