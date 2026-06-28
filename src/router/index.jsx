@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import SeoHelmet from "../components/SEO/SeoHelmet";
 import SeoRuntime from "../components/SEO/SeoRuntime";
 import CanonicalRedirect from "../components/SEO/CanonicalRedirect";
@@ -85,17 +85,33 @@ const stripRussianPrefix = (pathname) => {
 
 const Router = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const russianPath = isRussianPath(location.pathname);
   const routeLocation = russianPath
     ? { ...location, pathname: stripRussianPrefix(location.pathname) }
     : location;
 
   useEffect(() => {
-    const nextLanguage = russianPath ? "ru" : "en";
-    if ((i18n.resolvedLanguage || i18n.language || "en").split("-")[0] !== nextLanguage) {
-      i18n.changeLanguage(nextLanguage);
+    const currentLanguage = (i18n.resolvedLanguage || i18n.language || "en").split("-")[0];
+
+    if (russianPath) {
+      if (currentLanguage !== "ru") {
+        i18n.changeLanguage("ru");
+      }
+      localStorage.setItem("lang", "ru");
+      return;
     }
-  }, [russianPath]);
+
+    if (localStorage.getItem("lang") === "ru") {
+      const russianPathname = location.pathname === "/" ? "/rus/" : `/rus${location.pathname}`;
+      navigate(`${russianPathname}${location.search}${location.hash}`, { replace: true });
+      return;
+    }
+
+    if (currentLanguage !== "en") {
+      i18n.changeLanguage("en");
+    }
+  }, [location.hash, location.pathname, location.search, navigate, russianPath]);
 
   return (
     <>
