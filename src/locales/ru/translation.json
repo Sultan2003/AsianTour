@@ -3,7 +3,8 @@
     "label": "Язык",
     "english": "Английский",
     "russian": "Русский",
-    "translate": "Перевести"
+    "translate": "Перевести",
+    "googleTranslate": "Google Переводчик"
   },
   "nav": {
     "aboutUs": "О нас",

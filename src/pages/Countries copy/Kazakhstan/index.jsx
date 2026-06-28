@@ -6,7 +6,7 @@ import styles from "./Kazakhstan.module.scss";
 import mainImg from "../../../assets/Countries/kazakhstan.jpg";
 
 export default function KazakhstanTours() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

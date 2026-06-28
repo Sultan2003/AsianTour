@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./LanguageSwitcher.module.scss";
+import TranslateWidget from "../TranslateWidget/TranslateWidget";
 
 const LANGUAGES = [
   { code: "en", flag: "🇬🇧", nameKey: "language.english", short: "EN" },
@@ -64,6 +65,17 @@ export default function LanguageSwitcher() {
                 </button>
               );
             })}
+            <TranslateWidget
+              buttonClassName={styles.option}
+              buttonContent={
+                <>
+                  <span>🌐</span>
+                  <span className={styles.name}>{t("language.googleTranslate")}</span>
+                </>
+              }
+              buttonStyle={null}
+              onOpen={() => setOpen(false)}
+            />
           </div>
           <button type="button" className={styles.translate} onClick={() => setOpen(false)}>
             {t("language.translate")}

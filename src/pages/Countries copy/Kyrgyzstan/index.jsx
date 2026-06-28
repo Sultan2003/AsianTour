@@ -6,7 +6,7 @@ import styles from "./Kyrgyzstan.module.scss";
 import mainImg from "../../../assets/Countries/kyrgyzstan.jpg";
 
 export default function KyrgyzstanTours() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

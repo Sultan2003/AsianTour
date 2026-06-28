@@ -6,7 +6,7 @@ import styles from "./Azerbaijan.module.scss";
 import mainImg from "../../../assets/Countries/azerbaijan.jpg";
 
 export default function AzerbaijanToursDestination() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

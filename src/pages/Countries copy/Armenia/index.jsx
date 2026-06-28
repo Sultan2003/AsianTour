@@ -6,7 +6,7 @@ import styles from "./Armenia.module.scss";
 import mainImg from "../../../assets/Countries/armenia.jpg";
 
 export default function ArmeniaToursDestination() {
-  const { lang: strapiLocale } = useContext(LanguageContext);
+  const { strapiLocale } = useContext(LanguageContext);
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
 

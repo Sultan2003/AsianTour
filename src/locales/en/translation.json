@@ -3,7 +3,8 @@
     "label": "Language",
     "english": "English",
     "russian": "Russian",
-    "translate": "Translate"
+    "translate": "Translate",
+    "googleTranslate": "Google Translate"
   },
   "nav": {
     "aboutUs": "About Us",
