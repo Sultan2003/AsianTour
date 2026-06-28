@@ -51,8 +51,16 @@ export default function TranslateWidget({
     translateDiv.style.display = "block";
     onOpen?.();
 
-    if (!scriptLoaded) {
+    if (window.google?.translate?.TranslateElement) {
+      if (!translateDiv.querySelector(".goog-te-combo")) {
+        window.googleTranslateElementInit?.();
+      }
+      return;
+    }
+
+    if (!scriptLoaded && !document.getElementById("google-translate-script")) {
       const script = document.createElement("script");
+      script.id = "google-translate-script";
       script.src =
         "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       document.body.appendChild(script);
@@ -63,7 +71,7 @@ export default function TranslateWidget({
   useEffect(() => {
     window.googleTranslateElementInit = function () {
       new window.google.translate.TranslateElement(
-        { pageLanguage: "en" },
+        { pageLanguage: "en", autoDisplay: false },
         "google_translate_element",
       );
 
@@ -140,7 +148,7 @@ export default function TranslateWidget({
           padding: "8px 10px",
           borderRadius: "10px",
           boxShadow: "0 4px 14px rgba(0,0,0,0.1)",
-          zIndex: 1000,
+          zIndex: 10000,
           animation: "fadeIn 0.3s ease",
         }}
       ></div>
