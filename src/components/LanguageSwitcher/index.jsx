@@ -39,6 +39,7 @@ export default function LanguageSwitcher() {
 
     i18n.changeLanguage(code);
     localStorage.setItem("lang", code);
+    localStorage.setItem("selectedLang", code);
     setOpen(false);
     navigate(`${nextPath}${location.search}${location.hash}`);
   };
@@ -86,6 +87,7 @@ export default function LanguageSwitcher() {
                 </>
               }
               buttonStyle={null}
+              renderElement={false}
             />
           </div>
           <button type="button" className={styles.translate} onClick={() => setOpen(false)}>

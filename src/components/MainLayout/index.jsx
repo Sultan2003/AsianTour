@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import { FaArrowUp } from "react-icons/fa";
 import styles from "./MainLayout.module.scss"; // use module for button
+import { LanguageContext } from "../../context/LanguageContext";
+import TranslateWidget from "../TranslateWidget/TranslateWidget";
 
 const MainLayout = ({ children }) => {
   const [showScroll, setShowScroll] = useState(false);
+  const { lang } = useContext(LanguageContext);
 
   // 👇 show button after scrolling
   useEffect(() => {
@@ -28,6 +31,10 @@ const MainLayout = ({ children }) => {
   return (
     <div className={styles.mainLayout}>
       <Header />
+      <TranslateWidget
+        hideButton
+        targetLanguage={lang === "ru" ? "ru" : "en"}
+      />
 
       <main>{children}</main>
 

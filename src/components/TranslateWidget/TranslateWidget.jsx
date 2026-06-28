@@ -1,10 +1,24 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+const TRANSLATE_ELEMENT_ID = "google_translate_element";
+const SCRIPT_ID = "google-translate-script";
+
+const setGoogleTranslateCookie = (language) => {
+  const value = language && language !== "en" ? `/en/${language}` : "/en/en";
+  const expires = "expires=Fri, 31 Dec 9999 23:59:59 GMT";
+
+  document.cookie = `googtrans=${value}; path=/; ${expires}`;
+  document.cookie = `googtrans=${value}; path=/; domain=${window.location.hostname}; ${expires}`;
+};
 
 export default function TranslateWidget({
   buttonClassName,
   buttonContent = "Translate",
   buttonStyle,
   onOpen,
+  targetLanguage,
+  hideButton = false,
+  renderElement = true,
 }) {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -39,8 +53,50 @@ export default function TranslateWidget({
     return () => clearInterval(interval);
   }, []);
 
+  const ensureTranslateScript = useCallback(() => {
+    const translateDiv = document.getElementById(TRANSLATE_ELEMENT_ID);
+    if (!translateDiv) return false;
+
+    if (window.google?.translate?.TranslateElement) {
+      if (!translateDiv.querySelector(".goog-te-combo")) {
+        window.googleTranslateElementInit?.();
+      }
+      return true;
+    }
+
+    if (!scriptLoaded && !document.getElementById(SCRIPT_ID)) {
+      const script = document.createElement("script");
+      script.id = SCRIPT_ID;
+      script.src =
+        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      document.body.appendChild(script);
+      setScriptLoaded(true);
+    }
+
+    return true;
+  }, [scriptLoaded]);
+
+  const applyLanguage = useCallback((language) => {
+    if (!language) return;
+
+    localStorage.setItem("selectedLang", language);
+    setGoogleTranslateCookie(language);
+    ensureTranslateScript();
+
+    const interval = setInterval(() => {
+      const langSelect = document.querySelector(".goog-te-combo");
+      if (langSelect) {
+        langSelect.value = language;
+        langSelect.dispatchEvent(new Event("change"));
+        clearInterval(interval);
+      }
+    }, 400);
+
+    setTimeout(() => clearInterval(interval), 8000);
+  }, [ensureTranslateScript]);
+
   const handleTranslateClick = () => {
-    const translateDiv = document.getElementById("google_translate_element");
+    const translateDiv = document.getElementById(TRANSLATE_ELEMENT_ID);
     if (!translateDiv) return;
 
     if (translateDiv.style.display === "block") {
@@ -50,29 +106,17 @@ export default function TranslateWidget({
 
     translateDiv.style.display = "block";
     onOpen?.();
-
-    if (window.google?.translate?.TranslateElement) {
-      if (!translateDiv.querySelector(".goog-te-combo")) {
-        window.googleTranslateElementInit?.();
-      }
-      return;
-    }
-
-    if (!scriptLoaded && !document.getElementById("google-translate-script")) {
-      const script = document.createElement("script");
-      script.id = "google-translate-script";
-      script.src =
-        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      document.body.appendChild(script);
-      setScriptLoaded(true);
-    }
+    ensureTranslateScript();
   };
 
   useEffect(() => {
     window.googleTranslateElementInit = function () {
+      const translateDiv = document.getElementById(TRANSLATE_ELEMENT_ID);
+      if (!translateDiv || translateDiv.querySelector(".goog-te-combo")) return;
+
       new window.google.translate.TranslateElement(
         { pageLanguage: "en", autoDisplay: false },
-        "google_translate_element",
+        TRANSLATE_ELEMENT_ID,
       );
 
       const observer = new MutationObserver(() => {
@@ -80,13 +124,14 @@ export default function TranslateWidget({
         if (langSelect && !langSelect.dataset.listenerAdded) {
           langSelect.dataset.listenerAdded = "true";
           langSelect.addEventListener("change", () => {
-            const selectedLang = langSelect.value;
+            const selectedLang = langSelect.value || "en";
             localStorage.setItem("selectedLang", selectedLang);
+            setGoogleTranslateCookie(selectedLang);
             setTimeout(() => {
-              const translateDiv = document.getElementById(
-                "google_translate_element",
+              const translateElement = document.getElementById(
+                TRANSLATE_ELEMENT_ID,
               );
-              if (translateDiv) translateDiv.style.display = "none";
+              if (translateElement) translateElement.style.display = "none";
             }, 800);
           });
         }
@@ -96,62 +141,58 @@ export default function TranslateWidget({
   }, []);
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("selectedLang");
-    if (savedLang && savedLang !== "en") {
-      const interval = setInterval(() => {
-        const langSelect = document.querySelector(".goog-te-combo");
-        if (langSelect) {
-          langSelect.value = savedLang;
-          langSelect.dispatchEvent(new Event("change"));
-          clearInterval(interval);
-        }
-      }, 800);
-      return () => clearInterval(interval);
+    const savedLang = targetLanguage || localStorage.getItem("selectedLang");
+    if (savedLang) {
+      applyLanguage(savedLang);
     }
-  }, []);
+  }, [applyLanguage, targetLanguage]);
 
   return (
     <>
-      <button
-        id="translateButton"
-        type="button"
-        className={buttonClassName}
-        onClick={handleTranslateClick}
-        style={
-          buttonStyle ??
-          (buttonClassName
-            ? undefined
-            : {
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                color: "white",
-                textDecoration: "none",
-                flexShrink: 0,
-                fontSize: isMobile ? "19px" : "18px",
-                fontWeight: "600",
-                padding: 0,
-              })
-        }
-      >
-        {buttonContent}
-      </button>
+      {!hideButton && (
+        <button
+          id="translateButton"
+          type="button"
+          className={buttonClassName}
+          onClick={handleTranslateClick}
+          style={
+            buttonStyle ??
+            (buttonClassName
+              ? undefined
+              : {
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "white",
+                  textDecoration: "none",
+                  flexShrink: 0,
+                  fontSize: isMobile ? "19px" : "18px",
+                  fontWeight: "600",
+                  padding: 0,
+                })
+          }
+        >
+          {buttonContent}
+        </button>
+      )}
 
-      <div
-        id="google_translate_element"
-        style={{
-          display: "none",
-          position: "fixed",
-          top: "3px",
-          left: "5px",
-          background: "#ffffff",
-          padding: "8px 10px",
-          borderRadius: "10px",
-          boxShadow: "0 4px 14px rgba(0,0,0,0.1)",
-          zIndex: 10000,
-          animation: "fadeIn 0.3s ease",
-        }}
-      ></div>
+      {renderElement && (
+        <div
+          id={TRANSLATE_ELEMENT_ID}
+          style={{
+            display: "none",
+            position: "fixed",
+            top: "3px",
+            left: "5px",
+            background: "#ffffff",
+            padding: "8px 10px",
+            borderRadius: "10px",
+            boxShadow: "0 4px 14px rgba(0,0,0,0.1)",
+            zIndex: 10000,
+            animation: "fadeIn 0.3s ease",
+          }}
+        ></div>
+      )}
     </>
   );
 }
