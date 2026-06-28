@@ -1,4 +1,4 @@
-import { SITE_URL, getCanonicalUrl, normalizePathname } from "./canonical";
+import { SITE_URL, getAlternateUrls, getCanonicalUrl, normalizePathname, splitLocalePathname } from "./canonical";
 import { getSeoBlogPost, seoTourPages } from "./staticSeoPages";
 
 const SITE_NAME = "Go To Central Asia";
@@ -148,10 +148,12 @@ const getBreadcrumbs = (pathname) => {
 
 export const getSeoData = (pathname) => {
   const normalizedPathname = normalizePathname(pathname);
+  const { isRussian, pathname: routePathname } = splitLocalePathname(normalizedPathname);
   const page =
-    routeSeoMap[normalizedPathname] || buildFallbackSeo(normalizedPathname);
+    routeSeoMap[routePathname] || buildFallbackSeo(routePathname);
   const canonical = getCanonicalUrl(normalizedPathname);
-  const breadcrumbs = getBreadcrumbs(normalizedPathname);
+  const alternates = getAlternateUrls(normalizedPathname);
+  const breadcrumbs = getBreadcrumbs(routePathname);
 
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -239,6 +241,9 @@ export const getSeoData = (pathname) => {
     ...page,
     siteName: SITE_NAME,
     canonical,
+    alternates,
+    locale: isRussian ? "ru_RU" : "en_US",
+    htmlLang: isRussian ? "ru" : "en",
     image: page.image || DEFAULT_IMAGE,
     type: page.type || "website",
     robots: page.robots || "index,follow,max-image-preview:large",
@@ -246,8 +251,8 @@ export const getSeoData = (pathname) => {
     schemas: [
       organizationSchema,
       websiteSchema,
-      normalizedPathname === "/" ? travelAgencySchema : null,
-      normalizedPathname === "/" ? localBusinessSchema : null,
+      routePathname === "/" ? travelAgencySchema : null,
+      routePathname === "/" ? localBusinessSchema : null,
       touristTripSchema,
       breadcrumbSchema,
     ].filter(Boolean),

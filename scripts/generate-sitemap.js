@@ -13,6 +13,20 @@ const PAGE_SIZE = 100;
 const BUILD_DATE = new Date();
 const DEFAULT_LASTMOD = BUILD_DATE.toISOString();
 
+const toAbsoluteUrl = (path) => `${SITE_URL}${path === "/" ? "" : path}`;
+const toRussianPath = (path) => (path === "/" ? "/rus/" : `/rus${path}`);
+const withLocaleLinks = (entry, englishPath = entry.url) => {
+  const ruPath = toRussianPath(englishPath);
+  return {
+    ...entry,
+    links: [
+      { lang: "en", url: toAbsoluteUrl(englishPath) },
+      { lang: "ru", url: toAbsoluteUrl(ruPath) },
+      { lang: "x-default", url: toAbsoluteUrl(englishPath) },
+    ],
+  };
+};
+
 const fallbackDynamicTourSlugs = [
   "8-day-private-classic-uzbekistan-tour",
   "1-day-chimgan-and-charvak-tour",
@@ -654,7 +668,10 @@ async function generate() {
     sitemap.write(entry);
   };
 
-  [...staticRoutes, ...dynamicTourRoutes, ...dynamicHotelRoutes].forEach(writeUrl);
+  [...staticRoutes, ...dynamicTourRoutes, ...dynamicHotelRoutes].forEach((entry) => {
+    writeUrl(withLocaleLinks(entry));
+    writeUrl(withLocaleLinks({ ...entry, url: toRussianPath(entry.url) }, entry.url));
+  });
 
   sitemap.end();
 

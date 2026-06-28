@@ -5,6 +5,10 @@ import en from "./locales/en/translation.json";
 import ru from "./locales/ru/translation.json";
 
 const normalizeLanguage = (language) => (language || "en").split("-")[0];
+const pathLanguage =
+  typeof window !== "undefined" && /^\/rus(?:\/|$)/.test(window.location.pathname)
+    ? "ru"
+    : null;
 
 if (!i18n.isInitialized) {
   i18n
@@ -18,11 +22,12 @@ if (!i18n.isInitialized) {
       fallbackLng: "en",
       supportedLngs: ["en", "ru"],
       load: "languageOnly",
+      lng: pathLanguage || undefined,
       interpolation: {
         escapeValue: false,
       },
       detection: {
-        order: ["localStorage", "navigator"],
+        order: pathLanguage ? [] : ["localStorage", "navigator"],
         lookupLocalStorage: "lang",
         caches: ["localStorage"],
         convertDetectedLanguage: normalizeLanguage,

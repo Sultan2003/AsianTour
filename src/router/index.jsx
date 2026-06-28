@@ -1,4 +1,5 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import SeoHelmet from "../components/SEO/SeoHelmet";
 import SeoRuntime from "../components/SEO/SeoRuntime";
 import CanonicalRedirect from "../components/SEO/CanonicalRedirect";
@@ -70,17 +71,39 @@ import BookingForm from "../pages/BookingForm";
 import Hotels from "../components/HotelDetails";
 import HotelsList from "../components/HotelsList";
 import BlogArticle from "../pages/BlogArticle";
+import i18n from "../i18n";
 
 import AttractionDetails from "../components/AttractionDetails";
 
+const isRussianPath = (pathname) => pathname === "/rus" || pathname.startsWith("/rus/");
+
+const stripRussianPrefix = (pathname) => {
+  if (pathname === "/rus") return "/";
+  if (pathname.startsWith("/rus/")) return pathname.replace(/^\/rus/, "") || "/";
+  return pathname;
+};
+
 const Router = () => {
+  const location = useLocation();
+  const russianPath = isRussianPath(location.pathname);
+  const routeLocation = russianPath
+    ? { ...location, pathname: stripRussianPrefix(location.pathname) }
+    : location;
+
+  useEffect(() => {
+    const nextLanguage = russianPath ? "ru" : "en";
+    if ((i18n.resolvedLanguage || i18n.language || "en").split("-")[0] !== nextLanguage) {
+      i18n.changeLanguage(nextLanguage);
+    }
+  }, [russianPath]);
+
   return (
     <>
       <CanonicalRedirect />
       <ScrollToTop />
       <SeoHelmet />
       <SeoRuntime />
-      <Routes>
+      <Routes location={routeLocation}>
         <Route
           path="/"
           element={
