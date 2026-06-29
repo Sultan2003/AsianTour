@@ -676,7 +676,13 @@ async function generate() {
   sitemap.end();
 
   const xml = await streamToPromise(sitemap);
-  await writeFile("./public/sitemap.xml", xml);
+  const styledXml = xml
+    .toString()
+    .replace(
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>',
+    );
+  await writeFile("./public/sitemap.xml", styledXml);
 
   console.log("✅ Sitemap generated successfully");
   console.log(`→ static routes: ${staticRoutes.length}`);
