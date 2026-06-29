@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Samarkand.module.scss";
 import Samarkand from "../../../../assets/Cities/Samarkand/Registan Square Samarkand.jpg";
 import { useNavigate } from "react-router-dom";
+import CityAttractions from "../../../../components/CityAttractions";
 import { Helmet } from "react-helmet-async";
 
 /* Cultural Landmarks — sample paths */
@@ -432,6 +433,7 @@ export default function SamarkandPage() {
                 ))}
             </section>
           ))}
+          <CityAttractions city="Samarkand" />
         </div>
 
         {/* RIGHT — tours (UNTOUCHED logic but Samarkand filter) */}

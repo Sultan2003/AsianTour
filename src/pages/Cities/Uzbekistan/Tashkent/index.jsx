@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Tashkent.module.scss";
 import Tashkent from "../../../../assets/Cities/tashkent.jpg";
 import { useNavigate } from "react-router-dom";
+import CityAttractions from "../../../../components/CityAttractions";
 
 /* History */
 import history1 from "../../../../assets/Cities/Tashkent City Images/Old Tashkent.jpg";
@@ -596,29 +597,7 @@ export default function TashkentPage() {
               ))}
           </section>
         ))}
-        <div className={styles.moreAttractions}>
-          <h2>More Attractions in Uzbekistan</h2>
-
-          <div className={styles.attractionsGrid}>
-            <a href="/attractions/registan-square">Registan Square</a>
-            <a href="/attractions/gur-e-amir">Gur-e-Amir Mausoleum</a>
-            <a href="/attractions/shah-i-zinda">Shah-i-Zinda</a>
-            <a href="/attractions/bibi-khanym-mosque">Bibi-Khanym Mosque</a>
-            <a href="/attractions/poi-kalyan">Poi-Kalyan Complex</a>
-            <a href="/attractions/ark-fortress">Ark Fortress</a>
-            <a href="/attractions/lyabi-hauz">Lyabi-Hauz Ensemble</a>
-            <a href="/attractions/chor-minor">Chor Minor</a>
-
-            <a href="/attractions/hazrat-imam-complex">Hazrat Imam Complex</a>
-            <a href="/attractions/chorsu-bazaar">Chorsu Bazaar</a>
-            <a href="/attractions/amir-timur-square">Amir Timur Square</a>
-            <a href="/attractions/minor-mosque">Minor Mosque</a>
-            <a href="/attractions/independence-square">Independence Square</a>
-            <a href="/attractions/tashkent-metro">Tashkent Metro</a>
-            <a href="/attractions/kukeldash-madrasah">Kukeldash Madrasah</a>
-            <a href="/attractions/tv-tower">Tashkent TV Tower</a>
-          </div>
-        </div>
+        <CityAttractions city="Tashkent" />
       </div>
 
       {/* RIGHT SIDE — DO NOT TOUCH */}

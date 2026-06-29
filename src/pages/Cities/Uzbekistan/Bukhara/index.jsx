@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Bukhara.module.scss";
 import BukharaImg from "../../../../assets/Cities/Bukhara/Ark Fortress.jpg";
 import { useNavigate } from "react-router-dom";
+import CityAttractions from "../../../../components/CityAttractions";
 
 import lyabi from "../../../../assets/Cities/Bukhara/Labi-Xovuz.png";
 import lyabi1 from "../../../../assets/Cities/Bukhara/Lyabi-Hauz 3.jpg";
@@ -434,6 +435,7 @@ export default function BukharaPage() {
               ))}
           </section>
         ))}
+        <CityAttractions city="Bukhara" />
       </div>
 
       {/* RIGHT SIDE */}
