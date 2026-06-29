@@ -5,6 +5,73 @@ import styles from "./AttractionDetails.module.scss";
 
 const STRAPI_URL = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
+const isSafeUrl = (url = "") => /^(https?:|mailto:|tel:|\/)/i.test(url);
+
+const renderTextNode = (node, key) => {
+  let content = node.text || "";
+
+  if (node.code) content = <code>{content}</code>;
+  if (node.strikethrough) content = <s>{content}</s>;
+  if (node.underline) content = <u>{content}</u>;
+  if (node.italic) content = <em>{content}</em>;
+  if (node.bold) content = <strong>{content}</strong>;
+
+  return <span key={key}>{content}</span>;
+};
+
+const renderInlineNodes = (nodes = []) =>
+  nodes.map((node, index) => {
+    if (node.type === "link") {
+      const href = isSafeUrl(node.url) ? node.url : "#";
+
+      return (
+        <a
+          key={index}
+          href={href}
+          target={href.startsWith("http") ? "_blank" : undefined}
+          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        >
+          {renderInlineNodes(node.children)}
+        </a>
+      );
+    }
+
+    return renderTextNode(node, index);
+  });
+
+const renderRichTextBlock = (block, index) => {
+  const children = renderInlineNodes(block.children);
+
+  switch (block.type) {
+    case "heading": {
+      const level = Math.min(Math.max(block.level || 2, 1), 6);
+      const Heading = `h${level}`;
+      return <Heading key={index}>{children}</Heading>;
+    }
+    case "list": {
+      const List = block.format === "ordered" ? "ol" : "ul";
+      return (
+        <List key={index}>
+          {block.children?.map((item, itemIndex) => (
+            <li key={itemIndex}>{renderInlineNodes(item.children)}</li>
+          ))}
+        </List>
+      );
+    }
+    case "quote":
+      return <blockquote key={index}>{children}</blockquote>;
+    case "code":
+      return (
+        <pre key={index}>
+          <code>{block.children?.map((child) => child.text || "").join("")}</code>
+        </pre>
+      );
+    case "paragraph":
+    default:
+      return <p key={index}>{children}</p>;
+  }
+};
+
 export default function AttractionDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -116,11 +183,7 @@ export default function AttractionDetails() {
             {block.content && (
               <div className={styles.content}>
                 {Array.isArray(block.content)
-                  ? block.content.map((item, idx) => (
-                      <p key={idx}>
-                        {item.children?.map((child) => child.text || "").join("")}
-                      </p>
-                    ))
+                  ? block.content.map(renderRichTextBlock)
                   : block.content}
               </div>
             )}
