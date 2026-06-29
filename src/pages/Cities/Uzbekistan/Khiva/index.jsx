@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Khiva.module.scss";
 import { useNavigate } from "react-router-dom";
+import CityAttractions from "../../../../components/CityAttractions";
 
 /* Hero */
 import Khiva from "../../../../assets/Cities/Khiva/Ichan qal'a 1.jpg";
@@ -316,6 +317,7 @@ export default function KhivaPage() {
             ))}
           </section>
         ))}
+        <CityAttractions city="Khiva" />
       </div>
 
       <div className={styles.right}>
