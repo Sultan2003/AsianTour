@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styles from "./BookingForm.module.scss";
 import Kamola from "../../assets/stuff/1.png";
 import tashkent from "../../assets/Cities/Tashkent City Images/Amir Temur Statue.jpg";
@@ -27,7 +28,26 @@ const TIME_OPTIONS = [
 const CONTACT_OPTIONS = ["Telegram", "WhatsApp", "Phone", "Email"];
 const TOTAL_STEPS = 10;
 
+const bookingCopy = {
+  en: {
+    required: "Please complete required fields on this step.", sent: "✅ Request sent successfully.", failed: "❌ Failed to send. Please try again.",
+    manager: "Kamola Rasuleva · Manager", help: "Please complete each step. If you are not sure, choose the closest option and add notes.", step: "Step", back: "← Back", next: "Next →", sending: "Sending...", submit: "Send booking request",
+    q: ["Which city are you flying to?", "What time are you arriving?", "Can you start excursion on the first day?", "Tell us about group size and nights", "Which city do you plan to visit next?", "How many nights in this city?", "Which city do you plan to visit after that?", "How many nights in the third city?", "Departure city and extra wishes", "Final step: your contact details"],
+    yesNo: ["Yes", "No, need rest", "Not sure"], labels: ["Guests count *", "Total nights for whole tour *", "Nights in first city *", "Main things to see in first city", "Nights in second city *", "Main things to see in second city", "Nights in third city *", "Main things to see in third city", "From which city do you fly home? *", "Extra wishes / cities / important notes", "Name *", "Phone *", "Email", "Best contact channel", "I agree with personal data processing policy."], placeholder: "Example: Tashkent",
+    times: TIME_OPTIONS,
+  },
+  ru: {
+    required: "Пожалуйста, заполните обязательные поля на этом шаге.", sent: "✅ Заявка успешно отправлена.", failed: "❌ Не удалось отправить. Попробуйте ещё раз.",
+    manager: "Камола Расулева · менеджер", help: "Пожалуйста, заполните каждый шаг. Если вы не уверены, выберите ближайший вариант и добавьте комментарии.", step: "Шаг", back: "← Назад", next: "Далее →", sending: "Отправка...", submit: "Отправить заявку",
+    q: ["В какой город вы прилетаете?", "В какое время вы прибываете?", "Сможете начать экскурсию в первый день?", "Расскажите о количестве гостей и ночах", "Какой город планируете посетить следующим?", "Сколько ночей в этом городе?", "Какой город планируете посетить после этого?", "Сколько ночей в третьем городе?", "Город вылета и дополнительные пожелания", "Финальный шаг: ваши контакты"],
+    yesNo: ["Да", "Нет, нужен отдых", "Не уверен(а)"], labels: ["Количество гостей *", "Всего ночей на весь тур *", "Ночей в первом городе *", "Что обязательно посмотреть в первом городе", "Ночей во втором городе *", "Что обязательно посмотреть во втором городе", "Ночей в третьем городе *", "Что обязательно посмотреть в третьем городе", "Из какого города вы улетаете домой? *", "Дополнительные пожелания / города / важные заметки", "Имя *", "Телефон *", "Email", "Предпочтительный способ связи", "Я согласен(на) с обработкой персональных данных."], placeholder: "Например: Ташкент",
+    times: ["Ночь (00:00 - 06:00)", "Утро (06:00 - 12:00)", "День (12:00 - 18:00)", "Вечер (18:00 - 24:00)", "Пока не знаю"],
+  }
+};
+
 const BookingForm = () => {
+  const { i18n } = useTranslation();
+  const copy = bookingCopy[(i18n.resolvedLanguage || i18n.language || "en").split("-")[0]] || bookingCopy.en;
   const [currentStep, setCurrentStep] = useState(1);
   const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState({
@@ -93,7 +113,7 @@ const BookingForm = () => {
 
   const nextStep = () => {
     if (!isStepValid()) {
-      alert("Please complete required fields on this step.");
+      alert(copy.required);
       return;
     }
     setCurrentStep((prev) => Math.min(TOTAL_STEPS, prev + 1));
@@ -163,14 +183,14 @@ const BookingForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isStepValid()) {
-      alert("Please fill required fields.");
+      alert(copy.required);
       return;
     }
 
     setIsSending(true);
     try {
       await sendToTelegram();
-      alert("✅ Request sent successfully.");
+      alert(copy.sent);
       setCurrentStep(1);
       setFormData({
         arrivalCity: "",
@@ -196,7 +216,7 @@ const BookingForm = () => {
       });
     } catch (error) {
       console.error(error);
-      alert("❌ Failed to send. Please try again.");
+      alert(copy.failed);
     } finally {
       setIsSending(false);
     }
@@ -212,32 +232,30 @@ const BookingForm = () => {
         <div className={styles.grid}>
           <section className={styles.leftPane}>
             <h1 className={styles.questionTitle}>
-              {currentStep === 1 && "Which city are you flying to?"}
-              {currentStep === 2 && "What time are you arriving?"}
-              {currentStep === 3 && "Can you start excursion on the first day?"}
-              {currentStep === 4 && "Tell us about group size and nights"}
-              {currentStep === 5 && "Which city do you plan to visit next?"}
-              {currentStep === 6 && "How many nights in this city?"}
-              {currentStep === 7 &&
-                "Which city do you plan to visit after that?"}
-              {currentStep === 8 && "How many nights in the third city?"}
-              {currentStep === 9 && "Departure city and extra wishes"}
-              {currentStep === 10 && "Final step: your contact details"}
+              {currentStep === 1 && copy.q[0]}
+              {currentStep === 2 && copy.q[1]}
+              {currentStep === 3 && copy.q[2]}
+              {currentStep === 4 && copy.q[3]}
+              {currentStep === 5 && copy.q[4]}
+              {currentStep === 6 && copy.q[5]}
+              {currentStep === 7 && copy.q[6]}
+              {currentStep === 8 && copy.q[7]}
+              {currentStep === 9 && copy.q[8]}
+              {currentStep === 10 && copy.q[9]}
             </h1>
 
             <div className={styles.managerCard}>
               <img src={Kamola} className={styles.avatar}></img>
               <div>
-                <strong>Kamola Rasuleva · Manager</strong>
+                <strong>{copy.manager}</strong>
                 <p>
-                  Please complete each step. If you are not sure, choose the
-                  closest option and add notes.
+                  {copy.help}
                 </p>
               </div>
             </div>
 
             <p className={styles.stepLabel}>
-              Step: {currentStep}/{TOTAL_STEPS}
+              {copy.step}: {currentStep}/{TOTAL_STEPS}
             </p>
           </section>
 
@@ -252,7 +270,7 @@ const BookingForm = () => {
 
             {currentStep === 2 && (
               <div className={styles.optionColumn}>
-                {TIME_OPTIONS.map((time) => (
+                {copy.times.map((time) => (
                   <button
                     type="button"
                     key={time}
@@ -267,7 +285,7 @@ const BookingForm = () => {
 
             {currentStep === 3 && (
               <div className={styles.optionColumn}>
-                {["Yes", "No, need rest", "Not sure"].map((option) => (
+                {copy.yesNo.map((option) => (
                   <button
                     type="button"
                     key={option}
@@ -283,7 +301,7 @@ const BookingForm = () => {
             {currentStep === 4 && (
               <div className={styles.optionColumn}>
                 <label>
-                  Guests count *
+                  {copy.labels[0]}
                   <input
                     type="number"
                     min="1"
@@ -293,7 +311,7 @@ const BookingForm = () => {
                   />
                 </label>
                 <label>
-                  Total nights for whole tour *
+                  {copy.labels[1]}
                   <input
                     type="number"
                     min="1"
@@ -303,7 +321,7 @@ const BookingForm = () => {
                   />
                 </label>
                 <label>
-                  Nights in first city *
+                  {copy.labels[2]}
                   <input
                     type="number"
                     min="0"
@@ -315,7 +333,7 @@ const BookingForm = () => {
                   />
                 </label>
                 <label>
-                  Main things to see in first city
+                  {copy.labels[3]}
                   <textarea
                     rows="4"
                     value={formData.firstCityMustSee}
@@ -330,7 +348,7 @@ const BookingForm = () => {
             {currentStep === 5 && (
               <div className={styles.cardsGrid}>
                 {CITY_CARDS.map((city) =>
-                  cityCard(city.label, city.label, "secondCity"),
+                  cityCard(city.label, city.label, city.image, "secondCity"),
                 )}
               </div>
             )}
@@ -338,7 +356,7 @@ const BookingForm = () => {
             {currentStep === 6 && (
               <div className={styles.optionColumn}>
                 <label>
-                  Nights in second city *
+                  {copy.labels[4]}
                   <input
                     type="number"
                     min="0"
@@ -350,7 +368,7 @@ const BookingForm = () => {
                   />
                 </label>
                 <label>
-                  Main things to see in second city
+                  {copy.labels[5]}
                   <textarea
                     rows="5"
                     value={formData.secondCityMustSee}
@@ -365,7 +383,7 @@ const BookingForm = () => {
             {currentStep === 7 && (
               <div className={styles.cardsGrid}>
                 {CITY_CARDS.map((city) =>
-                  cityCard(city.label, city.label, "thirdCity"),
+                  cityCard(city.label, city.label, city.image, "thirdCity"),
                 )}
               </div>
             )}
@@ -373,7 +391,7 @@ const BookingForm = () => {
             {currentStep === 8 && (
               <div className={styles.optionColumn}>
                 <label>
-                  Nights in third city *
+                  {copy.labels[6]}
                   <input
                     type="number"
                     min="0"
@@ -385,7 +403,7 @@ const BookingForm = () => {
                   />
                 </label>
                 <label>
-                  Main things to see in third city
+                  {copy.labels[7]}
                   <textarea
                     rows="5"
                     value={formData.thirdCityMustSee}
@@ -400,18 +418,18 @@ const BookingForm = () => {
             {currentStep === 9 && (
               <div className={styles.optionColumn}>
                 <label>
-                  From which city do you fly home? *
+                  {copy.labels[8]}
                   <input
                     type="text"
                     value={formData.departureCity}
                     onChange={(e) =>
                       updateField("departureCity", e.target.value)
                     }
-                    placeholder="Example: Tashkent"
+                    placeholder={copy.placeholder}
                   />
                 </label>
                 <label>
-                  Extra wishes / cities / important notes
+                  {copy.labels[9]}
                   <textarea
                     rows="8"
                     value={formData.extraWishes}
@@ -424,7 +442,7 @@ const BookingForm = () => {
             {currentStep === 10 && (
               <div className={styles.optionColumn}>
                 <label>
-                  Name *
+                  {copy.labels[10]}
                   <input
                     type="text"
                     value={formData.fullName}
@@ -432,7 +450,7 @@ const BookingForm = () => {
                   />
                 </label>
                 <label>
-                  Phone *
+                  {copy.labels[11]}
                   <input
                     type="tel"
                     value={formData.phone}
@@ -440,7 +458,7 @@ const BookingForm = () => {
                   />
                 </label>
                 <label>
-                  Email
+                  {copy.labels[12]}
                   <input
                     type="email"
                     value={formData.email}
@@ -448,7 +466,7 @@ const BookingForm = () => {
                   />
                 </label>
                 <label>
-                  Best contact channel
+                  {copy.labels[13]}
                   <select
                     value={formData.preferredContact}
                     onChange={(e) =>
@@ -466,7 +484,7 @@ const BookingForm = () => {
                     checked={formData.agree}
                     onChange={(e) => updateField("agree", e.target.checked)}
                   />
-                  I agree with personal data processing policy.
+                  {copy.labels[14]}
                 </label>
               </div>
             )}
@@ -478,7 +496,7 @@ const BookingForm = () => {
                 onClick={prevStep}
                 disabled={currentStep === 1}
               >
-                ← Back
+                {copy.back}
               </button>
 
               {currentStep < TOTAL_STEPS ? (
@@ -487,7 +505,7 @@ const BookingForm = () => {
                   className={styles.nextBtn}
                   onClick={nextStep}
                 >
-                  Next →
+                  {copy.next}
                 </button>
               ) : (
                 <button
@@ -495,7 +513,7 @@ const BookingForm = () => {
                   className={styles.nextBtn}
                   disabled={isSending}
                 >
-                  {isSending ? "Sending..." : "Send booking request"}
+                  {isSending ? copy.sending : copy.submit}
                 </button>
               )}
             </div>

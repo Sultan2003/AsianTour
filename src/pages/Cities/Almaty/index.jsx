@@ -13,6 +13,7 @@ import asc3 from "../../../assets/Cities/Almaty/Ascension Cathedral (Zenkov Cath
 
 import memory from "../../../assets/Cities/Almaty/Memory of glory (Almaty).jpg";
 import museum from "../../../assets/Cities/Almaty/Museum of Folk Instruments. Almaty.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function AlmatyPage() {
   const [tours, setTours] = useState([]);
@@ -296,7 +297,7 @@ export default function AlmatyPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

@@ -40,6 +40,7 @@ import tat3 from "../../../assets/Cities/Erevan/Tatev Monastery & Wings of Tatev
 import zv1 from "../../../assets/Cities/Erevan/Zvartnots Cathedral Ruins 1.jpg";
 import zv2 from "../../../assets/Cities/Erevan/Zvartnots Cathedral Ruins 2.jpg";
 import zv3 from "../../../assets/Cities/Erevan/Zvartnots Cathedral Ruins 3.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function ErevanPage() {
   const [tours, setTours] = useState([]);
@@ -460,7 +461,7 @@ export default function ErevanPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

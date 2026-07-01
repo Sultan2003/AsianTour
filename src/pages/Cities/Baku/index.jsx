@@ -25,6 +25,7 @@ import flame3 from "../../../assets/Cities/Baku/Flame Towers 3.jpg";
 import sheki1 from "../../../assets/Cities/Baku/Sheki & Sheki Khan’s Palace 1.jpg";
 import sheki2 from "../../../assets/Cities/Baku/Sheki & Sheki Khan’s Palace 2.jpg";
 import sheki3 from "../../../assets/Cities/Baku/Sheki & Sheki Khan’s Palace 3.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function BakuPage() {
   const [tours, setTours] = useState([]);
@@ -355,7 +356,7 @@ export default function BakuPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

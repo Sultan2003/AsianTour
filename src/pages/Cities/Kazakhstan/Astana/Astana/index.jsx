@@ -30,6 +30,7 @@ import khanShatyr from "../../../../../assets/Cities/Kazakhstan/Khan Shatyr Ente
 
 /* Palace of Peace */
 import palacePeace from "../../../../../assets/Cities/Kazakhstan/Palace of Peace and Reconciliation (The Pyramid).jpg";
+import translateTourTitle from "../../../../../utils/tourTitleTranslations";
 
 export default function AstanaPage() {
   const [tours, setTours] = useState([]);
@@ -454,7 +455,7 @@ export default function AstanaPage() {
           <div key={tour.id} className={styles.tourCard}>
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 /* Independence Monument */
 import ind1 from "../../../assets/Cities/Ashgabat/Independence Monument.png";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function AshgabatPage() {
   const [tours, setTours] = useState([]);
@@ -311,7 +312,7 @@ export default function AshgabatPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

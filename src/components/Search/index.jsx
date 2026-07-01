@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Search.module.scss";
+import translateTourTitle from "../../utils/tourTitleTranslations";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 const API_URL = `${STRAPI_BASE}/api/asian-tours?populate=*`;
@@ -298,12 +299,12 @@ export default function SearchPage() {
                   <div className={styles.bigImg}>
                     <img
                       src={imageOrPlaceholder(tour.title)}
-                      alt={tour.title}
+                      alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                     />
                   </div>
 
                   <div className={styles.bigInfo}>
-                    <h3 className={styles.bigTitle}>{tour.title}</h3>
+                    <h3 className={styles.bigTitle}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
 
                     {/* Date section */}
                     {month ? (

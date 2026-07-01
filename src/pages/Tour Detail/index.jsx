@@ -4,6 +4,7 @@ import { LanguageContext } from "../../context/LanguageContext";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
+import translateTourTitle from "../../utils/tourTitleTranslations";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -606,10 +607,10 @@ export default function TourIdPage() {
   return (
     <div className={styles.tourPage}>
       <Helmet>
-        <title>{tour.title} | Gotocentralasia</title>
+        <title>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} | Gotocentralasia</title>
         <meta
           name="description"
-          content={`${tour.title} — explore ${tour.location}. Tour lasts ${days} days. Price: $${tour.price}. Full itinerary, dates, prices & booking.`}
+          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} — explore ${tour.location}. Tour lasts ${days} days. Price: $${tour.price}. Full itinerary, dates, prices & booking.`}
         />
         <link
           rel="canonical"
@@ -617,10 +618,10 @@ export default function TourIdPage() {
         />
 
         {/* Open Graph (for Facebook) */}
-        <meta property="og:title" content={tour.title} />
+        <meta property="og:title" content={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} />
         <meta
           property="og:description"
-          content={`${tour.title} — ${tour.location}. ${days} days.`}
+          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} — ${tour.location}. ${days} days.`}
         />
         <meta
           property="og:image"
@@ -634,10 +635,10 @@ export default function TourIdPage() {
         />
 
         {/* Twitter Card */}
-        <meta name="twitter:title" content={tour.title} />
+        <meta name="twitter:title" content={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} />
         <meta
           name="twitter:description"
-          content={`${tour.title}, ${days} days.`}
+          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}, ${days} days.`}
         />
         <meta name="twitter:image" content={tourImages[0]?.url} />
       </Helmet>
@@ -731,8 +732,8 @@ export default function TourIdPage() {
                   src={img.url}
                   alt={
                     img.alternativeText?.trim()
-                      ? `${tour.title} — ${img.alternativeText}`
-                      : `${tour.title} in ${tour.location}`
+                      ? `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} — ${img.alternativeText}`
+                      : `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} in ${tour.location}`
                   }
                 />
               </div>
@@ -1372,7 +1373,7 @@ export default function TourIdPage() {
         {/* Right card */}
         <div>
           <div className={styles.detailsCard}>
-            <h2>{tour.title}</h2>
+            <h2>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h2>
             <div className={styles.price}>US${tour.price}</div>
 
             <div className={styles.infoLine}>
@@ -1488,7 +1489,7 @@ export default function TourIdPage() {
                         }}
                         style={{ cursor: "pointer" }}
                       >
-                        {tItem.title}
+                        {translateTourTitle(tItem.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                       </li>
                     ))}
                   </ul>
@@ -1560,7 +1561,7 @@ export default function TourIdPage() {
                 const message = `
 New Booking Request
 
-Tour: ${tour.title}
+Tour: ${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
 Start Date: ${formatDate(selectedDate.start)}
 End Date: ${formatDate(selectedDate.end, true)}
 Price: ${selectedDate.price}
@@ -1597,7 +1598,7 @@ Guest Email: ${email}
               <input name="email" required type="email" />
 
               <label>{t.title}</label>
-              <input value={tour.title} readOnly />
+              <input value={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} readOnly />
 
               <label>{t.date}</label>
               <input

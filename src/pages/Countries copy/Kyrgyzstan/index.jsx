@@ -4,6 +4,7 @@ import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Kyrgyzstan.module.scss";
 import mainImg from "../../../assets/Countries/kyrgyzstan.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function KyrgyzstanTours() {
   const { strapiLocale } = useContext(LanguageContext);
@@ -136,7 +137,7 @@ export default function KyrgyzstanTours() {
                   </div>
                   <div className={styles.tourInfo}>
                     <a href="#" className={styles.title}>
-                      {tour.title}
+                      {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                     </a>
                     <p className={styles.cities}>{tour.location}</p>
                     <a href="#" className={styles.departures}>

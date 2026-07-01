@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
 import styles from "./Uzbekistan.module.scss";
 import mainImg from "../../../assets/Countries/uzb.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -387,7 +388,7 @@ export default function UzbekistanTours() {
                 </div>
 
                 <div className={styles.tourInfo}>
-                  <a className={styles.title}>{tour.title}</a>
+                  <a className={styles.title}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</a>
                   <p className={styles.cities}>{tour.location}</p>
                   <a className={styles.departures}>
                     {tour.availableSeats} {t.seatsAvailable}
@@ -423,12 +424,12 @@ export default function UzbekistanTours() {
                   <div className={styles.bigImg}>
                     <img
                       src={imageOrPlaceholder(tour.title)}
-                      alt={tour.title}
+                      alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                     />
                   </div>
 
                   <div className={styles.bigInfo}>
-                    <h3 className={styles.bigTitle}>{tour.title}</h3>
+                    <h3 className={styles.bigTitle}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
                     <p className={styles.summary}>
                       {(
                         (tour.description || "") +

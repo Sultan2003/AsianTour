@@ -4,6 +4,7 @@ import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Caucasus.module.scss";
 import mainImg from "../../../assets/Countries/Caucasus.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function CaucasusTours() {
   const { strapiLocale } = useContext(LanguageContext);
@@ -145,7 +146,7 @@ export default function CaucasusTours() {
                   </div>
                   <div className={styles.tourInfo}>
                     <a href="#" className={styles.title}>
-                      {tour.title}
+                      {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                     </a>
                     <p className={styles.cities}>{tour.location}</p>
                     <a href="#" className={styles.departures}>

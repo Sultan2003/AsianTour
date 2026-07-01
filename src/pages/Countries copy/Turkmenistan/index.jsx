@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { LanguageContext } from "../../../context/LanguageContext";
 import styles from "./Turkmenistan.module.scss";
 import mainImg from "../../../assets/Countries/Turkmenistan.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function TurkmenistanTours() {
   const { strapiLocale } = useContext(LanguageContext);
@@ -136,7 +137,7 @@ export default function TurkmenistanTours() {
                   </div>
                   <div className={styles.tourInfo}>
                     <a href="#" className={styles.title}>
-                      {tour.title}
+                      {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                     </a>
                     <p className={styles.cities}>{tour.location}</p>
                     <a href="#" className={styles.departures}>

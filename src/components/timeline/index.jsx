@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import styles from "./timeline.module.scss";
+import { useTranslation } from "react-i18next";
+import translateTourTitle from "../../utils/tourTitleTranslations";
 import { motion, AnimatePresence } from "framer-motion";
 import olympic from "../../assets/timeline/olympic.jpg";
 import achaemenid from "../../assets/timeline/Achaemenid Empire Founded 550ВС.jpg";
@@ -34,6 +36,8 @@ import seljuks from "../../assets/timeline/Seljuks Enter Baghdad 1055AD.png";
 import thermopylae from "../../assets/timeline/Thermopylae & Salamis 480 BC.png";
 
 const HistoricalTimeline = () => {
+  const { i18n } = useTranslation();
+  const timelineLang = (i18n.resolvedLanguage || i18n.language || "en").split("-")[0];
   const [expanded, setExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
   const scrollRef = useRef(null);
@@ -434,7 +438,7 @@ const HistoricalTimeline = () => {
                         exit={{ opacity: 0 }}
                       >
                         <div className={styles.tooltipContent}>
-                          <h4 className={styles.tooltipTitle}>{event.title}</h4>
+                          <h4 className={styles.tooltipTitle}>{translateTourTitle(event.title, timelineLang)}</h4>
                           <p className={styles.tooltipYear}>0 AD</p>
                           <p className={styles.tooltipText}>
                             {event.description}
@@ -458,12 +462,12 @@ const HistoricalTimeline = () => {
               >
                 {expanded && (
                   <>
-                    <span className={styles.buttonLabel}>{event.title}</span>
+                    <span className={styles.buttonLabel}>{translateTourTitle(event.title, timelineLang)}</span>
                     <button className={styles.eventButton}>
                       <img
                         src={event.image}
                         loading="lazy"
-                        alt={event.title}
+                        alt={translateTourTitle(event.title, timelineLang)}
                         className={styles.eventImage}
                       />
                       <div className={styles.overlay}></div>
@@ -481,7 +485,7 @@ const HistoricalTimeline = () => {
                         >
                           <div className={styles.tooltipContent}>
                             <h4 className={styles.tooltipTitle}>
-                              {event.title}
+                              {translateTourTitle(event.title, timelineLang)}
                             </h4>
                             <p className={styles.tooltipYear}>
                               {event.year < 0

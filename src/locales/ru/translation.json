@@ -49,7 +49,8 @@
     "tailorMadePrivateTours": "Индивидуальные частные туры",
     "transfer": "Трансфер",
     "hotels": "Отели",
-    "guideService": "Услуги гида"
+    "guideService": "Услуги гида",
+    "bookingForm": "Заявка"
   },
   "search": {
     "placeholder": "Поиск туров...",

@@ -20,6 +20,7 @@ import icon2 from "../../assets/icons/mainpage/icon2.png";
 import icon3 from "../../assets/icons/mainpage/icon3.png";
 import icon4 from "/src/assets/Cities/Samarkand/Bibi Khanym Mosque.jpg";
 import icon5 from "/src/assets/Cities/Khiva/Kalta Minor Minaret 7.jpg";
+import translateTourTitle from "../../utils/tourTitleTranslations";
 
 const HistoricalTimeline = lazy(() => import("../../components/timeline"));
 
@@ -241,7 +242,7 @@ export default function MainPage() {
                       <img
                         key={img.id}
                         src={img.url}
-                        alt={tour.title}
+                        alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                         className={styles.imageSlide}
                         style={{ opacity: idx === currentIndex ? 1 : 0 }}
                         loading="lazy"
@@ -262,7 +263,7 @@ export default function MainPage() {
                 </div>
 
                 <div className={styles.details}>
-                  <h2>{tour.title}</h2>
+                  <h2>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h2>
                   <div className={styles.textbtn}>
                     <div className={styles.daysprice}>
                       <p className={styles.days}>
@@ -327,7 +328,7 @@ export default function MainPage() {
                   <span className={styles.day}>{day}</span>
                 </div>
 
-                <h3 className={styles.tourName}>{tour.title}</h3>
+                <h3 className={styles.tourName}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
 
                 <div
                   className={`${styles.status} ${
@@ -400,7 +401,7 @@ export default function MainPage() {
                         />
 
                         <div className={styles.overlay}>
-                          <h3>{item.title}</h3>
+                          <h3>{translateTourTitle(item.title, lang)}</h3>
                         </div>
                       </Link>
                     );
@@ -517,7 +518,7 @@ export default function MainPage() {
         <footer style={{ display: "none" }}>
           {tours.map((tour) => (
             <a key={tour.id} href={`/tour/${makeSlug(tour.title)}`}>
-              {tour.title}
+              {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
             </a>
           ))}
         </footer>

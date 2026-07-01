@@ -50,6 +50,7 @@ import transport3 from "../../../../assets/Cities/Tashkent City Images/Kosmonavt
 import transport4 from "../../../../assets/Cities/Tashkent City Images/Mustaqillik Maydoni  Subway Station.jpg";
 import transport5 from "../../../../assets/Cities/Tashkent City Images/Yunus Rajabiy Subway Station.jpg";
 import transport6 from "../../../../assets/Cities/Tashkent City Images/Paxtakor Subway Station.png";
+import translateTourTitle from "../../../../utils/tourTitleTranslations";
 
 export default function TashkentPage() {
   const [tours, setTours] = useState([]);
@@ -610,7 +611,7 @@ export default function TashkentPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

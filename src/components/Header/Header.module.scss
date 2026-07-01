@@ -575,86 +575,81 @@
 ========================================= */
 .searchDropdown {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 14px);
   left: 0;
-
-  width: 340px;
-  padding: 20px;
-
-  background: #ffffff;
-  border-radius: 16px;
-
-  border: 1px solid #ddd;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-
+  width: min(420px, calc(100vw - 32px));
+  padding: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid rgba(11, 22, 112, 0.12);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(5, 12, 46, 0.22);
   z-index: 999;
 }
 
-/* 🔹 SECTION TITLE */
-.searchDropdown h4 {
-  margin: 12px 0 8px;
-  font-size: 18px;
-  color: #355c7d;
-  font-weight: 700;
-}
-
-/* 🔹 GRID */
-.searchDropdown .grid {
+.searchItem {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px 16px;
-  margin-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
-/* 🔹 LABEL */
-.searchDropdown label {
-  font-size: 16px;
-  color: #333;
+.searchItem strong {
+  color: #0b1670;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
 
+.searchDropdown label {
   display: flex;
   align-items: center;
-  gap: 8px;
-
+  gap: 10px;
+  min-height: 30px;
+  color: #26324d;
+  font-size: 16px;
   cursor: pointer;
 }
 
-/* 🔹 SELECT */
+.searchDropdown input[type="checkbox"],
+.searchDropdown input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #0b1670;
+  cursor: pointer;
+}
+
 .searchDropdown select {
   width: 100%;
-  padding: 6px 8px;
-
-  border: 1px solid #999;
-  border-radius: 4px;
-
-  margin-bottom: 14px;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid rgba(11, 22, 112, 0.22);
+  border-radius: 14px;
+  background: #fff;
+  color: #1f2937;
+  font-size: 16px;
+  outline: none;
 }
 
-/* 🔹 RADIO GROUP */
-.searchDropdown .radioGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-/* 🔥 BUTTON (same as your header1) */
 .searchDropdown .searchBtn {
   width: 100%;
-  background: #9bc8a4;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0b1670, #1728a3);
   color: white;
-
   padding: 14px;
-  font-size: 17px;
-
+  font-size: 18px;
+  font-weight: 800;
   border: none;
-  border-radius: 25px;
-
+  border-radius: 999px;
   cursor: pointer;
+  box-shadow: 0 12px 26px rgba(11, 22, 112, 0.24);
 }
 
 .searchDropdown .searchBtn:hover {
-  background: #0b1670;
+  background: linear-gradient(135deg, #091258, #0b1670);
 }
+
 /* ================= CALL US BLOCK ================= */
 
 .callUs {
