@@ -6,6 +6,7 @@ import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Georgia.module.scss";
 import mainImg from "../../../assets/Countries/georgia.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function GeorgiaToursDestination() {
   const { strapiLocale } = useContext(LanguageContext);
@@ -150,7 +151,7 @@ export default function GeorgiaToursDestination() {
                   </div>
                   <div className={styles.tourInfo}>
                     <a href="#" className={styles.title}>
-                      {tour.title}
+                      {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                     </a>
                     <p className={styles.cities}>{tour.location}</p>
                     <a href="#" className={styles.departures}>

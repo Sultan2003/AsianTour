@@ -49,7 +49,8 @@
     "tailorMadePrivateTours": "Tailor Made Private Tours",
     "transfer": "Transfer",
     "hotels": "Hotels",
-    "guideService": "Guide Service"
+    "guideService": "Guide Service",
+    "bookingForm": "Booking"
   },
   "search": {
     "placeholder": "Search tours...",

@@ -15,6 +15,7 @@ import aral from "../../assets/images/10-Places/Lyabi-Hauz Ensemble (Bukhara) (2
 import tashkent from "../../assets/images/10-Places/Tashkent North Railway Station (Severny Vokzal).jpg";
 import img1 from "../../assets/images/10-Places/1.jpg";
 import img2 from "../../assets/images/10-Places/2.jpg";
+import translateTourTitle from "../../utils/tourTitleTranslations";
 
 export default function PlacestoVisit() {
   const navigate = useNavigate();
@@ -485,10 +486,10 @@ export default function PlacestoVisit() {
                   src={getTourImage(tour)}
                   className={styles.tourImage}
                   loading="lazy"
-                  alt={tour.title}
+                  alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                 />
                 <div className={styles.tourInfo}>
-                  <h3>{tour.title}</h3>
+                  <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
                   <p>
                     {tour.startDate &&
                       new Date(tour.startDate).toLocaleDateString()}

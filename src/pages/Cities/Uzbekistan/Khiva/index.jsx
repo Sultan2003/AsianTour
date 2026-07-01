@@ -37,6 +37,7 @@ import tashkhauli2 from "../../../../assets/Cities/Khiva/Tash-Khauli Palace (Sto
 import islamMinaret from "../../../../assets/Cities/Khiva/минарет Ислам-Ходжа.JPG";
 
 import pexels500 from "../../../../assets/Cities/Khiva/pexels-axp-photography-500641970-19473605.jpg";
+import translateTourTitle from "../../../../utils/tourTitleTranslations";
 
 /* PAGE START */
 export default function KhivaPage() {
@@ -329,7 +330,7 @@ export default function KhivaPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

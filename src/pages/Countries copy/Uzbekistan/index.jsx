@@ -4,6 +4,7 @@ import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Uzbekistan.module.scss";
 import mainImg from "../../../assets/Countries/uzb.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function UzbekistanTours() {
   const { lang, strapiLocale } = useContext(LanguageContext);
@@ -232,7 +233,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                   </div>
                   <div className={styles.tourInfo}>
                     <a href="#" className={styles.title}>
-                      {tour.title}
+                      {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                     </a>
                     <p className={styles.cities}>{tour.location}</p>
                     <a href="#" className={styles.departures}>

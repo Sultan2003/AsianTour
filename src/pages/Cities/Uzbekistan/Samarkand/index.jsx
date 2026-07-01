@@ -35,6 +35,7 @@ import siab5 from "../../../../assets/Cities/Samarkand/siab-bazaar 3.jpg";
 import bus1 from "../../../../assets/Cities/Samarkand/Bus Transport.jpg";
 import taxi1 from "../../../../assets/Cities/Samarkand/City Transport.jpg";
 import tram1 from "../../../../assets/Cities/Samarkand/Tram.jpg";
+import translateTourTitle from "../../../../utils/tourTitleTranslations";
 
 export default function SamarkandPage() {
   const [tours, setTours] = useState([]);
@@ -457,10 +458,10 @@ export default function SamarkandPage() {
                 <img
                   src={getTourImage(tour)}
                   className={styles.tourImage}
-                  alt={tour.title}
+                  alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                 />
                 <div className={styles.tourInfo}>
-                  <h3>{tour.title}</h3>
+                  <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
                   <p>
                     {tour.startDate &&
                       new Date(tour.startDate).toLocaleDateString()}

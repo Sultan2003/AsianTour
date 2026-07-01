@@ -3,6 +3,7 @@ import { LanguageContext } from "../../context/LanguageContext";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
+import translateTourTitle from "../../utils/tourTitleTranslations";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -613,7 +614,7 @@ export default function PrivateTourIdPage() {
         >
           <div className={styles.overlay} />
           <div className={styles.heroContent}>
-            <h1>{tour.title}</h1>
+            <h1>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h1>
             <p>
               {days} {t.days} • {tour.location}
             </p>
@@ -1277,7 +1278,7 @@ export default function PrivateTourIdPage() {
         {/* Right card */}
         <div>
           <div className={styles.detailsCard}>
-            <h2>{tour.title}</h2>
+            <h2>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h2>
 
             {/* SHORT PRICE TABLE */}
             {/* SHORT PRICE TABLE – CLEANED + ALIGNED */}
@@ -1397,7 +1398,7 @@ export default function PrivateTourIdPage() {
                         }}
                         style={{ cursor: "pointer" }}
                       >
-                        {tItem.title}
+                        {translateTourTitle(tItem.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
                       </li>
                     ))}
                   </ul>
@@ -1469,7 +1470,7 @@ export default function PrivateTourIdPage() {
                 const message = `
 New Private Tour Booking Request
 
-Tour: ${tour.title}
+Tour: ${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
 Location: ${tour.location}
 
 Persons: ${selectedBooking.persons}
@@ -1511,7 +1512,7 @@ Guest Email: ${email}
               <input name="email" required type="email" />
 
               <label>Tour</label>
-              <input value={tour.title} readOnly />
+              <input value={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} readOnly />
 
               <label>Persons</label>
               <input value={selectedBooking.persons} readOnly />

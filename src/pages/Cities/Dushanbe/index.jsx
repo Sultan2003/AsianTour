@@ -13,6 +13,7 @@ import museum1 from "../../../assets/Cities/Dushanbe/National Museum of Tajikist
 import rudaki1 from "../../../assets/Cities/Dushanbe/Rudaki Park 1.png";
 import rudaki2 from "../../../assets/Cities/Dushanbe/Rudaki Park 2.png";
 import rudaki3 from "../../../assets/Cities/Dushanbe/Rudaki Park 3.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function DushanbePage() {
   const [tours, setTours] = useState([]);
@@ -228,7 +229,7 @@ export default function DushanbePage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

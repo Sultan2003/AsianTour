@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { LanguageContext } from "../../../context/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./BusinessTours.module.scss";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -88,7 +89,7 @@ export default function BusinessTours() {
           onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
         >
           <div className={styles.imageWrapper}>
-            <img src={imageUrl} alt={tour.title} />
+            <img src={imageUrl} alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} />
             {tour.isNew && <span className={styles.newTag}>NEW</span>}
           </div>
 
@@ -97,7 +98,7 @@ export default function BusinessTours() {
               <span>MICE & BUSINESS</span>
               <span>Meetings, Incentives & Conferences</span>
             </div>
-            <h3 className={styles.title}>{tour.title}</h3>
+            <h3 className={styles.title}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
             <p className={styles.location}>{tour.location}</p>
             <p className={styles.details}>
               {duration} days • Level {tour.level || 1}-{tour.level || 4} •{" "}

@@ -226,6 +226,10 @@ export default function Header({ onLoginClick }) {
             <NavLink className={styles.navlink} to="/contact">
               {t("nav.contact")}
             </NavLink>
+
+            <NavLink className={styles.navlink} to="/booking-form">
+              {t("nav.bookingForm")}
+            </NavLink>
             <LanguageSwitcher />
 
             {/* ✅ NEW PHONE BLOCK */}

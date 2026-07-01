@@ -22,6 +22,7 @@ import phil4 from "../../../assets/Cities/Bishkek/Kyrgyz National Philharmonic 4
 
 /* VICTORY SQUARE */
 import victory from "../../../assets/Cities/Bishkek/Victory-Square-featured_image.jpg";
+import translateTourTitle from "../../../utils/tourTitleTranslations";
 
 export default function BishkekPage() {
   const [tours, setTours] = useState([]);
@@ -345,7 +346,7 @@ export default function BishkekPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

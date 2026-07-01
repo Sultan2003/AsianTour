@@ -32,6 +32,7 @@ import shop1 from "../../../../assets/Cities/Bukhara/shop1.jpg";
 import shop2 from "../../../../assets/Cities/Bukhara/shop3.jpg";
 import shop3 from "../../../../assets/Cities/Bukhara/shop4.jpg";
 import shop4 from "../../../../assets/Cities/Bukhara/shop5.jpg";
+import translateTourTitle from "../../../../utils/tourTitleTranslations";
 
 export default function BukharaPage() {
   const [tours, setTours] = useState([]);
@@ -448,7 +449,7 @@ export default function BukharaPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{tour.title}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}
