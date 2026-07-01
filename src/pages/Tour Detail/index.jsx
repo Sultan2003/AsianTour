@@ -308,14 +308,17 @@ export default function TourIdPage() {
           if (
             ttype.includes("cultural") ||
             ttype.includes("culture") ||
-            ttype.includes("heritage")
+            ttype.includes("heritage") ||
+            ttype.includes("культур")
           )
             pushIf("Cultural");
 
           if (
             ttype.includes("gastronomy") ||
             ttype.includes("food") ||
-            ttype.includes("culinary")
+            ttype.includes("culinary") ||
+            ttype.includes("гастроном") ||
+            ttype.includes("кулинар")
           )
             pushIf("Gastronomy");
 
@@ -323,18 +326,24 @@ export default function TourIdPage() {
             ttype.includes("relig") ||
             ttype.includes("pilgrim") ||
             ttype.includes("mosque") ||
-            ttype.includes("temple")
+            ttype.includes("temple") ||
+            ttype.includes("религи") ||
+            ttype.includes("палом") ||
+            ttype.includes("мечет") ||
+            ttype.includes("храм")
           )
             pushIf("Religious");
 
-          if (ttype.includes("eco") || ttype.includes("nature")) pushIf("Eco");
+          if (ttype.includes("eco") || ttype.includes("nature") || ttype.includes("эко") || ttype.includes("природ")) pushIf("Eco");
 
-          if (ttype.includes("city") || ttype.includes("urban")) pushIf("City");
+          if (ttype.includes("city") || ttype.includes("urban") || ttype.includes("город")) pushIf("City");
 
           if (
             ttype.includes("business") ||
             ttype.includes("mice") ||
-            ttype.includes("conference")
+            ttype.includes("conference") ||
+            ttype.includes("бизнес") ||
+            ttype.includes("конферен")
           )
             pushIf("Business");
         });
@@ -514,8 +523,8 @@ export default function TourIdPage() {
           <div className={styles.hero}>
             <div className={styles.overlay} />
             <div className={styles.heroContent}>
-              <h1>Uzbekistan Tour</h1>
-              <p>Loading tour details…</p>
+              <h1>{t.loadingTitle}</h1>
+              <p>{t.loadingDetails}</p>
             </div>
           </div>
         </div>
@@ -851,7 +860,7 @@ export default function TourIdPage() {
 
               return (
                 <section className={styles.accommodationSection}>
-                  <h2>Accommodation:</h2>
+                  <h2>{t.accommodation}</h2>
                   <div className={styles.accommodationTable}>
                     {accommodations.map((a, i) => (
                       <div key={i} className={styles.accommodationRow}>
@@ -860,7 +869,7 @@ export default function TourIdPage() {
                           <strong>{a.city}</strong>{" "}
                           <span className={styles.days}>
                             {" "}
-                            - {a.days ?? "-"} nights
+                            - {a.days ?? "-"} {t.nights}
                           </span>
                         </div>
 
@@ -868,7 +877,7 @@ export default function TourIdPage() {
                         <div className={styles.hotelList}>
                           {a.hotels.length
                             ? a.hotels.join(", ")
-                            : "No hotels provided"}
+                            : t.noHotels}
                         </div>
                       </div>
                     ))}
@@ -880,13 +889,13 @@ export default function TourIdPage() {
           {/* ✅ PRICE INCLUDES / EXCLUDES — MATCHED WITH TAB STYLE */}
           {parsedPriceInclude && (
             <section className={styles.tabContent}>
-              <h2>Price Includes & Excludes</h2>
+              <h2>{t.priceIncludesExcludes}</h2>
 
               <div className={styles.priceIncludeWrapper}>
                 {/* ✅ INCLUDES */}
                 <div className={styles.priceIncludeBox}>
                   <h3 className={styles.priceIncludeTitle}>
-                    ✅ Price includes:
+                    ✅ {t.priceIncludes}
                   </h3>
                   <ul>
                     {parsedPriceInclude.does.map((item, i) => (
@@ -898,7 +907,7 @@ export default function TourIdPage() {
                 {/* ❌ EXCLUDES */}
                 <div className={styles.priceExcludeBox}>
                   <h3 className={styles.priceExcludeTitle}>
-                    ❌ Price doesn’t include:
+                    ❌ {t.priceExcludes}
                   </h3>
                   <ul>
                     {parsedPriceInclude.doesNot.map((item, i) => (
@@ -931,7 +940,7 @@ export default function TourIdPage() {
                     fontWeight: 600,
                   }}
                 >
-                  {tour.availableSeats > 0 ? "Available" : "Sold out"}
+                  {tour.availableSeats > 0 ? t.available : t.soldOut}
                 </strong>
               </div>
               <div className={`${styles.priceItem} ${styles.highlight}`}>
@@ -960,11 +969,11 @@ export default function TourIdPage() {
                   <table className={styles.datesTable}>
                     <thead>
                       <tr>
-                        <th>Tour Start Date</th>
-                        <th>End Date</th>
-                        <th>Status</th>
-                        <th>Price</th>
-                        <th>Book</th>
+                        <th>{t.tourStartDate}</th>
+                        <th>{t.tableEndDate}</th>
+                        <th>{t.tableStatus}</th>
+                        <th>{t.tablePrice}</th>
+                        <th>{t.tableBook}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -976,18 +985,18 @@ export default function TourIdPage() {
 
                         return (
                           <tr key={item.id}>
-                            <td data-label="Start Date">{formattedStart}</td>
-                            <td data-label="End Date">{formattedEnd}</td>
+                            <td data-label={t.tourStartDate}>{formattedStart}</td>
+                            <td data-label={t.tableEndDate}>{formattedEnd}</td>
                             <td
-                              data-label="Status"
+                              data-label={t.tableStatus}
                               className={
                                 isAvailable ? styles.available : styles.soldout
                               }
                             >
-                              {isAvailable ? "Available" : "Sold out"}
+                              {isAvailable ? t.available : t.soldOut}
                             </td>
-                            <td data-label="Price">US$ {item.price}</td>
-                            <td data-label="Book">
+                            <td data-label={t.tablePrice}>US$ {item.price}</td>
+                            <td data-label={t.tableBook}>
                               <button
                                 className={`${styles.bookBtn} ${
                                   isAvailable
@@ -1004,7 +1013,7 @@ export default function TourIdPage() {
                                   setShowBookingModal(true);
                                 }}
                               >
-                                Book Now
+                                {t.bookNow}
                               </button>
                             </td>
                           </tr>
@@ -1063,12 +1072,12 @@ export default function TourIdPage() {
                     },
                   );
                   alert(
-                    "✅ Request sent successfully! We will contact you soon.",
+                    t.requestSuccess,
                   );
                   form.reset();
                 } catch (err) {
                   console.error(err);
-                  alert("❌ Failed to send request. Please try again.");
+                  alert(t.requestFailure);
                 }
               }}
             >
@@ -1117,7 +1126,7 @@ export default function TourIdPage() {
 
           {showReviewForm && (
             <section className={styles.reviewForm}>
-              <h3>Write your review</h3>
+              <h3>{t.writeReview}</h3>
 
               {/* local files state and handlers */}
               {/* Place these hooks near other useState declarations at top of component:
@@ -1164,7 +1173,7 @@ export default function TourIdPage() {
                     for (const file of files) {
                       // skip very large files (Telegram limits: photos ~10MB, videos <=50MB)
                       if (file.size > 50 * 1024 * 1024) {
-                        console.warn("Skipping file >50MB:", file.name);
+                        console.warn(t.reviewMediaSkip, file.name);
                         continue;
                       }
 
@@ -1192,13 +1201,13 @@ export default function TourIdPage() {
                       }
                     }
 
-                    alert("✅ Review sent successfully!");
+                    alert(t.reviewSuccess);
                     e.target.reset();
                     setFiles([]);
                   } catch (err) {
                     console.error("Failed to send review:", err);
                     alert(
-                      "❌ Failed to send review. Check console for details.",
+                      t.reviewFailure,
                     );
                   }
                 }}
@@ -1206,7 +1215,7 @@ export default function TourIdPage() {
                 <input
                   name="author"
                   type="text"
-                  placeholder="Your name"
+                  placeholder={t.yourName}
                   required
                 />
                 <div className={styles.rowInputs}>
@@ -1216,7 +1225,7 @@ export default function TourIdPage() {
                     type="number"
                     min="1"
                     max="5"
-                    placeholder="Rating (1–5)"
+                    placeholder={t.ratingPlaceholder}
                     required
                   />
                 </div>
@@ -1224,12 +1233,12 @@ export default function TourIdPage() {
                 <input
                   name="visitedText"
                   type="text"
-                  placeholder="Where/when you visited"
+                  placeholder={t.visitedPlaceholder}
                 />
                 <textarea
                   name="reviewText"
                   rows="4"
-                  placeholder="Write your review..."
+                  placeholder={t.reviewPlaceholder}
                   required
                 />
 
@@ -1254,7 +1263,7 @@ export default function TourIdPage() {
                   }}
                 >
                   <p>
-                    📸 Drag & drop images or videos here, or click to upload
+                    {t.uploadPrompt}
                   </p>
                   <input
                     id="mediaInput"
@@ -1298,7 +1307,7 @@ export default function TourIdPage() {
                   </div>
                 )}
 
-                <button type="submit">Submit Review</button>
+                <button type="submit">{t.submitReview}</button>
               </form>
             </section>
           )}
@@ -1309,7 +1318,7 @@ export default function TourIdPage() {
                 className={styles.writeReviewLink}
                 onClick={() => setShowReviewForm((prev) => !prev)}
               >
-                Write your own review...
+                {t.writeOwnReview}
               </span>
             </div>
             {reviews.length === 0 ? (
@@ -1334,10 +1343,10 @@ export default function TourIdPage() {
                 return (
                   <div key={rev.id} className={styles.reviewCard}>
                     <div className={styles.reviewHeader}>
-                      <strong>Author:</strong> {rev.Author} &nbsp;|&nbsp;
-                      <strong>Rating:</strong> {rev.Rating}
+                      <strong>{t.author}</strong> {rev.Author} &nbsp;|&nbsp;
+                      <strong>{t.rating}</strong> {rev.Rating}
                       <span style={{ float: "right" }}>
-                        <strong>Visited:</strong> {date}
+                        <strong>{t.visited}</strong> {date}
                       </span>
                     </div>
                     <div className={styles.reviewBody}>
@@ -1400,7 +1409,7 @@ export default function TourIdPage() {
 
           {tourVideo && (
             <div className={styles.videoContainer}>
-              <h3>{t.videoTitle || "Travel Route Map"}</h3>
+              <h3>{t.videoTitle}</h3>
 
               <div
                 className={styles.videoPreview}
@@ -1441,7 +1450,7 @@ export default function TourIdPage() {
 
           {/* === RELATED TOURS SIDEBAR (matching Uzbekistan page behaviour) === */}
           <aside className={styles.sidebar} style={{ marginTop: 18 }}>
-            <h3>{tour.location} Group Tours</h3>
+            <h3>{tour.location} {t.groupTours}</h3>
 
             {Object.keys(relatedCategories).map((cat) => {
               const items = relatedCategories[cat] || [];
@@ -1456,7 +1465,7 @@ export default function TourIdPage() {
                     className={styles.catTitle}
                     onClick={() => toggleCategory(cat)}
                   >
-                    <span>{cat} Tours</span>
+                    <span>{t.categories[cat]} {t.tourSuffix}</span>
                     <div className={styles.catMeta}>
                       <span className={styles.count}>({items.length})</span>
                       <span>{isOpen ? "▾" : "▸"}</span>
@@ -1465,7 +1474,7 @@ export default function TourIdPage() {
 
                   <ul className={styles.catList}>
                     {items.length === 0 && (
-                      <li className={styles.catEmpty}>No tours</li>
+                      <li className={styles.catEmpty}>{t.noTours}</li>
                     )}
                     {items.slice(0, 8).map((tItem) => (
                       <li
@@ -1538,7 +1547,7 @@ export default function TourIdPage() {
               ×
             </button>
 
-            <h2>Book This Tour</h2>
+            <h2>{t.bookThisTour}</h2>
 
             <form
               onSubmit={async (e) => {
@@ -1574,25 +1583,23 @@ Guest Email: ${email}
                     }),
                   });
 
-                  alert(
-                    "Your request has been sent to reservation@gotocentralasia.com. We will contact you soon.",
-                  );
+                  alert(t.bookingSuccess);
                   setShowBookingModal(false);
                 } catch (error) {
-                  alert("Failed to send. Please try again.");
+                  alert(t.bookingFailure);
                 }
               }}
             >
-              <label>Full Name</label>
+              <label>{t.fullName}</label>
               <input name="fullName" required type="text" />
 
-              <label>Email</label>
+              <label>{t.email}</label>
               <input name="email" required type="email" />
 
-              <label>Tour</label>
+              <label>{t.title}</label>
               <input value={tour.title} readOnly />
 
-              <label>Date</label>
+              <label>{t.date}</label>
               <input
                 value={`${formatDate(selectedDate.start)} → ${formatDate(
                   selectedDate.end,
@@ -1602,7 +1609,7 @@ Guest Email: ${email}
               />
 
               <button type="submit" className={styles.submitBtn}>
-                Send Booking Request
+                {t.sendBookingRequest}
               </button>
             </form>
           </div>
