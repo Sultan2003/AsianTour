@@ -174,50 +174,20 @@ export default function MainPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const slides = [
-    {
-      title: "Cultural Tours",
-      description:
-        "Get around by train, bus, car, ferry, cruise ship, bicycle, skis, or sleigh. Relax and enjoy yourself!",
-      image: culturalImg,
-      link: "/cultural-tours",
-    },
-    {
-      title: "Gastronomy Tours",
-      description:
-        "Taste the flavors of the world, from street food to fine dining. A journey for your senses!",
-      image: gastronomyImg,
-      link: "/gastronomy-tours",
-    },
-    {
-      title: "Religious Tours",
-      description:
-        "Visit sacred places and discover spiritual traditions that shaped civilizations.",
-      image: religiousImg,
-      link: "/religious-tours",
-    },
-    {
-      title: "Eco Tours",
-      description:
-        "Connect with nature, protect biodiversity, and travel responsibly in breathtaking environments.",
-      image: ecoImg,
-      link: "/eco-tours",
-    },
-    {
-      title: "City Tours",
-      description:
-        "Explore trails, mountains, and valleys while staying active and inspired.",
-      image: hikingImg,
-      link: "/city-tours",
-    },
-    {
-      title: "MICE and Business Tours",
-      description:
-        "Professional, organized, and efficient. Combine business with world-class travel.",
-      image: businessImg,
-      link: "/business-mice-tours",
-    },
+  const slideImages = [culturalImg, gastronomyImg, religiousImg, ecoImg, hikingImg, businessImg];
+  const slideLinks = [
+    "/cultural-tours",
+    "/gastronomy-tours",
+    "/religious-tours",
+    "/eco-tours",
+    "/city-tours",
+    "/business-mice-tours",
   ];
+  const slides = (t.slides || translations.en.slides).map((slide, index) => ({
+    ...slide,
+    image: slideImages[index],
+    link: slideLinks[index],
+  }));
 
   const [current, setCurrent] = useState(0);
 
@@ -233,9 +203,9 @@ export default function MainPage() {
         <div className={styles.overlay}></div>
 
         <div className={styles.heroText}>
-          <h1 className={styles.heroTitle}>Discover Central Asia</h1>
+          <h1 className={styles.heroTitle}>{t.heroTitle}</h1>
 
-          <div className={styles.heroSubtitle}>for yourself with us</div>
+          <div className={styles.heroSubtitle}>{t.heroSubtitle}</div>
         </div>
       </div>
 
@@ -315,16 +285,16 @@ export default function MainPage() {
       </div>
 
       <div id="timelineSection" className={styles.timelineSection}>
-        <h2 className={styles.title}>Historical Timeline</h2>
+        <h2 className={styles.title}>{t.historicalTimeline}</h2>
 
         <div className={styles.timelineWrapper}>
           {loadTimeline ? (
-            <Suspense fallback={<div>Loading timeline...</div>}>
+            <Suspense fallback={<div>{t.timelineLoading}</div>}>
               <HistoricalTimeline />
             </Suspense>
           ) : (
             <div className={styles.timelinePlaceholder}>
-              Scroll to load timeline…
+              {t.timelinePrompt}
             </div>
           )}
         </div>
@@ -379,7 +349,7 @@ export default function MainPage() {
       {/* PREMIUM DESTINATIONS SLIDER */}
       {/* 🔥 3D DESTINATIONS SLIDER */}
       <div className={styles.destinationsSection}>
-        <h2 className={styles.title}>Popular Destination</h2>
+        <h2 className={styles.title}>{t.popularDestination}</h2>
 
         {/* STATE */}
         {(() => {
@@ -452,17 +422,14 @@ export default function MainPage() {
         <div className={styles.featureContainer}>
           {/* LEFT SIDE */}
           <div className={styles.featureContent}>
-            <span className={styles.featureSubtitle}>Explore Central Asia</span>
+            <span className={styles.featureSubtitle}>{t.featureSubtitle}</span>
 
             <h2 className={styles.featureTitle}>
-              Your Gateway to Central Asia
+              {t.featureTitle}
             </h2>
 
             <p className={styles.featureDescription}>
-              Experience the rich history, vibrant culture, and breathtaking
-              landscapes of Central Asia. From ancient Silk Road cities to
-              untouched природные wonders, we create journeys tailored to your
-              travel style.
+              {t.featureDescription}
             </p>
 
             <div className={styles.featureList}>
@@ -471,10 +438,9 @@ export default function MainPage() {
                   <img src={icon1} alt="Expert Travel Planning" />
                 </div>
                 <div>
-                  <h4>Expert Local Knowledge</h4>
+                  <h4>{t.featureOneTitle}</h4>
                   <p>
-                    Carefully designed маршруты with deep regional expertise to
-                    give you an authentic experience.
+                    {t.featureOneText}
                   </p>
                 </div>
               </div>
@@ -484,10 +450,9 @@ export default function MainPage() {
                   <img src={icon2} alt="Reliable Travel Service" />
                 </div>
                 <div>
-                  <h4>Reliable & Comfortable Travel</h4>
+                  <h4>{t.featureTwoTitle}</h4>
                   <p>
-                    We ensure a smooth, safe, and комфортное journey from
-                    arrival to departure.
+                    {t.featureTwoText}
                   </p>
                 </div>
               </div>
@@ -511,7 +476,7 @@ export default function MainPage() {
 
       {/* PROMO SLIDER */}
       <div className={styles.promoSlider}>
-        <h2 className={styles.promoTitle}>Tour Categories</h2>
+        <h2 className={styles.promoTitle}>{t.tourCategories}</h2>
 
         <div className={styles.carousel}>
           {slides.map((slide, index) => {

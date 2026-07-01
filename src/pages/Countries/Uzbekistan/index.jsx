@@ -6,9 +6,72 @@ import mainImg from "../../../assets/Countries/uzb.jpg";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
+const translations = {
+  en: {
+    upcomingDepartures: "Upcoming Group Departures",
+    date: "Date",
+    status: "Status",
+    days: "Days",
+    price: "Price",
+    noUpcoming: "No upcoming departures found.",
+    seatsAvailable: "seats available",
+    available: "Available",
+    unavailable: "Unavailable",
+    toursTitle: "Uzbekistan Tours",
+    dayLabel: "Days",
+    group: "Group",
+    seats: "seats",
+    details: "Details",
+    description:
+      "Visit Uzbekistan and discover stunning medieval cities with tall minarets reaching into the sky. See local pilgrims in bright robes and experience the lively atmosphere of bustling bazaars.",
+    groupTours: "Uzbekistan Group Tours",
+    tourSuffix: "Tours",
+    noTours: "No tours",
+    categories: {
+      Cultural: "Cultural",
+      Gastronomy: "Gastronomy",
+      Religious: "Religious",
+      Eco: "Eco",
+      City: "City",
+      Business: "Business",
+    },
+  },
+  ru: {
+    upcomingDepartures: "Ближайшие групповые выезды",
+    date: "Дата",
+    status: "Статус",
+    days: "Дни",
+    price: "Цена",
+    noUpcoming: "Ближайшие выезды не найдены.",
+    seatsAvailable: "мест доступно",
+    available: "Доступно",
+    unavailable: "Недоступно",
+    toursTitle: "Туры по Узбекистану",
+    dayLabel: "Дней",
+    group: "Группа",
+    seats: "мест",
+    details: "Подробнее",
+    description:
+      "Посетите Узбекистан и откройте для себя великолепные средневековые города с высокими минаретами, устремлёнными в небо. Увидьте местных паломников в ярких одеждах и почувствуйте живую атмосферу шумных базаров.",
+    groupTours: "Групповые туры по Узбекистану",
+    tourSuffix: "туры",
+    noTours: "Туров нет",
+    categories: {
+      Cultural: "Культурные",
+      Gastronomy: "Гастрономические",
+      Religious: "Религиозные",
+      Eco: "Эко",
+      City: "Городские",
+      Business: "Бизнес",
+    },
+  },
+};
+
 export default function UzbekistanTours() {
   const ctx = useContext(LanguageContext) || {};
   const strapiLocale = ctx.strapiLocale || ctx.lang || "";
+  const langKey = strapiLocale.startsWith("ru") ? "ru" : "en";
+  const t = translations[langKey];
   const navigate = useNavigate();
 
   const [tours, setTours] = useState([]);
@@ -103,8 +166,12 @@ export default function UzbekistanTours() {
         setTours(
           normalized.filter(
             (t) =>
-              (t.location || "").toLowerCase().includes("uzbekistan") &&
-              (t.tour_type || "").toString().toLowerCase().includes("group"),
+              ["uzbekistan", "узбекистан"].some((location) =>
+                (t.location || "").toLowerCase().includes(location),
+              ) &&
+              ["group", "груп"].some((type) =>
+                (t.tour_type || "").toString().toLowerCase().includes(type),
+              ),
           ),
         );
       })
@@ -230,14 +297,17 @@ export default function UzbekistanTours() {
     if (
       ttype.includes("cultural") ||
       ttype.includes("culture") ||
-      ttype.includes("heritage")
+      ttype.includes("heritage") ||
+      ttype.includes("культур")
     )
       pushIf("Cultural");
 
     if (
       ttype.includes("gastronomy") ||
       ttype.includes("food") ||
-      ttype.includes("culinary")
+      ttype.includes("culinary") ||
+      ttype.includes("гастроном") ||
+      ttype.includes("кулинар")
     )
       pushIf("Gastronomy");
 
@@ -245,18 +315,24 @@ export default function UzbekistanTours() {
       ttype.includes("relig") ||
       ttype.includes("pilgrim") ||
       ttype.includes("mosque") ||
-      ttype.includes("temple")
+      ttype.includes("temple") ||
+      ttype.includes("религи") ||
+      ttype.includes("палом") ||
+      ttype.includes("мечет") ||
+      ttype.includes("храм")
     )
       pushIf("Religious");
 
-    if (ttype.includes("eco") || ttype.includes("nature")) pushIf("Eco");
+    if (ttype.includes("eco") || ttype.includes("nature") || ttype.includes("эко") || ttype.includes("природ")) pushIf("Eco");
 
-    if (ttype.includes("city") || ttype.includes("urban")) pushIf("City");
+    if (ttype.includes("city") || ttype.includes("urban") || ttype.includes("город")) pushIf("City");
 
     if (
       ttype.includes("business") ||
       ttype.includes("mice") ||
-      ttype.includes("conference")
+      ttype.includes("conference") ||
+      ttype.includes("бизнес") ||
+      ttype.includes("конферен")
     )
       pushIf("Business");
   });
@@ -285,17 +361,17 @@ export default function UzbekistanTours() {
             </div>
 
             {/* UPCOMING */}
-            <h2>Upcoming Group Departures</h2>
+            <h2>{t.upcomingDepartures}</h2>
             <div className={styles.cardsHeader}>
-              <div>Date</div>
+              <div>{t.date}</div>
               <div></div>
-              <div>Status</div>
-              <div>Days</div>
-              <div>Price</div>
+              <div>{t.status}</div>
+              <div>{t.days}</div>
+              <div>{t.price}</div>
             </div>
 
             {upcomingTours.length === 0 && (
-              <p className={styles.noUpcoming}>No upcoming departures found.</p>
+              <p className={styles.noUpcoming}>{t.noUpcoming}</p>
             )}
 
             {upcomingTours.map((tour) => (
@@ -314,7 +390,7 @@ export default function UzbekistanTours() {
                   <a className={styles.title}>{tour.title}</a>
                   <p className={styles.cities}>{tour.location}</p>
                   <a className={styles.departures}>
-                    {tour.availableSeats} seats available
+                    {tour.availableSeats} {t.seatsAvailable}
                   </a>
                 </div>
 
@@ -325,17 +401,17 @@ export default function UzbekistanTours() {
                       : styles.unavailable
                   }
                 >
-                  {tour.availableSeats > 0 ? "Available" : "Unavailable"}
+                  {tour.availableSeats > 0 ? t.available : t.unavailable}
                 </div>
 
-                <div>{calcDays(tour.startDate, tour.endDate)} days</div>
+                <div>{calcDays(tour.startDate, tour.endDate)} {t.days}</div>
 
                 <div>US$ {tour.price}</div>
               </div>
             ))}
 
             {/* TOP 10 */}
-            <h2 className={styles.sectionTitle}>Uzbekistan Tours</h2>
+            <h2 className={styles.sectionTitle}>{t.toursTitle}</h2>
 
             <div className={styles.topGrid}>
               {top10BySeats.map((tour) => (
@@ -366,16 +442,16 @@ export default function UzbekistanTours() {
                     </p>
 
                     <div className={styles.metaRow}>
-                      <span>{calcDays(tour.startDate, tour.endDate)} Days</span>
+                      <span>{calcDays(tour.startDate, tour.endDate)} {t.dayLabel}</span>
                       <span className={styles.dot}>•</span>
-                      <span>Group</span>
+                      <span>{t.group}</span>
                       <span className={styles.dot}>•</span>
-                      <span>{tour.availableSeats} seats</span>
+                      <span>{tour.availableSeats} {t.seats}</span>
                     </div>
 
                     <div className={styles.bottomRow}>
                       <div className={styles.price}>US$ {tour.price}</div>
-                      <button className={styles.detailsBtn}>Details</button>
+                      <button className={styles.detailsBtn}>{t.details}</button>
                     </div>
                   </div>
                 </div>
@@ -383,15 +459,13 @@ export default function UzbekistanTours() {
             </div>
 
             <p className={styles.description}>
-              Visit Uzbekistan and discover stunning medieval cities with tall
-              minarets reaching into the sky. See local pilgrims in bright robes
-              and experience the lively atmosphere of bustling bazaars.
+              {t.description}
             </p>
           </div>
 
           {/* RIGHT - sidebar categories */}
           <aside className={styles.sidebar}>
-            <h3>Uzbekistan Group Tours</h3>
+            <h3>{t.groupTours}</h3>
 
             {Object.keys(categories).map((cat) => {
               const items = categories[cat] || [];
@@ -405,7 +479,7 @@ export default function UzbekistanTours() {
                     className={styles.catTitle}
                     onClick={() => toggleCategory(cat)}
                   >
-                    <span>{cat} Tours</span>
+                    <span>{t.categories[cat]} {t.tourSuffix}</span>
                     <div className={styles.catMeta}>
                       <span className={styles.count}>({items.length})</span>
                       <span className={styles.chev}>{isOpen ? "▾" : "▸"}</span>
@@ -414,7 +488,7 @@ export default function UzbekistanTours() {
 
                   <ul className={styles.catList}>
                     {items.length === 0 && (
-                      <li className={styles.catEmpty}>No tours</li>
+                      <li className={styles.catEmpty}>{t.noTours}</li>
                     )}
                     {items.slice(0, 8).map((t) => (
                       <li
