@@ -4,12 +4,15 @@ import { LanguageContext } from "../../../context/LanguageContext";
 import styles from "./UzbekistanPrivate.module.scss";
 import mainImg from "../../../assets/Countries/Uzbekistan.jpg";
 import translateTourTitle from "../../../utils/tourTitleTranslations";
+import translateStaticText from "../../../utils/russianTranslations";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
 export default function UzbekistanPrivateTours() {
   const ctx = useContext(LanguageContext) || {};
+  const lang = ctx.lang || "en";
   const strapiLocale = ctx.strapiLocale || ctx.lang || "";
+  const t = (value) => translateStaticText(value, lang);
   const navigate = useNavigate();
   const makeSlug = (title) =>
     title
@@ -191,17 +194,17 @@ export default function UzbekistanPrivateTours() {
               <img src={mainImg} alt="Uzbekistan" />
             </div>
 
-            <h2>Upcoming Private Departures</h2>
+            <h2>{t("Upcoming Private Departures")}</h2>
             <div className={styles.cardsHeader}>
-              <div>Date</div>
+              <div>{t("Date")}</div>
               <div></div>
-              <div>Status</div>
-              <div>Days</div>
-              <div>Price</div>
+              <div>{t("Status")}</div>
+              <div>{t("Days")}</div>
+              <div>{t("Price")}</div>
             </div>
 
             {upcomingTours.length === 0 && (
-              <p className={styles.noUpcoming}>No upcoming departures found.</p>
+              <p className={styles.noUpcoming}>{t("No upcoming departures found.")}</p>
             )}
 
             {upcomingTours.map((tour) => (
@@ -218,10 +221,10 @@ export default function UzbekistanPrivateTours() {
                     : "-"}
                 </div>
                 <div className={styles.tourInfo}>
-                  <a className={styles.title}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</a>
-                  <p className={styles.cities}>{tour.location}</p>
+                  <a className={styles.title}>{translateTourTitle(tour.title, strapiLocale || lang)}</a>
+                  <p className={styles.cities}>{t(tour.location)}</p>
                   <a className={styles.departures}>
-                    {tour.availableSeats} seats available
+                    {tour.availableSeats} {t("seats available")}
                   </a>
                 </div>
                 <div
@@ -231,14 +234,14 @@ export default function UzbekistanPrivateTours() {
                       : styles.unavailable
                   }
                 >
-                  {tour.availableSeats > 0 ? "Available" : "Unavailable"}
+                  {tour.availableSeats > 0 ? t("Available") : t("Unavailable")}
                 </div>
-                <div>{calcDays(tour.startDate, tour.endDate)} days</div>
+                <div>{calcDays(tour.startDate, tour.endDate)} {t("days")}</div>
                 <div>US$ {tour.price}</div>
               </div>
             ))}
 
-            <h2 className={styles.sectionTitle}>Uzbekistan Private Tours</h2>
+            <h2 className={styles.sectionTitle}>{t("Uzbekistan Private Tours")}</h2>
             <div className={styles.topGrid}>
               {top10BySeats.map((tour) => (
                 <div
@@ -251,11 +254,11 @@ export default function UzbekistanPrivateTours() {
                   <div className={styles.bigImg}>
                     <img
                       src={imageOrPlaceholder(tour.title)}
-                      alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+                      alt={translateTourTitle(tour.title, strapiLocale || lang)}
                     />
                   </div>
                   <div className={styles.bigInfo}>
-                    <h3 className={styles.bigTitle}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
+                    <h3 className={styles.bigTitle}>{translateTourTitle(tour.title, strapiLocale || lang)}</h3>
                     <p className={styles.summary}>
                       {(
                         (tour.description || "") +
@@ -265,15 +268,15 @@ export default function UzbekistanPrivateTours() {
                       ...
                     </p>
                     <div className={styles.metaRow}>
-                      <span>{calcDays(tour.startDate, tour.endDate)} Days</span>
+                      <span>{calcDays(tour.startDate, tour.endDate)} {t("Days")}</span>
                       <span className={styles.dot}>•</span>
-                      <span>Private</span>
+                      <span>{t("Private")}</span>
                       <span className={styles.dot}>•</span>
-                      <span>{tour.availableSeats} seats</span>
+                      <span>{tour.availableSeats} {t("seats")}</span>
                     </div>
                     <div className={styles.bottomRow}>
                       <div className={styles.price}>US$ {tour.price}</div>
-                      <button className={styles.detailsBtn}>Details</button>
+                      <button className={styles.detailsBtn}>{t("Details")}</button>
                     </div>
                   </div>
                 </div>
@@ -281,14 +284,13 @@ export default function UzbekistanPrivateTours() {
             </div>
 
             <p className={styles.description}>
-              Explore Uzbekistan privately with tailor-made itineraries and
-              discover the Silk Road at your own pace.
+              {t("Explore Uzbekistan privately with tailor-made itineraries and discover the Silk Road at your own pace.")}
             </p>
           </div>
 
           {/* RIGHT */}
           <aside className={styles.sidebar}>
-            <h3>Uzbekistan Private Tours</h3>
+            <h3>{t("Uzbekistan Private Tours")}</h3>
             {Object.keys(categories).map((cat) => {
               const items = categories[cat] || [];
               const isOpen = !!openCats[cat];
@@ -301,7 +303,7 @@ export default function UzbekistanPrivateTours() {
                     className={styles.catTitle}
                     onClick={() => toggleCategory(cat)}
                   >
-                    <span>{cat} Tours</span>
+                    <span>{t(`${cat} Tours`)}</span>
                     <div className={styles.catMeta}>
                       <span className={styles.count}>({items.length})</span>
                       <span className={styles.chev}>{isOpen ? "▾" : "▸"}</span>
@@ -309,7 +311,7 @@ export default function UzbekistanPrivateTours() {
                   </div>
                   <ul className={styles.catList}>
                     {items.length === 0 && (
-                      <li className={styles.catEmpty}>No tours</li>
+                      <li className={styles.catEmpty}>{t("No tours")}</li>
                     )}
                     {items.slice(0, 8).map((t) => (
                       <li
@@ -319,7 +321,7 @@ export default function UzbekistanPrivateTours() {
                           navigate(`/private-tour/${makeSlug(t.title)}`)
                         }
                       >
-                        {t.title}
+                        {translateTourTitle(t.title, strapiLocale || lang)}
                       </li>
                     ))}
                   </ul>

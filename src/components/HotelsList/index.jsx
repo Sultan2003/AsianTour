@@ -1,10 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LanguageContext } from "../../context/LanguageContext";
+import translateStaticText from "../../utils/russianTranslations";
 import styles from "./hotelsList.module.scss";
 
 const BASE_URL = "https://brilliant-passion-7d3870e44b.strapiapp.com/api";
 
 const HotelsList = () => {
+  const { lang, strapiLocale } = useContext(LanguageContext) || {};
+  const t = (value) => translateStaticText(value, lang);
   const [hotels, setHotels] = useState([]);
   const [selectedType, setSelectedType] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -14,14 +18,14 @@ const HotelsList = () => {
 
   useEffect(() => {
     const fetchHotels = async () => {
-      const res = await fetch(`${BASE_URL}/hotelss?populate=*`);
+      const res = await fetch(`${BASE_URL}/hotelss?locale=${strapiLocale || "en"}&populate=*`);
       const data = await res.json();
 
       setHotels(data.data || []);
     };
 
     fetchHotels();
-  }, []);
+  }, [strapiLocale]);
 
   const hotelTypesOrder = ["Economy", "Standart", "Deluxe"];
 
@@ -59,51 +63,51 @@ const HotelsList = () => {
 
         <div className={styles.filterBox}>
           <div className={styles.selectWrapper}>
-            <label>Hotel Type</label>
+            <label>{t("Hotel Type")}</label>
 
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
             >
-              <option value="">All Types</option>
+              <option value="">{t("All Types")}</option>
 
               {hotelTypesOrder.map((type) => (
                 <option key={type} value={type}>
-                  {type}
+                  {t(type)}
                 </option>
               ))}
             </select>
           </div>
 
           <div className={styles.selectWrapper}>
-            <label>City</label>
+            <label>{t("City")}</label>
 
             <select
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
             >
-              <option value="">All Cities</option>
+              <option value="">{t("All Cities")}</option>
 
               {cities.map((city) => (
                 <option key={city} value={city}>
-                  {city}
+                  {t(city)}
                 </option>
               ))}
             </select>
           </div>
 
           <div className={styles.selectWrapper}>
-            <label>Country</label>
+            <label>{t("Country")}</label>
 
             <select
               value={selectedCountry}
               onChange={(e) => setSelectedCountry(e.target.value)}
             >
-              <option value="">All Countries</option>
+              <option value="">{t("All Countries")}</option>
 
               {countries.map((country) => (
                 <option key={country} value={country}>
-                  {country}
+                  {t(country)}
                 </option>
               ))}
             </select>
@@ -111,7 +115,7 @@ const HotelsList = () => {
         </div>
       </div>
 
-      <h1>Hotels</h1>
+      <h1>{t("Hotels")}</h1>
 
       {hotelTypesOrder.map((type) => {
         const sectionHotels = filteredHotels.filter(
@@ -122,7 +126,7 @@ const HotelsList = () => {
 
         return (
           <div key={type} className={styles.section}>
-            <h2>{type}</h2>
+            <h2>{t(type)}</h2>
 
             <div className={styles.grid}>
               {sectionHotels.map((hotel) => (
@@ -138,7 +142,7 @@ const HotelsList = () => {
                   <div className={styles.cardContent}>
                     <h3>{hotel.title}</h3>
 
-                    <p>{hotel.city}</p>
+                    <p>{t(hotel.city)}</p>
                   </div>
                 </div>
               ))}

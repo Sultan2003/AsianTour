@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import styles from "./CityAttractions.module.scss";
+import { LanguageContext } from "../../context/LanguageContext";
+import translateStaticText from "../../utils/russianTranslations";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -44,6 +46,8 @@ const sortByTitle = (a, b) => {
 };
 
 export default function CityAttractions({ city }) {
+  const { lang, strapiLocale } = useContext(LanguageContext) || {};
+  const t = (value) => translateStaticText(value, lang);
   const [attractions, setAttractions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -57,7 +61,7 @@ export default function CityAttractions({ city }) {
     setError(null);
 
     fetch(
-      `${STRAPI_BASE}/api/attractions?pagination[pageSize]=100&sort=title:asc`,
+      `${STRAPI_BASE}/api/attractions?locale=${strapiLocale || "en"}&pagination[pageSize]=100&sort=title:asc`,
       { signal: controller.signal },
     )
       .then((response) => {
@@ -75,7 +79,7 @@ export default function CityAttractions({ city }) {
       });
 
     return () => controller.abort();
-  }, [cityKey]);
+  }, [cityKey, strapiLocale]);
 
   const groupedAttractions = useMemo(() => {
     const groups = ATTRACTION_TYPES.reduce((acc, type) => {
@@ -103,8 +107,8 @@ export default function CityAttractions({ city }) {
   if (loading) {
     return (
       <section className={styles.cityAttractions}>
-        <h2>More Attractions in {city}</h2>
-        <p className={styles.status}>Loading attractions...</p>
+        <h2>{t("More Attractions in")} {t(city)}</h2>
+        <p className={styles.status}>{t("Loading attractions...")}</p>
       </section>
     );
   }
@@ -112,8 +116,8 @@ export default function CityAttractions({ city }) {
   if (error) {
     return (
       <section className={styles.cityAttractions}>
-        <h2>More Attractions in {city}</h2>
-        <p className={styles.status}>Unable to load attractions right now.</p>
+        <h2>{t("More Attractions in")} {t(city)}</h2>
+        <p className={styles.status}>{t("Unable to load attractions right now.")}</p>
       </section>
     );
   }
@@ -122,7 +126,7 @@ export default function CityAttractions({ city }) {
 
   return (
     <section className={styles.cityAttractions}>
-      <h2>More Attractions in {city}</h2>
+      <h2>{t("More Attractions in")} {t(city)}</h2>
 
       {ATTRACTION_TYPES.map(({ key, title }) => {
         const items = [...(groupedAttractions[key] || [])].sort(sortByTitle);
@@ -130,7 +134,7 @@ export default function CityAttractions({ city }) {
 
         return (
           <div key={key} className={styles.typeGroup}>
-            <h3>{title}</h3>
+            <h3>{t(title)}</h3>
             <div className={styles.attractionsGrid}>
               {items.map((item) => {
                 const raw = getRawAttraction(item);
@@ -140,7 +144,7 @@ export default function CityAttractions({ city }) {
                     key={raw.slug || raw.id || raw.title}
                     href={getAttractionUrl(item)}
                   >
-                    {raw.title}
+                    {t(raw.title)}
                   </a>
                 );
               })}
