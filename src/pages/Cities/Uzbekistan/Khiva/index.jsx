@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./Khiva.module.scss";
 import { useNavigate } from "react-router-dom";
 import CityAttractions from "../../../../components/CityAttractions";
@@ -38,9 +38,13 @@ import islamMinaret from "../../../../assets/Cities/Khiva/минарет Исл�
 
 import pexels500 from "../../../../assets/Cities/Khiva/pexels-axp-photography-500641970-19473605.jpg";
 import translateTourTitle from "../../../../utils/tourTitleTranslations";
+import { LanguageContext } from "../../../../context/LanguageContext";
+import translateStaticText from "../../../../utils/russianTranslations";
 
 /* PAGE START */
 export default function KhivaPage() {
+  const { lang, strapiLocale } = useContext(LanguageContext) || {};
+  const t = (value) => translateStaticText(value, lang);
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
@@ -53,11 +57,11 @@ export default function KhivaPage() {
   /* TOURS API */
   useEffect(() => {
     fetch(
-      "https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?filters[location][$eq]=Uzbekistan"
+      `${"https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours"}?locale=${strapiLocale || "en"}&filters[location][$eq]=Uzbekistan`,
     )
       .then((r) => r.json())
       .then((d) => setTours(d.data || []));
-  }, []);
+  }, [strapiLocale]);
 
   /* IMAGES API */
   useEffect(() => {
@@ -218,7 +222,7 @@ export default function KhivaPage() {
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.h1text}>
-          <h1>Khiva, Uzbekistan</h1>
+          <h1>{t("Khiva, Uzbekistan")}</h1>
         </div>
         <img src={Khiva} loading="lazy" className={styles.heroImage} />
 
@@ -230,7 +234,7 @@ export default function KhivaPage() {
                 .scrollIntoView({ behavior: "smooth" })
             }
           >
-            History
+            {t("History")}
           </div>
           <div
             onClick={() =>
@@ -239,7 +243,7 @@ export default function KhivaPage() {
                 .scrollIntoView({ behavior: "smooth" })
             }
           >
-            Cultural Landmarks
+            {t("Cultural Landmarks")}
           </div>
           <div
             onClick={() =>
@@ -248,13 +252,13 @@ export default function KhivaPage() {
                 .scrollIntoView({ behavior: "smooth" })
             }
           >
-            Shopping & Leisure
+            {t("Shopping & Leisure")}
           </div>
         </div>
 
         {sections.map((sec) => (
           <section key={sec.key} id={sec.key} className={styles.section}>
-            <h3>{sec.title}</h3>
+            <h3>{t(sec.title)}</h3>
 
             {sec.paragraphs?.map((p, i) => (
               <p key={i}>{p}</p>
@@ -263,7 +267,7 @@ export default function KhivaPage() {
             {sec.items && (
               <ul className={styles.bulletList}>
                 {sec.items.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <li key={i}>{t(item)}</li>
                 ))}
               </ul>
             )}
@@ -296,7 +300,7 @@ export default function KhivaPage() {
                 {sec[iKey] && (
                   <ul className={styles.bulletList}>
                     {sec[iKey].map((item, i) => (
-                      <li key={i}>{item}</li>
+                      <li key={i}>{t(item)}</li>
                     ))}
                   </ul>
                 )}
@@ -330,7 +334,7 @@ export default function KhivaPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
+              <h3>{translateTourTitle(tour.title, strapiLocale || lang)}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

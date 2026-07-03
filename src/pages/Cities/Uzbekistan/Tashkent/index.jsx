@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./Tashkent.module.scss";
 import Tashkent from "../../../../assets/Cities/tashkent.jpg";
 import { useNavigate } from "react-router-dom";
@@ -51,8 +51,12 @@ import transport4 from "../../../../assets/Cities/Tashkent City Images/Mustaqill
 import transport5 from "../../../../assets/Cities/Tashkent City Images/Yunus Rajabiy Subway Station.jpg";
 import transport6 from "../../../../assets/Cities/Tashkent City Images/Paxtakor Subway Station.png";
 import translateTourTitle from "../../../../utils/tourTitleTranslations";
+import { LanguageContext } from "../../../../context/LanguageContext";
+import translateStaticText from "../../../../utils/russianTranslations";
 
 export default function TashkentPage() {
+  const { lang, strapiLocale } = useContext(LanguageContext) || {};
+  const t = (value) => translateStaticText(value, lang);
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
@@ -65,11 +69,11 @@ export default function TashkentPage() {
   /* TOURS API */
   useEffect(() => {
     fetch(
-      "https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours?filters[location][$eq]=Uzbekistan",
+      `${"https://brilliant-passion-7d3870e44b.strapiapp.com/api/asian-tours"}?locale=${strapiLocale || "en"}&filters[location][$eq]=Uzbekistan`,
     )
       .then((r) => r.json())
       .then((d) => setTours(d.data || []));
-  }, []);
+  }, [strapiLocale]);
 
   /* IMAGES API */
   useEffect(() => {
@@ -306,7 +310,7 @@ export default function TashkentPage() {
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.h1text}>
-          <h1>Tashkent - capital of Uzbekiston</h1>
+          <h1>{t("Tashkent - capital of Uzbekiston")}</h1>
         </div>
         <img src={Tashkent} loading="lazy" className={styles.heroImage} />
 
@@ -319,7 +323,7 @@ export default function TashkentPage() {
                 .scrollIntoView({ behavior: "smooth" })
             }
           >
-            History
+            {t("History")}
           </div>
           <div
             onClick={() =>
@@ -328,7 +332,7 @@ export default function TashkentPage() {
                 .scrollIntoView({ behavior: "smooth" })
             }
           >
-            Cultural Landmarks
+            {t("Cultural Landmarks")}
           </div>
           <div
             onClick={() =>
@@ -337,7 +341,7 @@ export default function TashkentPage() {
                 .scrollIntoView({ behavior: "smooth" })
             }
           >
-            Foods in Tashkent
+            {t("Foods in Tashkent")}
           </div>
           <div
             onClick={() =>
@@ -346,7 +350,7 @@ export default function TashkentPage() {
                 .scrollIntoView({ behavior: "smooth" })
             }
           >
-            Shopping & Leisure
+            {t("Shopping & Leisure")}
           </div>
           <div
             onClick={() =>
@@ -355,20 +359,20 @@ export default function TashkentPage() {
                 .scrollIntoView({ behavior: "smooth" })
             }
           >
-            City Transport
+            {t("City Transport")}
           </div>
         </div>
 
         {/* ALL SECTIONS (UNLIMITED PARAGRAPHS + IMAGES SUPPORT) */}
         {sections.map((sec) => (
           <section key={sec.key} id={sec.key} className={styles.section}>
-            <h3>{sec.title}</h3>
+            <h3>{t(sec.title)}</h3>
 
             {/* BEFORE ITEMS PARAGRAPHS */}
             {sec.paragraphs?.map((p, i) => (
               <p
                 key={i}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                dangerouslySetInnerHTML={{ __html: `<strong>${t(p)}</strong>` }}
               />
             ))}
 
@@ -376,7 +380,7 @@ export default function TashkentPage() {
             {sec.items && (
               <ul className={styles.bulletList}>
                 {sec.items.map((item, i) => (
-                  <li key={i}>{item}</li>
+                  <li key={i}>{t(item)}</li>
                 ))}
               </ul>
             )}
@@ -397,7 +401,7 @@ export default function TashkentPage() {
             {sec.afterParagraphs?.map((p, i) => (
               <p
                 key={`afterP${i}`}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                dangerouslySetInnerHTML={{ __html: `<strong>${t(p)}</strong>` }}
               />
             ))}
 
@@ -405,7 +409,7 @@ export default function TashkentPage() {
             {sec.afterItems && (
               <ul className={styles.bulletList}>
                 {sec.afterItems.map((item, i) => (
-                  <li key={`afterItem${i}`}>{item}</li>
+                  <li key={`afterItem${i}`}>{t(item)}</li>
                 ))}
               </ul>
             )}
@@ -431,7 +435,7 @@ export default function TashkentPage() {
             {sec.afterParagraphs1?.map((p, i) => (
               <p
                 key={`afterParagraphs1${i}`}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                dangerouslySetInnerHTML={{ __html: `<strong>${t(p)}</strong>` }}
               />
             ))}
 
@@ -439,7 +443,7 @@ export default function TashkentPage() {
             {sec.afterItems1 && (
               <ul className={styles.bulletList}>
                 {sec.afterItems1.map((item, i) => (
-                  <li key={`afterItem1${i}`}>{item}</li>
+                  <li key={`afterItem1${i}`}>{t(item)}</li>
                 ))}
               </ul>
             )}
@@ -465,7 +469,7 @@ export default function TashkentPage() {
             {sec.afterParagraphs2?.map((p, i) => (
               <p
                 key={`afterParagraphs2${i}`}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                dangerouslySetInnerHTML={{ __html: `<strong>${t(p)}</strong>` }}
               />
             ))}
 
@@ -473,7 +477,7 @@ export default function TashkentPage() {
             {sec.afterItems2 && (
               <ul className={styles.bulletList}>
                 {sec.afterItems2.map((item, i) => (
-                  <li key={`afterItem2${i}`}>{item}</li>
+                  <li key={`afterItem2${i}`}>{t(item)}</li>
                 ))}
               </ul>
             )}
@@ -499,7 +503,7 @@ export default function TashkentPage() {
             {sec.afterParagraphs3?.map((p, i) => (
               <p
                 key={`afterParagraphs3${i}`}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                dangerouslySetInnerHTML={{ __html: `<strong>${t(p)}</strong>` }}
               />
             ))}
 
@@ -507,7 +511,7 @@ export default function TashkentPage() {
             {sec.afterItems3 && (
               <ul className={styles.bulletList}>
                 {sec.afterItems3.map((item, i) => (
-                  <li key={`afterItem3${i}`}>{item}</li>
+                  <li key={`afterItem3${i}`}>{t(item)}</li>
                 ))}
               </ul>
             )}
@@ -533,7 +537,7 @@ export default function TashkentPage() {
             {sec.afterParagraphs4?.map((p, i) => (
               <p
                 key={`afterParagraphs4${i}`}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                dangerouslySetInnerHTML={{ __html: `<strong>${t(p)}</strong>` }}
               />
             ))}
 
@@ -541,7 +545,7 @@ export default function TashkentPage() {
             {sec.afterItems4 && (
               <ul className={styles.bulletList}>
                 {sec.afterItems4.map((item, i) => (
-                  <li key={`afterItem4${i}`}>{item}</li>
+                  <li key={`afterItem4${i}`}>{t(item)}</li>
                 ))}
               </ul>
             )}
@@ -567,7 +571,7 @@ export default function TashkentPage() {
             {sec.afterParagraphs5?.map((p, i) => (
               <p
                 key={`afterParagraphs5${i}`}
-                dangerouslySetInnerHTML={{ __html: `<strong>${p}</strong>` }}
+                dangerouslySetInnerHTML={{ __html: `<strong>${t(p)}</strong>` }}
               />
             ))}
 
@@ -575,7 +579,7 @@ export default function TashkentPage() {
             {sec.afterItems5 && (
               <ul className={styles.bulletList}>
                 {sec.afterItems5.map((item, i) => (
-                  <li key={`afterItem5${i}`}>{item}</li>
+                  <li key={`afterItem5${i}`}>{t(item)}</li>
                 ))}
               </ul>
             )}
@@ -611,7 +615,7 @@ export default function TashkentPage() {
           >
             <img src={getTourImage(tour)} className={styles.tourImage} />
             <div className={styles.tourInfo}>
-              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
+              <h3>{translateTourTitle(tour.title, strapiLocale || lang)}</h3>
               <p>
                 {tour.startDate &&
                   new Date(tour.startDate).toLocaleDateString()}

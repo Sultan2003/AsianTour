@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
+import { LanguageContext } from "../../context/LanguageContext";
+import translateStaticText from "../../utils/russianTranslations";
 import styles from "./hotels.module.scss";
 
 const BASE_URL = "https://brilliant-passion-7d3870e44b.strapiapp.com/api";
@@ -64,6 +66,8 @@ const RoomCard = ({ room, styles }) => {
 };
 
 const Hotels = () => {
+  const { lang, strapiLocale } = useContext(LanguageContext) || {};
+  const t = (value) => translateStaticText(value, lang);
   const [hotel, setHotel] = useState(null);
 
   const [openGallery, setOpenGallery] = useState(false);
@@ -75,7 +79,7 @@ const Hotels = () => {
   useEffect(() => {
     const fetchHotel = async () => {
       const res = await fetch(
-        `${BASE_URL}/hotelss?filters[slug][$eq]=${encodeURIComponent(
+        `${BASE_URL}/hotelss?locale=${strapiLocale || "en"}&filters[slug][$eq]=${encodeURIComponent(
           slug,
         )}&populate=*`,
       );
@@ -88,9 +92,9 @@ const Hotels = () => {
     };
 
     fetchHotel();
-  }, [slug]);
+  }, [slug, strapiLocale]);
 
-  if (!hotel) return <div>Loading...</div>;
+  if (!hotel) return <div>{t("Loading...")}</div>;
 
   const attributes = hotel;
 
@@ -288,7 +292,7 @@ const Hotels = () => {
       </section>
 
       <section className={styles.section}>
-        <h2>Terms of Stay</h2>
+        <h2>{t("Terms of Stay")}</h2>
 
         <table className={styles.terms}>
           <tbody>
@@ -302,7 +306,7 @@ const Hotels = () => {
       </section>
 
       <section className={styles.section}>
-        <h2>Rooms</h2>
+        <h2>{t("Rooms")}</h2>
 
         <div className={styles.rooms}>
           {rooms.map((room, i) => (
@@ -312,7 +316,7 @@ const Hotels = () => {
       </section>
 
       <section className={styles.section}>
-        <h2>Contact Details</h2>
+        <h2>{t("Contact Details")}</h2>
 
         <div className={styles.contacts}>
           <p>{contacts.address}</p>
