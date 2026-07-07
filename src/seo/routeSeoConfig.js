@@ -1,59 +1,12 @@
 import { SITE_URL, getAlternateUrls, getCanonicalUrl, normalizePathname, splitLocalePathname } from "./canonical";
 import { getSeoBlogPost, seoTourPages } from "./staticSeoPages";
+import { staticRouteSeo } from "./staticRouteSeo";
 
 const SITE_NAME = "Go To Central Asia";
 const DEFAULT_IMAGE = `${SITE_URL}/logo.png`;
 const TWITTER_SITE = "@gotocentralasia";
 
-const routeSeoMap = {
-  "/": {
-    title: "Silk Road & Central Asia Tours | Go To Central Asia",
-    description:
-      "Official tour operator for Central Asia. Group & private tours in Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan & Turkmenistan. Guaranteed departures. Book now.",
-  },
-  "/contact": {
-    title: "Contact Go To Central Asia | Tailor-Made Tour Support",
-    description:
-      "Contact our travel specialists to plan your custom Central Asia itinerary, visa support, transportation, and local experiences.",
-  },
-  "/about": {
-    title: "About Go To Central Asia | Regional Tour Experts",
-    description:
-      "Learn about our local team, destination expertise, and mission to deliver authentic and reliable travel experiences across Asia.",
-  },
-  "/visa-policy": {
-    title: "Central Asia Visa Policy Guide | Go To Central Asia",
-    description:
-      "Review visa requirements and practical entry information for Central Asia and Caucasus destinations before your trip.",
-  },
-  "/booking-form": {
-    title: "Book Your Tour | Go To Central Asia",
-    description:
-      "Submit your booking request for private, cultural, and multi-country Central Asia travel programs.",
-  },
-  "/transfer": {
-    title: "Central Asia Transfers | Airport & Intercity Transport",
-    description:
-      "Book airport pickups, city transfers, and private intercity transportation across Central Asia with Go To Central Asia.",
-  },
-  "/hotels": {
-    title: "Central Asia Hotels | Hotel Booking Service",
-    description:
-      "Browse hotels and accommodation options for Central Asia trips, including room details, prices, and booking support.",
-  },
-  "/search": {
-    title: "Search Tours | Go To Central Asia",
-    description:
-      "Find tours and destinations across Central Asia and the Caucasus.",
-    robots: "noindex,follow",
-  },
-  "/10-best-places-to-visit-in-uzbekistan": {
-    title: "10 Best Places to Visit in Uzbekistan | Travel Guide",
-    description:
-      "Discover the top places to visit in Uzbekistan, including Samarkand, Bukhara, Khiva, and Tashkent for your next journey.",
-    type: "article",
-  },
-};
+const routeSeoMap = staticRouteSeo;
 
 const formatSegment = (segment) =>
   segment.replace(/-/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
