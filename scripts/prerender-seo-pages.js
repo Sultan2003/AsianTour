@@ -1,5 +1,6 @@
 import { readFile, writeFile, mkdir } from "fs/promises";
 import { seoBlogPosts, seoCountryPages, seoTourPages } from "../src/seo/staticSeoPages.js";
+import { staticPrerenderPages } from "../src/seo/staticRouteSeo.js";
 import { getAlternateUrls, getCanonicalUrl, splitLocalePathname, withRussianPrefix } from "../src/seo/canonical.js";
 
 const SITE_URL = "https://www.gotocentralasia.com";
@@ -87,6 +88,11 @@ function inject(page, outputPath = page.path) {
   let html = template
     .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
     .replace(/<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${escapeHtml(description)}" />`)
+    .replace(/<meta property="og:title" content="[^"]*"\s*\/?>/, `<meta property="og:title" content="${escapeHtml(title)}" />`)
+    .replace(/<meta property="og:description" content="[^"]*"\s*\/?>/, `<meta property="og:description" content="${escapeHtml(description)}" />`)
+    .replace(/<meta property="og:url" content="[^"]*"\s*\/?>/, `<meta property="og:url" content="${canonical}" />`)
+    .replace(/<meta name="twitter:title" content="[^"]*"\s*\/?>/, `<meta name="twitter:title" content="${escapeHtml(title)}" />`)
+    .replace(/<meta name="twitter:description" content="[^"]*"\s*\/?>/, `<meta name="twitter:description" content="${escapeHtml(description)}" />`)
     .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/, `<link rel="canonical" href="${canonical}" />`)
     .replace(/<html([^>]*)lang="[^"]*"/, `<html$1lang="${isRussian ? "ru" : "en"}"`);
   html = html.replace('<div id="root"></div>', `<div id="root">${content}</div>`);
@@ -116,19 +122,10 @@ const homepageSchema = {
   ],
 };
 
-const pages = [];
-
-pages.push({
-  path: "/",
-  title: "Silk Road & Central Asia Tours | Go To Central Asia",
-  description: "Book private and group Central Asia tours across Uzbekistan, Kyrgyzstan, Kazakhstan, Tajikistan and Turkmenistan with local experts.",
-  h1: "Central Asia Tours and Silk Road Travel Packages",
-  body: [
-    "Go To Central Asia plans private and group tours across Uzbekistan, Kyrgyzstan, Kazakhstan, Tajikistan, Turkmenistan and the Caucasus. Our travel specialists design Silk Road itineraries with reliable hotels, licensed guides, airport transfers, rail tickets and practical local support.",
-    "Popular journeys include Uzbekistan cultural tours, Kyrgyzstan mountain itineraries, Kazakhstan city and nature programs, Turkmenistan desert routes and multi-country Central Asia packages. Whether you want a scheduled group departure or a tailor-made private tour, the team helps match dates, pace and budget to the right route.",
-  ],
-  schema: homepageSchema,
-});
+const pages = staticPrerenderPages.map((page) => ({
+  ...page,
+  schema: page.path === "/" ? homepageSchema : { "@context": "https://schema.org", "@type": "WebPage", name: page.h1, description: page.description, url: `${SITE_URL}${page.path === "/" ? "" : page.path}` },
+}));
 
 for (const tour of seoTourPages) {
   pages.push({
