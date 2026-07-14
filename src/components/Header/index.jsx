@@ -223,7 +223,7 @@ export default function Header({ onLoginClick }) {
               {t("nav.aboutUs")}
             </NavLink>
 
-            <NavLink className={styles.navlink} to="/contact">
+            <NavLink className={`${styles.navlink} ${styles.contactLink}`} to="/contact">
               {t("nav.contact")}
             </NavLink>
 
