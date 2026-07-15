@@ -147,3 +147,46 @@
     }
   }
 }
+
+/* Two-column, larger mobile footer */
+@media (max-width: 576px) {
+  .footer {
+    padding: 2.25rem 1.25rem;
+
+    .container {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      gap: 1.75rem 1.25rem;
+      text-align: left;
+      justify-items: stretch;
+    }
+
+    .column {
+      min-width: 0;
+    }
+
+    .heading {
+      font-size: 1.08rem;
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+    }
+
+    .subheading,
+    .column li,
+    .column a {
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+
+    .payments,
+    .socials {
+      justify-content: flex-start;
+    }
+
+    .socials {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+}

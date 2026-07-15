@@ -1467,3 +1467,27 @@ body {
     display: none !important;
   }
 }
+
+/* Mobile spacing fix for Recent tours to join */
+@media (max-width: 600px) {
+  .mainPage {
+    .upcomingSection {
+      width: 100%;
+      max-width: 100%;
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+      box-sizing: border-box;
+
+      .upcomingList {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .upcomingCard {
+        width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+      }
+    }
+  }
+}
