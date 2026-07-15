@@ -560,11 +560,19 @@ export default function TourIdPage() {
       date.setDate(date.getDate() - 1);
     }
 
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
+    const dateLocale = strapiLocale.startsWith("ru")
+      ? "ru-RU"
+      : strapiLocale.startsWith("uz")
+        ? "uz-UZ"
+        : "en-GB";
+
+    return date
+      .toLocaleDateString(dateLocale, {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .replace(/\s*г\.$/, "");
   };
 
   // Parse itinerary safely

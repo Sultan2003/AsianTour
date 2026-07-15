@@ -339,12 +339,21 @@ export default function PrivateTourIdPage() {
   const days = calculateDays(tour?.startDate, tour?.endDate);
   const isOneDayTour = days === 1;
 
-  const formatDate = (iso) =>
-    new Date(iso).toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
+  const formatDate = (iso) => {
+    const dateLocale = strapiLocale.startsWith("ru")
+      ? "ru-RU"
+      : strapiLocale.startsWith("uz")
+        ? "uz-UZ"
+        : "en-GB";
+
+    return new Date(iso)
+      .toLocaleDateString(dateLocale, {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .replace(/\s*г\.$/, "");
+  };
 
   // Parse itinerary safely
   const parsedDays = useMemo(() => {
