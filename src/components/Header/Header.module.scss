@@ -1102,3 +1102,47 @@ body {
     gap: 8px !important;
   }
 }
+
+
+/* Mobile navigation overflow fix: keep destination, group and private tour tabs scrollable without changing font sizes. */
+@media (max-width: 768px) {
+  .bottomRow,
+  .bottomRow.menuOpen {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menuItem {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .menuTrigger {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .dropdown {
+    position: fixed;
+    top: 130px;
+    left: 50%;
+    right: auto;
+    width: min(360px, calc(100vw - 28px));
+    max-width: calc(100vw - 28px);
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    transform: translateX(-50%) !important;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .show {
+    display: block !important;
+  }
+}
