@@ -9,6 +9,7 @@ import translateTourTitle from "../../utils/tourTitleTranslations";
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
 const HIDDEN_DESCRIPTION_DIRECTIVES = /^(Array|Accomodation|Priceinclude)\s*=\s*\[/i;
+const HIDDEN_DESCRIPTION_END = /^\s*\];?\s*$/;
 
 const isSafeUrl = (url = "") => /^(https?:|mailto:|tel:|\/)/i.test(url);
 
@@ -19,8 +20,28 @@ const getNodeText = (node) => {
   return "";
 };
 
-const isHiddenDescriptionBlock = (block) =>
-  HIDDEN_DESCRIPTION_DIRECTIVES.test(getNodeText(block).trim());
+
+const getVisibleDescriptionBlocks = (blocks = []) => {
+  let hidingDirective = false;
+
+  return blocks.filter((block) => {
+    const text = getNodeText(block).trim();
+
+    if (HIDDEN_DESCRIPTION_DIRECTIVES.test(text)) {
+      hidingDirective = true;
+      return false;
+    }
+
+    if (hidingDirective) {
+      if (HIDDEN_DESCRIPTION_END.test(text)) {
+        hidingDirective = false;
+      }
+      return false;
+    }
+
+    return true;
+  });
+};
 
 const renderRichTextNode = (node, key) => {
   if (node?.type === "link") {
@@ -839,9 +860,9 @@ export default function TourIdPage() {
             <h2>{t.overview}</h2>
 
             {Array.isArray(tour.description)
-              ? tour.description
-                  .filter((block) => !isHiddenDescriptionBlock(block))
-                  .map(renderTourRichTextBlock)
+              ? getVisibleDescriptionBlocks(tour.description).map(
+                  renderTourRichTextBlock,
+                )
               : processTextBeforeRender(tour.plainDescription)}
           </section>
 
