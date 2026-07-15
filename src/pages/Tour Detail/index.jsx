@@ -43,6 +43,61 @@ const getVisibleDescriptionBlocks = (blocks = []) => {
   });
 };
 
+
+const collectRichTextLinks = (node) => {
+  if (!node) return [];
+
+  const current =
+    node.type === "link"
+      ? [
+          {
+            text: getNodeText(node).trim(),
+            url: node.url,
+          },
+        ]
+      : [];
+
+  if (!Array.isArray(node.children)) return current;
+
+  return [
+    ...current,
+    ...node.children.flatMap((child) => collectRichTextLinks(child)),
+  ];
+};
+
+const renderLinkedText = (text, links = [], keyPrefix = "linked-text") => {
+  const match = links.find(
+    (link) =>
+      link.text &&
+      text.toLowerCase().includes(link.text.toLowerCase()) &&
+      isSafeUrl(link.url),
+  );
+
+  if (!match) return text;
+
+  const index = text.toLowerCase().indexOf(match.text.toLowerCase());
+  const before = text.slice(0, index);
+  const linked = text.slice(index, index + match.text.length);
+  const after = text.slice(index + match.text.length);
+  const href = match.url;
+
+  return (
+    <>
+      {before}
+      <a
+        key={`${keyPrefix}-link`}
+        href={href}
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        className={styles.autoLink}
+      >
+        {linked}
+      </a>
+      {after}
+    </>
+  );
+};
+
 const renderRichTextNode = (node, key) => {
   if (node?.type === "link") {
     const href = isSafeUrl(node.url) ? node.url : "#";
@@ -898,11 +953,7 @@ export default function TourIdPage() {
           {/* ACCOMMODATION */}
           {Array.isArray(tour.description) &&
             (() => {
-              const descText = tour.description
-                .map(
-                  (node) => node?.children?.map?.((c) => c.text).join("") ?? "",
-                )
-                .join("\n");
+              const descText = tour.description.map(getNodeText).join("\n");
 
               const match = descText.match(
                 /Accomodation\s*=\s*\[([\s\S]*?)\];/i,
@@ -910,12 +961,21 @@ export default function TourIdPage() {
               if (!match) return null;
 
               // Split into object-like blocks. Use a strict split for `},{` variants.
+              const directiveBlocks = tour.description.filter((block) => {
+                const text = getNodeText(block);
+                return /City\s*:/i.test(text) || /Hotels\s*:/i.test(text);
+              });
+
               const objectBlocks = match[1]
                 .split(/}\s*,\s*{/) // split between objects
                 .map((b) => b.replace(/^[\s\[{]+|[\s\]}]+$/g, "").trim()) // remove leftover braces/brackets
                 .filter((b) => /City\s*:/i.test(b)); // only blocks that contain City
 
               const accommodations = objectBlocks.map((block) => {
+                const sourceBlock = directiveBlocks.find((candidate) =>
+                  getNodeText(candidate).includes(block.slice(0, 24).trim()),
+                );
+                const hotelLinks = collectRichTextLinks(sourceBlock);
                 // Get City
                 const cityMatch = block.match(/City\s*:\s*([^,}]+)/i);
                 const city = cityMatch ? cityMatch[1].trim() : "";
@@ -942,7 +1002,7 @@ export default function TourIdPage() {
                       .filter(Boolean)
                   : [];
 
-                return { city, hotels, days };
+                return { city, hotels, days, hotelLinks };
               });
 
               return (
@@ -963,7 +1023,16 @@ export default function TourIdPage() {
                         {/* hotels list (Days token removed) */}
                         <div className={styles.hotelList}>
                           {a.hotels.length
-                            ? a.hotels.join(", ")
+                            ? a.hotels.map((hotel, hotelIndex) => (
+                                <span key={hotel}>
+                                  {hotelIndex > 0 ? ", " : ""}
+                                  {renderLinkedText(
+                                    hotel,
+                                    a.hotelLinks,
+                                    `hotel-${i}-${hotelIndex}`,
+                                  )}
+                                </span>
+                              ))
                             : t.noHotels}
                         </div>
                       </div>
