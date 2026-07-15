@@ -8,6 +8,89 @@ import translateTourTitle from "../../utils/tourTitleTranslations";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
+const HIDDEN_DESCRIPTION_DIRECTIVES = /^(Array|Accomodation|Priceinclude)\s*=\s*\[/i;
+
+const isSafeUrl = (url = "") => /^(https?:|mailto:|tel:|\/)/i.test(url);
+
+const getNodeText = (node) => {
+  if (!node) return "";
+  if (typeof node.text === "string") return node.text;
+  if (Array.isArray(node.children)) return node.children.map(getNodeText).join("");
+  return "";
+};
+
+const isHiddenDescriptionBlock = (block) =>
+  HIDDEN_DESCRIPTION_DIRECTIVES.test(getNodeText(block).trim());
+
+const renderRichTextNode = (node, key) => {
+  if (node?.type === "link") {
+    const href = isSafeUrl(node.url) ? node.url : "#";
+    return (
+      <a
+        key={key}
+        href={href}
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        className={styles.autoLink}
+      >
+        {node.children?.map((child, index) =>
+          renderRichTextNode(child, `${key}-link-${index}`),
+        )}
+      </a>
+    );
+  }
+
+  let content = node?.text || "";
+
+  if (node?.code) content = <code>{content}</code>;
+  if (node?.strikethrough) content = <s>{content}</s>;
+  if (node?.underline) content = <u>{content}</u>;
+  if (node?.italic) content = <em>{content}</em>;
+  if (node?.bold) content = <strong>{content}</strong>;
+
+  return <span key={key}>{content}</span>;
+};
+
+const renderRichTextChildren = (children = []) =>
+  children.map((child, index) => renderRichTextNode(child, index));
+
+const renderTourRichTextBlock = (block, index) => {
+  const children = renderRichTextChildren(block.children);
+
+  switch (block.type) {
+    case "heading": {
+      const level = Math.min(Math.max(block.level || 2, 1), 6);
+      const Heading = `h${level}`;
+      return <Heading key={index}>{children}</Heading>;
+    }
+    case "list": {
+      const List = block.format === "ordered" ? "ol" : "ul";
+      return (
+        <List key={index}>
+          {block.children?.map((item, itemIndex) => (
+            <li key={itemIndex}>{renderRichTextChildren(item.children)}</li>
+          ))}
+        </List>
+      );
+    }
+    case "quote":
+      return <blockquote key={index}>{children}</blockquote>;
+    case "code":
+      return (
+        <pre key={index}>
+          <code>{block.children?.map(getNodeText).join("")}</code>
+        </pre>
+      );
+    case "paragraph":
+    default:
+      return (
+        <p key={index} className={styles.processedParagraph}>
+          {children}
+        </p>
+      );
+  }
+};
+
 export default function TourIdPage() {
   const { slug } = useParams();
 
@@ -129,9 +212,7 @@ export default function TourIdPage() {
     if (Array.isArray(desc)) {
       return desc
         .map((block) =>
-          block.children
-            ? block.children.map((c) => c.text || "").join("")
-            : "",
+          getNodeText(block),
         )
         .join(" ");
     }
@@ -706,7 +787,7 @@ export default function TourIdPage() {
         >
           <div className={styles.overlay} />
           <div className={styles.heroContent}>
-            <h1>{tour?.title || "Uzbekistan Tour"}</h1>
+            <h1>{translateTourTitle(tour?.title || "Uzbekistan Tour", strapiLocale)}</h1>
 
             <p>
               {days} {t.days} • {tour.location}
@@ -757,27 +838,11 @@ export default function TourIdPage() {
           <section className={styles.tabContent}>
             <h2>{t.overview}</h2>
 
-            {(() => {
-              if (!Array.isArray(tour.description)) return null;
-
-              let fullText = tour.description
-                .map(
-                  (node) => node?.children?.map((c) => c.text).join("") ?? "",
-                )
-                .join("\n");
-
-              fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "");
-              fullText = fullText.replace(
-                /Accomodation\s*=\s*\[[\s\S]*?\];?/g,
-                "",
-              );
-              fullText = fullText.replace(
-                /Priceinclude\s*=\s*\[[\s\S]*?\];?/gi,
-                "",
-              );
-
-              return processTextBeforeRender(fullText);
-            })()}
+            {Array.isArray(tour.description)
+              ? tour.description
+                  .filter((block) => !isHiddenDescriptionBlock(block))
+                  .map(renderTourRichTextBlock)
+              : processTextBeforeRender(tour.plainDescription)}
           </section>
 
           {/* Itinerary */}
