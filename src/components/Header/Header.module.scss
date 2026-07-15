@@ -1165,3 +1165,17 @@ body {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* Center mobile dropdowns under the header regardless of which nav item is tapped. */
+@media (max-width: 768px) {
+  .bottomRow.menuOpen .menuItem {
+    position: static;
+  }
+
+  .bottomRow.menuOpen .dropdown {
+    left: 50%;
+    width: min(360px, calc(100vw - 28px));
+    max-width: calc(100vw - 28px);
+    transform: translateX(-50%) !important;
+  }
+}
