@@ -8,6 +8,165 @@ import translateTourTitle from "../../utils/tourTitleTranslations";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
+const HIDDEN_DESCRIPTION_DIRECTIVES = /^(Array|Accomodation|Priceinclude)\s*=\s*\[/i;
+const HIDDEN_DESCRIPTION_END = /^\s*\];?\s*$/;
+
+const isSafeUrl = (url = "") => /^(https?:|mailto:|tel:|\/)/i.test(url);
+
+const getNodeText = (node) => {
+  if (!node) return "";
+  if (typeof node.text === "string") return node.text;
+  if (Array.isArray(node.children)) return node.children.map(getNodeText).join("");
+  return "";
+};
+
+
+const getVisibleDescriptionBlocks = (blocks = []) => {
+  let hidingDirective = false;
+
+  return blocks.filter((block) => {
+    const text = getNodeText(block).trim();
+
+    if (HIDDEN_DESCRIPTION_DIRECTIVES.test(text)) {
+      hidingDirective = true;
+      return false;
+    }
+
+    if (hidingDirective) {
+      if (HIDDEN_DESCRIPTION_END.test(text)) {
+        hidingDirective = false;
+      }
+      return false;
+    }
+
+    return true;
+  });
+};
+
+
+const collectRichTextLinks = (node) => {
+  if (!node) return [];
+
+  const current =
+    node.type === "link"
+      ? [
+          {
+            text: getNodeText(node).trim(),
+            url: node.url,
+          },
+        ]
+      : [];
+
+  if (!Array.isArray(node.children)) return current;
+
+  return [
+    ...current,
+    ...node.children.flatMap((child) => collectRichTextLinks(child)),
+  ];
+};
+
+const renderLinkedText = (text, links = [], keyPrefix = "linked-text") => {
+  const match = links.find(
+    (link) =>
+      link.text &&
+      text.toLowerCase().includes(link.text.toLowerCase()) &&
+      isSafeUrl(link.url),
+  );
+
+  if (!match) return text;
+
+  const index = text.toLowerCase().indexOf(match.text.toLowerCase());
+  const before = text.slice(0, index);
+  const linked = text.slice(index, index + match.text.length);
+  const after = text.slice(index + match.text.length);
+  const href = match.url;
+
+  return (
+    <>
+      {before}
+      <a
+        key={`${keyPrefix}-link`}
+        href={href}
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        className={styles.autoLink}
+      >
+        {linked}
+      </a>
+      {after}
+    </>
+  );
+};
+
+const renderRichTextNode = (node, key) => {
+  if (node?.type === "link") {
+    const href = isSafeUrl(node.url) ? node.url : "#";
+    return (
+      <a
+        key={key}
+        href={href}
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        className={styles.autoLink}
+      >
+        {node.children?.map((child, index) =>
+          renderRichTextNode(child, `${key}-link-${index}`),
+        )}
+      </a>
+    );
+  }
+
+  let content = node?.text || "";
+
+  if (node?.code) content = <code>{content}</code>;
+  if (node?.strikethrough) content = <s>{content}</s>;
+  if (node?.underline) content = <u>{content}</u>;
+  if (node?.italic) content = <em>{content}</em>;
+  if (node?.bold) content = <strong>{content}</strong>;
+
+  return <span key={key}>{content}</span>;
+};
+
+const renderRichTextChildren = (children = []) =>
+  children.map((child, index) => renderRichTextNode(child, index));
+
+const renderTourRichTextBlock = (block, index) => {
+  const children = renderRichTextChildren(block.children);
+
+  switch (block.type) {
+    case "heading": {
+      const level = Math.min(Math.max(block.level || 2, 1), 6);
+      const Heading = `h${level}`;
+      return <Heading key={index}>{children}</Heading>;
+    }
+    case "list": {
+      const List = block.format === "ordered" ? "ol" : "ul";
+      return (
+        <List key={index}>
+          {block.children?.map((item, itemIndex) => (
+            <li key={itemIndex}>{renderRichTextChildren(item.children)}</li>
+          ))}
+        </List>
+      );
+    }
+    case "quote":
+      return <blockquote key={index}>{children}</blockquote>;
+    case "code":
+      return (
+        <pre key={index}>
+          <code>{block.children?.map(getNodeText).join("")}</code>
+        </pre>
+      );
+    case "paragraph":
+    default:
+      return (
+        <p key={index} className={styles.processedParagraph}>
+          {children}
+        </p>
+      );
+  }
+};
+
 export default function TourIdPage() {
   const { slug } = useParams();
 
@@ -129,9 +288,7 @@ export default function TourIdPage() {
     if (Array.isArray(desc)) {
       return desc
         .map((block) =>
-          block.children
-            ? block.children.map((c) => c.text || "").join("")
-            : "",
+          getNodeText(block),
         )
         .join(" ");
     }
@@ -403,11 +560,19 @@ export default function TourIdPage() {
       date.setDate(date.getDate() - 1);
     }
 
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
+    const dateLocale = strapiLocale.startsWith("ru")
+      ? "ru-RU"
+      : strapiLocale.startsWith("uz")
+        ? "uz-UZ"
+        : "en-GB";
+
+    return date
+      .toLocaleDateString(dateLocale, {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .replace(/\s*г\.$/, "");
   };
 
   // Parse itinerary safely
@@ -706,7 +871,7 @@ export default function TourIdPage() {
         >
           <div className={styles.overlay} />
           <div className={styles.heroContent}>
-            <h1>{tour?.title || "Uzbekistan Tour"}</h1>
+            <h1>{translateTourTitle(tour?.title || "Uzbekistan Tour", strapiLocale)}</h1>
 
             <p>
               {days} {t.days} • {tour.location}
@@ -757,27 +922,11 @@ export default function TourIdPage() {
           <section className={styles.tabContent}>
             <h2>{t.overview}</h2>
 
-            {(() => {
-              if (!Array.isArray(tour.description)) return null;
-
-              let fullText = tour.description
-                .map(
-                  (node) => node?.children?.map((c) => c.text).join("") ?? "",
+            {Array.isArray(tour.description)
+              ? getVisibleDescriptionBlocks(tour.description).map(
+                  renderTourRichTextBlock,
                 )
-                .join("\n");
-
-              fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "");
-              fullText = fullText.replace(
-                /Accomodation\s*=\s*\[[\s\S]*?\];?/g,
-                "",
-              );
-              fullText = fullText.replace(
-                /Priceinclude\s*=\s*\[[\s\S]*?\];?/gi,
-                "",
-              );
-
-              return processTextBeforeRender(fullText);
-            })()}
+              : processTextBeforeRender(tour.plainDescription)}
           </section>
 
           {/* Itinerary */}
@@ -812,11 +961,7 @@ export default function TourIdPage() {
           {/* ACCOMMODATION */}
           {Array.isArray(tour.description) &&
             (() => {
-              const descText = tour.description
-                .map(
-                  (node) => node?.children?.map?.((c) => c.text).join("") ?? "",
-                )
-                .join("\n");
+              const descText = tour.description.map(getNodeText).join("\n");
 
               const match = descText.match(
                 /Accomodation\s*=\s*\[([\s\S]*?)\];/i,
@@ -824,12 +969,21 @@ export default function TourIdPage() {
               if (!match) return null;
 
               // Split into object-like blocks. Use a strict split for `},{` variants.
+              const directiveBlocks = tour.description.filter((block) => {
+                const text = getNodeText(block);
+                return /City\s*:/i.test(text) || /Hotels\s*:/i.test(text);
+              });
+
               const objectBlocks = match[1]
                 .split(/}\s*,\s*{/) // split between objects
                 .map((b) => b.replace(/^[\s\[{]+|[\s\]}]+$/g, "").trim()) // remove leftover braces/brackets
                 .filter((b) => /City\s*:/i.test(b)); // only blocks that contain City
 
               const accommodations = objectBlocks.map((block) => {
+                const sourceBlock = directiveBlocks.find((candidate) =>
+                  getNodeText(candidate).includes(block.slice(0, 24).trim()),
+                );
+                const hotelLinks = collectRichTextLinks(sourceBlock);
                 // Get City
                 const cityMatch = block.match(/City\s*:\s*([^,}]+)/i);
                 const city = cityMatch ? cityMatch[1].trim() : "";
@@ -856,7 +1010,7 @@ export default function TourIdPage() {
                       .filter(Boolean)
                   : [];
 
-                return { city, hotels, days };
+                return { city, hotels, days, hotelLinks };
               });
 
               return (
@@ -877,7 +1031,16 @@ export default function TourIdPage() {
                         {/* hotels list (Days token removed) */}
                         <div className={styles.hotelList}>
                           {a.hotels.length
-                            ? a.hotels.join(", ")
+                            ? a.hotels.map((hotel, hotelIndex) => (
+                                <span key={hotel}>
+                                  {hotelIndex > 0 ? ", " : ""}
+                                  {renderLinkedText(
+                                    hotel,
+                                    a.hotelLinks,
+                                    `hotel-${i}-${hotelIndex}`,
+                                  )}
+                                </span>
+                              ))
                             : t.noHotels}
                         </div>
                       </div>
