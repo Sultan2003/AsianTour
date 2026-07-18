@@ -1,3 +1,9 @@
+const RU_EXACT_TITLES = new Map([
+  ["uzbekistan relaxed group tour 2026-2027", "Размеренный групповой тур по Узбекистану 2026–2027"],
+  ["uzbekistan relaxed group tour 2026-2027.", "Размеренный групповой тур по Узбекистану 2026–2027."],
+  ["10-day uzbekistan relaxed group tour 2026-2027", "10-дневный размеренный групповой тур по Узбекистану 2026–2027"],
+]);
+
 const RU_PHRASES = [
   [/Central Asia/gi, "Центральная Азия"],
   [/Silk Road/gi, "Шёлковый путь"],
@@ -25,7 +31,7 @@ const RU_PHRASES = [
   [/Tbilisi/gi, "Тбилиси"],
   [/Mountains?/gi, "горы"],
   [/Classic/gi, "классический"],
-  [/Relaxed/gi, "спокойный"],
+  [/Relaxed/gi, "размеренный"],
   [/Welcome to/gi, "Добро пожаловать в"],
   [/Highlights?/gi, "главные достопримечательности"],
   [/Discovery/gi, "открытие"],
@@ -48,6 +54,10 @@ const RU_PHRASES = [
 export const translateTourTitle = (title, language) => {
   const detectedLanguage = language || (typeof window !== "undefined" && window.location?.pathname?.startsWith("/rus") ? "ru" : "en");
   if (!title || (detectedLanguage || "en").split("-")[0] !== "ru") return title;
+  const normalizedTitle = String(title).toLowerCase().replace(/[–—]/g, "-").replace(/\.$/, "").trim();
+  const exactTitle = RU_EXACT_TITLES.get(normalizedTitle);
+  if (exactTitle) return String(title).trim().endsWith(".") && !exactTitle.endsWith(".") ? `${exactTitle}.` : exactTitle;
+
   let translated = String(title);
   RU_PHRASES.forEach(([pattern, replacement]) => {
     translated = translated.replace(pattern, replacement);
