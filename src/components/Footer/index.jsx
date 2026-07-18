@@ -81,7 +81,9 @@ const Footer = () => {
         <div className={styles.column}>
           <h3 className={styles.heading}>{t.company}</h3>
           <ul>
-            <li onClick={() => navigate("/contact")}>{t.aboutUs}</li>
+            <li role="button" onClick={() => navigate("/contact")}>
+              {t.aboutUs}
+            </li>
             <li>
               <Link to="/booking-terms">{t.bookingTerms}</Link>
             </li>
@@ -105,20 +107,20 @@ const Footer = () => {
           </div>
           <div className={styles.socials}>
             <a href="https://facebook.com" target="_blank" rel="noreferrer">
-              <FacebookIcon /> <br></br>
-              <p style={{ fontSize: "14px" }}>Facebook</p>
+              <FacebookIcon />
+              <p>Facebook</p>
             </a>
             <a
               href="https://www.instagram.com/gotocentralasia/"
               target="_blank"
               rel="noreferrer"
             >
-              <InstagramIcon /> <br></br>
-              <p style={{ fontSize: "14px" }}>Instagram</p>
+              <InstagramIcon />
+              <p>Instagram</p>
             </a>
             <a href="https://youtube.com" target="_blank" rel="noreferrer">
-              <YoutubeIcon /> <br></br>
-              <p style={{ fontSize: "14px" }}>Youtube</p>
+              <YoutubeIcon />
+              <p>Youtube</p>
             </a>
           </div>
         </div>

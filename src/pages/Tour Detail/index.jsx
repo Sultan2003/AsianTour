@@ -5,7 +5,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
 import translateTourTitle from "../../utils/tourTitleTranslations";
-import { collectRichTextLinks, getRichTextPlainText, getVisibleTourDescriptionBlocks, renderRichTextBlocks } from "../../utils/strapiRichText";
+import {
+  collectRichTextLinks,
+  getRichTextPlainText,
+  getVisibleTourDescriptionBlocks,
+  renderRichTextBlocks,
+} from "../../utils/strapiRichText";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -50,29 +55,6 @@ export default function TourIdPage() {
     { word: "Armenia Tours", url: "/armenia-tours" },
     { word: "Azerbaijan Tours", url: "/azerbaijan-tours" },
     { word: "Georgia Tours", url: "/georgia-tours" },
-
-    // ✅ Destinations (country pages)
-    { word: "Uzbekistan", url: "/uzbekistan" },
-    { word: "Kazakhstan", url: "/kazakhstan" },
-    { word: "Kyrgyzstan", url: "/kyrgyzstan" },
-    { word: "Tajikistan", url: "/tajikistan" },
-    { word: "Turkmenistan", url: "/turkmenistan" },
-    { word: "Central Asia", url: "/central-asia" },
-    { word: "Silk Road", url: "/silk-road" },
-    { word: "Caucasus", url: "/caucasus" },
-    { word: "Armenia", url: "/armenia" },
-    { word: "Azerbaijan", url: "/azerbaijan" },
-    { word: "Georgia", url: "/georgia" },
-
-    // ✅ City pages
-    { word: "Tashkent", url: "/uzbekistan-tashkent" },
-    { word: "Samarkand", url: "/uzbekistan-samarkand" },
-    { word: "Bukhara", url: "/uzbekistan-bukhara" },
-    { word: "Khiva", url: "/uzbekistan-khiva" },
-    { word: "Astana", url: "/kazakhstan-astana" },
-    { word: "Almaty", url: "/kazakhstan-almaty" },
-    { word: "Bishkek", url: "/kyrgyzstan-bishkek" },
-    { word: "Tbilisi", url: "/georgia-tbilisi" },
 
     // ✅ Tour types
     { word: "City Tours", url: "/city-tours" },
@@ -130,9 +112,7 @@ export default function TourIdPage() {
     if (Array.isArray(desc)) {
       return desc
         .map((block) =>
-          block.children
-            ? getRichTextPlainText(block.children)
-            : "",
+          block.children ? getRichTextPlainText(block.children) : "",
         )
         .join(" ");
     }
@@ -336,9 +316,20 @@ export default function TourIdPage() {
           )
             pushIf("Religious");
 
-          if (ttype.includes("eco") || ttype.includes("nature") || ttype.includes("эко") || ttype.includes("природ")) pushIf("Eco");
+          if (
+            ttype.includes("eco") ||
+            ttype.includes("nature") ||
+            ttype.includes("эко") ||
+            ttype.includes("природ")
+          )
+            pushIf("Eco");
 
-          if (ttype.includes("city") || ttype.includes("urban") || ttype.includes("город")) pushIf("City");
+          if (
+            ttype.includes("city") ||
+            ttype.includes("urban") ||
+            ttype.includes("город")
+          )
+            pushIf("City");
 
           if (
             ttype.includes("business") ||
@@ -609,10 +600,20 @@ export default function TourIdPage() {
   return (
     <div className={styles.tourPage}>
       <Helmet>
-        <title>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} | Gotocentralasia</title>
+        <title>
+          {translateTourTitle(
+            tour.title,
+            typeof strapiLocale !== "undefined"
+              ? strapiLocale
+              : typeof lang !== "undefined"
+                ? lang
+                : undefined,
+          )}{" "}
+          | Gotocentralasia
+        </title>
         <meta
           name="description"
-          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} — explore ${tour.location}. Tour lasts ${days} days. Price: $${tour.price}. Full itinerary, dates, prices & booking.`}
+          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)} — explore ${tour.location}. Tour lasts ${days} days. Price: $${tour.price}. Full itinerary, dates, prices & booking.`}
         />
         <link
           rel="canonical"
@@ -620,10 +621,20 @@ export default function TourIdPage() {
         />
 
         {/* Open Graph (for Facebook) */}
-        <meta property="og:title" content={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} />
+        <meta
+          property="og:title"
+          content={translateTourTitle(
+            tour.title,
+            typeof strapiLocale !== "undefined"
+              ? strapiLocale
+              : typeof lang !== "undefined"
+                ? lang
+                : undefined,
+          )}
+        />
         <meta
           property="og:description"
-          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} — ${tour.location}. ${days} days.`}
+          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)} — ${tour.location}. ${days} days.`}
         />
         <meta
           property="og:image"
@@ -637,10 +648,20 @@ export default function TourIdPage() {
         />
 
         {/* Twitter Card */}
-        <meta name="twitter:title" content={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} />
+        <meta
+          name="twitter:title"
+          content={translateTourTitle(
+            tour.title,
+            typeof strapiLocale !== "undefined"
+              ? strapiLocale
+              : typeof lang !== "undefined"
+                ? lang
+                : undefined,
+          )}
+        />
         <meta
           name="twitter:description"
-          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}, ${days} days.`}
+          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)}, ${days} days.`}
         />
         <meta name="twitter:image" content={tourImages[0]?.url} />
       </Helmet>
@@ -708,7 +729,16 @@ export default function TourIdPage() {
         >
           <div className={styles.overlay} />
           <div className={styles.heroContent}>
-            <h1>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined)) || "Uzbekistan Tour"}</h1>
+            <h1>
+              {translateTourTitle(
+                tour.title,
+                typeof strapiLocale !== "undefined"
+                  ? strapiLocale
+                  : typeof lang !== "undefined"
+                    ? lang
+                    : undefined,
+              ) || "Uzbekistan Tour"}
+            </h1>
 
             <p>
               {days} {t.days} • {tour.location}
@@ -734,8 +764,8 @@ export default function TourIdPage() {
                   src={img.url}
                   alt={
                     img.alternativeText?.trim()
-                      ? `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} — ${img.alternativeText}`
-                      : `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} in ${tour.location}`
+                      ? `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)} — ${img.alternativeText}`
+                      : `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)} in ${tour.location}`
                   }
                 />
               </div>
@@ -762,9 +792,12 @@ export default function TourIdPage() {
             {(() => {
               if (!Array.isArray(tour.description)) return null;
 
-              return renderRichTextBlocks(getVisibleTourDescriptionBlocks(tour.description), {
-                paragraphClassName: styles.processedParagraph,
-              });
+              return renderRichTextBlocks(
+                getVisibleTourDescriptionBlocks(tour.description),
+                {
+                  paragraphClassName: styles.processedParagraph,
+                },
+              );
             })()}
           </section>
 
@@ -801,9 +834,7 @@ export default function TourIdPage() {
           {Array.isArray(tour.description) &&
             (() => {
               const descText = tour.description
-                .map(
-                  (node) => getRichTextPlainText(node?.children),
-                )
+                .map((node) => getRichTextPlainText(node?.children))
                 .join("\n");
 
               const match = descText.match(
@@ -874,7 +905,11 @@ export default function TourIdPage() {
                                   <span key={hotelName}>
                                     {hotelIndex > 0 && ", "}
                                     {link ? (
-                                      <a href={link.url} target="_blank" rel="noreferrer">
+                                      <a
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                      >
                                         {hotelName}
                                       </a>
                                     ) : (
@@ -991,7 +1026,9 @@ export default function TourIdPage() {
 
                         return (
                           <tr key={item.id}>
-                            <td data-label={t.tourStartDate}>{formattedStart}</td>
+                            <td data-label={t.tourStartDate}>
+                              {formattedStart}
+                            </td>
                             <td data-label={t.tableEndDate}>{formattedEnd}</td>
                             <td
                               data-label={t.tableStatus}
@@ -1077,9 +1114,7 @@ export default function TourIdPage() {
                       }),
                     },
                   );
-                  alert(
-                    t.requestSuccess,
-                  );
+                  alert(t.requestSuccess);
                   form.reset();
                 } catch (err) {
                   console.error(err);
@@ -1212,9 +1247,7 @@ export default function TourIdPage() {
                     setFiles([]);
                   } catch (err) {
                     console.error("Failed to send review:", err);
-                    alert(
-                      t.reviewFailure,
-                    );
+                    alert(t.reviewFailure);
                   }
                 }}
               >
@@ -1268,9 +1301,7 @@ export default function TourIdPage() {
                     if (input) input.click();
                   }}
                 >
-                  <p>
-                    {t.uploadPrompt}
-                  </p>
+                  <p>{t.uploadPrompt}</p>
                   <input
                     id="mediaInput"
                     type="file"
@@ -1378,7 +1409,16 @@ export default function TourIdPage() {
         {/* Right card */}
         <div>
           <div className={styles.detailsCard}>
-            <h2>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h2>
+            <h2>
+              {translateTourTitle(
+                tour.title,
+                typeof strapiLocale !== "undefined"
+                  ? strapiLocale
+                  : typeof lang !== "undefined"
+                    ? lang
+                    : undefined,
+              )}
+            </h2>
             <div className={styles.price}>US${tour.price}</div>
 
             <div className={styles.infoLine}>
@@ -1456,7 +1496,9 @@ export default function TourIdPage() {
 
           {/* === RELATED TOURS SIDEBAR (matching Uzbekistan page behaviour) === */}
           <aside className={styles.sidebar} style={{ marginTop: 18 }}>
-            <h3>{tour.location} {t.groupTours}</h3>
+            <h3>
+              {tour.location} {t.groupTours}
+            </h3>
 
             {Object.keys(relatedCategories).map((cat) => {
               const items = relatedCategories[cat] || [];
@@ -1471,7 +1513,9 @@ export default function TourIdPage() {
                     className={styles.catTitle}
                     onClick={() => toggleCategory(cat)}
                   >
-                    <span>{t.categories[cat]} {t.tourSuffix}</span>
+                    <span>
+                      {t.categories[cat]} {t.tourSuffix}
+                    </span>
                     <div className={styles.catMeta}>
                       <span className={styles.count}>({items.length})</span>
                       <span>{isOpen ? "▾" : "▸"}</span>
@@ -1494,7 +1538,14 @@ export default function TourIdPage() {
                         }}
                         style={{ cursor: "pointer" }}
                       >
-                        {translateTourTitle(tItem.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+                        {translateTourTitle(
+                          tItem.title,
+                          typeof strapiLocale !== "undefined"
+                            ? strapiLocale
+                            : typeof lang !== "undefined"
+                              ? lang
+                              : undefined,
+                        )}
                       </li>
                     ))}
                   </ul>
@@ -1566,7 +1617,7 @@ export default function TourIdPage() {
                 const message = `
 New Booking Request
 
-Tour: ${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+Tour: ${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)}
 Start Date: ${formatDate(selectedDate.start)}
 End Date: ${formatDate(selectedDate.end, true)}
 Price: ${selectedDate.price}
@@ -1603,7 +1654,17 @@ Guest Email: ${email}
               <input name="email" required type="email" />
 
               <label>{t.title}</label>
-              <input value={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} readOnly />
+              <input
+                value={translateTourTitle(
+                  tour.title,
+                  typeof strapiLocale !== "undefined"
+                    ? strapiLocale
+                    : typeof lang !== "undefined"
+                      ? lang
+                      : undefined,
+                )}
+                readOnly
+              />
 
               <label>{t.date}</label>
               <input
