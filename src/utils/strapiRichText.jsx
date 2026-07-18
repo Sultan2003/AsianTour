@@ -96,4 +96,11 @@ export const collectRichTextLinks = (value) => {
 };
 
 export const isTourConfigBlock = (block) =>
-  /\b(Array|Accomodation|Accommodation|Priceinclude)\s*=/i.test(getRichTextPlainText(block));
+  /\b(Array|Accomodation|Accommodation|Accomadation|Priceinclude)\s*=/i.test(getRichTextPlainText(block));
+
+export const getVisibleTourDescriptionBlocks = (blocks = []) => {
+  if (!Array.isArray(blocks)) return blocks;
+
+  const firstConfigIndex = blocks.findIndex(isTourConfigBlock);
+  return firstConfigIndex === -1 ? blocks : blocks.slice(0, firstConfigIndex);
+};

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
 import translateTourTitle from "../../utils/tourTitleTranslations";
-import { collectRichTextLinks, getRichTextPlainText, isTourConfigBlock, renderRichTextBlocks } from "../../utils/strapiRichText";
+import { collectRichTextLinks, getRichTextPlainText, getVisibleTourDescriptionBlocks, renderRichTextBlocks } from "../../utils/strapiRichText";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -708,7 +708,7 @@ export default function TourIdPage() {
         >
           <div className={styles.overlay} />
           <div className={styles.heroContent}>
-            <h1>{tour?.title || "Uzbekistan Tour"}</h1>
+            <h1>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined)) || "Uzbekistan Tour"}</h1>
 
             <p>
               {days} {t.days} • {tour.location}
@@ -762,9 +762,8 @@ export default function TourIdPage() {
             {(() => {
               if (!Array.isArray(tour.description)) return null;
 
-              return renderRichTextBlocks(tour.description, {
+              return renderRichTextBlocks(getVisibleTourDescriptionBlocks(tour.description), {
                 paragraphClassName: styles.processedParagraph,
-                skipBlock: isTourConfigBlock,
               });
             })()}
           </section>
