@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
 import translateTourTitle from "../../utils/tourTitleTranslations";
+import { collectRichTextLinks, getRichTextPlainText, getVisibleTourDescriptionBlocks, renderRichTextBlocks } from "../../utils/strapiRichText";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -126,7 +127,7 @@ export default function PrivateTourIdPage() {
     if (Array.isArray(desc)) {
       return desc
         .map((block) =>
-          block.children ? block.children.map((c) => c.text || "").join("") : ""
+          block.children ? getRichTextPlainText(block.children) : ""
         )
         .join(" ");
     }
@@ -170,7 +171,8 @@ export default function PrivateTourIdPage() {
         0,
       location: raw.location || raw.place || rawItem.location || "",
       daysdescription: raw.daysdescription || rawItem.daysdescription || "",
-      description: extractPlainText(raw.description) || raw.description || "",
+      description: raw.description,
+      plainDescription: extractPlainText(raw.description),
       tour_type:
         (raw.tour_type ?? raw.tourType ?? raw.type) ||
         rawItem.tour_type ||
@@ -376,7 +378,7 @@ export default function PrivateTourIdPage() {
   const parsedArray = useMemo(() => {
     if (!Array.isArray(tour?.description)) return [];
     const arrayText = tour.description
-      .map((node) => node?.children?.map((c) => c.text).join("") ?? "")
+      .map((node) => getRichTextPlainText(node?.children))
       .join(" ");
     const match = arrayText.match(/Array\s*=\s*\[([\s\S]*?)\];/);
     if (!match) return [];
@@ -397,7 +399,7 @@ export default function PrivateTourIdPage() {
     if (!Array.isArray(tour?.description)) return null;
 
     const fullText = tour.description
-      .map((n) => n?.children?.map((c) => c.text).join("") ?? "")
+      .map((n) => getRichTextPlainText(n?.children))
       .join("\n");
 
     const match = fullText.match(/Priceinclude\s*=\s*\[([\s\S]*?)\]/i);
@@ -504,6 +506,7 @@ export default function PrivateTourIdPage() {
   }
 
   const tourImages = images.filter((img) => img.alternativeText === tour.title);
+  const hotelLinks = collectRichTextLinks(tour.description);
 
   const tourVideo = images.find(
     (file) =>
@@ -665,23 +668,9 @@ export default function PrivateTourIdPage() {
             {(() => {
               if (!Array.isArray(tour.description)) return null;
 
-              let fullText = tour.description
-                .map(
-                  (node) => node?.children?.map((c) => c.text).join("") ?? ""
-                )
-                .join("\n");
-
-              fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/gi, "");
-              fullText = fullText.replace(
-                /Accomodation\s*=\s*\[[\s\S]*?\];?/gi,
-                ""
-              );
-              fullText = fullText.replace(
-                /Priceinclude\s*=\s*\[[\s\S]*?\];?/gi,
-                ""
-              );
-
-              return processTextBeforeRender(fullText);
+              return renderRichTextBlocks(getVisibleTourDescriptionBlocks(tour.description), {
+                paragraphClassName: styles.processedParagraph,
+              });
             })()}
           </section>
 
@@ -723,7 +712,7 @@ export default function PrivateTourIdPage() {
             (() => {
               const descText = tour.description
                 .map(
-                  (node) => node?.children?.map?.((c) => c.text).join("") ?? ""
+                  (node) => getRichTextPlainText(node?.children)
                 )
                 .join("\n");
 
@@ -805,7 +794,20 @@ export default function PrivateTourIdPage() {
                                         className={styles.hotelItem}
                                       >
                                         {idx > 0 && " / "}
-                                        {hotel.trim()}
+                                        {(() => {
+                                          const hotelName = hotel.trim();
+                                          const link = hotelLinks.find(
+                                            (item) => item.text === hotelName,
+                                          );
+
+                                          return link ? (
+                                            <a href={link.url} target="_blank" rel="noreferrer">
+                                              {hotelName}
+                                            </a>
+                                          ) : (
+                                            hotelName
+                                          );
+                                        })()}
                                       </span>
                                     ))}
                                   </div>
@@ -1233,7 +1235,7 @@ export default function PrivateTourIdPage() {
               reviews.map((rev) => {
                 const text =
                   rev.ReviewText?.map((p) =>
-                    p.children?.map((c) => c.text).join("")
+                    getRichTextPlainText(p.children)
                   ).join(" ") || "";
 
                 const date = new Date(rev.VisitedDate).toLocaleDateString(

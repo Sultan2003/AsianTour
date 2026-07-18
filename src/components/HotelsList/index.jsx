@@ -18,7 +18,7 @@ const HotelsList = () => {
 
   useEffect(() => {
     const fetchHotels = async () => {
-      const res = await fetch(`${BASE_URL}/hotelss?locale=${strapiLocale || "en"}&populate=*`);
+      const res = await fetch(`${BASE_URL}/hotelss?locale=${strapiLocale || "en"}&populate=*&pagination[pageSize]=100&sort=title:asc`);
       const data = await res.json();
 
       setHotels(data.data || []);
@@ -27,7 +27,17 @@ const HotelsList = () => {
     fetchHotels();
   }, [strapiLocale]);
 
-  const hotelTypesOrder = ["Economy", "Standart", "Deluxe"];
+  const hotelTypesOrder = ["Economy", "Standard", "Deluxe"];
+
+  const normalizedType = (type) => (type === "Standart" ? "Standard" : type);
+
+  const displayHotelTypes = useMemo(() => {
+    const extraTypes = hotels
+      .map((hotel) => normalizedType(hotel.hotel_type))
+      .filter((type) => type && !hotelTypesOrder.includes(type));
+
+    return [...hotelTypesOrder, ...new Set(extraTypes)];
+  }, [hotels]);
 
   const cities = [
     ...new Set(hotels.map((hotel) => hotel.city).filter(Boolean)),
@@ -39,7 +49,9 @@ const HotelsList = () => {
 
   const filteredHotels = useMemo(() => {
     return hotels.filter((hotel) => {
-      const matchType = selectedType ? hotel.hotel_type === selectedType : true;
+      const matchType = selectedType
+        ? normalizedType(hotel.hotel_type) === normalizedType(selectedType)
+        : true;
 
       const matchCity = selectedCity ? hotel.city === selectedCity : true;
 
@@ -71,7 +83,7 @@ const HotelsList = () => {
             >
               <option value="">{t("All Types")}</option>
 
-              {hotelTypesOrder.map((type) => (
+              {displayHotelTypes.map((type) => (
                 <option key={type} value={type}>
                   {t(type)}
                 </option>
@@ -117,9 +129,9 @@ const HotelsList = () => {
 
       <h1>{t("Hotels")}</h1>
 
-      {hotelTypesOrder.map((type) => {
+      {displayHotelTypes.map((type) => {
         const sectionHotels = filteredHotels.filter(
-          (hotel) => hotel.hotel_type === type,
+          (hotel) => normalizedType(hotel.hotel_type) === type,
         );
 
         if (!sectionHotels.length) return null;
@@ -135,7 +147,7 @@ const HotelsList = () => {
                   className={styles.card}
                   onClick={() => navigate(`/hotels/${hotel.slug}`)}
                 >
-                  {hotel.mainImage && (
+                  {hotel.mainImage?.url && (
                     <img src={hotel.mainImage.url} alt={hotel.title} />
                   )}
 

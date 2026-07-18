@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
 import translations from "../../translations/tourdetail";
 import translateTourTitle from "../../utils/tourTitleTranslations";
+import { collectRichTextLinks, getRichTextPlainText, getVisibleTourDescriptionBlocks, renderRichTextBlocks } from "../../utils/strapiRichText";
 
 const STRAPI_BASE = "https://brilliant-passion-7d3870e44b.strapiapp.com";
 
@@ -130,7 +131,7 @@ export default function TourIdPage() {
       return desc
         .map((block) =>
           block.children
-            ? block.children.map((c) => c.text || "").join("")
+            ? getRichTextPlainText(block.children)
             : "",
         )
         .join(" ");
@@ -147,7 +148,7 @@ export default function TourIdPage() {
     if (!Array.isArray(tour?.description)) return null;
 
     const fullText = tour.description
-      .map((n) => n?.children?.map((c) => c.text).join("") ?? "")
+      .map((n) => getRichTextPlainText(n?.children))
       .join("\n");
 
     const match = fullText.match(/Priceinclude\s*=\s*\[([\s\S]*?)\]/i);
@@ -440,7 +441,7 @@ export default function TourIdPage() {
   const parsedArray = useMemo(() => {
     if (!Array.isArray(tour?.description)) return [];
     const arrayText = tour.description
-      .map((node) => node?.children?.map((c) => c.text).join("") ?? "")
+      .map((node) => getRichTextPlainText(node?.children))
       .join(" ");
     const match = arrayText.match(/Array\s*=\s*\[([\s\S]*?)\];/);
     if (!match) return [];
@@ -535,6 +536,7 @@ export default function TourIdPage() {
 
   const days = calculateDays(tour.startDate, tour.endDate);
   const tourImages = images.filter((img) => img.alternativeText === tour.title);
+  const hotelLinks = collectRichTextLinks(tour.description);
 
   const tourVideo = images.find(
     (file) =>
@@ -706,7 +708,7 @@ export default function TourIdPage() {
         >
           <div className={styles.overlay} />
           <div className={styles.heroContent}>
-            <h1>{tour?.title || "Uzbekistan Tour"}</h1>
+            <h1>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined)) || "Uzbekistan Tour"}</h1>
 
             <p>
               {days} {t.days} • {tour.location}
@@ -760,23 +762,9 @@ export default function TourIdPage() {
             {(() => {
               if (!Array.isArray(tour.description)) return null;
 
-              let fullText = tour.description
-                .map(
-                  (node) => node?.children?.map((c) => c.text).join("") ?? "",
-                )
-                .join("\n");
-
-              fullText = fullText.replace(/Array\s*=\s*\[[\s\S]*?\];?/g, "");
-              fullText = fullText.replace(
-                /Accomodation\s*=\s*\[[\s\S]*?\];?/g,
-                "",
-              );
-              fullText = fullText.replace(
-                /Priceinclude\s*=\s*\[[\s\S]*?\];?/gi,
-                "",
-              );
-
-              return processTextBeforeRender(fullText);
+              return renderRichTextBlocks(getVisibleTourDescriptionBlocks(tour.description), {
+                paragraphClassName: styles.processedParagraph,
+              });
             })()}
           </section>
 
@@ -814,7 +802,7 @@ export default function TourIdPage() {
             (() => {
               const descText = tour.description
                 .map(
-                  (node) => node?.children?.map?.((c) => c.text).join("") ?? "",
+                  (node) => getRichTextPlainText(node?.children),
                 )
                 .join("\n");
 
@@ -877,7 +865,24 @@ export default function TourIdPage() {
                         {/* hotels list (Days token removed) */}
                         <div className={styles.hotelList}>
                           {a.hotels.length
-                            ? a.hotels.join(", ")
+                            ? a.hotels.map((hotelName, hotelIndex) => {
+                                const link = hotelLinks.find(
+                                  (item) => item.text === hotelName,
+                                );
+
+                                return (
+                                  <span key={hotelName}>
+                                    {hotelIndex > 0 && ", "}
+                                    {link ? (
+                                      <a href={link.url} target="_blank" rel="noreferrer">
+                                        {hotelName}
+                                      </a>
+                                    ) : (
+                                      hotelName
+                                    )}
+                                  </span>
+                                );
+                              })
                             : t.noHotels}
                         </div>
                       </div>
@@ -1328,7 +1333,7 @@ export default function TourIdPage() {
               reviews.map((rev) => {
                 const text =
                   rev.ReviewText?.map((p) =>
-                    p.children?.map((c) => c.text).join(""),
+                    getRichTextPlainText(p.children),
                   ).join(" ") || "";
 
                 const date = new Date(rev.VisitedDate).toLocaleDateString(

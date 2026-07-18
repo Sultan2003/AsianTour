@@ -5,6 +5,7 @@ import "yet-another-react-lightbox/styles.css";
 
 import { LanguageContext } from "../../context/LanguageContext";
 import translateStaticText from "../../utils/russianTranslations";
+import { getRichTextPlainText, renderRichTextBlocks } from "../../utils/strapiRichText";
 import styles from "./hotels.module.scss";
 
 const BASE_URL = "https://brilliant-passion-7d3870e44b.strapiapp.com/api";
@@ -81,7 +82,7 @@ const Hotels = () => {
       const res = await fetch(
         `${BASE_URL}/hotelss?locale=${strapiLocale || "en"}&filters[slug][$eq]=${encodeURIComponent(
           slug,
-        )}&populate=*`,
+        )}&populate=*&pagination[pageSize]=100`,
       );
 
       const data = await res.json();
@@ -100,13 +101,7 @@ const Hotels = () => {
 
   const gallery = attributes.gallery || [];
 
-  const getText = (children) =>
-    children?.map((c) => c.text || c.url || "").join("");
-
-  const getBlocksText = (blocks) =>
-    blocks?.map((b) => getText(b.children)).join("\n") || "";
-
-  const descriptionText = getBlocksText(attributes.description);
+  const getBlocksText = (blocks) => getRichTextPlainText(blocks);
 
   const parseRooms = (blocks) => {
     if (!blocks) return [];
@@ -286,7 +281,7 @@ const Hotels = () => {
           )}
 
           <div>
-            <p>{descriptionText}</p>
+            {renderRichTextBlocks(attributes.description)}
           </div>
         </div>
       </section>
