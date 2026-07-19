@@ -1,7 +1,6 @@
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./MainPage.module.scss";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import culturalImg from "../../assets/images/front-img/cultural.jfif";
 import gastronomyImg from "../../assets/images/front-img/gastronomy.jfif";
 import religiousImg from "../../assets/images/front-img/religious.jfif";
@@ -11,9 +10,7 @@ import businessImg from "../../assets/images/front-img/business.jfif";
 import { LanguageContext } from "../../context/LanguageContext";
 import translations from "../../translations/mainpage";
 import React, { lazy, Suspense } from "react";
-import slide1 from "../../assets/Slider/Registan_Square.jpg";
-import slide2 from "../../assets/Slider/Itchan_Kala.jpg";
-import slide3 from "../../assets/Slider/Ark_Fortress.jpg";
+import heroPoster from "../../assets/Slider/Registan_Square.jpg";
 import destinations from "../../data/destinations";
 import icon1 from "../../assets/icons/mainpage/icon1.png";
 import icon2 from "../../assets/icons/mainpage/icon2.png";
@@ -32,57 +29,7 @@ export default function MainPage() {
   const [images, setImages] = useState([]);
   const [imageIndexes, setImageIndexes] = useState({});
 
-  const heroImages = [slide1, slide2, slide3];
-
-  const [heroIndex, setHeroIndex] = useState(0);
-  const [heroReady, setHeroReady] = useState(false);
-  const sliderRef = useRef(null);
-
   const visibleDestinations = destinations;
-
-  useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-
-    const interval = setInterval(() => {
-      slider.scrollBy({ left: 300, behavior: "smooth" });
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    let mounted = true;
-
-    const preload = async () => {
-      const promises = heroImages.map((src) => {
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = resolve;
-          img.onerror = resolve;
-        });
-      });
-
-      await Promise.all(promises);
-
-      if (mounted) setHeroReady(true);
-    };
-
-    preload();
-
-    return () => (mounted = false);
-  }, []);
-
-  useEffect(() => {
-    if (!heroReady) return;
-
-    const interval = setInterval(() => {
-      setHeroIndex((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [heroReady]);
 
   const makeSlug = (title) =>
     title
@@ -175,7 +122,14 @@ export default function MainPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const slideImages = [culturalImg, gastronomyImg, religiousImg, ecoImg, hikingImg, businessImg];
+  const slideImages = [
+    culturalImg,
+    gastronomyImg,
+    religiousImg,
+    ecoImg,
+    hikingImg,
+    businessImg,
+  ];
   const slideLinks = [
     "/cultural-tours",
     "/gastronomy-tours",
@@ -194,21 +148,23 @@ export default function MainPage() {
 
   return (
     <div className={styles.mainPage}>
-      {/* HERO */}
-      <div className={styles.hero}>
-        <div
-          className={styles.heroBg}
-          style={{ backgroundImage: `url(${heroImages[heroIndex]})` }}
-        />
+      {/* FULL-SCREEN VIDEO HERO */}
+      <section className={styles.hero} aria-label={t.heroTitle}>
+        <video
+          className={styles.heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={heroPoster}
+          aria-hidden="true"
+        >
+          <source src="/videos/central-asia-hero.mp4" type="video/mp4" />
+        </video>
 
-        <div className={styles.overlay}></div>
-
-        <div className={styles.heroText}>
-          <h1 className={styles.heroTitle}>{t.heroTitle}</h1>
-
-          <div className={styles.heroSubtitle}>{t.heroSubtitle}</div>
-        </div>
-      </div>
+        <div className={styles.overlay} />
+      </section>
 
       {/* ABOUT */}
       <div className={styles.aboutSection}>
@@ -242,7 +198,14 @@ export default function MainPage() {
                       <img
                         key={img.id}
                         src={img.url}
-                        alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+                        alt={translateTourTitle(
+                          tour.title,
+                          typeof strapiLocale !== "undefined"
+                            ? strapiLocale
+                            : typeof lang !== "undefined"
+                              ? lang
+                              : undefined,
+                        )}
                         className={styles.imageSlide}
                         style={{ opacity: idx === currentIndex ? 1 : 0 }}
                         loading="lazy"
@@ -263,7 +226,16 @@ export default function MainPage() {
                 </div>
 
                 <div className={styles.details}>
-                  <h2>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h2>
+                  <h2>
+                    {translateTourTitle(
+                      tour.title,
+                      typeof strapiLocale !== "undefined"
+                        ? strapiLocale
+                        : typeof lang !== "undefined"
+                          ? lang
+                          : undefined,
+                    )}
+                  </h2>
                   <div className={styles.textbtn}>
                     <div className={styles.daysprice}>
                       <p className={styles.days}>
@@ -294,9 +266,7 @@ export default function MainPage() {
               <HistoricalTimeline />
             </Suspense>
           ) : (
-            <div className={styles.timelinePlaceholder}>
-              {t.timelinePrompt}
-            </div>
+            <div className={styles.timelinePlaceholder}>{t.timelinePrompt}</div>
           )}
         </div>
       </div>
@@ -328,7 +298,16 @@ export default function MainPage() {
                   <span className={styles.day}>{day}</span>
                 </div>
 
-                <h3 className={styles.tourName}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
+                <h3 className={styles.tourName}>
+                  {translateTourTitle(
+                    tour.title,
+                    typeof strapiLocale !== "undefined"
+                      ? strapiLocale
+                      : typeof lang !== "undefined"
+                        ? lang
+                        : undefined,
+                  )}
+                </h3>
 
                 <div
                   className={`${styles.status} ${
@@ -425,13 +404,9 @@ export default function MainPage() {
           <div className={styles.featureContent}>
             <span className={styles.featureSubtitle}>{t.featureSubtitle}</span>
 
-            <h2 className={styles.featureTitle}>
-              {t.featureTitle}
-            </h2>
+            <h2 className={styles.featureTitle}>{t.featureTitle}</h2>
 
-            <p className={styles.featureDescription}>
-              {t.featureDescription}
-            </p>
+            <p className={styles.featureDescription}>{t.featureDescription}</p>
 
             <div className={styles.featureList}>
               <div className={styles.featureItem}>
@@ -440,9 +415,7 @@ export default function MainPage() {
                 </div>
                 <div>
                   <h4>{t.featureOneTitle}</h4>
-                  <p>
-                    {t.featureOneText}
-                  </p>
+                  <p>{t.featureOneText}</p>
                 </div>
               </div>
 
@@ -452,9 +425,7 @@ export default function MainPage() {
                 </div>
                 <div>
                   <h4>{t.featureTwoTitle}</h4>
-                  <p>
-                    {t.featureTwoText}
-                  </p>
+                  <p>{t.featureTwoText}</p>
                 </div>
               </div>
             </div>
@@ -518,7 +489,14 @@ export default function MainPage() {
         <footer style={{ display: "none" }}>
           {tours.map((tour) => (
             <a key={tour.id} href={`/tour/${makeSlug(tour.title)}`}>
-              {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+              {translateTourTitle(
+                tour.title,
+                typeof strapiLocale !== "undefined"
+                  ? strapiLocale
+                  : typeof lang !== "undefined"
+                    ? lang
+                    : undefined,
+              )}
             </a>
           ))}
         </footer>
