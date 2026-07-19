@@ -1,27 +1,16 @@
 .mainPage {
   margin-top: -123px;
   width: 100%;
-  font-family:
-    "Inter",
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    "Helvetica Neue",
-    Arial,
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial,
     sans-serif;
   color: #0a1a44;
   background: transparent;
-  padding: 0px 0;
   overflow-x: hidden;
+
   .hero {
     position: relative;
     width: 100%;
-    height: 620px;
-    margin: 0 auto;
-    width: 100%;
-    height: 100vh;
-
+    min-height: 100svh;
     overflow: hidden;
   }
 
@@ -36,13 +25,7 @@
   .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.4) 35%,
-      rgba(0, 0, 0, 0.15) 60%,
-      rgba(0, 0, 0, 0) 100%
-    );
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.3) 55%, rgba(0, 0, 0, 0.06) 100%);
   }
 
   .heroText {
@@ -50,119 +33,62 @@
     top: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    padding: 0 15px;
+    width: min(95%, 64rem);
+    padding: 0 clamp(0.75rem, 2.2vw, 1.5rem);
   }
 
   .heroTitle {
     margin: 0;
-    font-size: 62px;
+    font-size: clamp(2rem, 6vw, 3.9rem);
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1.08;
     letter-spacing: -0.02em;
   }
 
   .heroSubtitle {
-    margin-top: 14px;
-    font-size: 28px;
+    margin-top: clamp(0.6rem, 1.6vw, 0.9rem);
+    font-size: clamp(1.05rem, 3.2vw, 1.75rem);
     font-style: italic;
     font-weight: 400;
     opacity: 0.95;
   }
-  /* ✅ ABOUT SECTION */
+
   .aboutSection {
-    margin-top: 20px;
+    margin: clamp(1rem, 4vw, 2rem) auto 0;
     text-align: left;
     max-width: 1200px;
-    margin-left: calc((100% - 1200px) / 2);
-    margin-right: auto;
+    padding: 0 clamp(0.9rem, 2.5vw, 1.5rem);
 
     .title {
-      font-size: 2rem;
+      font-size: clamp(1.4rem, 3.2vw, 2rem);
       font-weight: 700;
       color: #0b1670;
-      margin-bottom: 15px;
+      margin-bottom: 0.75rem;
     }
 
     .text {
-      font-size: 1.1rem;
-      line-height: 1.7;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      line-height: 1.75;
       color: #444;
-    }
-
-    @media (max-width: 1200px) {
-      max-width: 100%;
-      margin-left: 20px;
-      margin-right: 20px;
-      .title {
-        font-size: 1.8rem;
-      }
-      .text {
-        font-size: 1rem;
-      }
-    }
-    @media (max-width: 992px) {
-      .title {
-        font-size: 1.6rem;
-      }
-      .text {
-        font-size: 0.95rem;
-        line-height: 1.6;
-      }
-    }
-    @media (max-width: 768px) {
-      text-align: center;
-      .title {
-        font-size: 1.5rem;
-      }
-      .text {
-        font-size: 0.9rem;
-      }
-    }
-    @media (max-width: 576px) {
-      margin-left: 10px;
-      margin-right: 10px;
-      .title {
-        font-size: 1.3rem;
-      }
-      .text {
-        font-size: 1rem;
-        line-height: 1.5;
-      }
     }
   }
 
-  /* ✅ TOUR LIST */
   .tourList {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    padding: 20px 0;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: clamp(0.9rem, 2vw, 1.9rem);
+    padding: 0 clamp(0.9rem, 2.5vw, 1.5rem) clamp(1rem, 3vw, 1.8rem);
     max-width: 1200px;
-    margin: 20px auto;
-
-    @media (max-width: 992px) {
-      grid-template-columns: repeat(2, 1fr);
-      padding: 0 10px;
-    }
-    @media (max-width: 768px) {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      padding: 0 10px;
-    }
-    @media (max-width: 480px) {
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      padding: 0 10px;
-    }
+    margin: clamp(0.9rem, 2.6vw, 1.4rem) auto;
   }
 
   .tourCard {
     background: #fff;
     border: 1px solid #e8ecf5;
     text-decoration: none;
-    border-radius: 16px;
+    border-radius: 1rem;
     overflow: hidden;
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 8px 24px rgba(10, 26, 68, 0.06);
 
     &:hover {
@@ -171,7 +97,7 @@
     }
 
     .image {
-      height: 220px;
+      height: clamp(11rem, 27vw, 14rem);
       position: relative;
       overflow: hidden;
 
@@ -182,1288 +108,89 @@
         background-position: center;
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
+
         &.active {
           opacity: 1;
         }
       }
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-
       .badge {
         position: absolute;
-        top: 12px;
-        left: 12px;
+        top: 0.75rem;
+        left: 0.75rem;
         background: linear-gradient(90deg, #0b1670, #4f46e5);
-        color: white;
-        font-size: 13px;
-        font-weight: bold;
-        padding: 6px 12px;
-        border-radius: 999px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        color: #fff;
+        font-size: clamp(0.72rem, 1.6vw, 0.82rem);
+        font-weight: 700;
+        padding: 0.35rem 0.7rem;
+        border-radius: 99rem;
       }
     }
 
     .details {
-      padding: 18px;
+      padding: clamp(0.85rem, 2vw, 1.1rem);
 
       h2 {
-        font-size: 20px;
+        font-size: clamp(1rem, 2vw, 1.25rem);
         color: #0b1670;
-        margin-bottom: 10px;
-        font-weight: 700;
+        margin-bottom: 0.65rem;
       }
 
       .textbtn {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
+        gap: 0.7rem;
 
         .daysprice {
           .days {
-            font-size: 15px;
+            font-size: clamp(0.85rem, 1.7vw, 0.95rem);
             font-weight: 600;
             color: #3b4461;
-            margin-bottom: 4px;
+            margin-bottom: 0.2rem;
           }
+
           .price {
-            font-size: 20px;
+            font-size: clamp(1rem, 2.1vw, 1.25rem);
             font-weight: 800;
             color: #e53935;
           }
         }
 
-        .btndiv {
-          .viewBtn {
-            display: inline-block;
-            background-color: #0b1670;
-            color: #fff;
-            padding: 10px 22px;
-            border: none;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-
-            &:hover {
-              background-color: #0d1e8a;
-            }
-          }
-        }
-      }
-    }
-  }
-  /* ✅ UPCOMING GROUP DEPARTURES */
-  .upcomingSection {
-    max-width: 1215px;
-    margin: 40px auto;
-    padding: 10px;
-
-    h2 {
-      font-size: 26px;
-      font-weight: 700;
-      color: #2c8b2c;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .upcomingList {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .upcomingCard {
-      display: grid;
-      grid-template-columns: 60px 1fr 80px 80px 80px;
-      align-items: center;
-      padding: 14px 16px;
-      border: 1px solid #e8ecf5;
-      text-decoration: none;
-      border-radius: 12px;
-      gap: 10px;
-      background: #fff;
-      box-shadow: 0 6px 16px rgba(10, 26, 68, 0.06);
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(10, 26, 68, 0.1);
-      }
-
-      .dateBox {
-        background: #0b1670;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-        font-weight: 700;
-        padding: 10px 5px;
-        text-align: center;
-        min-width: 60px;
-      }
-
-      .tourName {
-        margin-left: 5px;
-        font-size: 1rem;
-        font-weight: 700;
-        color: #0b1670;
-      }
-
-      .status {
-        font-weight: 700;
-        text-align: center;
-
-        &.available {
-          color: #27ae60;
-        }
-
-        &.unavailable {
-          color: #e74c3c;
-        }
-      }
-
-      .uDays {
-        font-weight: 600;
-        text-align: center;
-        color: #333;
-      }
-
-      .uPrice {
-        font-weight: 700;
-        text-align: center;
-        color: #0b1670;
-      }
-    }
-
-    /* ==============================
-     ✅ RESPONSIVE BREAKPOINTS
-     ============================== */
-
-    /* Large Tablets & small laptops (≤1024px) */
-    @media (max-width: 1024px) {
-      .upcomingList {
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-
-      .upcomingCard {
-        grid-template-columns: 60px 1fr 70px 70px 70px;
-        padding: 12px;
-      }
-
-      .tourName {
-        font-size: 0.95rem;
-      }
-    }
-
-    /* Tablets (≤768px) */
-    @media (max-width: 768px) {
-      .upcomingList {
-        grid-template-columns: 1fr;
-      }
-
-      .upcomingCard {
-        grid-template-columns: 70px 1fr 80px 60px 80px;
-        padding: 12px;
-        gap: 8px;
-      }
-
-      .uPrice {
-        font-size: 15px;
-      }
-    }
-
-    /* Mobile Medium (≤600px) */
-    /* ✅ Improved mobile design for Upcoming Group Departures */
-    @media (max-width: 600px) {
-      .upcomingSection {
-        padding: 0 12px;
-        margin-top: 30px;
-
-        h2 {
-          font-size: 22px;
-          margin-bottom: 18px;
-          text-align: center;
-        }
-
-        .upcomingList {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-
-        .upcomingCard {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          text-align: left;
-          background: #ffffff;
-          border-radius: 14px;
-          padding: 14px 16px;
-          box-shadow: 0 4px 12px rgba(10, 26, 68, 0.06);
-          border: 1px solid #e9ecf5;
-          transition:
-            transform 0.2s ease,
-            box-shadow 0.2s ease;
-
-          &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(10, 26, 68, 0.1);
-          }
-
-          /* Date on top */
-          .dateBox {
-            align-self: stretch;
-            background: #0b1670;
-            color: #fff;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 700;
-            padding: 8px 0;
-            text-align: center;
-            margin-bottom: 10px;
-          }
-
-          /* Tour name large */
-          .tourName {
-            font-size: 17px;
-            font-weight: 700;
-            color: #0b1670;
-            margin-bottom: 6px;
-          }
-
-          /* Inline info row */
-          .infoRow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            font-size: 14px;
-            margin-top: 6px;
-
-            .uDays {
-              font-weight: 600;
-              color: #555;
-            }
-
-            .status {
-              font-weight: 700;
-
-              &.available {
-                color: #27ae60;
-              }
-
-              &.unavailable {
-                color: #e74c3c;
-              }
-            }
-
-            .uPrice {
-              font-weight: 700;
-              color: #0b1670;
-            }
-          }
-        }
-      }
-    }
-
-    @media (max-width: 480px) {
-      [class*="uDays"] {
-        display: none !important;
-      }
-
-      .upcomingSection {
-        max-width: 100%;
-        padding: 0 10px;
-        margin: 0 auto;
-        box-sizing: border-box;
-        overflow-x: hidden;
-
-        h2 {
-          font-size: 18px;
-          margin-bottom: 14px;
-          text-align: center;
-        }
-
-        .upcomingList {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          align-items: stretch;
-          width: 100%;
-          margin: 0 auto;
-          padding: 0;
-        }
-
-        .upcomingCard {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          background: #fff;
-          border: 1px solid #e8ecf5;
-          border-radius: 12px;
-          padding: 12px;
-          box-sizing: border-box;
-          text-align: left;
-          box-shadow: 0 4px 10px rgba(10, 26, 68, 0.06);
-          transition: transform 0.2s ease;
-          margin: auto auto;
-
-          &:hover {
-            transform: translateY(-2px);
-          }
-
-          .dateBox {
-            font-size: 14px;
-            padding: 8px;
-            border-radius: 6px;
-            width: 100%;
-            text-align: center;
-            background: #0b1670;
-            color: white;
-            font-weight: 700;
-            box-sizing: border-box;
-          }
-
-          .tourName {
-            font-size: 16px;
-            font-weight: 700;
-            color: #0b1670;
-            margin: 8px 0 6px;
-            text-align: center;
-            width: 100%;
-            word-wrap: break-word;
-          }
-
-          /* ✅ Hide the .status element completely on small screens */
-          :global(.status) {
-            display: none !important;
-          }
-
-          .uDays {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-            width: 100%;
-          }
-
-          .uPrice {
-            font-size: 15px;
-            font-weight: 700;
-            color: #0b1670;
-            text-align: center;
-            width: 100%;
-          }
-        }
-      }
-    }
-  }
-
-  .destinationsSection {
-    max-width: 1200px;
-    margin: 20px auto;
-    text-align: center;
-
-    .title {
-      font-size: 32px;
-      font-weight: 700;
-    }
-
-    .slider {
-      position: relative;
-      height: 420px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      perspective: 1200px;
-    }
-
-    .card {
-      position: absolute;
-      width: 300px;
-      height: 200px;
-      border-radius: 20px;
-      overflow: hidden;
-      transition: all 0.6s ease;
-      cursor: pointer;
-    }
-
-    .image {
-      width: 100%;
-      height: 100%;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-
-    .overlay {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 20px;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-      color: white;
-    }
-
-    /* CENTER */
-    .pos0 {
-      transform: translateZ(200px) scale(1.1);
-      z-index: 5;
-    }
-
-    /* LEFT / RIGHT */
-    .pos-1 {
-      transform: translateX(-260px) rotateY(40deg) scale(0.9);
-      opacity: 0.7;
-      z-index: 4;
-    }
-
-    .pos1 {
-      transform: translateX(260px) rotateY(-40deg) scale(0.9);
-      opacity: 0.7;
-      z-index: 4;
-    }
-
-    /* FAR */
-    .pos-2 {
-      transform: translateX(-480px) rotateY(55deg) scale(0.75);
-      opacity: 0.4;
-    }
-
-    .pos2 {
-      transform: translateX(480px) rotateY(-55deg) scale(0.75);
-      opacity: 0.4;
-    }
-
-    .controls {
-      margin-top: 20px;
-
-      button {
-        background: #0b1670;
-        color: #fff;
-        border: none;
-        padding: 10px 16px;
-        margin: 0 10px;
-        border-radius: 10px;
-        cursor: pointer;
-      }
-    }
-    .sliderWrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* 🔥 SIDE BUTTONS */
-    .navBtn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: none;
-      background: #0b1670;
-      color: white;
-      font-size: 28px;
-      cursor: pointer;
-      z-index: 10;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-
-      transition: all 0.3s ease;
-
-      &:hover {
-        background: #1a2bb8;
-        transform: translateY(-50%) scale(1.1);
-      }
-    }
-
-    .left {
-      left: -25px; // 🔥 adjust if needed
-    }
-
-    .right {
-      right: -25px;
-    }
-  }
-
-  /* ✅ Promo Slider */
-  .promoSlider {
-    max-width: 1200px;
-    margin: 60px auto;
-    text-align: center;
-    padding-inline: 16px;
-  }
-
-  .promoTitle {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 40px;
-  }
-
-  /* CAROUSEL */
-  .carousel {
-    position: relative;
-    height: 320px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 1300px;
-    overflow: hidden;
-  }
-
-  /* CARD */
-  .carouselCard {
-    position: absolute;
-    width: 200px;
-    text-align: center;
-    transition: all 0.5s ease;
-    cursor: pointer;
-    transform-origin: center center;
-
-    .cardImage {
-      width: 100%;
-      height: 200px;
-      border-radius: 20px;
-      overflow: hidden;
-      margin-bottom: 10px;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
-    .cardTitle {
-      font-size: 18px;
-      font-weight: 700;
-      margin: 0;
-      min-height: 44px;
-      line-height: 1.25;
-      color: white;
-      max-width: 200px; /* 🔥 limit width */
-      margin: -30px auto;
-     
-
-      line-height: 1;
-      word-break: break-word; /* 🔥 prevents ugly breaks */
-    }
-
-    span {
-      font-size: 12px;
-      color: #888;
-    }
-  }
-
-  /* POSITIONS */
-
-  /* CENTER */
-  .promoPos0 {
-    transform: translateX(0) scale(1.1);
-    z-index: 5;
-  }
-
-  /* LEFT / RIGHT */
-  .promoPos-1 {
-    transform: translateX(-220px) translateY(10px) rotate(-6deg) scale(0.95);
-    opacity: 0.8;
-    z-index: 4;
-  }
-
-  .promoPos1 {
-    transform: translateX(220px) translateY(10px) rotate(6deg) scale(0.95);
-    opacity: 0.8;
-    z-index: 4;
-  }
-
-  /* FAR */
-  .promoPos-2 {
-    transform: translateX(-400px) translateY(25px) rotate(-10deg) scale(0.85);
-    opacity: 0.5;
-  }
-
-  .promoPos2 {
-    transform: translateX(400px) translateY(25px) rotate(10deg) scale(0.85);
-    opacity: 0.5;
-  }
-
-  /* DOTS */
-  .promoDots {
-    margin-top: 20px;
-
-    .dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #ccc;
-      display: inline-block;
-      margin: 0 5px;
-      cursor: pointer;
-
-      &.activeDot {
-        background: #0b1670;
-        transform: scale(1.3);
-      }
-    }
-  }
-
-  /* ✅ Contact Section */
-  .contactSection {
-    background: linear-gradient(90deg, #0b1670, #4f46e5);
-    padding: 40px 20px;
-    text-align: center;
-    border-radius: 6px;
-    margin-left: calc((100% - 1220px) / 2);
-    margin-right: calc((100% - 1220px) / 2);
-    color: white;
-
-    @media (max-width: 992px), (max-width: 768px), (max-width: 480px) {
-      font-size: 14px;
-      margin-bottom: 10px;
-      line-height: 1;
-      width: 95%;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-
-    p {
-      font-size: 18px;
-      margin-bottom: 15px;
-      line-height: 1.6;
-    }
-  }
-
-  .contactBtn {
-    background: #337ab7;
-    color: #fff;
-    padding: 12px 28px;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s ease;
-    &:hover {
-      background: #286090;
-    }
-  }
-
-  /* 🌍 GLOBAL RESPONSIVE ENHANCEMENTS */
-  @media (max-width: 1200px) {
-    .hero {
-      height: 450px;
-    }
-    .heroText h1 {
-      font-size: 38px;
-    }
-  }
-
-  @media (max-width: 992px) {
-    .hero {
-      height: 400px;
-    }
-    .heroText {
-      left: 20px;
-      bottom: 30px;
-      h1 {
-        font-size: 32px;
-      }
-      p {
-        font-size: 16px;
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero {
-      height: 360px;
-      background-position: top center;
-    }
-    .heroText {
-      left: 15px;
-      right: 15px;
-      bottom: 20px;
-      text-align: center;
-      h1 {
-        font-size: 26px;
-      }
-      p {
-        font-size: 15px;
-      }
-    }
-
-    .promoSlider {
-      margin-top: 32px;
-      margin-bottom: 28px;
-    }
-
-    .carousel {
-      height: 300px;
-    }
-
-    .carouselCard {
-      width: 135px;
-    }
-
-    .promoPos-1 {
-      transform: translateX(-165px) translateY(14px) rotate(-6deg) scale(0.88);
-      opacity: 0.88;
-    }
-
-    .promoPos1 {
-      transform: translateX(165px) translateY(14px) rotate(6deg) scale(0.88);
-      opacity: 0.88;
-    }
-
-    .promoPos-2,
-    .promoPos2 {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(0) scale(0.78);
-    }
-
-    .carouselCard .cardTitle {
-      font-size: 13px;
-      min-height: 34px;
-      line-height: 1.2;
-    }
-  }
-
-  @media (max-width: 576px) {
-    .hero {
-      height: 300px;
-    }
-    .heroText h1 {
-      font-size: 22px;
-    }
-    .heroText p {
-      font-size: 14px;
-    }
-    .tourCard .details h2 {
-      font-size: 18px;
-    }
-    .tourCard .details .price {
-      font-size: 16px;
-    }
-    .promoSlider {
-      margin: 20px auto;
-    }
-
-    .carousel {
-      height: 270px;
-    }
-
-    .carouselCard {
-      width: 120px;
-    }
-
-    .promoPos-1 {
-      transform: translateX(-135px) translateY(16px) rotate(-5deg) scale(0.84);
-    }
-
-    .promoPos1 {
-      transform: translateX(135px) translateY(16px) rotate(5deg) scale(0.84);
-    }
-
-    .carouselCard .cardTitle {
-      font-size: 12px;
-      min-height: 30px;
-    }
-    .contactSection p {
-      font-size: 15px;
-    }
-  }
-
-  @media (max-width: 400px) {
-    .hero {
-      height: 260px;
-    }
-    .heroText h1 {
-      font-size: 20px;
-      line-height: 1.2;
-    }
-    .heroText p {
-      font-size: 13px;
-    }
-    .tourCard {
-      .details h2 {
-        font-size: 16px;
-      }
-      .textbtn .viewBtn {
-        padding: 8px 18px;
-        font-size: 13px;
-      }
-    }
-    .contactBtn {
-      padding: 10px 20px;
-      font-size: 14px;
-    }
-
-    .carousel {
-      height: 248px;
-    }
-
-    .carouselCard {
-      width: 108px;
-    }
-
-    .promoPos-1 {
-      transform: translateX(-122px) translateY(16px) rotate(-4deg) scale(0.8);
-    }
-
-    .promoPos1 {
-      transform: translateX(122px) translateY(16px) rotate(4deg) scale(0.8);
-    }
-
-    .carouselCard .cardTitle {
-      font-size: 11px;
-      min-height: 28px;
-    }
-  }
-}
-/* ✅ Responsive adjustments for Promo Slider */
-@media (max-width: 992px) {
-  .promoSlider {
-    max-width: 95%;
-    margin: 30px auto;
-    border-radius: 10px;
-
-    .sliderContent {
-      h2 {
-        font-size: 30px;
-      }
-      p {
-        font-size: 16px;
-      }
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .promoSlider {
-    max-width: 92%;
-    margin: 20px auto;
-
-    .sliderContent {
-      h2 {
-        font-size: 26px;
-      }
-      p {
-        font-size: 15px;
-      }
-    }
-
-    .arrow {
-      width: 38px;
-      height: 38px;
-    }
-  }
-}
-
-@media (max-width: 576px) {
-  .promoSlider {
-    width: 90%;
-    margin: 20px auto;
-    border-radius: 8px;
-
-    .sliderContent {
-      padding: 0 10px;
-      h2 {
-        font-size: 22px;
-      }
-      p {
-        font-size: 14px;
-      }
-    }
-  }
-}
-
-@media (max-width: 420px) {
-  .promoSlider {
-    width: 80%;
-    margin: 10px auto;
-
-    .sliderContent {
-      h2 {
-        font-size: 18px;
-      }
-      p {
-        font-size: 13px;
-      }
-      .readMoreBtn {
-        font-size: 13px;
-        padding: 8px 18px;
-      }
-    }
-  }
-}
-.timelineSection {
-  width: 100%;
-  padding: 20px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  .title {
-    font-size: 34px;
-    font-weight: 800;
-    color: #081545;
-    margin-bottom: 40px;
-    text-align: center;
-    position: relative;
-
-    /* subtle underline */
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: #0a2ab5;
-      border-radius: 2px;
-    }
-  }
-
-  .timelineWrapper {
-    width: 100%;
-    max-width: 1300px;
-    padding: 0 20px;
-    display: flex;
-    justify-content: center;
-  }
-}
-.readMoreBtn {
-  display: inline-block;
-  padding: 12px 24px;
-  font-size: 18px;
-  border-radius: 6px;
-  text-align: center;
-  white-space: nowrap;
-
-  /* Desktop white-space only */
-}
-
-/* MOBILE FIX */
-@media (max-width: 576px) {
-  .readMoreBtn {
-    font-size: 14px;
-    padding: 8px 14px;
-    max-width: 80%;
-    width: auto;
-    white-space: normal; /* allow text to wrap */
-    line-height: 1.3;
-  }
-}
-.featureSection {
-  width: 100%;
-  padding: 60px 20px; /* ✅ FIXED */
-
-  .featureContainer {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-  @media (max-width: 768px) {
-    padding: 40px 15px;
-
-    .featureContainer {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .featureImages {
-      position: relative;
-      height: auto;
-
-      .featureImgLarge,
-      .featureImgSmall {
-        position: relative;
-        width: 100%;
-        height: 220px;
-        transform: none;
-        margin-bottom: 15px;
-      }
-
-      .featureBadge {
-        display: none; /* optional */
-      }
-    }
-  }
-
-  .featureContent {
-    flex: 1;
-
-    .featureSubtitle {
-      color: #6c3cff;
-      font-size: 14px;
-      font-weight: 500;
-      font-style: italic;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .featureTitle {
-      font-size: 38px; /* bigger like screenshot */
-      font-weight: 800;
-      line-height: 1.15; /* tighter */
-      color: #0b1a33; /* deep navy */
-      margin-bottom: 18px;
-      letter-spacing: -0.5px;
-    }
-
-    .featureDescription {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #6b7280;
-      margin-bottom: 35px;
-      max-width: 460px;
-    }
-
-    .featureList {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-bottom: 25px;
-
-      .featureItem {
-        display: flex;
-        gap: 15px;
-
-        .featureIcon {
-          width: 45px;
-          height: 45px;
-          border-radius: 12px;
-        }
-
-        h4 {
-          font-size: 16px;
+        .btndiv .viewBtn {
+          display: inline-block;
+          background-color: #0b1670;
+          color: #fff;
+          padding: 0.58rem 1.05rem;
+          border: none;
+          border-radius: 0.75rem;
+          font-size: clamp(0.8rem, 1.6vw, 0.9rem);
           font-weight: 700;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: #0d1e8a;
+          }
         }
-
-        p {
-          font-size: 13px;
-          color: #777;
-        }
-      }
-    }
-
-    .featureBtn {
-      background: linear-gradient(135deg, #0b1670, #5b2be0);
-      color: #fff;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.4px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(108, 60, 255, 0.3);
       }
     }
   }
 
-  .featureImages {
-    flex: 1;
-    position: relative;
-    height: 420px;
-
-    .featureImgLarge {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 260px;
-      height: 340px;
-      border-radius: 20px;
-      background-size: cover;
-      background-position: center;
-      transform: rotate(6deg);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  @media (min-width: 768px) {
+    .aboutSection {
+      text-align: left;
     }
 
-    .featureImgSmall {
-      position: absolute;
-      left: 40px;
-      bottom: 0;
-      width: 200px;
-      height: 260px;
-      border-radius: 20px;
-      background-size: cover;
-      background-position: center;
-      transform: rotate(-8deg);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .featureBadge {
-      position: absolute;
-      top: 40px;
-      left: 80px;
-      width: 140px;
-      height: 140px;
-      filter: grayscale(100%);
-
-      background: none; /* important */
-      box-shadow: none; /* optional */
-    }
-  }
-}
-.featureIcon {
-  width: 66px;
-  height: 66px;
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.featureIcon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.featureBadge {
-  position: absolute;
-  top: 110px;
-  right: 220px;
-
-  width: 100px;
-  height: 100px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 2; /* between images */
-}
-
-.featureBadge img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  mix-blend-mode: multiply;
-  opacity: 0.7; /* like screenshot faded style */
-}
-.featureImgLarge,
-.featureImgSmall {
-  position: absolute;
-  overflow: hidden; /* 🔥 VERY IMPORTANT */
-  border-radius: 20px;
-}
-
-/* IMAGE INSIDE */
-.featureImgLarge img,
-.featureImgSmall img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* 🔥 makes it behave like background-size: cover */
-  display: block;
-}
-@media (max-width: 768px) {
-  .mainPage {
     .tourList {
-      grid-template-columns: 1fr;
-      gap: 16px;
-      padding: 0 12px;
-    }
-
-    .upcomingSection,
-    .destinationsSection,
-    .promoSlider,
-    .timelineSection,
-    .featureSection {
-      width: 100%;
-      padding-left: 12px;
-      padding-right: 12px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .contactSection {
-      width: calc(100% - 24px);
-      margin: 20px auto;
-    }
-
-    .destinationsSection {
-      .slider {
-        height: 340px; /* 🔥 increase this */
-      }
-
-      .card {
-        width: 210px;
-        height: 150px;
-      }
-
-      .pos-1 {
-        transform: translateX(-150px) rotateY(30deg) scale(0.86);
-      }
-
-      .pos1 {
-        transform: translateX(150px) rotateY(-30deg) scale(0.86);
-      }
-
-      .pos-2,
-      .pos2 {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateX(0) scale(0.72);
-      }
-
-      .navBtn {
-        width: 38px;
-        height: 38px;
-        font-size: 22px;
-      }
-
-      .left {
-        left: 0;
-      }
-      .right {
-        right: 0;
-      }
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
-}
-* {
-  box-sizing: border-box;
-}
 
-html,
-body {
-  overflow-x: hidden;
-}
-@media (max-width: 768px) {
-  .featureImgSmall,
-  .featureImgLarge,
-  .featureBadge {
-    display: none !important;
+  @media (min-width: 992px) {
+    .tourList {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 }
