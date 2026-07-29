@@ -765,7 +765,7 @@ export default function PrivateTourIdPage() {
 
               return (
                 <section className={styles.accommodationSection}>
-                  <h2>Accommodation:</h2>
+                  <h2>{t.accommodation}</h2>
                   <div className={styles.accommodationTable}>
                     {accommodations.map((a, i) => (
                       <div key={i} className={styles.accommodationRow}>
@@ -774,7 +774,7 @@ export default function PrivateTourIdPage() {
                           <strong>{a.city}</strong>{" "}
                           <span className={styles.days}>
                             {" "}
-                            - {a.days ?? "-"} nights
+                            - {a.days ?? "-"} {t.nights}
                           </span>
                         </div>
 
@@ -785,7 +785,7 @@ export default function PrivateTourIdPage() {
                                 ([type, hotelStr]) => (
                                   <div key={type} className={styles.hotelGroup}>
                                     <span className={styles.hotelType}>
-                                      {type}:
+                                      {t[type.toLowerCase()] || type}:
                                     </span>
 
                                     {hotelStr.split("/").map((hotel, idx) => (
@@ -813,7 +813,7 @@ export default function PrivateTourIdPage() {
                                   </div>
                                 )
                               )
-                            : "No hotels provided"}
+                            : t.noHotels}
                         </div>
                       </div>
                     ))}
@@ -825,13 +825,13 @@ export default function PrivateTourIdPage() {
           {/* ✅ PRICE INCLUDES / EXCLUDES — MATCHED WITH TAB STYLE */}
           {parsedPriceInclude && (
             <section className={styles.tabContent}>
-              <h2>Price Includes & Excludes</h2>
+              <h2>{t.priceIncludesExcludes}</h2>
 
               <div className={styles.priceIncludeWrapper}>
                 {/* ✅ INCLUDES */}
                 <div className={styles.priceIncludeBox}>
                   <h3 className={styles.priceIncludeTitle}>
-                    ✅ Price includes:
+                    ✅ {t.priceIncludes}
                   </h3>
                   <ul>
                     {parsedPriceInclude.does.map((item, i) => (
@@ -843,7 +843,7 @@ export default function PrivateTourIdPage() {
                 {/* ❌ EXCLUDES */}
                 <div className={styles.priceExcludeBox}>
                   <h3 className={styles.priceExcludeTitle}>
-                    ❌ Price doesn’t include:
+                    ❌ {t.priceExcludes}
                   </h3>
                   <ul>
                     {parsedPriceInclude.doesNot.map((item, i) => (
@@ -857,7 +857,7 @@ export default function PrivateTourIdPage() {
 
           {/* DATES & PRICES */}
           <section ref={pricesRef} className={styles.tabContent}>
-            <h2>Prices, per person</h2>
+            <h2>{t.pricesPerPerson}</h2>
 
             {/* ✅ 1-DAY TOUR */}
             {isOneDayTour && (
