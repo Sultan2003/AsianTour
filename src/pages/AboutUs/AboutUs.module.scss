@@ -188,3 +188,27 @@
     font-size: 15px;
   }
 }
+.memberHeader {
+  position: relative;
+}
+
+.guideLink {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  a {
+    color: inherit;
+    font: inherit;
+    font-size: 16px;
+    text-decoration: none;
+    color: blue;
+  }
+}
+
+@media (max-width: 768px) {
+  .guideLink {
+    position: static;
+    margin-bottom: 10px;
+  }
+}

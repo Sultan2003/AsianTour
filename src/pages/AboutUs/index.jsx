@@ -11,11 +11,11 @@ import sardorbek from "../../assets/stuff/sardorbek.jpg";
 import { Helmet } from "react-helmet-async";
 import { LanguageContext } from "../../context/LanguageContext";
 
-
 const translations = {
   en: {
     metaTitle: "About Go To Central Asia | Tour Operator Team & Company",
-    metaDescription: "Learn about Go To Central Asia and Miramax Travel Management team. Meet travel experts, consultants and software specialists behind Central Asia tours.",
+    metaDescription:
+      "Learn about Go To Central Asia and Miramax Travel Management team. Meet travel experts, consultants and software specialists behind Central Asia tours.",
     tabs: { about: "About Us", team: "Our Team" },
     aboutTitle: "About Us",
     aboutParagraphs: [
@@ -27,7 +27,8 @@ const translations = {
     teamParagraphs: {},
     positions: {
       sherzod: "Co-Founder and Director of Miramax Travel Management",
-      alisher: "Co-Founder and Corporate Sales Manager of Miramax Travel Management",
+      alisher:
+        "Co-Founder and Corporate Sales Manager of Miramax Travel Management",
       kamola: "Senior Travel Manager",
       dinara: "Consultant on ECO and Medical Travel",
       sultanbek: "Lead Software Specialist",
@@ -37,7 +38,8 @@ const translations = {
   },
   ru: {
     metaTitle: "О Go To Central Asia | Команда и туристическая компания",
-    metaDescription: "Узнайте о Go To Central Asia и команде Miramax Travel Management. Познакомьтесь с экспертами по путешествиям, консультантами и специалистами, которые создают туры по Центральной Азии.",
+    metaDescription:
+      "Узнайте о Go To Central Asia и команде Miramax Travel Management. Познакомьтесь с экспертами по путешествиям, консультантами и специалистами, которые создают туры по Центральной Азии.",
     tabs: { about: "О нас", team: "Наша команда" },
     aboutTitle: "О нас",
     aboutParagraphs: [
@@ -86,7 +88,8 @@ const translations = {
     },
     positions: {
       sherzod: "Сооснователь и директор Miramax Travel Management",
-      alisher: "Сооснователь и менеджер по корпоративным продажам Miramax Travel Management",
+      alisher:
+        "Сооснователь и менеджер по корпоративным продажам Miramax Travel Management",
       kamola: "Старший менеджер по туризму",
       dinara: "Консультант по ECO и медицинскому туризму",
       sultanbek: "Ведущий специалист по программному обеспечению",
@@ -186,16 +189,22 @@ export default function AboutUs() {
       <Helmet>
         <title>{t.metaTitle}</title>
 
-        <meta
-          name="description"
-          content={t.metaDescription}
-        />
+        <meta name="description" content={t.metaDescription} />
 
         <link rel="canonical" href="https://www.gotocentralasia.com/about" />
         <meta property="og:type" content="profile" />
-        <meta property="og:title" content="Sultanbek Erkinbaev | Go To Central Asia" />
-        <meta property="og:description" content="Sultanbek Erkinbaev, Lead Software Specialist at Miramax Travel Management and Go To Central Asia." />
-        <meta property="og:image" content={`https://www.gotocentralasia.com${sultanbek}`} />
+        <meta
+          property="og:title"
+          content="Sultanbek Erkinbaev | Go To Central Asia"
+        />
+        <meta
+          property="og:description"
+          content="Sultanbek Erkinbaev, Lead Software Specialist at Miramax Travel Management and Go To Central Asia."
+        />
+        <meta
+          property="og:image"
+          content={`https://www.gotocentralasia.com${sultanbek}`}
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">
           {JSON.stringify({
@@ -253,6 +262,14 @@ export default function AboutUs() {
               {team.map((member) => (
                 <div key={member.id} className={styles.member}>
                   <div className={styles.memberHeader}>
+                    {member.name === "Sherzod Aliyev" && (
+                      <div className={styles.guideLink}>
+                        <a href="//needguide.net/view_guide.php?user_id=23134">
+                          Гид-экскурсовод в Ташкенте Шерзод Алиев
+                        </a>
+                      </div>
+                    )}
+
                     <h3>{member.name}</h3>
                     <span>{member.position}</span>
                   </div>
