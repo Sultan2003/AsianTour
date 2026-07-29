@@ -103,6 +103,14 @@ export default function AboutUs() {
   const t = translations[lang] || translations.en;
   const [activeSection, setActiveSection] = useState("about");
 
+  const showSection = (section, sectionId) => {
+    setActiveSection(section);
+    document.getElementById(sectionId)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   const team = [
     {
       id: 1,
@@ -227,22 +235,21 @@ export default function AboutUs() {
         <div className={styles.tabs}>
           <button
             className={activeSection === "about" ? styles.activeTab : ""}
-            onClick={() => setActiveSection("about")}
+            onClick={() => showSection("about", "about-us")}
           >
             {t.tabs.about}
           </button>
 
           <button
             className={activeSection === "team" ? styles.activeTab : ""}
-            onClick={() => setActiveSection("team")}
+            onClick={() => showSection("team", "our-team")}
           >
             {t.tabs.team}
           </button>
         </div>
 
         {/* ===== About Section ===== */}
-        {activeSection === "about" && (
-          <>
+        <section id="about-us">
             <h1 className={styles.title}>{t.aboutTitle}</h1>
 
             {t.aboutParagraphs.map((paragraph) => (
@@ -250,12 +257,10 @@ export default function AboutUs() {
                 {paragraph}
               </p>
             ))}
-          </>
-        )}
+        </section>
 
         {/* ===== Team Section ===== */}
-        {activeSection === "team" && (
-          <div className={styles.teamSection}>
+        <section id="our-team" className={styles.teamSection}>
             <h2 className={styles.teamTitle}>{t.tabs.team}</h2>
 
             <div className={styles.teamList}>
@@ -299,8 +304,7 @@ export default function AboutUs() {
                 </div>
               ))}
             </div>
-          </div>
-        )}
+        </section>
       </div>
     </>
   );

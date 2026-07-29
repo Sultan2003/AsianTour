@@ -76,6 +76,30 @@ function buildHomepageContent({ h1, body }) {
 
 function buildContent(page) {
   if (page.path === "/") return buildHomepageContent(page);
+  if (page.path === "/about") {
+    return `<main id="seo-prerendered-content">
+      <section aria-labelledby="about-heading">
+        <h1 id="about-heading">${escapeHtml(page.h1)}</h1>
+        ${renderParagraphs(page.body)}
+      </section>
+      <section aria-labelledby="team-heading">
+        <h2 id="team-heading">Our Team</h2>
+        <article>
+          <header>
+            <a href="//needguide.net/view_guide.php?user_id=23134">Гид-экскурсовод в Ташкенте Шерзод Алиев</a>
+            <h3>Sherzod Aliyev</h3>
+            <p>Co-Founder and Director of Miramax Travel Management</p>
+          </header>
+          <p>Finance graduate, Sherzod has years of experience in corporate business and has led Miramax Travel Management as Director since 2017.</p>
+        </article>
+        <article>
+          <h3>Sultanbek Erkinbaev</h3>
+          <p>Lead Software Specialist</p>
+          <p>Software engineering graduate, Sultanbek has professional experience in HR and software development. At Miramax Travel Management he contributes to modern web systems and platform development while pursuing a Master’s degree in Data Science and Economics.</p>
+        </article>
+      </section>
+    </main>`;
+  }
   return `<section id="seo-prerendered-content"><h1>${escapeHtml(page.h1)}</h1>${renderParagraphs(page.body)}</section>`;
 }
 
