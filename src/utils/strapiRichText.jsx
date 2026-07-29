@@ -98,9 +98,41 @@ export const collectRichTextLinks = (value) => {
 export const isTourConfigBlock = (block) =>
   /\b(Array|Accomodation|Accommodation|Accomadation|Priceinclude)\s*=/i.test(getRichTextPlainText(block));
 
+const TOUR_CONFIG_PATTERN = /\b(Array|Accomodation|Accommodation|Accomadation|Priceinclude)\s*=/i;
+
+const trimNodeAtTourConfig = (node) => {
+  if (!node || typeof node !== "object") return node;
+
+  if (typeof node.text === "string") {
+    const configIndex = node.text.search(TOUR_CONFIG_PATTERN);
+    return configIndex === -1
+      ? node
+      : { ...node, text: node.text.slice(0, configIndex).trimEnd() };
+  }
+
+  if (!Array.isArray(node.children)) return node;
+
+  const children = [];
+  for (const child of node.children) {
+    const trimmedChild = trimNodeAtTourConfig(child);
+    const childText = getRichTextPlainText(trimmedChild);
+
+    if (childText) children.push(trimmedChild);
+    if (isTourConfigBlock(child)) break;
+  }
+
+  return { ...node, children };
+};
+
 export const getVisibleTourDescriptionBlocks = (blocks = []) => {
   if (!Array.isArray(blocks)) return blocks;
 
   const firstConfigIndex = blocks.findIndex(isTourConfigBlock);
-  return firstConfigIndex === -1 ? blocks : blocks.slice(0, firstConfigIndex);
+  if (firstConfigIndex === -1) return blocks;
+
+  const visibleBlocks = blocks.slice(0, firstConfigIndex);
+  const trimmedBlock = trimNodeAtTourConfig(blocks[firstConfigIndex]);
+
+  if (getRichTextPlainText(trimmedBlock).trim()) visibleBlocks.push(trimmedBlock);
+  return visibleBlocks;
 };

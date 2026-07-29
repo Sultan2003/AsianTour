@@ -40,8 +40,10 @@ const getAttractionUrl = (item) => {
 };
 
 const sortByTitle = (a, b) => {
-  const titleA = getRawAttraction(a).title || "";
-  const titleB = getRawAttraction(b).title || "";
+  const titleA =
+    getRawAttraction(a).short_title || getRawAttraction(a).title || "";
+  const titleB =
+    getRawAttraction(b).short_title || getRawAttraction(b).title || "";
   return titleA.localeCompare(titleB);
 };
 
@@ -144,7 +146,7 @@ export default function CityAttractions({ city }) {
                     key={raw.slug || raw.id || raw.title}
                     href={getAttractionUrl(item)}
                   >
-                    {t(raw.title)}
+                    {t(raw.short_title || raw.title)}
                   </a>
                 );
               })}
