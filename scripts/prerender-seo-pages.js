@@ -1,4 +1,9 @@
+import React from "react";
+import { renderToString } from "react-dom/server";
 import { readFile, writeFile, mkdir } from "fs/promises";
+import { createServer } from "vite";
+import { HelmetProvider } from "react-helmet-async";
+import { StaticRouter } from "react-router";
 import { seoBlogPosts, seoCountryPages, seoTourPages } from "../src/seo/staticSeoPages.js";
 import { staticPrerenderPages } from "../src/seo/staticRouteSeo.js";
 import { getAlternateUrls, getCanonicalUrl, splitLocalePathname, withRussianPrefix } from "../src/seo/canonical.js";
@@ -74,7 +79,7 @@ function buildHomepageContent({ h1, body }) {
     </section>`;
 }
 
-function buildContent(page) {
+function buildStaticFallbackContent(page) {
   if (page.path === "/") return buildHomepageContent(page);
   if (page.path === "/about") {
     return `<main id="seo-prerendered-content">
@@ -103,12 +108,74 @@ function buildContent(page) {
   return `<section id="seo-prerendered-content"><h1>${escapeHtml(page.h1)}</h1>${renderParagraphs(page.body)}</section>`;
 }
 
-function inject(page, outputPath = page.path) {
+function installBrowserMocks(pathname) {
+  const storage = new Map([["lang", pathname === "/rus" || pathname.startsWith("/rus/") ? "ru" : "en"]]);
+  globalThis.localStorage = {
+    getItem: (key) => storage.get(key) ?? null,
+    setItem: (key, value) => storage.set(key, String(value)),
+    removeItem: (key) => storage.delete(key),
+    clear: () => storage.clear(),
+  };
+  globalThis.window = {
+    localStorage: globalThis.localStorage,
+    location: { pathname, search: "", hash: "" },
+    addEventListener() {},
+    removeEventListener() {},
+    matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
+    scrollTo() {},
+  };
+  globalThis.document = {
+    documentElement: { lang: pathname === "/rus" || pathname.startsWith("/rus/") ? "ru" : "en" },
+    body: {},
+    querySelector: () => null,
+    querySelectorAll: () => [],
+    getElementById: () => null,
+    addEventListener() {},
+    removeEventListener() {},
+  };
+}
+
+function removeHeadTagsFromAppHtml(html) {
+  return html
+    .replace(/<title[^>]*>.*?<\/title>/gis, "")
+    .replace(/<meta\s[^>]*>/gis, "")
+    .replace(/<link\s[^>]*>/gis, "");
+}
+
+async function createReactRenderer() {
+  installBrowserMocks("/");
+  const vite = await createServer({ server: { middlewareMode: true }, appType: "custom" });
+  const { LanguageProvider } = await vite.ssrLoadModule("/src/context/LanguageContext.jsx");
+  const { default: Router } = await vite.ssrLoadModule("/src/router/index.jsx");
+
+  return {
+    async close() {
+      await vite.close();
+    },
+    render(pathname) {
+      installBrowserMocks(pathname);
+      const helmetContext = {};
+      const appHtml = renderToString(
+        React.createElement(
+          HelmetProvider,
+          { context: helmetContext },
+          React.createElement(
+            StaticRouter,
+            { location: pathname },
+            React.createElement(LanguageProvider, null, React.createElement(Router)),
+          ),
+        ),
+      );
+      return removeHeadTagsFromAppHtml(appHtml);
+    },
+  };
+}
+
+function inject(page, content, outputPath = page.path) {
   const { title, description, schema } = page;
   const canonical = getCanonicalUrl(outputPath);
   const alternates = getAlternateUrls(outputPath);
   const { isRussian } = splitLocalePathname(outputPath);
-  const content = buildContent(page);
   let html = template
     .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
     .replace(/<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${escapeHtml(description)}" />`)
@@ -184,10 +251,20 @@ for (const post of seoBlogPosts) {
   });
 }
 
-await Promise.all(
-  pages.flatMap((page) => [
-    writeRoute(page.path, inject(page)),
-    writeRoute(withRussianPrefix(page.path), inject(page, withRussianPrefix(page.path))),
-  ]),
-);
-console.log(`✅ Prerendered SEO HTML for ${pages.length * 2} routes`);
+const renderer = await createReactRenderer();
+try {
+  await Promise.all(
+    pages.flatMap((page) => {
+      const englishContent = renderer.render(page.path) || buildStaticFallbackContent(page);
+      const russianPath = withRussianPrefix(page.path);
+      const russianContent = renderer.render(russianPath) || buildStaticFallbackContent(page);
+      return [
+        writeRoute(page.path, inject(page, englishContent)),
+        writeRoute(russianPath, inject(page, russianContent, russianPath)),
+      ];
+    }),
+  );
+} finally {
+  await renderer.close();
+}
+console.log(`✅ Prerendered real React HTML for ${pages.length * 2} routes`);
