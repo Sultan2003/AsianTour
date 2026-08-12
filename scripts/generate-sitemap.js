@@ -1,4 +1,3 @@
-import { SitemapStream, streamToPromise } from "sitemap";
 import { readFile, writeFile, stat } from "fs/promises";
 import { execFile } from "child_process";
 import { promisify } from "util";
@@ -12,6 +11,120 @@ const SITE_URL = "https://www.gotocentralasia.com";
 const PAGE_SIZE = 100;
 const BUILD_DATE = new Date();
 const DEFAULT_LASTMOD = BUILD_DATE.toISOString();
+
+
+const SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9";
+const XHTML_NAMESPACE = "http://www.w3.org/1999/xhtml";
+const VALID_CHANGEFREQ = new Set([
+  "always",
+  "hourly",
+  "daily",
+  "weekly",
+  "monthly",
+  "yearly",
+  "never",
+]);
+
+const escapeXml = (value) =>
+  String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+
+const toIsoDate = (value) => {
+  if (!value) return undefined;
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    throw new Error(`Invalid sitemap lastmod date: ${value}`);
+  }
+
+  return date.toISOString();
+};
+
+const normalizeAbsoluteUrl = (url) => {
+  const absoluteUrl = url.startsWith("https://") ? url : toAbsoluteUrl(url);
+  const parsed = new URL(absoluteUrl);
+
+  if (parsed.protocol !== "https:") {
+    throw new Error(`Sitemap URL must use HTTPS: ${absoluteUrl}`);
+  }
+
+  if (parsed.origin !== SITE_URL) {
+    throw new Error(`Sitemap URL must be on ${SITE_URL}: ${absoluteUrl}`);
+  }
+
+  return parsed.href;
+};
+
+function validateSitemapEntry(entry) {
+  const loc = normalizeAbsoluteUrl(entry.url);
+
+  if (loc.includes("<") || loc.includes(">")) {
+    throw new Error(`Malformed sitemap URL: ${loc}`);
+  }
+
+  if (entry.changefreq && !VALID_CHANGEFREQ.has(entry.changefreq)) {
+    throw new Error(`Invalid sitemap changefreq for ${loc}: ${entry.changefreq}`);
+  }
+
+  if (entry.priority !== undefined) {
+    const priority = Number(entry.priority);
+
+    if (!Number.isFinite(priority) || priority < 0 || priority > 1) {
+      throw new Error(`Invalid sitemap priority for ${loc}: ${entry.priority}`);
+    }
+  }
+
+  const lastmod = toIsoDate(entry.lastmodISO || entry.lastmod);
+
+  return {
+    ...entry,
+    loc,
+    lastmod,
+    priority: entry.priority === undefined ? undefined : Number(entry.priority).toFixed(1),
+  };
+}
+
+function renderSitemap(entries) {
+  const lines = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    `<urlset xmlns="${SITEMAP_NAMESPACE}" xmlns:xhtml="${XHTML_NAMESPACE}">`,
+  ];
+
+  entries.forEach((entry) => {
+    const validated = validateSitemapEntry(entry);
+
+    lines.push("  <url>");
+    lines.push(`    <loc>${escapeXml(validated.loc)}</loc>`);
+
+    if (validated.lastmod) {
+      lines.push(`    <lastmod>${validated.lastmod}</lastmod>`);
+    }
+
+    if (validated.changefreq) {
+      lines.push(`    <changefreq>${validated.changefreq}</changefreq>`);
+    }
+
+    if (validated.priority !== undefined) {
+      lines.push(`    <priority>${validated.priority}</priority>`);
+    }
+
+    (validated.links || []).forEach((link) => {
+      lines.push(
+        `    <xhtml:link rel="alternate" hreflang="${escapeXml(link.lang)}" href="${escapeXml(normalizeAbsoluteUrl(link.url))}"/>`,
+      );
+    });
+
+    lines.push("  </url>");
+  });
+
+  lines.push("</urlset>");
+  return `${lines.join("\n")}\n`;
+}
 
 const toAbsoluteUrl = (path) => `${SITE_URL}${path === "/" ? "" : path}`;
 const toRussianPath = (path) => (path === "/" ? "/rus/" : `/rus${path}`);
@@ -645,7 +758,6 @@ async function getStaticEntriesWithLastmod() {
 }
 
 async function generate() {
-  const sitemap = new SitemapStream({ hostname: SITE_URL });
   const [staticRoutes, dynamicTourRoutes, dynamicHotelRoutes] = await Promise.all([
     getStaticEntriesWithLastmod(),
     getDynamicTourEntries(),
@@ -661,11 +773,15 @@ async function generate() {
     });
   });
 
+  const sitemapEntries = [];
   const seenUrls = new Set();
   const writeUrl = (entry) => {
-    if (seenUrls.has(entry.url)) return;
-    seenUrls.add(entry.url);
-    sitemap.write(entry);
+    const loc = normalizeAbsoluteUrl(entry.url);
+
+    if (seenUrls.has(loc)) return;
+
+    seenUrls.add(loc);
+    sitemapEntries.push(entry);
   };
 
   [...staticRoutes, ...dynamicTourRoutes, ...dynamicHotelRoutes].forEach((entry) => {
@@ -673,10 +789,8 @@ async function generate() {
     writeUrl(withLocaleLinks({ ...entry, url: toRussianPath(entry.url) }, entry.url));
   });
 
-  sitemap.end();
-
-  const xml = await streamToPromise(sitemap);
-  await writeFile("./public/sitemap.xml", xml);
+  const xml = renderSitemap(sitemapEntries);
+  await writeFile("./public/sitemap.xml", xml, "utf8");
 
   console.log("✅ Sitemap generated successfully");
   console.log(`→ static routes: ${staticRoutes.length}`);
