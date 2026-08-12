@@ -149,7 +149,7 @@ export default function MainPage() {
   return (
     <div className={styles.mainPage}>
       {/* FULL-SCREEN VIDEO HERO */}
-      <section className={styles.hero} aria-label={t.heroTitle}>
+      <section className={styles.hero} aria-label="Discover Central Asia">
         <video
           className={styles.heroVideo}
           autoPlay
@@ -163,7 +163,33 @@ export default function MainPage() {
           <source src="/videos/central-asia-hero.mp4" type="video/mp4" />
         </video>
 
-        <div className={styles.overlay} />
+        <div className={styles.luxuryOverlay} />
+
+        <div className={styles.luxuryHeroText}>
+          <span className={styles.luxuryEyebrow}>GO TO CENTRAL ASIA</span>
+
+          <h1 className={styles.luxuryTitle}>Discover Central Asia</h1>
+
+          <p className={styles.luxurySubtitle}>
+            Where ancient history meets unforgettable journeys.
+          </p>
+
+          <Link to="/uzbek-tours" className={styles.luxuryButton}>
+            Explore our journeys
+            <span>→</span>
+          </Link>
+        </div>
+
+        <div className={styles.luxuryLocation}>
+          <span className={styles.locationLine} />
+          <span>TASHKENT</span>
+          <small>UZBEKISTAN</small>
+        </div>
+
+        <div className={styles.heroScroll}>
+          <span>SCROLL TO EXPLORE</span>
+          <span className={styles.scrollLine} />
+        </div>
       </section>
 
       {/* ABOUT */}

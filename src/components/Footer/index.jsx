@@ -106,7 +106,11 @@ const Footer = () => {
             <MastercardIcon />
           </div>
           <div className={styles.socials}>
-            <a href="https://facebook.com" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.facebook.com/profile.php?id=61572084062845#"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FacebookIcon />
               <p>Facebook</p>
             </a>
@@ -118,7 +122,11 @@ const Footer = () => {
               <InstagramIcon />
               <p>Instagram</p>
             </a>
-            <a href="https://youtube.com" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.youtube.com/@gotocentralasia"
+              target="_blank"
+              rel="noreferrer"
+            >
               <YoutubeIcon />
               <p>Youtube</p>
             </a>
