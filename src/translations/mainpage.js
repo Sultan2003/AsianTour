@@ -2,6 +2,14 @@ const mainPageTranslations = {
   en: {
     heroTitle: "Discover the Silk Road",
     heroSubtitle: "with expertly crafted tours by a local operator",
+    heroEyebrow: "GO TO CENTRAL ASIA",
+    heroMainTitle: "Discover Central Asia",
+    heroMainSubtitle: "Where ancient history meets unforgettable journeys.",
+    heroButton: "Explore our journeys",
+    heroLocationCity: "TASHKENT",
+    heroLocationCountry: "UZBEKISTAN",
+    heroScroll: "SCROLL TO EXPLORE",
+    heroAriaLabel: "Discover Central Asia",
     aboutTitle: "Our unique Central Asian trips",
     aboutText:
       "Take a chance to discover Central Asia’s unique culture and traditions. Historical towns and villages hold ancient atmosphere offering authentic experiences to visitors. As a tour company with years of experience we offer memorable trips which will recall long after the journey and be remembered with felt warmth and kindness of local hospitality. Our group and private tours are offering you these experiences with best available comfort and rate along with constant supervision of our team member.",
@@ -71,6 +79,14 @@ const mainPageTranslations = {
   ru: {
     heroTitle: "Откройте для себя Шёлковый путь",
     heroSubtitle: "с тщательно организованными турами от местного оператора",
+    heroEyebrow: "В ЦЕНТРАЛЬНУЮ АЗИЮ",
+    heroMainTitle: "Откройте Центральную Азию",
+    heroMainSubtitle: "Там, где древняя история встречается с незабываемыми путешествиями.",
+    heroButton: "Посмотреть туры",
+    heroLocationCity: "ТАШКЕНТ",
+    heroLocationCountry: "УЗБЕКИСТАН",
+    heroScroll: "ЛИСТАЙТЕ ДАЛЬШЕ",
+    heroAriaLabel: "Откройте Центральную Азию",
     aboutTitle: "Наши уникальные путешествия по Азии",
     aboutText:
       "Asian Tour — это бутик-туроператор, специализирующийся на аутентичных и персонализированных путешествиях по Азии. Как надёжная и высоко оценённая компания, мы ставим вашу безопасность и комфорт в центр каждого путешествия. Благодаря нашим местным партнёрам мы создаём значимые приключения, которые оставляют незабываемые впечатления.",

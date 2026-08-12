@@ -149,7 +149,7 @@ export default function MainPage() {
   return (
     <div className={styles.mainPage}>
       {/* FULL-SCREEN VIDEO HERO */}
-      <section className={styles.hero} aria-label="Discover Central Asia">
+      <section className={styles.hero} aria-label={t.heroAriaLabel}>
         <video
           className={styles.heroVideo}
           autoPlay
@@ -166,28 +166,26 @@ export default function MainPage() {
         <div className={styles.luxuryOverlay} />
 
         <div className={styles.luxuryHeroText}>
-          <span className={styles.luxuryEyebrow}>GO TO CENTRAL ASIA</span>
+          <span className={styles.luxuryEyebrow}>{t.heroEyebrow}</span>
 
-          <h1 className={styles.luxuryTitle}>Discover Central Asia</h1>
+          <h1 className={styles.luxuryTitle}>{t.heroMainTitle}</h1>
 
-          <p className={styles.luxurySubtitle}>
-            Where ancient history meets unforgettable journeys.
-          </p>
+          <p className={styles.luxurySubtitle}>{t.heroMainSubtitle}</p>
 
           <Link to="/uzbek-tours" className={styles.luxuryButton}>
-            Explore our journeys
+            {t.heroButton}
             <span>→</span>
           </Link>
         </div>
 
         <div className={styles.luxuryLocation}>
           <span className={styles.locationLine} />
-          <span>TASHKENT</span>
-          <small>UZBEKISTAN</small>
+          <span>{t.heroLocationCity}</span>
+          <small>{t.heroLocationCountry}</small>
         </div>
 
         <div className={styles.heroScroll}>
-          <span>SCROLL TO EXPLORE</span>
+          <span>{t.heroScroll}</span>
           <span className={styles.scrollLine} />
         </div>
       </section>
