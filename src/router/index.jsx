@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import SeoHelmet from "../components/SEO/SeoHelmet";
 import SeoRuntime from "../components/SEO/SeoRuntime";
 import CanonicalRedirect from "../components/SEO/CanonicalRedirect";
@@ -72,14 +78,17 @@ import Hotels from "../components/HotelDetails";
 import HotelsList from "../components/HotelsList";
 import BlogArticle from "../pages/BlogArticle";
 import i18n from "../i18n";
+import HistoryTimeline from "../pages/HistoryTimeline/HistoryTimeline";
 
 import AttractionDetails from "../components/AttractionDetails";
 
-const isRussianPath = (pathname) => pathname === "/rus" || pathname.startsWith("/rus/");
+const isRussianPath = (pathname) =>
+  pathname === "/rus" || pathname.startsWith("/rus/");
 
 const stripRussianPrefix = (pathname) => {
   if (pathname === "/rus") return "/";
-  if (pathname.startsWith("/rus/")) return pathname.replace(/^\/rus/, "") || "/";
+  if (pathname.startsWith("/rus/"))
+    return pathname.replace(/^\/rus/, "") || "/";
   return pathname;
 };
 
@@ -92,7 +101,11 @@ const Router = () => {
     : location;
 
   useEffect(() => {
-    const currentLanguage = (i18n.resolvedLanguage || i18n.language || "en").split("-")[0];
+    const currentLanguage = (
+      i18n.resolvedLanguage ||
+      i18n.language ||
+      "en"
+    ).split("-")[0];
 
     if (russianPath) {
       if (currentLanguage !== "ru") {
@@ -103,15 +116,24 @@ const Router = () => {
     }
 
     if (localStorage.getItem("lang") === "ru") {
-      const russianPathname = location.pathname === "/" ? "/rus/" : `/rus${location.pathname}`;
-      navigate(`${russianPathname}${location.search}${location.hash}`, { replace: true });
+      const russianPathname =
+        location.pathname === "/" ? "/rus/" : `/rus${location.pathname}`;
+      navigate(`${russianPathname}${location.search}${location.hash}`, {
+        replace: true,
+      });
       return;
     }
 
     if (currentLanguage !== "en") {
       i18n.changeLanguage("en");
     }
-  }, [location.hash, location.pathname, location.search, navigate, russianPath]);
+  }, [
+    location.hash,
+    location.pathname,
+    location.search,
+    navigate,
+    russianPath,
+  ]);
 
   return (
     <>
@@ -818,6 +840,7 @@ const Router = () => {
           }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/history-timeline" element={<HistoryTimeline />} />
         <Route
           path="/10-best-places-to-visit-in-uzbekistan"
           element={
