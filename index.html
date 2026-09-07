@@ -3,99 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Silk Road & Central Asia Tours | Go To Central Asia</title>
-
     <link rel="icon" type="image/png" href="/logo.png" />
-
-    <script>
-      (function () {
-        var siteUrl = "https://www.gotocentralasia.com";
-        var aliases = {
-          "/asian-tour-transfer": "/transfer",
-          "/caucas-tours": "/caucasus-tours"
-        };
-        var path = window.location.pathname || "/";
-        var normalizedPath = path.length > 1 ? path.replace(/\/+$/, "") : path;
-        normalizedPath = normalizedPath.toLowerCase() || "/";
-        normalizedPath = aliases[normalizedPath] || normalizedPath;
-        var canonicalUrl = siteUrl + (normalizedPath === "/" ? "" : normalizedPath);
-
-        window.__GOTOCA_CANONICAL_URL__ = canonicalUrl;
-
-        document.addEventListener("DOMContentLoaded", function () {
-          var canonical = document.querySelector('link[rel="canonical"]');
-          if (canonical) canonical.setAttribute("href", canonicalUrl);
-
-          var ogUrl = document.querySelector('meta[property="og:url"]');
-          if (ogUrl) ogUrl.setAttribute("content", canonicalUrl);
-        });
-      })();
-    </script>
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "TravelAgency",
-        "name": "Go To Central Asia",
-        "url": "https://www.gotocentralasia.com",
-        "logo": "https://www.gotocentralasia.com/logo.png",
-        "description": "Tour operator for Silk Road & Central Asia tours",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "UZ",
-          "addressLocality": "Tashkent"
-        },
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "customer service",
-          "availableLanguage": ["English", "Russian"]
-        }
-      }
-    </script>
 
     <meta
       name="google-site-verification"
       content="PwLjzet7g7cJD0j7VEYZPBZdmNBvUIQicBzMYlrv4kI"
-    />
-
-    <meta
-      name="description"
-      content="Official tour operator for Central Asia. Group & private tours in Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan & Turkmenistan. Guaranteed departures. Book now."
-    />
-
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://www.gotocentralasia.com/" />
-
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content="Go To Central Asia" />
-    <meta
-      property="og:title"
-      content="Go To Central Asia — Silk Road & Central Asia Tours"
-    />
-    <meta
-      property="og:description"
-      content="Official tour operator offering Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan & Turkmenistan tours. Group, private, & multi-country Silk Road packages."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.gotocentralasia.com/" />
-    <meta
-      property="og:image"
-      content="https://www.gotocentralasia.com/preview.jpg"
-    />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@gotocentralasia" />
-    <meta
-      name="twitter:title"
-      content="Go To Central Asia — Silk Road & Central Asia Tours"
-    />
-    <meta
-      name="twitter:description"
-      content="Travel across Central Asia. Group tours, private tours & Silk Road adventures in Uzbekistan, Kazakhstan, Kyrgyzstan, Tajikistan, Turkmenistan."
-    />
-    <meta
-      name="twitter:image"
-      content="https://www.gotocentralasia.com/preview.jpg"
     />
 
     <style>

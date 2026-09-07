@@ -8,7 +8,6 @@ import dinara from "../../assets/stuff/4.png";
 import sultanbek from "../../assets/stuff/sultanbek.PNG";
 import abdurashid from "../../assets/stuff/abdurashid.jpg";
 import sardorbek from "../../assets/stuff/sardorbek.jpg";
-import { Helmet } from "react-helmet-async";
 import { LanguageContext } from "../../context/LanguageContext";
 
 const translations = {
@@ -194,42 +193,6 @@ export default function AboutUs() {
 
   return (
     <>
-      <Helmet>
-        <title>{t.metaTitle}</title>
-
-        <meta name="description" content={t.metaDescription} />
-
-        <link rel="canonical" href="https://www.gotocentralasia.com/about" />
-        <meta property="og:type" content="profile" />
-        <meta
-          property="og:title"
-          content="Sultanbek Erkinbaev | Go To Central Asia"
-        />
-        <meta
-          property="og:description"
-          content="Sultanbek Erkinbaev, Lead Software Specialist at Miramax Travel Management and Go To Central Asia."
-        />
-        <meta
-          property="og:image"
-          content={`https://www.gotocentralasia.com${sultanbek}`}
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: "Sultanbek Erkinbaev",
-            jobTitle: "Lead Software Specialist",
-            image: `https://www.gotocentralasia.com${sultanbek}`,
-            worksFor: {
-              "@type": "Organization",
-              name: "Miramax Travel Management",
-              url: "https://www.gotocentralasia.com/about",
-            },
-            url: "https://www.gotocentralasia.com/about",
-          })}
-        </script>
-      </Helmet>
       <div className={styles.aboutContainer}>
         {/* ===== Tabs ===== */}
         <div className={styles.tabs}>
