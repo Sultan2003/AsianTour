@@ -12,8 +12,9 @@ const formatSegment = (segment) =>
   segment.replace(/-/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
 const buildFallbackSeo = (pathname) => {
-  if (pathname.startsWith("/tour/")) {
-    const slug = pathname.replace("/tour/", "");
+  if (pathname.startsWith("/tour/") || pathname.startsWith("/private-tour/")) {
+    const isPrivateTour = pathname.startsWith("/private-tour/");
+    const slug = pathname.replace(isPrivateTour ? "/private-tour/" : "/tour/", "");
     const tour = seoTourPages.find((item) => item.slug === slug);
     const tourName = tour?.h1 || formatSegment(slug);
 
@@ -40,16 +41,6 @@ const buildFallbackSeo = (pathname) => {
     }
   }
 
-  if (pathname.startsWith("/private-tour/")) {
-    const slug = pathname.replace("/private-tour/", "");
-    const tourName = formatSegment(slug);
-
-    return {
-      title: `${tourName} Private Tour | ${SITE_NAME}`,
-      description: `View the full program and customization options for ${tourName} private tour package.`,
-      type: "article",
-    };
-  }
 
   if (pathname.startsWith("/hotels/")) {
     const hotelSlug = pathname.replace("/hotels/", "");
@@ -106,7 +97,10 @@ export const getSeoData = (pathname) => {
     routeSeoMap[routePathname] || buildFallbackSeo(routePathname);
   const canonical = getCanonicalUrl(normalizedPathname);
   const alternates = getAlternateUrls(normalizedPathname);
-  const breadcrumbs = getBreadcrumbs(routePathname);
+  const breadcrumbs = [
+    { name: "Home", item: SITE_URL },
+    ...getBreadcrumbs(routePathname),
+  ];
 
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -153,13 +147,13 @@ export const getSeoData = (pathname) => {
         "@context": "https://schema.org",
         "@type": "TouristTrip",
         name: page.tour.h1,
+        url: canonical,
         description: page.tour.description,
         touristType: ["Cultural travelers", "Silk Road travelers"],
         offers: {
           "@type": "Offer",
           price: page.tour.price,
           priceCurrency: "USD",
-          availability: "https://schema.org/InStock",
         },
         provider: travelAgencySchema,
       }

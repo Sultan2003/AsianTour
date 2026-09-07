@@ -79,6 +79,11 @@ function buildHomepageContent({ h1, body }) {
     </section>`;
 }
 
+function buildUzbekistanTourContent() {
+  const tours = seoTourPages.filter((tour) => /uzbekistan|tashkent|samarkand|bukhara/i.test(`${tour.h1} ${tour.description}`));
+  return `<section id="seo-prerendered-content" aria-label="Uzbekistan tour packages"><h1>Uzbekistan Tours</h1><p>Browse current Uzbekistan private and group tour packages with Silk Road highlights.</p>${tours.map((tour) => { const isPrivate = tour.slug === "8-day-private-classic-uzbekistan-tour"; const path = isPrivate ? `/private-tour/${tour.slug}` : `/tour/${tour.slug}`; return `<article><h2><a href="${path}">${escapeHtml(tour.h1)}</a></h2><p>${escapeHtml(tour.description)}</p><p>From US$ ${escapeHtml(tour.price)}</p></article>`; }).join("")}</section>`;
+}
+
 function buildStaticFallbackContent(page) {
   if (page.path === "/") return buildHomepageContent(page);
   if (page.path === "/about") {
@@ -171,33 +176,58 @@ async function createReactRenderer() {
   };
 }
 
+function seoHead({ title, description, canonical, alternates, isRussian, schema }) {
+  const image = `${SITE_URL}/logo.png`;
+  const locale = isRussian ? "ru_RU" : "en_US";
+  return `<title data-rh="true">${escapeHtml(title)}</title>
+<meta data-rh="true" name="description" content="${escapeHtml(description)}" />
+<meta data-rh="true" name="robots" content="index,follow,max-image-preview:large" />
+<link data-rh="true" rel="canonical" href="${canonical}" />
+<link data-rh="true" rel="alternate" hreflang="en" href="${alternates.en}" />
+<link data-rh="true" rel="alternate" hreflang="ru" href="${alternates.ru}" />
+<link data-rh="true" rel="alternate" hreflang="x-default" href="${alternates.xDefault}" />
+<meta data-rh="true" property="og:locale" content="${locale}" />
+<meta data-rh="true" property="og:site_name" content="Go To Central Asia" />
+<meta data-rh="true" property="og:title" content="${escapeHtml(title)}" />
+<meta data-rh="true" property="og:description" content="${escapeHtml(description)}" />
+<meta data-rh="true" property="og:type" content="website" />
+<meta data-rh="true" property="og:url" content="${canonical}" />
+<meta data-rh="true" property="og:image" content="${image}" />
+<meta data-rh="true" name="twitter:card" content="summary_large_image" />
+<meta data-rh="true" name="twitter:site" content="@gotocentralasia" />
+<meta data-rh="true" name="twitter:title" content="${escapeHtml(title)}" />
+<meta data-rh="true" name="twitter:description" content="${escapeHtml(description)}" />
+<meta data-rh="true" name="twitter:image" content="${image}" />
+<script data-rh="true" type="application/ld+json">${JSON.stringify(schema)}</script>`;
+}
+
+function makeBreadcrumbSchema(path, canonical) {
+  const parts = path.split("/").filter(Boolean);
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL }, ...parts.map((part, index) => ({
+      "@type": "ListItem",
+      position: index + 2,
+      name: part.replace(/-/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase()),
+      item: index === parts.length - 1 ? canonical : `${SITE_URL}/${parts.slice(0, index + 1).join("/")}`,
+    }))],
+  };
+}
+
 function inject(page, content, outputPath = page.path) {
-  const { title, description, schema } = page;
   const canonical = getCanonicalUrl(outputPath);
   const alternates = getAlternateUrls(outputPath);
   const { isRussian } = splitLocalePathname(outputPath);
+  const schema = page.path === "/"
+    ? page.schema
+    : { "@context": "https://schema.org", "@graph": [page.schema, makeBreadcrumbSchema(outputPath, canonical)] };
   let html = template
-    .replace(/<title>.*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
-    .replace(/<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${escapeHtml(description)}" />`)
-    .replace(/<meta property="og:title" content="[^"]*"\s*\/?>/, `<meta property="og:title" content="${escapeHtml(title)}" />`)
-    .replace(/<meta property="og:description" content="[^"]*"\s*\/?>/, `<meta property="og:description" content="${escapeHtml(description)}" />`)
-    .replace(/<meta property="og:url" content="[^"]*"\s*\/?>/, `<meta property="og:url" content="${canonical}" />`)
-    .replace(/<meta name="twitter:title" content="[^"]*"\s*\/?>/, `<meta name="twitter:title" content="${escapeHtml(title)}" />`)
-    .replace(/<meta name="twitter:description" content="[^"]*"\s*\/?>/, `<meta name="twitter:description" content="${escapeHtml(description)}" />`)
-    .replace(/<link rel="canonical" href="[^"]*"\s*\/?>/, `<link rel="canonical" href="${canonical}" />`)
-    .replace(/<html([^>]*)lang="[^"]*"/, `<html$1lang="${isRussian ? "ru" : "en"}"`);
+    .replace(/<html([^>]*)lang="[^"]*"/, `<html$1lang="${isRussian ? "ru" : "en"}"`)
+    .replace("</head>", `${seoHead({ title: page.title, description: page.description, canonical, alternates, isRussian, schema })}</head>`);
   html = html.replace('<div id="root"></div>', `<div id="root">${content}</div>`);
-  html = html.replace(/<meta property="og:locale" content="[^"]*"\s*\/?>/, `<meta property="og:locale" content="${isRussian ? "ru_RU" : "en_US"}" />`);
-  html = html.replace(
-    "</head>",
-    `<link rel="alternate" hreflang="en" href="${alternates.en}" />
-<link rel="alternate" hreflang="ru" href="${alternates.ru}" />
-<link rel="alternate" hreflang="x-default" href="${alternates.xDefault}" />
-<script type="application/ld+json">${JSON.stringify(schema)}</script></head>`,
-  );
   return html;
 }
-
 async function writeRoute(path, html) {
   const dir = path === "/" ? "dist" : `dist${path}`;
   await mkdir(dir, { recursive: true });
@@ -208,7 +238,7 @@ const homepageSchema = {
   "@context": "https://schema.org",
   "@graph": [
     { "@type": "TravelAgency", name: "Go To Central Asia", url: SITE_URL, image: `${SITE_URL}/logo.png`, address: { "@type": "PostalAddress", addressLocality: "Tashkent", addressCountry: "UZ" } },
-    { "@type": "ItemList", name: "Featured Central Asia tours", itemListElement: seoTourPages.slice(0, 5).map((tour, index) => ({ "@type": "ListItem", position: index + 1, url: `${SITE_URL}/tour/${tour.slug}`, name: tour.h1, description: tour.description })) },
+    { "@type": "ItemList", name: "Featured Central Asia tours", itemListElement: seoTourPages.slice(0, 5).map((tour, index) => ({ "@type": "ListItem", position: index + 1, url: `${SITE_URL}${tour.slug === "8-day-private-classic-uzbekistan-tour" ? "/private-tour/" : "/tour/"}${tour.slug}`, name: tour.h1, description: tour.description })) },
     { "@type": "ItemList", name: "Popular Central Asia destinations", itemListElement: homepageDestinations.map((destination, index) => ({ "@type": "ListItem", position: index + 1, url: `${SITE_URL}${destination.path}`, name: destination.name, description: destination.description })) },
   ],
 };
@@ -219,13 +249,18 @@ const pages = staticPrerenderPages.map((page) => ({
 }));
 
 for (const tour of seoTourPages) {
+  // Preserve each tour's public route; the private classic tour must never
+  // advertise the legacy /tour/ URL as its canonical.
+  const path = tour.slug === "8-day-private-classic-uzbekistan-tour"
+    ? `/private-tour/${tour.slug}`
+    : `/tour/${tour.slug}`;
   pages.push({
-    path: `/tour/${tour.slug}`,
+    path,
     title: tour.title,
     description: tour.description,
     h1: tour.h1,
     body: [...tour.body, `Highlights include ${tour.highlights.join(", ")}.`],
-    schema: { "@context": "https://schema.org", "@type": "TouristTrip", name: tour.h1, description: strip(tour.body.join(" ")).slice(0, 500), offers: { "@type": "Offer", price: tour.price, priceCurrency: "USD", availability: "https://schema.org/InStock" }, provider: { "@type": "TravelAgency", name: "Go To Central Asia", url: SITE_URL }, url: `${SITE_URL}/tour/${tour.slug}` },
+    schema: { "@context": "https://schema.org", "@type": "TouristTrip", name: tour.h1, description: strip(tour.body.join(" ")).slice(0, 500), offers: { "@type": "Offer", price: tour.price, priceCurrency: "USD", availability: "https://schema.org/InStock" }, provider: { "@type": "TravelAgency", name: "Go To Central Asia", url: SITE_URL }, url: `${SITE_URL}${path}` },
   });
 }
 
@@ -255,9 +290,9 @@ const renderer = await createReactRenderer();
 try {
   await Promise.all(
     pages.flatMap((page) => {
-      const englishContent = renderer.render(page.path) || buildStaticFallbackContent(page);
+      const englishContent = page.path === "/uzbek-tours" ? buildUzbekistanTourContent() : (renderer.render(page.path) || buildStaticFallbackContent(page));
       const russianPath = withRussianPrefix(page.path);
-      const russianContent = renderer.render(russianPath) || buildStaticFallbackContent(page);
+      const russianContent = page.path === "/uzbek-tours" ? buildUzbekistanTourContent() : (renderer.render(russianPath) || buildStaticFallbackContent(page));
       return [
         writeRoute(page.path, inject(page, englishContent)),
         writeRoute(russianPath, inject(page, russianContent, russianPath)),

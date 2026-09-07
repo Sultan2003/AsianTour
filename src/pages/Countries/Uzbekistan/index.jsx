@@ -151,7 +151,7 @@ export default function UzbekistanTours() {
     };
   };
 
-  // fetch tours (Uzbekistan, only Group tours)
+  // Fetch all published Uzbekistan tours; type is only used for display grouping.
   useEffect(() => {
     const url = strapiLocale
       ? `${STRAPI_BASE}/api/asian-tours?locale=${strapiLocale}&filters[location][$eq]=Uzbekistan`
@@ -163,18 +163,10 @@ export default function UzbekistanTours() {
         const list = (data && data.data) || [];
         const normalized = list.map((it) => normalizeTour(it));
 
-        // ✅ Keep only Uzbekistan + Group tours
-        setTours(
-          normalized.filter(
-            (t) =>
-              ["uzbekistan", "узбекистан"].some((location) =>
-                (t.location || "").toLowerCase().includes(location),
-              ) &&
-              ["group", "груп"].some((type) =>
-                (t.tour_type || "").toString().toLowerCase().includes(type),
-              ),
-          ),
-        );
+        // The API already applies the destination filter. Do not discard records based on
+        // an optional presentation field (`tour_type`): published Uzbekistan private and
+        // group tours use different Strapi shapes and previously all disappeared here.
+        setTours(normalized.filter((tour) => tour.title));
       })
       .catch((err) => {
         console.error("Failed to load tours:", err);

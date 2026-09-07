@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState, useContext } from "react";
-import { Helmet } from "react-helmet-async";
 import { LanguageContext } from "../../context/LanguageContext";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Tourdetail.module.scss";
@@ -500,17 +499,6 @@ export default function TourIdPage() {
   if (!tour) {
     return (
       <div className={styles.tourPage}>
-        <Helmet>
-          <title>Uzbekistan Tour | Gotocentralasia</title>
-          <meta
-            name="description"
-            content="Explore unforgettable tours in Uzbekistan and Central Asia."
-          />
-          <link
-            rel="canonical"
-            href={`https://www.gotocentralasia.com/tour/${slug}`}
-          />
-        </Helmet>
 
         <div className={styles.heroContainer}>
           <div className={styles.hero}>
@@ -599,122 +587,6 @@ export default function TourIdPage() {
 
   return (
     <div className={styles.tourPage}>
-      <Helmet>
-        <title>
-          {translateTourTitle(
-            tour.title,
-            typeof strapiLocale !== "undefined"
-              ? strapiLocale
-              : typeof lang !== "undefined"
-                ? lang
-                : undefined,
-          )}{" "}
-          | Gotocentralasia
-        </title>
-        <meta
-          name="description"
-          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)} — explore ${tour.location}. Tour lasts ${days} days. Price: $${tour.price}. Full itinerary, dates, prices & booking.`}
-        />
-        <link
-          rel="canonical"
-          href={`https://www.gotocentralasia.com/tour/${slug}`}
-        />
-
-        {/* Open Graph (for Facebook) */}
-        <meta
-          property="og:title"
-          content={translateTourTitle(
-            tour.title,
-            typeof strapiLocale !== "undefined"
-              ? strapiLocale
-              : typeof lang !== "undefined"
-                ? lang
-                : undefined,
-          )}
-        />
-        <meta
-          property="og:description"
-          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)} — ${tour.location}. ${days} days.`}
-        />
-        <meta
-          property="og:image"
-          content={
-            tourImages[0]?.url
-              ? tourImages[0].url.startsWith("http")
-                ? tourImages[0].url
-                : `${STRAPI_BASE}${tourImages[0].url}`
-              : "https://www.gotocentralasia.com/preview.jpg"
-          }
-        />
-
-        {/* Twitter Card */}
-        <meta
-          name="twitter:title"
-          content={translateTourTitle(
-            tour.title,
-            typeof strapiLocale !== "undefined"
-              ? strapiLocale
-              : typeof lang !== "undefined"
-                ? lang
-                : undefined,
-          )}
-        />
-        <meta
-          name="twitter:description"
-          content={`${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)}, ${days} days.`}
-        />
-        <meta name="twitter:image" content={tourImages[0]?.url} />
-      </Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Home",
-              item: "https://www.gotocentralasia.com/",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Tours",
-              item: "https://www.gotocentralasia.com/all-tours",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: tour.title,
-              item: `https://www.gotocentralasia.com/tour/${slug}`,
-            },
-          ],
-        })}
-      </script>
-      ;
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "TouristTrip",
-          name: tour.title,
-          description: tour.plainDescription || "",
-          image: tourImages.map((i) => i.url),
-          offers: {
-            "@type": "Offer",
-            price: tour.price,
-            priceCurrency: "USD",
-            availability: tour.availableSeats > 0 ? "InStock" : "SoldOut",
-          },
-          itinerary: parsedDays.map((d) => ({
-            "@type": "TouristAttraction",
-            name: d.title,
-            description: d.body,
-          })),
-          startDate: tour.startDate,
-          endDate: tour.endDate,
-          areaServed: tour.location,
-        })}
-      </script>
       {/* HERO */}
       <div className={styles.heroContainer}>
         {/* Main hero image */}

@@ -3,7 +3,6 @@ import styles from "./Samarkand.module.scss";
 import Samarkand from "../../../../assets/Cities/Samarkand/Registan Square Samarkand.jpg";
 import { useNavigate } from "react-router-dom";
 import CityAttractions from "../../../../components/CityAttractions";
-import { Helmet } from "react-helmet-async";
 
 /* Cultural Landmarks — sample paths */
 import registan1 from "../../../../assets/Cities/Samarkand/Registan Square 2.jpg";
@@ -250,19 +249,6 @@ export default function SamarkandPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Samarkand Tours & Travel Guide | Go To Central Asia</title>
-
-        <meta
-          name="description"
-          content="Explore Samarkand tours, Registan Square, Shah-i-Zinda, Gur Emir and travel packages in Uzbekistan."
-        />
-
-        <link
-          rel="canonical"
-          href="https://www.gotocentralasia.com/uzbekistan-samarkand"
-        />
-      </Helmet>
 
       <div className={styles.container}>
         {/* LEFT — main content */}
