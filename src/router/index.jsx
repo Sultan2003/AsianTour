@@ -840,7 +840,16 @@ const Router = () => {
           }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
-        <Route path="/history-timeline" element={<HistoryTimeline />} />
+        <Route
+          path="/history-timeline"
+          element={
+            <MainLayout>
+              <main id="main-content" role="main">
+                <HistoryTimeline />
+              </main>
+            </MainLayout>
+          }
+        />
         <Route
           path="/10-best-places-to-visit-in-uzbekistan"
           element={

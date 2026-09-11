@@ -142,7 +142,8 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
   const ruDestination = {
     countryName: "Узбекистан",
     visitTitle: "Посетите Узбекистан",
-    visitIntro: "Узбекистан — обязательное направление для путешествия по Шёлковому пути и странам Центральной Азии. Древние города, самобытная культура, гостеприимные местные жители и неповторимая атмосфера делают поездку незабываемой. Находясь в сердце Шёлкового пути, местные жители веками развивали торговлю, принимали разные мировые религии и создали богатую культуру и традиции. Gotocentralasia.com помогает путешественникам со всего мира погрузиться в атмосферу древних приключений, узбекского гостеприимства и живых традиций.",
+    visitIntro:
+      "Узбекистан — обязательное направление для путешествия по Шёлковому пути и странам Центральной Азии. Древние города, самобытная культура, гостеприимные местные жители и неповторимая атмосфера делают поездку незабываемой. Находясь в сердце Шёлкового пути, местные жители веками развивали торговлю, принимали разные мировые религии и создали богатую культуру и традиции. Gotocentralasia.com помогает путешественникам со всего мира погрузиться в атмосферу древних приключений, узбекского гостеприимства и живых традиций.",
     upcomingTitle: "Ближайшие групповые туры",
     headers: { date: "Дата", status: "Статус", days: "Дни", price: "Цена" },
     available: "Доступно",
@@ -154,7 +155,12 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
     weatherLabel: "Погода",
     bestPlaces: "10 лучших мест для посещения в Узбекистане",
     travelDestinations: "Направления путешествий",
-    cityNames: { Tashkent: "Ташкент", Samarkand: "Самарканд", Bukhara: "Бухара", Khiva: "Хива" },
+    cityNames: {
+      Tashkent: "Ташкент",
+      Samarkand: "Самарканд",
+      Bukhara: "Бухара",
+      Khiva: "Хива",
+    },
     notes: [
       "Безопасность путешествия",
       "Виза и регистрация",
@@ -198,17 +204,26 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
           <div className={styles.tours}>
             {/* ✅ Main Image */}
             <div className={styles.mainImage}>
-              <img src={mainImg} alt={localizedDestination?.countryName || "Uzbekistan"} />
+              <img
+                src={mainImg}
+                alt={localizedDestination?.countryName || "Uzbekistan"}
+              />
             </div>
 
             {/* ✅ Visit Uzbekistan Intro */}
             <section className={styles.visitSection}>
               <h2>{localizedDestination?.visitTitle || "Visit Uzbekistan"}</h2>
-              <p>{localizedDestination?.visitIntro || `Uzbekistan is a must-see destination on The Silk Road or among Central Asia countries. As it was in the past throw out its long history, so it is now, Uzbekistan represents a core traditions and culture of nationalities who have been settling in this part of the world. Centuries old cities, unique culture, kind local people and unseen atmosphere will make your trip unforgettable. For thousands of years, by being on the heart of The Silk Road and making trade, hosting and welcoming main world religions in their lives, local people have developed their own captivating culture and traditions. All these you are able to see on the built architectures, feel in the mosques and palaces and evaluate in technologies and scientistic discoveries of ancient times. Gotocentralasia.com provides the opportunity for travelers from all around the world to immerse in the atmosphere of ancient adventure, uzbek hospitality and traditions.`}</p>
+              <p>
+                {localizedDestination?.visitIntro ||
+                  `Uzbekistan is a must-see destination on The Silk Road or among Central Asia countries. As it was in the past throw out its long history, so it is now, Uzbekistan represents a core traditions and culture of nationalities who have been settling in this part of the world. Centuries old cities, unique culture, kind local people and unseen atmosphere will make your trip unforgettable. For thousands of years, by being on the heart of The Silk Road and making trade, hosting and welcoming main world religions in their lives, local people have developed their own captivating culture and traditions. All these you are able to see on the built architectures, feel in the mosques and palaces and evaluate in technologies and scientistic discoveries of ancient times. Gotocentralasia.com provides the opportunity for travelers from all around the world to immerse in the atmosphere of ancient adventure, uzbek hospitality and traditions.`}
+              </p>
             </section>
 
             {/* ✅ Tours Section with Cards */}
-            <h2>{localizedDestination?.upcomingTitle || "Upcoming Group Departures"}</h2>
+            <h2>
+              {localizedDestination?.upcomingTitle ||
+                "Upcoming Group Departures"}
+            </h2>
             <div className={styles.cardsHeader}>
               <div>{localizedDestination?.headers.date || "Date"}</div>
               <div></div>
@@ -233,11 +248,20 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                   </div>
                   <div className={styles.tourInfo}>
                     <a href="#" className={styles.title}>
-                      {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+                      {translateTourTitle(
+                        tour.title,
+                        typeof strapiLocale !== "undefined"
+                          ? strapiLocale
+                          : typeof lang !== "undefined"
+                            ? lang
+                            : undefined,
+                      )}
                     </a>
                     <p className={styles.cities}>{tour.location}</p>
                     <a href="#" className={styles.departures}>
-                      {tour.availableSeats} {localizedDestination?.seatsAvailable || "seats available"}
+                      {tour.availableSeats}{" "}
+                      {localizedDestination?.seatsAvailable ||
+                        "seats available"}
                     </a>
                   </div>
                   <div
@@ -261,7 +285,9 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
 
             {/* ✅ Notes Section */}
             <section id="notes" className={styles.notesSection}>
-              <h3>{localizedDestination?.notesTitle || "Notes about Uzbekistan"}</h3>
+              <h3>
+                {localizedDestination?.notesTitle || "Notes about Uzbekistan"}
+              </h3>
               <table>
                 <tbody>
                   {[0, 1, 2, 3, 4].map((row) => (
@@ -300,7 +326,9 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                   to={`/weather/${c.slug}`}
                   className={styles.weatherLink}
                 >
-                  {localizedDestination ? `${localizedDestination.countryName} ${localizedDestination.weatherLabel}` : `${c.name} Weather`}
+                  {localizedDestination
+                    ? `${localizedDestination.countryName} ${localizedDestination.weatherLabel}`
+                    : `${c.name} Weather`}
                 </Link>
               ))}
             </div>
@@ -309,14 +337,23 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                 to={`/10-best-places-to-visit-in-uzbekistan`}
                 className={styles.weatherLink}
               >
-                {localizedDestination?.bestPlaces || "10 Best Places to visit in Uzbekistan"}
+                {localizedDestination?.bestPlaces ||
+                  "10 Best Places to visit in Uzbekistan"}
+              </Link>
+            </div>
+            <div className={styles.weatherSection}>
+              <Link to={`/history-timeline`} className={styles.weatherLink}>
+                { "History-timeline"}
               </Link>
             </div>
           </div>
 
           {/* ✅ Sidebar with Destinations */}
           <div className={styles.sidebar}>
-            <h3>{localizedDestination?.travelDestinations || "Travel Destinations"}</h3>
+            <h3>
+              {localizedDestination?.travelDestinations ||
+                "Travel Destinations"}
+            </h3>
             <ul>
               {destinations.map((d, i) => (
                 <li key={i}>
