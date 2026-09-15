@@ -290,10 +290,6 @@ export default function HistoryTimeline({ lang: langProp }) {
           </main>
         </div>
       </div>
-
-      <button type="button" className={styles.backTop} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label={t.back}>
-        ↑
-      </button>
     </div>
   );
 }
