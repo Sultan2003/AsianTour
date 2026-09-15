@@ -166,7 +166,17 @@ export default function UzbekistanTours() {
         // The API already applies the destination filter. Do not discard records based on
         // an optional presentation field (`tour_type`): published Uzbekistan private and
         // group tours use different Strapi shapes and previously all disappeared here.
-        setTours(normalized.filter((tour) => tour.title));
+        setTours(
+          normalized.filter(
+            (tour) =>
+              tour.title &&
+              tour.tour_type
+                .toString()
+                .split(",")
+                .map((type) => type.trim().toLowerCase())
+                .includes("group"),
+          ),
+        );
       })
       .catch((err) => {
         console.error("Failed to load tours:", err);
@@ -316,9 +326,20 @@ export default function UzbekistanTours() {
     )
       pushIf("Religious");
 
-    if (ttype.includes("eco") || ttype.includes("nature") || ttype.includes("эко") || ttype.includes("природ")) pushIf("Eco");
+    if (
+      ttype.includes("eco") ||
+      ttype.includes("nature") ||
+      ttype.includes("эко") ||
+      ttype.includes("природ")
+    )
+      pushIf("Eco");
 
-    if (ttype.includes("city") || ttype.includes("urban") || ttype.includes("город")) pushIf("City");
+    if (
+      ttype.includes("city") ||
+      ttype.includes("urban") ||
+      ttype.includes("город")
+    )
+      pushIf("City");
 
     if (
       ttype.includes("business") ||
@@ -380,7 +401,16 @@ export default function UzbekistanTours() {
                 </div>
 
                 <div className={styles.tourInfo}>
-                  <a className={styles.title}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</a>
+                  <a className={styles.title}>
+                    {translateTourTitle(
+                      tour.title,
+                      typeof strapiLocale !== "undefined"
+                        ? strapiLocale
+                        : typeof lang !== "undefined"
+                          ? lang
+                          : undefined,
+                    )}
+                  </a>
                   <p className={styles.cities}>{tour.location}</p>
                   <a className={styles.departures}>
                     {tour.availableSeats} {t.seatsAvailable}
@@ -397,7 +427,9 @@ export default function UzbekistanTours() {
                   {tour.availableSeats > 0 ? t.available : t.unavailable}
                 </div>
 
-                <div>{calcDays(tour.startDate, tour.endDate)} {t.days}</div>
+                <div>
+                  {calcDays(tour.startDate, tour.endDate)} {t.days}
+                </div>
 
                 <div>US$ {tour.price}</div>
               </div>
@@ -416,12 +448,28 @@ export default function UzbekistanTours() {
                   <div className={styles.bigImg}>
                     <img
                       src={imageOrPlaceholder(tour.title)}
-                      alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+                      alt={translateTourTitle(
+                        tour.title,
+                        typeof strapiLocale !== "undefined"
+                          ? strapiLocale
+                          : typeof lang !== "undefined"
+                            ? lang
+                            : undefined,
+                      )}
                     />
                   </div>
 
                   <div className={styles.bigInfo}>
-                    <h3 className={styles.bigTitle}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
+                    <h3 className={styles.bigTitle}>
+                      {translateTourTitle(
+                        tour.title,
+                        typeof strapiLocale !== "undefined"
+                          ? strapiLocale
+                          : typeof lang !== "undefined"
+                            ? lang
+                            : undefined,
+                      )}
+                    </h3>
                     <p className={styles.summary}>
                       {(
                         (tour.description || "") +
@@ -435,11 +483,15 @@ export default function UzbekistanTours() {
                     </p>
 
                     <div className={styles.metaRow}>
-                      <span>{calcDays(tour.startDate, tour.endDate)} {t.dayLabel}</span>
+                      <span>
+                        {calcDays(tour.startDate, tour.endDate)} {t.dayLabel}
+                      </span>
                       <span className={styles.dot}>•</span>
                       <span>{t.group}</span>
                       <span className={styles.dot}>•</span>
-                      <span>{tour.availableSeats} {t.seats}</span>
+                      <span>
+                        {tour.availableSeats} {t.seats}
+                      </span>
                     </div>
 
                     <div className={styles.bottomRow}>
@@ -451,9 +503,7 @@ export default function UzbekistanTours() {
               ))}
             </div>
 
-            <p className={styles.description}>
-              {t.description}
-            </p>
+            <p className={styles.description}>{t.description}</p>
           </div>
 
           {/* RIGHT - sidebar categories */}
@@ -472,7 +522,9 @@ export default function UzbekistanTours() {
                     className={styles.catTitle}
                     onClick={() => toggleCategory(cat)}
                   >
-                    <span>{t.categories[cat]} {t.tourSuffix}</span>
+                    <span>
+                      {t.categories[cat]} {t.tourSuffix}
+                    </span>
                     <div className={styles.catMeta}>
                       <span className={styles.count}>({items.length})</span>
                       <span className={styles.chev}>{isOpen ? "▾" : "▸"}</span>
