@@ -41,6 +41,18 @@ const cityDestinations = [
   { name: "Bishkek", path: "/kyrgyzstan-bishkek" },
 ];
 
+// Keep the server-delivered snippets for the Russian language cluster aligned
+// with the client SEO component. Without this, crawlers that do not execute
+// JavaScript would receive English titles on /rus/ URLs.
+const russianPrerenderOverrides = {
+  "/": ["Туры по Центральной Азии и Шёлковому пути | Go To Central Asia", "Индивидуальные, групповые и авторские туры по Узбекистану, Центральной Азии и Шёлковому пути с местной командой."],
+  "/uzbek-tours": ["Туры в Узбекистан | Групповые и индивидуальные маршруты", "Выберите тур в Узбекистан: Ташкент, Самарканд, Бухара, Хива, гиды, отели, поезда и наследие Шёлкового пути."],
+  "/uzbekistan-private-tours": ["Индивидуальные туры в Узбекистан | Шёлковый путь", "Создайте индивидуальный тур в Узбекистан с удобными датами, гидами, отелями и маршрутом через Ташкент, Самарканд, Бухару и Хиву."],
+  "/central-asia-tours": ["Туры по Центральной Азии | Многодневные маршруты", "Сравните туры по Центральной Азии с Узбекистаном, Казахстаном, Кыргызстаном, Таджикистаном и Туркменистаном."],
+  "/silk-road-tours": ["Туры по Шёлковому пути | Узбекистан и Центральная Азия", "Путешествуйте по Шёлковому пути через Самарканд, Бухару, Хиву и Ташкент в составе группы или по индивидуальному маршруту."],
+  "/uzbekistan": ["Путеводитель по Узбекистану | Самарканд, Бухара и Хива", "Планируйте путешествие по Узбекистану: города Шёлкового пути, поезда, базары, памятники, отели, гиды и идеи маршрутов."],
+};
+
 const renderParagraphs = (body = []) => body.map((p) => `<p>${escapeHtml(p)}</p>`).join("");
 const renderLinkList = (items = []) => `<ul>${items.map((item) => `<li><a href="${escapeHtml(item.path)}">${escapeHtml(item.name)}</a>${item.description ? ` - ${escapeHtml(item.description)}` : ""}</li>`).join("")}</ul>`;
 
@@ -176,12 +188,12 @@ async function createReactRenderer() {
   };
 }
 
-function seoHead({ title, description, canonical, alternates, isRussian, schema }) {
+function seoHead({ title, description, canonical, alternates, isRussian, schema, robots }) {
   const image = `${SITE_URL}/logo.png`;
   const locale = isRussian ? "ru_RU" : "en_US";
   return `<title data-rh="true">${escapeHtml(title)}</title>
 <meta data-rh="true" name="description" content="${escapeHtml(description)}" />
-<meta data-rh="true" name="robots" content="index,follow,max-image-preview:large" />
+<meta data-rh="true" name="robots" content="${robots}" />
 <link data-rh="true" rel="canonical" href="${canonical}" />
 <link data-rh="true" rel="alternate" hreflang="en" href="${alternates.en}" />
 <link data-rh="true" rel="alternate" hreflang="ru" href="${alternates.ru}" />
@@ -219,12 +231,18 @@ function inject(page, content, outputPath = page.path) {
   const canonical = getCanonicalUrl(outputPath);
   const alternates = getAlternateUrls(outputPath);
   const { isRussian } = splitLocalePathname(outputPath);
+  const [title, description] = isRussian && russianPrerenderOverrides[page.path]
+    ? russianPrerenderOverrides[page.path]
+    : [page.title, page.description];
+  const robots = page.path === "/booking-form" || page.path.startsWith("/weather/")
+    ? "noindex,follow"
+    : "index,follow,max-image-preview:large";
   const schema = page.path === "/"
     ? page.schema
     : { "@context": "https://schema.org", "@graph": [page.schema, makeBreadcrumbSchema(outputPath, canonical)] };
   let html = template
     .replace(/<html([^>]*)lang="[^"]*"/, `<html$1lang="${isRussian ? "ru" : "en"}"`)
-    .replace("</head>", `${seoHead({ title: page.title, description: page.description, canonical, alternates, isRussian, schema })}</head>`);
+    .replace("</head>", `${seoHead({ title, description, canonical, alternates, isRussian, schema, robots })}</head>`);
   html = html.replace('<div id="root"></div>', `<div id="root">${content}</div>`);
   return html;
 }

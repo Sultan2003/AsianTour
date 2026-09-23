@@ -47,9 +47,12 @@ http://www.gotocentralasia.com/* https://www.gotocentralasia.com/:splat 301!
 /Azerbaijan-Baku /azerbaijan-baku 301
 /Georgia-Tbilisi /georgia-tbilisi 301
 /Armenia-Yerevan /armenia-yerevan 301
-/Caucasus-Baku /caucasus-baku 301
-/Caucasus-Tbilisi /caucasus-tbilisi 301
-/Caucasus-Yerevan /caucasus-yerevan 301
+/Caucasus-Baku /azerbaijan-baku 301
+/Caucasus-Tbilisi /georgia-tbilisi 301
+/Caucasus-Yerevan /armenia-yerevan 301
+/caucasus-baku /azerbaijan-baku 301
+/caucasus-tbilisi /georgia-tbilisi 301
+/caucasus-yerevan /armenia-yerevan 301
 /Uzbekistan-Private-Tours /uzbekistan-private-tours 301
 /Kazakhstan-Private-Tours /kazakhstan-private-tours 301
 /Silk-Road-Private-Tours /silk-road-private-tours 301

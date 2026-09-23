@@ -4,7 +4,6 @@ import {
   Route,
   Routes,
   useLocation,
-  useNavigate,
 } from "react-router-dom";
 import SeoHelmet from "../components/SEO/SeoHelmet";
 import SeoRuntime from "../components/SEO/SeoRuntime";
@@ -79,6 +78,7 @@ import HotelsList from "../components/HotelsList";
 import BlogArticle from "../pages/BlogArticle";
 import i18n from "../i18n";
 import HistoryTimeline from "../pages/HistoryTimeline/HistoryTimeline";
+import NotFound from "../pages/NotFound";
 
 import AttractionDetails from "../components/AttractionDetails";
 
@@ -94,7 +94,6 @@ const stripRussianPrefix = (pathname) => {
 
 const Router = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const russianPath = isRussianPath(location.pathname);
   const routeLocation = russianPath
     ? { ...location, pathname: stripRussianPrefix(location.pathname) }
@@ -115,15 +114,6 @@ const Router = () => {
       return;
     }
 
-    if (localStorage.getItem("lang") === "ru") {
-      const russianPathname =
-        location.pathname === "/" ? "/rus/" : `/rus${location.pathname}`;
-      navigate(`${russianPathname}${location.search}${location.hash}`, {
-        replace: true,
-      });
-      return;
-    }
-
     if (currentLanguage !== "en") {
       i18n.changeLanguage("en");
     }
@@ -131,7 +121,6 @@ const Router = () => {
     location.hash,
     location.pathname,
     location.search,
-    navigate,
     russianPath,
   ]);
 
@@ -839,7 +828,16 @@ const Router = () => {
             </MainLayout>
           }
         />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route
+          path="*"
+          element={
+            <MainLayout>
+              <main id="main-content" role="main">
+                <NotFound />
+              </main>
+            </MainLayout>
+          }
+        />
         <Route
           path="/history-timeline"
           element={

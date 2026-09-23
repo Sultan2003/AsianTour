@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaFacebookF, FaInstagram, FaYoutube, FaArrowUp } from "react-icons/fa";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Footer.module.scss";
 import { LanguageContext } from "../../context/LanguageContext";
 import footerTranslations from "../../translations/footer";
@@ -12,9 +11,6 @@ import InstagramIcon, {
 } from "../../assets/icons/icons";
 
 const Footer = () => {
-  const [showScroll, setShowScroll] = useState(false);
-  const navigate = useNavigate();
-
   const { lang } = useContext(LanguageContext);
   const t = footerTranslations[lang] || footerTranslations.en;
 
@@ -63,16 +59,10 @@ const Footer = () => {
               <Link to="/transfer">Transfer</Link>
             </li>
             <li>
-              <a
-                href="https://www.airporthotel24.uz/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Hotels
-              </a>
+              <Link to="/hotels">Hotels</Link>
             </li>
             <li>
-              <Link to="/asian-tour-hotel-guide-service">Guide Service</Link>
+              <Link to="/contact">Guide Service</Link>
             </li>
           </ul>
         </div>
@@ -81,20 +71,20 @@ const Footer = () => {
         <div className={styles.column}>
           <h3 className={styles.heading}>{t.company}</h3>
           <ul>
-            <li role="button" onClick={() => navigate("/contact")}>
-              {t.aboutUs}
+            <li>
+              <Link to="/about">{t.aboutUs}</Link>
             </li>
             <li>
-              <Link to="/booking-terms">{t.bookingTerms}</Link>
+              <Link to="/booking-form">{t.bookingTerms}</Link>
             </li>
             <li>
-              <Link to="/cancellations">{t.cancellations}</Link>
+              <Link to="/contact">{t.cancellations}</Link>
             </li>
             <li>
-              <Link to="/privacy-policy">{t.privacyPolicy}</Link>
+              <Link to="/contact">{t.privacyPolicy}</Link>
             </li>
             <li>
-              <Link to="/contacts">{t.contacts}</Link>
+              <Link to="/contact">{t.contacts}</Link>
             </li>
           </ul>
         </div>

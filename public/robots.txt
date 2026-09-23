@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /search
+Disallow: /booking-form
 
 Sitemap: https://www.gotocentralasia.com/sitemap.xml
-Host: https://www.gotocentralasia.com

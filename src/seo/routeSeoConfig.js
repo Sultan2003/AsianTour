@@ -8,6 +8,36 @@ const TWITTER_SITE = "@gotocentralasia";
 
 const routeSeoMap = staticRouteSeo;
 
+// The Russian URLs are independent, crawlable language versions. Keep their
+// search snippets in Russian for the core commercial and destination pages
+// rather than presenting an English title under a ru hreflang annotation.
+const russianSeoOverrides = {
+  "/": {
+    title: "Туры по Центральной Азии и Шёлковому пути | Go To Central Asia",
+    description: "Индивидуальные, групповые и авторские туры по Узбекистану, Центральной Азии и Шёлковому пути с местной командой.",
+  },
+  "/uzbek-tours": {
+    title: "Туры в Узбекистан | Групповые и индивидуальные маршруты",
+    description: "Выберите тур в Узбекистан: Ташкент, Самарканд, Бухара, Хива, гиды, отели, поезда и наследие Шёлкового пути.",
+  },
+  "/uzbekistan-private-tours": {
+    title: "Индивидуальные туры в Узбекистан | Шёлковый путь",
+    description: "Создайте индивидуальный тур в Узбекистан с удобными датами, гидами, отелями и маршрутом через Ташкент, Самарканд, Бухару и Хиву.",
+  },
+  "/central-asia-tours": {
+    title: "Туры по Центральной Азии | Многодневные маршруты",
+    description: "Сравните туры по Центральной Азии с Узбекистаном, Казахстаном, Кыргызстаном, Таджикистаном и Туркменистаном.",
+  },
+  "/silk-road-tours": {
+    title: "Туры по Шёлковому пути | Узбекистан и Центральная Азия",
+    description: "Путешествуйте по Шёлковому пути через Самарканд, Бухару, Хиву и Ташкент в составе группы или по индивидуальному маршруту.",
+  },
+  "/uzbekistan": {
+    title: "Путеводитель по Узбекистану | Самарканд, Бухара и Хива",
+    description: "Планируйте путешествие по Узбекистану: города Шёлкового пути, поезда, базары, памятники, отели, гиды и идеи маршрутов.",
+  },
+};
+
 const formatSegment = (segment) =>
   segment.replace(/-/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
@@ -93,8 +123,10 @@ const getBreadcrumbs = (pathname) => {
 export const getSeoData = (pathname) => {
   const normalizedPathname = normalizePathname(pathname);
   const { isRussian, pathname: routePathname } = splitLocalePathname(normalizedPathname);
-  const page =
-    routeSeoMap[routePathname] || buildFallbackSeo(routePathname);
+  const page = {
+    ...(routeSeoMap[normalizedPathname] || routeSeoMap[routePathname] || buildFallbackSeo(routePathname)),
+    ...(isRussian ? russianSeoOverrides[routePathname] : null),
+  };
   const canonical = getCanonicalUrl(normalizedPathname);
   const alternates = getAlternateUrls(normalizedPathname);
   const breadcrumbs = [
@@ -127,6 +159,11 @@ export const getSeoData = (pathname) => {
       contactType: "customer service",
       availableLanguage: ["English", "Russian"],
     },
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61572084062845",
+      "https://www.instagram.com/gotocentralasia/",
+      "https://www.youtube.com/@gotocentralasia",
+    ],
   };
 
   const localBusinessSchema = {
@@ -193,7 +230,9 @@ export const getSeoData = (pathname) => {
     htmlLang: isRussian ? "ru" : "en",
     image: page.image || DEFAULT_IMAGE,
     type: page.type || "website",
-    robots: page.robots || "index,follow,max-image-preview:large",
+    robots: routePathname === "/booking-form" || routePathname.startsWith("/weather/")
+      ? "noindex,follow"
+      : page.robots || "index,follow,max-image-preview:large",
     twitterSite: TWITTER_SITE,
     schemas: [
       organizationSchema,

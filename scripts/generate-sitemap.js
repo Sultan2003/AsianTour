@@ -195,12 +195,6 @@ const staticEntries = [
     source: "src/pages/AboutUs/index.jsx",
   },
   {
-    url: "/booking-form",
-    priority: 0.8,
-    changefreq: "monthly",
-    source: "src/pages/BookingForm/index.jsx",
-  },
-  {
     url: "/10-best-places-to-visit-in-uzbekistan",
     priority: 0.8,
     changefreq: "monthly",
@@ -461,24 +455,6 @@ const staticEntries = [
   {
     url: "/armenia-yerevan",
     priority: 0.7,
-    changefreq: "monthly",
-    source: "src/pages/Cities/Erevan/index.jsx",
-  },
-  {
-    url: "/caucasus-baku",
-    priority: 0.6,
-    changefreq: "monthly",
-    source: "src/pages/Cities/Baku/index.jsx",
-  },
-  {
-    url: "/caucasus-tbilisi",
-    priority: 0.6,
-    changefreq: "monthly",
-    source: "src/pages/Cities/Tbilisi/index.jsx",
-  },
-  {
-    url: "/caucasus-yerevan",
-    priority: 0.6,
     changefreq: "monthly",
     source: "src/pages/Cities/Erevan/index.jsx",
   },
