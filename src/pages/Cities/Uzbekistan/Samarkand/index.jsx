@@ -46,7 +46,6 @@ export default function SamarkandPage() {
   const [toursLoading, setToursLoading] = useState(true);
   const [imagesLoading, setImagesLoading] = useState(true);
   const [toursError, setToursError] = useState(null);
-  const [imagesError, setImagesError] = useState(null);
   const makeSlug = (title) =>
     title
       .toLowerCase()
@@ -75,7 +74,6 @@ export default function SamarkandPage() {
   /* IMAGES API */
   useEffect(() => {
     setImagesLoading(true);
-    setImagesError(null);
 
     fetch("https://brilliant-passion-7d3870e44b.strapiapp.com/api/upload/files")
       .then((r) => {
@@ -83,7 +81,7 @@ export default function SamarkandPage() {
         return r.json();
       })
       .then((d) => setImages(d || []))
-      .catch((err) => setImagesError(err.message || "Failed to load images"))
+      .catch(() => setImages([]))
       .finally(() => setImagesLoading(false));
   }, []);
 
@@ -433,9 +431,7 @@ export default function SamarkandPage() {
           {toursLoading ? (
             <div className={styles.toursLoading}>Loading tours...</div>
           ) : toursError ? (
-            <div className={styles.toursError}>
-              Error loading tours: {toursError}
-            </div>
+            <div className={styles.noTours}>Tour availability is being updated. Contact us for current Samarkand tour options.</div>
           ) : samarkandTours.length === 0 ? (
             <div className={styles.noTours}>No Samarkand tours found.</div>
           ) : (
@@ -465,10 +461,6 @@ export default function SamarkandPage() {
           {/* Optionally show images API status (helpful for debugging) */}
           {imagesLoading ? (
             <div className={styles.imagesLoading}>Loading images...</div>
-          ) : imagesError ? (
-            <div className={styles.imagesError}>
-              Images error: {imagesError}
-            </div>
           ) : null}
         </div>
       </div>

@@ -56,7 +56,7 @@
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/about</loc>
-    <lastmod>2026-07-29T04:53:11.000Z</lastmod>
+    <lastmod>2026-09-07T17:27:17.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/about"/>
@@ -65,30 +65,12 @@
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/rus/about</loc>
-    <lastmod>2026-07-29T04:53:11.000Z</lastmod>
+    <lastmod>2026-09-07T17:27:17.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/about"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/about"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/about"/>
-  </url>
-  <url>
-    <loc>https://www.gotocentralasia.com/booking-form</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/booking-form"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/booking-form"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/booking-form"/>
-  </url>
-  <url>
-    <loc>https://www.gotocentralasia.com/rus/booking-form</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/booking-form"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/booking-form"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/booking-form"/>
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/10-best-places-to-visit-in-uzbekistan</loc>
@@ -110,7 +92,7 @@
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/uzbek-tours</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
+    <lastmod>2026-09-15T05:15:53.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/uzbek-tours"/>
@@ -119,7 +101,7 @@
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/rus/uzbek-tours</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
+    <lastmod>2026-09-15T05:15:53.000Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/uzbek-tours"/>
@@ -308,7 +290,7 @@
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/uzbekistan</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
+    <lastmod>2026-09-11T07:26:29.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/uzbekistan"/>
@@ -317,7 +299,7 @@
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/rus/uzbekistan</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
+    <lastmod>2026-09-11T07:26:29.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/uzbekistan"/>
@@ -668,7 +650,7 @@
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/uzbekistan-samarkand</loc>
-    <lastmod>2026-07-03T05:29:50.000Z</lastmod>
+    <lastmod>2026-09-07T17:27:17.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/uzbekistan-samarkand"/>
@@ -677,7 +659,7 @@
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/rus/uzbekistan-samarkand</loc>
-    <lastmod>2026-07-03T05:29:50.000Z</lastmod>
+    <lastmod>2026-09-07T17:27:17.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/uzbekistan-samarkand"/>
@@ -881,60 +863,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/armenia-yerevan"/>
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/armenia-yerevan"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/armenia-yerevan"/>
-  </url>
-  <url>
-    <loc>https://www.gotocentralasia.com/caucasus-baku</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/caucasus-baku"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/caucasus-baku"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/caucasus-baku"/>
-  </url>
-  <url>
-    <loc>https://www.gotocentralasia.com/rus/caucasus-baku</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/caucasus-baku"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/caucasus-baku"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/caucasus-baku"/>
-  </url>
-  <url>
-    <loc>https://www.gotocentralasia.com/caucasus-tbilisi</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/caucasus-tbilisi"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/caucasus-tbilisi"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/caucasus-tbilisi"/>
-  </url>
-  <url>
-    <loc>https://www.gotocentralasia.com/rus/caucasus-tbilisi</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/caucasus-tbilisi"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/caucasus-tbilisi"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/caucasus-tbilisi"/>
-  </url>
-  <url>
-    <loc>https://www.gotocentralasia.com/caucasus-yerevan</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/caucasus-yerevan"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/caucasus-yerevan"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/caucasus-yerevan"/>
-  </url>
-  <url>
-    <loc>https://www.gotocentralasia.com/rus/caucasus-yerevan</loc>
-    <lastmod>2026-07-01T05:52:35.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.gotocentralasia.com/caucasus-yerevan"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.gotocentralasia.com/rus/caucasus-yerevan"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.gotocentralasia.com/caucasus-yerevan"/>
   </url>
   <url>
     <loc>https://www.gotocentralasia.com/uzbekistan-private-tours</loc>

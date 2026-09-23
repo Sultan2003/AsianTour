@@ -3,15 +3,18 @@ import { useLocation } from "react-router-dom";
 import { getSeoData } from "../../seo/routeSeoConfig";
 
 const SeoHelmet = () => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const seo = getSeoData(pathname);
+  // Search and filter states are useful to visitors but must not become an
+  // unbounded set of indexed URLs. Their canonical remains the clean route.
+  const robots = search ? "noindex,follow" : seo.robots;
 
   return (
     <Helmet prioritizeSeoTags>
       <html lang={seo.htmlLang} />
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
-      <meta name="robots" content={seo.robots} />
+      <meta name="robots" content={robots} />
       <link rel="canonical" href={seo.canonical} />
       <link rel="alternate" hrefLang="en" href={seo.alternates.en} />
       <link rel="alternate" hrefLang="ru" href={seo.alternates.ru} />
