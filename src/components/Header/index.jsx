@@ -443,6 +443,45 @@ export default function Header({ onLoginClick }) {
             </div>
           </div>
         </div>
+
+        <div className={styles.menuItem}>
+          <span
+            onClick={() => handleMenuToggle("socialMedia")}
+            className={styles.menuTrigger}
+          >
+            {t("nav.socialMedia")} ▾
+          </span>
+          <div
+            className={`${styles.dropdown} ${openMobileMenu === "socialMedia" ? styles.show : ""}`}
+          >
+            <div className={styles.dropdownGrid}>
+              <a
+                href="https://www.instagram.com/gotocentralasia/"
+                target="_blank"
+                rel="noreferrer"
+                onClick={handleMenuLinkClick}
+              >
+                {t("nav.instagram")}
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61572084062845#"
+                target="_blank"
+                rel="noreferrer"
+                onClick={handleMenuLinkClick}
+              >
+                {t("nav.facebook")}
+              </a>
+              <a
+                href="https://www.youtube.com/@gotocentralasia"
+                target="_blank"
+                rel="noreferrer"
+                onClick={handleMenuLinkClick}
+              >
+                {t("nav.youtube")}
+              </a>
+            </div>
+          </div>
+        </div>
       </nav>
     </header>
   );
