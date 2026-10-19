@@ -406,9 +406,7 @@ export default function UzbekistanTours() {
                       tour.title,
                       typeof strapiLocale !== "undefined"
                         ? strapiLocale
-                        : typeof lang !== "undefined"
-                          ? lang
-                          : undefined,
+                        : undefined,
                     )}
                   </a>
                   <p className={styles.cities}>{tour.location}</p>
@@ -452,9 +450,7 @@ export default function UzbekistanTours() {
                         tour.title,
                         typeof strapiLocale !== "undefined"
                           ? strapiLocale
-                          : typeof lang !== "undefined"
-                            ? lang
-                            : undefined,
+                          : undefined,
                       )}
                     />
                   </div>
@@ -465,9 +461,7 @@ export default function UzbekistanTours() {
                         tour.title,
                         typeof strapiLocale !== "undefined"
                           ? strapiLocale
-                          : typeof lang !== "undefined"
-                            ? lang
-                            : undefined,
+                          : undefined,
                       )}
                     </h3>
                     <p className={styles.summary}>

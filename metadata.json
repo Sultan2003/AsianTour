@@ -1,0 +1,8 @@
+{
+  "name": "Asian Tour - Go To Central Asia",
+  "description": "Travel and tour management platform for Uzbekistan and Central Asia Silk Road destinations, private tours, hotels, and city guides.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

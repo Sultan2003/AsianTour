@@ -749,30 +749,41 @@ async function generate() {
     });
   });
 
-  const sitemapEntries = [];
+  const allEntries = [];
+  const enEntries = [];
+  const ruEntries = [];
   const seenUrls = new Set();
-  const writeUrl = (entry) => {
+
+  const writeUrl = (entry, list) => {
     const loc = normalizeAbsoluteUrl(entry.url);
 
     if (seenUrls.has(loc)) return;
 
     seenUrls.add(loc);
-    sitemapEntries.push(entry);
+    list.push(entry);
+    allEntries.push(entry);
   };
 
   [...staticRoutes, ...dynamicTourRoutes, ...dynamicHotelRoutes].forEach((entry) => {
-    writeUrl(withLocaleLinks(entry));
-    writeUrl(withLocaleLinks({ ...entry, url: toRussianPath(entry.url) }, entry.url));
+    writeUrl(withLocaleLinks(entry), enEntries);
+    writeUrl(withLocaleLinks({ ...entry, url: toRussianPath(entry.url) }, entry.url), ruEntries);
   });
 
-  const xml = renderSitemap(sitemapEntries);
-  await writeFile("./public/sitemap.xml", xml, "utf8");
+  const xml = renderSitemap(allEntries);
+  const xmlEn = renderSitemap(enEntries);
+  const xmlRu = renderSitemap(ruEntries);
 
-  console.log("✅ Sitemap generated successfully");
+  await writeFile("./public/sitemap.xml", xml, "utf8");
+  await writeFile("./public/sitemap-en.xml", xmlEn, "utf8");
+  await writeFile("./public/sitemap-ru.xml", xmlRu, "utf8");
+
+  console.log("✅ Dual-language sitemaps generated successfully");
   console.log(`→ static routes: ${staticRoutes.length}`);
   console.log(`→ dynamic tour routes: ${dynamicTourRoutes.length}`);
   console.log(`→ dynamic hotel routes: ${dynamicHotelRoutes.length}`);
-  console.log(`→ total URLs: ${seenUrls.size}`);
+  console.log(`→ English sitemap URLs: ${enEntries.length}`);
+  console.log(`→ Russian sitemap URLs: ${ruEntries.length}`);
+  console.log(`→ total unique URLs: ${seenUrls.size}`);
 }
 
 generate();

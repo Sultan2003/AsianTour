@@ -28,8 +28,17 @@ export default function MainPage() {
   const [tours, setTours] = useState([]);
   const [images, setImages] = useState([]);
   const [imageIndexes, setImageIndexes] = useState({});
+  const [destActiveIndex, setDestActiveIndex] = useState(2);
 
   const visibleDestinations = destinations;
+
+
+  const prevDest = () => {
+    setDestActiveIndex((prev) => (prev - 1 + visibleDestinations.length) % visibleDestinations.length);
+  };
+  const nextDestination = () => {
+    setDestActiveIndex((prev) => (prev + 1) % visibleDestinations.length);
+  };
 
   const makeSlug = (title) =>
     title
@@ -226,9 +235,7 @@ export default function MainPage() {
                           tour.title,
                           typeof strapiLocale !== "undefined"
                             ? strapiLocale
-                            : typeof lang !== "undefined"
-                              ? lang
-                              : undefined,
+                            : undefined,
                         )}
                         className={styles.imageSlide}
                         style={{ opacity: idx === currentIndex ? 1 : 0 }}
@@ -255,9 +262,7 @@ export default function MainPage() {
                       tour.title,
                       typeof strapiLocale !== "undefined"
                         ? strapiLocale
-                        : typeof lang !== "undefined"
-                          ? lang
-                          : undefined,
+                        : undefined,
                     )}
                   </h2>
                   <div className={styles.textbtn}>
@@ -327,9 +332,7 @@ export default function MainPage() {
                     tour.title,
                     typeof strapiLocale !== "undefined"
                       ? strapiLocale
-                      : typeof lang !== "undefined"
-                        ? lang
-                        : undefined,
+                      : undefined,
                   )}
                 </h3>
 
@@ -355,72 +358,51 @@ export default function MainPage() {
       <div className={styles.destinationsSection}>
         <h2 className={styles.title}>{t.popularDestination}</h2>
 
-        {/* STATE */}
-        {(() => {
-          const [activeIndex, setActiveIndex] = useState(2);
+        <div className={styles.sliderWrapper}>
+          <button
+            className={`${styles.navBtn} ${styles.left}`}
+            onClick={prevDest}
+          >
+            ‹
+          </button>
 
-          const next = () => {
-            setActiveIndex((prev) => (prev + 1) % visibleDestinations.length);
-          };
+          <div className={styles.slider}>
+            {visibleDestinations.map((item, index) => {
+              let position = index - destActiveIndex;
 
-          const prev = () => {
-            setActiveIndex(
-              (prev) =>
-                (prev - 1 + visibleDestinations.length) %
-                visibleDestinations.length,
-            );
-          };
+              if (position < -2) position += visibleDestinations.length;
+              if (position > 2) position -= visibleDestinations.length;
 
-          return (
-            <>
-              <div className={styles.sliderWrapper}>
-                <button
-                  className={`${styles.navBtn} ${styles.left}`}
-                  onClick={prev}
+              return (
+                <Link
+                  to={item.path}
+                  key={index}
+                  className={`${styles.card} ${styles[`pos${position}`]}`}
                 >
-                  ‹
-                </button>
+                  <div
+                    className={styles.image}
+                    style={{
+                      backgroundImage: `url(${
+                        item.image || "https://picsum.photos/500/700"
+                      })`,
+                    }}
+                  />
 
-                <div className={styles.slider}>
-                  {visibleDestinations.map((item, index) => {
-                    let position = index - activeIndex;
+                  <div className={styles.overlay}>
+                    <h3>{translateTourTitle(item.title, lang)}</h3>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
 
-                    if (position < -2) position += visibleDestinations.length;
-                    if (position > 2) position -= visibleDestinations.length;
-
-                    return (
-                      <Link
-                        to={item.path}
-                        key={index}
-                        className={`${styles.card} ${styles[`pos${position}`]}`}
-                      >
-                        <div
-                          className={styles.image}
-                          style={{
-                            backgroundImage: `url(${
-                              item.image || "https://picsum.photos/500/700"
-                            })`,
-                          }}
-                        />
-
-                        <div className={styles.overlay}>
-                          <h3>{translateTourTitle(item.title, lang)}</h3>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-
-                <button
-                  className={`${styles.navBtn} ${styles.right}`}
-                  onClick={next}
-                >
-                  ›
-                </button>
-              </div>
-            </>
-          );
-        })()}
+          <button
+            className={`${styles.navBtn} ${styles.right}`}
+            onClick={nextDestination}
+          >
+            ›
+          </button>
+        </div>
       </div>
       <div className={styles.featureSection}>
         <div className={styles.featureContainer}>
@@ -517,9 +499,7 @@ export default function MainPage() {
                 tour.title,
                 typeof strapiLocale !== "undefined"
                   ? strapiLocale
-                  : typeof lang !== "undefined"
-                    ? lang
-                    : undefined,
+                  : undefined,
               )}
             </a>
           ))}

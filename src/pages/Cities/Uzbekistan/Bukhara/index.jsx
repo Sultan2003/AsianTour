@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CityAttractions from "../../../../components/CityAttractions";
 
 import lyabi from "../../../../assets/Cities/Bukhara/Labi-Xovuz.png";
-import lyabi1 from "../../../../assets/Cities/Bukhara/Lyabi-Hauz 3.jpg";
+import lyabi1 from "../../../../assets/images/10-Places/Lyabi-Hauz Ensemble (Bukhara).jpg";
 import lyabi2 from "../../../../assets/Cities/Bukhara/Lyabi-Khauz-4.jpg";
 import kalyan from "../../../../assets/Cities/Bukhara/Kalyan Minaret and Mosque.jpg";
 import kalyan1 from "../../../../assets/Cities/Bukhara/Kalyan Minaret and Mosque 1.jpg";

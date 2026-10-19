@@ -606,9 +606,7 @@ export default function TourIdPage() {
                 tour.title,
                 typeof strapiLocale !== "undefined"
                   ? strapiLocale
-                  : typeof lang !== "undefined"
-                    ? lang
-                    : undefined,
+                  : undefined,
               ) || "Uzbekistan Tour"}
             </h1>
 
@@ -636,8 +634,8 @@ export default function TourIdPage() {
                   src={img.url}
                   alt={
                     img.alternativeText?.trim()
-                      ? `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)} — ${img.alternativeText}`
-                      : `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)} in ${tour.location}`
+                      ? `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)} — ${img.alternativeText}`
+                      : `${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)} in ${tour.location}`
                   }
                 />
               </div>
@@ -717,7 +715,7 @@ export default function TourIdPage() {
               // Split into object-like blocks. Use a strict split for `},{` variants.
               const objectBlocks = match[1]
                 .split(/}\s*,\s*{/) // split between objects
-                .map((b) => b.replace(/^[\s\[{]+|[\s\]}]+$/g, "").trim()) // remove leftover braces/brackets
+                .map((b) => b.replace(/^[\s[{]+|[\s\]}]+$/g, "").trim()) // remove leftover braces/brackets
                 .filter((b) => /City\s*:/i.test(b)); // only blocks that contain City
 
               const accommodations = objectBlocks.map((block) => {
@@ -1286,9 +1284,7 @@ export default function TourIdPage() {
                 tour.title,
                 typeof strapiLocale !== "undefined"
                   ? strapiLocale
-                  : typeof lang !== "undefined"
-                    ? lang
-                    : undefined,
+                  : undefined,
               )}
             </h2>
             <div className={styles.price}>US${tour.price}</div>
@@ -1414,9 +1410,7 @@ export default function TourIdPage() {
                           tItem.title,
                           typeof strapiLocale !== "undefined"
                             ? strapiLocale
-                            : typeof lang !== "undefined"
-                              ? lang
-                              : undefined,
+                            : undefined,
                         )}
                       </li>
                     ))}
@@ -1489,7 +1483,7 @@ export default function TourIdPage() {
                 const message = `
 New Booking Request
 
-Tour: ${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : typeof lang !== "undefined" ? lang : undefined)}
+Tour: ${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}
 Start Date: ${formatDate(selectedDate.start)}
 End Date: ${formatDate(selectedDate.end, true)}
 Price: ${selectedDate.price}
@@ -1531,9 +1525,7 @@ Guest Email: ${email}
                   tour.title,
                   typeof strapiLocale !== "undefined"
                     ? strapiLocale
-                    : typeof lang !== "undefined"
-                      ? lang
-                      : undefined,
+                    : undefined,
                 )}
                 readOnly
               />

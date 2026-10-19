@@ -184,7 +184,7 @@ export default function AzerbaijanPrivateTours() {
                     : "-"}
                 </div>
                 <div className={styles.tourInfo}>
-                  <a className={styles.title}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</a>
+                  <a className={styles.title}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}</a>
                   <p className={styles.cities}>{tour.location}</p>
                   <a className={styles.departures}>
                     {tour.availableSeats} seats available
@@ -215,11 +215,11 @@ export default function AzerbaijanPrivateTours() {
                   <div className={styles.bigImg}>
                     <img
                       src={imageOrPlaceholder(tour.title)}
-                      alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+                      alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}
                     />
                   </div>
                   <div className={styles.bigInfo}>
-                    <h3 className={styles.bigTitle}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
+                    <h3 className={styles.bigTitle}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}</h3>
                     <p className={styles.summary}>
                       {(
                         (tour.description || "") +

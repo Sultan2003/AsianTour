@@ -87,7 +87,7 @@ export default function CityTours() {
           onClick={() => navigate(`/tour/${makeSlug(tour.title)}`)}
         >
           <div className={styles.imageWrapper}>
-            <img src={imageUrl} alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} />
+            <img src={imageUrl} alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)} />
             {tour.isNew && <span className={styles.newTag}>NEW</span>}
           </div>
 
@@ -96,7 +96,7 @@ export default function CityTours() {
               <span>CITY EXPLORATION</span>
               <span>Culture, History & Local Life</span>
             </div>
-            <h3 className={styles.title}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
+            <h3 className={styles.title}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}</h3>
             <p className={styles.location}>{tour.location}</p>
             <p className={styles.details}>
               {duration} days • Level {tour.level || 1}-{tour.level || 4} •{" "}

@@ -1,6 +1,32 @@
+# robots.txt for https://www.gotocentralasia.com
+
 User-agent: *
 Allow: /
-Disallow: /search
+Disallow: /api/
+Disallow: /admin/
 Disallow: /booking-form
+Disallow: /search?*
+Disallow: /*?locale=*
 
+# Specific Directives for Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /booking-form
+Disallow: /search?*
+
+# Specific Directives for Yandex (CIS Search Optimization)
+User-agent: Yandex
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /booking-form
+Disallow: /search?*
+Clean-param: ref /
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content /
+
+# Sitemap Declarations
 Sitemap: https://www.gotocentralasia.com/sitemap.xml
+Sitemap: https://www.gotocentralasia.com/sitemap-en.xml
+Sitemap: https://www.gotocentralasia.com/sitemap-ru.xml

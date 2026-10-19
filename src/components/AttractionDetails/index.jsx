@@ -206,12 +206,12 @@ export default function AttractionDetails() {
           >
             <img
               src={getTourImage(tour)}
-              alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+              alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}
               className={styles.tourImage}
             />
 
             <div className={styles.tourInfo}>
-              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
+              <h3>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}</h3>
 
               <div className={styles.tourMeta}>
                 <span className={styles.tourDate}>

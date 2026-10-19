@@ -299,12 +299,12 @@ export default function SearchPage() {
                   <div className={styles.bigImg}>
                     <img
                       src={imageOrPlaceholder(tour.title)}
-                      alt={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+                      alt={translateTourTitle(tour.title)}
                     />
                   </div>
 
                   <div className={styles.bigInfo}>
-                    <h3 className={styles.bigTitle}>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h3>
+                    <h3 className={styles.bigTitle}>{translateTourTitle(tour.title)}</h3>
 
                     {/* Date section */}
                     {month ? (

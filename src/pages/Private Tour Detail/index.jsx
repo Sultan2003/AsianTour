@@ -617,7 +617,7 @@ export default function PrivateTourIdPage() {
         >
           <div className={styles.overlay} />
           <div className={styles.heroContent}>
-            <h1>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h1>
+            <h1>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}</h1>
             <p>
               {days} {t.days} • {tour.location}
             </p>
@@ -724,7 +724,7 @@ export default function PrivateTourIdPage() {
               // Split into object-like blocks. Use a strict split for `},{` variants.
               const objectBlocks = match[1]
                 .split(/}\s*,\s*{/) // split between objects
-                .map((b) => b.replace(/^[\s\[{]+|[\s\]}]+$/g, "").trim()) // remove leftover braces/brackets
+                .map((b) => b.replace(/^[\s[{]+|[\s\]}]+$/g, "").trim()) // remove leftover braces/brackets
                 .filter((b) => /City\s*:/i.test(b)); // only blocks that contain City
 
               const accommodations = objectBlocks.map((block) => {
@@ -1280,7 +1280,7 @@ export default function PrivateTourIdPage() {
         {/* Right card */}
         <div>
           <div className={styles.detailsCard}>
-            <h2>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}</h2>
+            <h2>{translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}</h2>
 
             {/* SHORT PRICE TABLE */}
             {/* SHORT PRICE TABLE – CLEANED + ALIGNED */}
@@ -1400,7 +1400,7 @@ export default function PrivateTourIdPage() {
                         }}
                         style={{ cursor: "pointer" }}
                       >
-                        {translateTourTitle(tItem.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+                        {translateTourTitle(tItem.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}
                       </li>
                     ))}
                   </ul>
@@ -1472,7 +1472,7 @@ export default function PrivateTourIdPage() {
                 const message = `
 New Private Tour Booking Request
 
-Tour: ${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+Tour: ${translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}
 Location: ${tour.location}
 
 Persons: ${selectedBooking.persons}
@@ -1514,7 +1514,7 @@ Guest Email: ${email}
               <input name="email" required type="email" />
 
               <label>Tour</label>
-              <input value={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))} readOnly />
+              <input value={translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)} readOnly />
 
               <label>Persons</label>
               <input value={selectedBooking.persons} readOnly />

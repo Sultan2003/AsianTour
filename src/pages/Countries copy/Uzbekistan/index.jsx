@@ -252,9 +252,7 @@ Use modern, high-speed train for travels between cities like Tashkent, Samarkand
                         tour.title,
                         typeof strapiLocale !== "undefined"
                           ? strapiLocale
-                          : typeof lang !== "undefined"
-                            ? lang
-                            : undefined,
+                          : undefined,
                       )}
                     </a>
                     <p className={styles.cities}>{tour.location}</p>

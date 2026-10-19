@@ -163,7 +163,7 @@ export default function AzerbaijanToursDestination() {
                   </div>
                   <div className={styles.tourInfo}>
                     <a href="#" className={styles.title}>
-                      {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : (typeof lang !== "undefined" ? lang : undefined))}
+                      {translateTourTitle(tour.title, typeof strapiLocale !== "undefined" ? strapiLocale : undefined)}
                     </a>
                     <p className={styles.cities}>{tour.location}</p>
                     <a href="#" className={styles.departures}>
