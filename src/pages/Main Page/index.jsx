@@ -18,6 +18,7 @@ import icon3 from "../../assets/icons/mainpage/icon3.png";
 import icon4 from "/src/assets/Cities/Samarkand/Bibi Khanym Mosque.jpg";
 import icon5 from "/src/assets/Cities/Khiva/Kalta Minor Minaret 7.jpg";
 import translateTourTitle from "../../utils/tourTitleTranslations";
+import herovideo from "../../assets/video/hero_video.mp4";
 
 const HistoricalTimeline = lazy(() => import("../../components/timeline"));
 
@@ -32,9 +33,11 @@ export default function MainPage() {
 
   const visibleDestinations = destinations;
 
-
   const prevDest = () => {
-    setDestActiveIndex((prev) => (prev - 1 + visibleDestinations.length) % visibleDestinations.length);
+    setDestActiveIndex(
+      (prev) =>
+        (prev - 1 + visibleDestinations.length) % visibleDestinations.length,
+    );
   };
   const nextDestination = () => {
     setDestActiveIndex((prev) => (prev + 1) % visibleDestinations.length);
@@ -169,7 +172,7 @@ export default function MainPage() {
           poster={heroPoster}
           aria-hidden="true"
         >
-          <source src="/videos/central-asia-hero.mp4" type="video/mp4" />
+          <source src={herovideo} type="video/mp4" />
         </video>
 
         <div className={styles.luxuryOverlay} />
@@ -497,9 +500,7 @@ export default function MainPage() {
             <a key={tour.id} href={`/tour/${makeSlug(tour.title)}`}>
               {translateTourTitle(
                 tour.title,
-                typeof strapiLocale !== "undefined"
-                  ? strapiLocale
-                  : undefined,
+                typeof strapiLocale !== "undefined" ? strapiLocale : undefined,
               )}
             </a>
           ))}
